@@ -1,10 +1,16 @@
 # AI Skills Collection
 
-A curated collection of Claude Code skills for enhanced AI-assisted development and analysis.
+A curated collection of skills for Claude Code and general Claude conversations, designed for enhanced AI-assisted development, analysis, and reasoning.
 
-## What Are Claude Code Skills?
+## What Are Claude Skills?
 
-Skills are modular, model-invoked capabilities that extend Claude's functionality in Claude Code. Unlike slash commands that require explicit invocation, skills are automatically discovered and used by Claude based on context, enabling complex workflows with automatic discovery.
+Skills are modular, model-invoked capabilities that extend Claude's functionality. Unlike slash commands that require explicit invocation, skills are automatically discovered and used by Claude based on context, enabling complex workflows with automatic discovery.
+
+This collection includes:
+- **Claude Code Skills**: For use within the Claude Code IDE, supporting development workflows
+- **General Claude Skills**: For use in any Claude conversation, enhancing analysis and reasoning capabilities
+
+Many skills work in both contexts, providing flexible capabilities wherever you interact with Claude.
 
 ## Skills in This Collection
 
@@ -26,7 +32,9 @@ Transform messy discourse into structured argument maps. Extract claims, map log
 
 ## Installation
 
-### Personal Skills (Available Globally)
+### For Claude Code
+
+#### Personal Skills (Available Globally)
 
 ```bash
 # Install all skills for all projects
@@ -36,7 +44,7 @@ cp -r Claimifty/claimify ~/.claude/skills/
 cp -r Claimifty/claimify ~/.claude/skills/claimify/
 ```
 
-### Project Skills (Project-Specific)
+#### Project Skills (Project-Specific)
 
 ```bash
 # Install skills for a specific project
@@ -44,6 +52,18 @@ cd your-project/
 mkdir -p .claude/skills
 cp -r /path/to/AISkills/Claimifty/claimify .claude/skills/
 ```
+
+### For General Claude Conversations
+
+Upload the packaged `.skill` file directly to any Claude conversation:
+
+```
+1. Navigate to the skill directory (e.g., Claimifty/)
+2. Upload the .skill file (e.g., "Claimify Skill - Claude.skill")
+3. The skill will be available for that conversation
+```
+
+Alternatively, you can share the SKILL.md content directly in your conversation.
 
 ## Using Skills
 
