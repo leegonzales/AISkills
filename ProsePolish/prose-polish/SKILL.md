@@ -60,6 +60,8 @@ TOP 5 PRIORITY FIXES:
 - 61-80: Very likely AI
 - 81-100: Almost certainly unedited AI
 
+**Real-World Context:** Content marketing and business copy frequently scores 60-80+. Technical and creative writing with specific details typically scores lower. High scores indicate pattern density, not necessarily deception—sometimes AI patterns reflect genre conventions in corporate communication.
+
 ### 2. Elevation & Remediation
 **When:** User asks to "improve," "fix," "elevate," or "rewrite" text
 

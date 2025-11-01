@@ -59,6 +59,15 @@ Excessive use of:
 - Inserted concern that feels performative
 - Emotional intelligence without emotional authenticity
 
+### Corporate Opening Gambit
+**Pattern:** Business-speak temporal framing (85%+ AI detection rate)
+- "In today's rapidly evolving [X] landscape..."
+- "In the modern [X] environment..."
+- "As we navigate the [X] landscape..."
+- "In an increasingly [X] world..."
+**Detection:** Opening sentence with temporal vagueness + "landscape/environment/ecosystem" metaphor
+**Why it fails:** Generic setup that avoids specific context or timeframe
+
 ### Recursive Qualification
 **Pattern:** Never stating X without immediately softening X
 - Every assertion followed by hedge
@@ -127,6 +136,20 @@ Count transitions:
 - Specific dates
 - Clear timeframes
 - Historical context
+
+### Data Injection Pattern
+**AI Pattern:** Real data embedded in AI prose
+- Specific numbers, names, or facts present BUT:
+- Surrounding sentences use AI patterns (hedges, transitions, vagueness)
+- Data feels "dropped in" rather than integrated
+- Structural/rhetorical patterns remain robotic despite concrete details
+
+**Example:**
+"The Tesla Model Y offers impressive capabilities. With 330 miles of range and 384 horsepower, it accelerates 0-60 in 4.8 seconds. Moreover, the vehicle's comprehensive feature set showcases Tesla's commitment to innovation. The multifaceted approach to design underscores the importance of user experience."
+
+**Detection:** Data points (330 miles, 384 hp, 4.8 sec) are specific, but "comprehensive," "showcases," "multifaceted," "underscores" reveal AI generation around human-provided data.
+
+**Scoring adjustment:** Presence of specific data lowers lexical score, but structural/rhetorical patterns may still score high. Consider separately: (1) Data specificity, (2) Prose quality around that data.
 
 ### Fake Depth
 **AI Pattern:** Polish without substance
