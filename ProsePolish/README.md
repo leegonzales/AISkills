@@ -1,22 +1,22 @@
-# Anti-Cliché Writing
+# Prose Polish
 
-Comprehensive detection, prevention, and remediation of AI writing clichés. Elevate text to human-quality or better through systematic analysis and targeted interventions.
+Polish writing to professional excellence through systematic craft analysis. Multi-layer assessment of rhythm, voice, and commitment with targeted remediation using proven frameworks.
 
-## What Is Anti-Cliché Writing?
+## What Is Prose Polish?
 
-This skill helps you identify and eliminate robotic AI writing patterns through:
-- **Detection**: Multi-layer analysis scoring text for AI tells
-- **Remediation**: Systematic elevation using the Three Pillars framework
-- **Prevention**: Prompt engineering to generate quality text from the start
-- **Training**: Teaching pattern recognition and craft principles
+This skill elevates writing quality through systematic craft principles:
+- **Quality Analysis**: Multi-layer craft assessment across rhythm, voice, and commitment
+- **Systematic Elevation**: Three Pillars framework (Rhythm, Commitment, Voice)
+- **Quality Prevention**: Craft-focused prompt engineering for polished output
+- **Craft Teaching**: Pedagogical approach to writing excellence
 
 ## Use Cases
 
-- **Polish AI-Generated Content**: Remove robotic patterns and add craft
-- **Analyze Writing Quality**: Systematic scoring with actionable feedback
-- **Generate Better Content**: Anti-cliché constraints built into prompts
-- **Teach Writing Skills**: Help others recognize and fix AI patterns
-- **Client Deliverables**: Ensure professional, high-quality outputs
+- **Refine Drafts**: Elevate any text to professional excellence
+- **Analyze Quality**: Systematic craft assessment with actionable feedback
+- **Generate Polished Content**: Quality-first prompts for better output from the start
+- **Teach Writing Craft**: Help others develop judgment and quality standards
+- **Client Deliverables**: Ensure professional, publication-ready outputs
 
 ## Core Capabilities
 
@@ -90,34 +90,38 @@ Build pattern recognition skills through:
 
 ## Quick Start
 
-### Detect AI Patterns
+### Analyze Writing Quality
 
 ```
-"Analyze this text for AI writing patterns"
+"Analyze this text for craft quality"
+"Score this writing for rhythm, voice, and commitment"
 ```
 
-Claude will load detection patterns and provide a scored report.
+Claude will provide a multi-layer craft assessment with scored report.
 
-### Improve Existing Text
+### Polish Existing Text
 
 ```
-"Elevate this text - aggressive rewrite"
+"Polish this text - aggressive rewrite"
+"Elevate this draft to professional quality"
 ```
 
 Claude will apply the Three Pillars framework and rewrite with explanations.
 
-### Generate Quality Content
+### Generate Polished Content
 
 ```
-"Help me write [topic] with anti-cliché prevention"
+"Help me write [topic] with quality constraints"
+"Generate polished prose about [topic]"
 ```
 
-Claude will build an optimized prompt to generate better text from the start.
+Claude will build a craft-focused prompt to generate excellent text from the start.
 
-### Learn Pattern Recognition
+### Learn Writing Craft
 
 ```
-"Teach me to recognize AI writing clichés"
+"Teach me to recognize quality writing patterns"
+"Show me how to improve my writing craft"
 ```
 
 Claude will provide examples, explanations, and training exercises.
@@ -128,16 +132,16 @@ Claude will provide examples, explanations, and training exercises.
 
 ```bash
 # Personal skills (globally available)
-cp -r AntiClicheWriting/anti-cliche-writing ~/.claude/skills/
+cp -r ProsePolish/prose-polish ~/.claude/skills/
 
 # Project skills (project-specific)
 mkdir -p .claude/skills
-cp -r AntiClicheWriting/anti-cliche-writing .claude/skills/
+cp -r ProsePolish/prose-polish .claude/skills/
 ```
 
 ### For General Claude Conversations
 
-Upload `AI Writing Clichés Guide.skill` directly to any Claude conversation.
+Upload `Prose Polish.skill` directly to any Claude conversation.
 
 ## Features
 
@@ -187,16 +191,16 @@ The goal is excellent writing, not undetectable AI output.
 ## Structure
 
 ```
-AntiClicheWriting/
+ProsePolish/
 ├── README.md                                      # This file
-├── AI Writing Clichés Review.md                   # Goal alignment assessment
-├── AI Writing Clichés Guide.skill                 # Packaged skill file
-└── anti-cliche-writing/                           # Main skill directory
+├── AI Writing Clichés Review.md                   # Design analysis (legacy name)
+├── Prose Polish.skill                             # Packaged skill file
+└── prose-polish/                                  # Main skill directory
     ├── SKILL.md                                   # Skill definition
     └── references/
-        ├── ai-vocabulary.md                       # Banned words with frequency data
-        ├── detection-patterns.md                  # Multi-layer analysis patterns
-        ├── prevention-prompts.md                  # Prompt engineering templates
+        ├── ai-vocabulary.md                       # Quality vocabulary patterns
+        ├── detection-patterns.md                  # Multi-layer craft assessment
+        ├── prevention-prompts.md                  # Quality-first prompts
         └── remediation-strategies.md              # Three Pillars framework
 ```
 

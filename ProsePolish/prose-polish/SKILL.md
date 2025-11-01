@@ -1,11 +1,11 @@
 ---
-name: anti-cliche-writing
-description: Detect, prevent, and fix AI writing clichés to elevate text quality. Use this skill when (1) analyzing text for AI-generated patterns and clichés, (2) improving existing writing (AI or human) to remove robotic patterns and add craft, (3) generating new content with anti-cliché constraints built in, (4) teaching others to recognize and fix AI writing patterns. Handles all writing types including long-form, business, technical, academic, and creative content.
+name: prose-polish
+description: Polish writing to professional excellence through systematic craft analysis. Multi-layer quality assessment of rhythm, voice, and commitment. Use this skill when (1) refining drafts and elevating text quality, (2) analyzing writing for robotic patterns or craft weaknesses, (3) generating polished content with quality constraints built in, (4) teaching writing craft principles and quality standards. Handles all writing types including long-form, business, technical, academic, and creative content.
 ---
 
-# Anti-Cliché Writing
+# Prose Polish
 
-Comprehensive detection, prevention, and remediation of AI writing clichés. Elevates text to human-quality or better through systematic analysis and targeted interventions.
+Elevate writing to professional excellence through systematic craft analysis. Multi-layer assessment of rhythm, voice, and commitment with targeted remediation using proven frameworks.
 
 ## Quick Start
 

@@ -28,18 +28,18 @@ Transform messy discourse into structured argument maps. Extract claims, map log
 
 **[View Claimify →](Claimifty/)**
 
-### Anti-Cliché Writing
+### Prose Polish
 
-Comprehensive detection, prevention, and remediation of AI writing clichés. Elevate text to human-quality through systematic analysis and targeted interventions.
+Polish writing to professional excellence through systematic craft analysis. Multi-layer assessment of rhythm, voice, and commitment with targeted remediation.
 
 **Use for:**
-- Polish AI-generated content
-- Analyze writing quality with scored reports
-- Generate better content with anti-cliché prompts
-- Teach pattern recognition and writing craft
-- Ensure professional client deliverables
+- Refine drafts to professional excellence
+- Analyze quality with systematic craft assessment
+- Generate polished content with quality-first prompts
+- Teach writing craft and quality standards
+- Ensure publication-ready deliverables
 
-**[View Anti-Cliché Writing →](AntiClicheWriting/)**
+**[View Prose Polish →](ProsePolish/)**
 
 ---
 
@@ -52,11 +52,11 @@ Comprehensive detection, prevention, and remediation of AI writing clichés. Ele
 ```bash
 # Install all skills for all projects
 cp -r Claimifty/claimify ~/.claude/skills/
-cp -r AntiClicheWriting/anti-cliche-writing ~/.claude/skills/
+cp -r ProsePolish/prose-polish ~/.claude/skills/
 
 # Or install individual skills
 cp -r Claimifty/claimify ~/.claude/skills/claimify/
-cp -r AntiClicheWriting/anti-cliche-writing ~/.claude/skills/anti-cliche-writing/
+cp -r ProsePolish/prose-polish ~/.claude/skills/prose-polish/
 ```
 
 #### Project Skills (Project-Specific)
@@ -68,7 +68,7 @@ mkdir -p .claude/skills
 
 # Copy desired skills
 cp -r /path/to/AISkills/Claimifty/claimify .claude/skills/
-cp -r /path/to/AISkills/AntiClicheWriting/anti-cliche-writing .claude/skills/
+cp -r /path/to/AISkills/ProsePolish/prose-polish .claude/skills/
 ```
 
 ### For General Claude Conversations
@@ -106,13 +106,13 @@ AISkills/
 │   │   ├── references/                 # Examples and documentation
 │   │   └── scripts/                    # Utilities
 │   └── ...                             # Additional documentation
-├── AntiClicheWriting/                  # Anti-Cliché Writing skill
+├── ProsePolish/                        # Prose Polish skill
 │   ├── README.md                       # Skill documentation
 │   ├── AI Writing Clichés Review.md    # Design analysis
-│   ├── AI Writing Clichés Guide.skill  # Packaged skill file
-│   └── anti-cliche-writing/            # Main skill directory
+│   ├── Prose Polish.skill              # Packaged skill file
+│   └── prose-polish/                   # Main skill directory
 │       ├── SKILL.md                    # Skill definition
-│       └── references/                 # Detection patterns, strategies
+│       └── references/                 # Craft patterns and strategies
 └── [future skills]                     # More skills coming soon
 ```
 
