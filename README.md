@@ -28,6 +28,19 @@ Transform messy discourse into structured argument maps. Extract claims, map log
 
 **[View Claimify →](Claimifty/)**
 
+### Anti-Cliché Writing
+
+Comprehensive detection, prevention, and remediation of AI writing clichés. Elevate text to human-quality through systematic analysis and targeted interventions.
+
+**Use for:**
+- Polish AI-generated content
+- Analyze writing quality with scored reports
+- Generate better content with anti-cliché prompts
+- Teach pattern recognition and writing craft
+- Ensure professional client deliverables
+
+**[View Anti-Cliché Writing →](AntiClicheWriting/)**
+
 ---
 
 ## Installation
@@ -39,9 +52,11 @@ Transform messy discourse into structured argument maps. Extract claims, map log
 ```bash
 # Install all skills for all projects
 cp -r Claimifty/claimify ~/.claude/skills/
+cp -r AntiClicheWriting/anti-cliche-writing ~/.claude/skills/
 
 # Or install individual skills
 cp -r Claimifty/claimify ~/.claude/skills/claimify/
+cp -r AntiClicheWriting/anti-cliche-writing ~/.claude/skills/anti-cliche-writing/
 ```
 
 #### Project Skills (Project-Specific)
@@ -50,7 +65,10 @@ cp -r Claimifty/claimify ~/.claude/skills/claimify/
 # Install skills for a specific project
 cd your-project/
 mkdir -p .claude/skills
+
+# Copy desired skills
 cp -r /path/to/AISkills/Claimifty/claimify .claude/skills/
+cp -r /path/to/AISkills/AntiClicheWriting/anti-cliche-writing .claude/skills/
 ```
 
 ### For General Claude Conversations
@@ -80,15 +98,22 @@ Once installed, skills are automatically discovered by Claude. Simply use natura
 
 ```
 AISkills/
-├── README.md                 # This file
-├── Claimifty/               # Claimify skill
-│   ├── README.md            # Claimify documentation
-│   ├── claimify/            # Main skill directory
-│   │   ├── SKILL.md         # Skill definition
-│   │   ├── references/      # Examples and documentation
-│   │   └── scripts/         # Utilities
-│   └── ...                  # Additional documentation
-└── [future skills]          # More skills coming soon
+├── README.md                           # This file
+├── Claimifty/                          # Claimify skill
+│   ├── README.md                       # Claimify documentation
+│   ├── claimify/                       # Main skill directory
+│   │   ├── SKILL.md                    # Skill definition
+│   │   ├── references/                 # Examples and documentation
+│   │   └── scripts/                    # Utilities
+│   └── ...                             # Additional documentation
+├── AntiClicheWriting/                  # Anti-Cliché Writing skill
+│   ├── README.md                       # Skill documentation
+│   ├── AI Writing Clichés Review.md    # Design analysis
+│   ├── AI Writing Clichés Guide.skill  # Packaged skill file
+│   └── anti-cliche-writing/            # Main skill directory
+│       ├── SKILL.md                    # Skill definition
+│       └── references/                 # Detection patterns, strategies
+└── [future skills]                     # More skills coming soon
 ```
 
 ## Skill Design Philosophy
@@ -156,4 +181,4 @@ Each skill may have its own license - check individual skill directories for det
 
 ---
 
-**Current Skills**: 1 | **Last Updated**: 2025-11-01 | Built with Claude Code
+**Current Skills**: 2 | **Last Updated**: 2025-11-01 | Built with Claude Code
