@@ -165,7 +165,7 @@ cp -r /path/to/AISkills/ResearchToEssay/research-to-essay .claude/skills/
 
 ### For Claude Web Chat
 
-Each skill includes a versioned `.skill` file in its `dist/` folder. Simply download and upload to any Claude conversation.
+Each skill includes a versioned `.skill` file (ZIP format) in its `dist/` folder. Two installation methods available:
 
 #### Download Links
 
@@ -175,15 +175,32 @@ Each skill includes a versioned `.skill` file in its `dist/` folder. Simply down
 - **Process Mapper v1.0.0**: [process-mapper-v1.0.0.skill](ProcessMapper/dist/process-mapper-v1.0.0.skill)
 - **Claimify v1.0.0**: [claimify-v1.0.0.skill](Claimifty/dist/claimify-v1.0.0.skill)
 
-#### Upload Instructions
+#### Method 1: Install Globally (Recommended)
+
+Install skills to make them available across all your conversations:
+
+1. Go to [claude.ai](https://claude.ai)
+2. Navigate to **Settings > Capabilities**
+3. Ensure "Code execution and file creation" is enabled
+4. Click **"Upload skill"** in the Skills section
+5. Select the downloaded `.skill` file (ZIP)
+6. Toggle the skill on/off as needed
+
+**Benefits:** Skill persists across all conversations, automatically invoked when relevant.
+
+#### Method 2: Upload Per-Conversation
+
+Upload skills to individual conversations for temporary use:
 
 1. Go to [claude.ai](https://claude.ai)
 2. Start a new conversation or open an existing one
 3. Click the attachment button (📎)
 4. Upload the `.skill` file
-5. The skill will be available for that conversation
+5. The skill will be available for that conversation only
 
-**Note:** Skills uploaded to Claude web chat are conversation-specific and persist for that conversation only.
+**Use when:** Testing skills or temporary one-off usage.
+
+**Documentation:** [Using Skills in Claude](https://support.claude.com/en/articles/12512180-using-skills-in-claude)
 
 ---
 
