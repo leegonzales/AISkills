@@ -29,9 +29,9 @@ Claimify analyzes arguments by:
    - Project skills: `.claude/skills/claimify/` in your project root
 3. The skill will be automatically discovered by Claude
 
-### As a Packaged Skill
+### For Claude Web Chat
 
-Upload the `Claimify Skill - Claude.skill` file directly to Claude in any conversation.
+Download [`claimify-v1.0.0.skill`](dist/claimify-v1.0.0.skill) from the `dist/` folder and upload directly to any Claude conversation.
 
 ## Quick Start
 
@@ -118,7 +118,8 @@ Claimifty/
 ├── README.md                          # This file
 ├── Claimify Guide.md                  # Complete usage guide
 ├── Claimify Analysis.md               # Meta-analysis and design doctrine
-├── Claimify Skill - Claude.skill      # Packaged skill file
+├── dist/
+│   └── claimify-v1.0.0.skill         # Versioned release
 └── claimify/                          # Main skill directory
     ├── SKILL.md                       # Skill definition
     ├── references/
