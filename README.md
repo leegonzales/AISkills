@@ -122,7 +122,7 @@ Transform messy discourse into structured argument maps. Extract claims, map log
 - Red-teaming arguments
 - Identifying logical gaps and contradictions
 
-**[View Claimify →](Claimifty/)**
+**[View Claimify →](Claimify/)**
 
 ---
 
@@ -143,7 +143,7 @@ cp -r /path/to/AISkills/ProsePolish/prose-polish ./
 cp -r /path/to/AISkills/ResearchToEssay/research-to-essay ./
 cp -r /path/to/AISkills/ConceptForge/concept-forge ./
 cp -r /path/to/AISkills/ProcessMapper/process-mapper ./
-cp -r /path/to/AISkills/Claimifty/claimify ./
+cp -r /path/to/AISkills/Claimify/claimify ./
 ```
 
 #### Project Skills (Project-Specific)
@@ -173,7 +173,7 @@ Each skill includes a versioned `.skill` file (ZIP format) in its `dist/` folder
 - **Research-to-Essay v1.0.0**: [research-to-essay-v1.0.0.skill](ResearchToEssay/dist/research-to-essay-v1.0.0.skill)
 - **Concept Forge v1.0.0**: [concept-forge-v1.0.0.skill](ConceptForge/dist/concept-forge-v1.0.0.skill)
 - **Process Mapper v1.0.0**: [process-mapper-v1.0.0.skill](ProcessMapper/dist/process-mapper-v1.0.0.skill)
-- **Claimify v1.0.0**: [claimify-v1.0.0.skill](Claimifty/dist/claimify-v1.0.0.skill)
+- **Claimify v1.0.0**: [claimify-v1.0.0.skill](Claimify/dist/claimify-v1.0.0.skill)
 
 #### Method 1: Install Globally (Recommended)
 
@@ -268,7 +268,7 @@ AISkills/
 │   │   └── process-mapper-v1.0.0.skill
 │   ├── process-mapper/                 # Source skill
 │   └── README.md
-└── Claimifty/                          # Argument structure analysis
+└── Claimify/                           # Argument structure analysis
     ├── dist/
     │   └── claimify-v1.0.0.skill
     ├── claimify/                       # Source skill
