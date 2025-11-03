@@ -143,16 +143,16 @@ Claude will provide examples, explanations, and training exercises.
 
 ```bash
 # Personal skills (globally available)
-cp -r ProsePolish/prose-polish ~/.claude/skills/
+cp -r prose-polish ~/.claude/skills/
 
 # Project skills (project-specific)
 mkdir -p .claude/skills
-cp -r ProsePolish/prose-polish .claude/skills/
+cp -r prose-polish .claude/skills/
 ```
 
-### For General Claude Conversations
+### For Claude Web Chat
 
-Upload `Prose Polish.skill` directly to any Claude conversation.
+Download [`prose-polish-v1.1.0.skill`](dist/prose-polish-v1.1.0.skill) from the `dist/` folder and upload directly to any Claude conversation.
 
 ## Features
 

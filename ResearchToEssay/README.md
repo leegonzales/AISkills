@@ -97,7 +97,7 @@ cp -r ResearchToEssay/research-to-essay .claude/skills/
 
 ### For Claude Web Chat
 
-Upload `Chat Patterns to Essay.skill` directly to any Claude conversation.
+Download [`research-to-essay-v1.0.0.skill`](dist/research-to-essay-v1.0.0.skill) from the `dist/` folder and upload directly to any Claude conversation.
 
 ## Quick Start
 

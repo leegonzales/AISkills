@@ -106,7 +106,7 @@ cp -r ConceptForge/concept-forge .claude/skills/
 
 ### For Claude Web Chat
 
-Upload `concept-forge.skill` directly to any Claude conversation.
+Download [`concept-forge-v1.0.0.skill`](dist/concept-forge-v1.0.0.skill) from the `dist/` folder and upload directly to any Claude conversation.
 
 ## Quick Start
 
