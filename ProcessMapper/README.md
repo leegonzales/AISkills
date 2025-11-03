@@ -152,7 +152,7 @@ cp -r ProcessMapper/process-mapper .claude/skills/
 
 ### For Claude Web Chat
 
-Upload `Process Mapper Skill - Claude.skill` directly to any Claude conversation.
+Download [`process-mapper-v1.0.0.skill`](dist/process-mapper-v1.0.0.skill) from the `dist/` folder and upload directly to any Claude conversation.
 
 ## Quick Start
 

@@ -42,3 +42,9 @@ test_claims.json
 *.swp
 *.swo
 *~
+
+# Claude Code user config
+.claude/
+
+# Keep dist/ folders with versioned releases
+# (don't ignore dist/)
