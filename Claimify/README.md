@@ -114,7 +114,7 @@ python claimify/scripts/claim_validator.py your_claims.json
 ## Structure
 
 ```
-Claimifty/
+Claimify/
 ├── README.md                          # This file
 ├── Claimify Guide.md                  # Complete usage guide
 ├── Claimify Analysis.md               # Meta-analysis and design doctrine
