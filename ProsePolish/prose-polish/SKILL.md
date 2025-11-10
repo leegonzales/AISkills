@@ -1,6 +1,6 @@
 ---
 name: prose-polish
-description: Polish writing to professional excellence through systematic craft analysis. Multi-layer quality assessment of rhythm, voice, and commitment. Use this skill when (1) refining drafts and elevating text quality, (2) analyzing writing for robotic patterns or craft weaknesses, (3) generating polished content with quality constraints built in, (4) teaching writing craft principles and quality standards. Handles all writing types including long-form, business, technical, academic, and creative content.
+description: Polish writing to professional excellence through systematic craft analysis with multi-layer assessment of rhythm, voice, and commitment. Use when refining drafts, analyzing text for AI patterns or craft weaknesses, generating quality content, or teaching writing principles. Handles all writing types including long-form, business, technical, academic, and creative content.
 ---
 
 # Prose Polish
