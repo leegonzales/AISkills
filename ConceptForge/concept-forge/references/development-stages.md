@@ -452,11 +452,11 @@ Concepts don't always progress sequentially:
 **With `strategy-to-artifact`:**
 - Forged concept → Visual framework → Deck or one-pager
 
-**With `anti-cliche-writing`:**
+**With `prose-polish`:**
 - Concept description → Prose polish → Clear explanation
 
 **Workflow:**
 - `concept-forge` → crystallize idea
 - `research-to-essay` → ground in evidence
 - `strategy-to-artifact` → make shareable
-- `anti-cliche-writing` → ensure clarity
+- `prose-polish` → ensure clarity
