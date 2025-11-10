@@ -1,6 +1,6 @@
 ---
 name: claimify
-description: Extract and structure claims from discourse into analyzable argument maps. Use when the user asks to analyze arguments, extract claims, map logical structure, identify assumptions, red-team reasoning, synthesize debates, or transform conversations/documents into structured claim networks. Triggers include phrases like "what are the claims," "analyze this argument," "map the logic," "what assumptions," "extract the reasoning," "find contradictions," or requests for debate analysis, argument mapping, or logical structure visualization.
+description: Extract and structure claims from discourse into analyzable argument maps with logical relationships and assumptions. Use when analyzing arguments, red-teaming reasoning, synthesizing debates, or transforming conversations into structured claim networks. Triggers include "what are the claims," "analyze this argument," "map the logic," or "find contradictions."
 ---
 
 # Claimify

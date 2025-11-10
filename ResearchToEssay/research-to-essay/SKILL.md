@@ -1,6 +1,6 @@
 ---
 name: research-to-essay
-description: Research-driven essay and post creation with thematic synthesis, citation management, and voice calibration. Use when user requests (1) Substack or LinkedIn posts requiring research, (2) "research and write about [topic]", (3) long-form essays synthesizing multiple sources, (4) content with phrases like "dig into this idea and write", (5) publication-grade writing that requires web search + synthesis + narrative arc + proper attribution.
+description: Research-driven essay and post creation with thematic synthesis, citation management, and voice calibration. Use when creating Substack/LinkedIn posts, long-form essays synthesizing multiple sources, or publication-grade writing requiring web search, narrative arc, and proper attribution. Triggers include "research and write about [topic]" or "dig into this idea and write."
 license: Complete terms in LICENSE.txt
 ---
 
@@ -139,7 +139,7 @@ Quality assurance checks before delivery:
 - [ ] Length appropriate to format (Substack: 1500-3000w, LinkedIn: 150-300w)
 
 **Voice & style check:**
-- [ ] Run `anti-cliche-writing` skill on draft
+- [ ] Run `prose-polish` skill on draft
 - [ ] Check for forbidden patterns in selected voice profile
 - [ ] Verify tone consistency throughout
 - [ ] Confirm readability for target audience

@@ -1,6 +1,6 @@
 ---
 name: concept-forge
-description: Transform nebulous ideas into sharp, testable frameworks through multi-perspective interrogation. Use when user (1) has vague intuition they want to clarify, (2) says "explore this idea with me", (3) requests "think through X", (4) presents half-formed framework needing structure, (5) wants dialectical pressure-testing of concept, (6) needs to distinguish new idea from existing concepts. Handles conceptual development from intuition through crystallization using archetypal interrogation modes.
+description: Transform nebulous ideas into sharp, testable frameworks through multi-perspective dialectical interrogation. Use when developing vague intuitions, pressure-testing concepts, structuring half-formed frameworks, or distinguishing new ideas from existing concepts. Triggers include "explore this idea," "think through X," or "challenge my thinking."
 license: Complete terms in LICENSE.txt
 ---
 
@@ -110,47 +110,14 @@ Load `references/interrogation-archetypes.md` to select approach:
 - @pragmatist: Test-oriented, falsification-driven, evidence-demanding
 
 **Pressure techniques:**
+- Clarifying: "What do you mean by [term]?" / "Give me a specific example"
+- Challenging: "What would prove this wrong?" / "Isn't that just [simpler]?"
+- Structural: "What varies here?" / "Where's the boundary?"
+- Reframing: "Actually, that's different than what you started with"
 
-**Clarifying questions:**
-- "What do you mean by [term]?"
-- "Can you give a specific example?"
-- "How is this different from [existing concept]?"
+**Dialectical pattern:** User states → Archetype challenges → User refines → Deeper challenge → Continue until crystallization
 
-**Challenging questions:**
-- "What would prove this wrong?"
-- "Isn't that just [simpler explanation]?"
-- "What about [edge case]?"
-- "You're assuming [hidden assumption]—what if that's wrong?"
-
-**Structural questions:**
-- "What varies here?"
-- "What are the dimensions?"
-- "Where's the boundary?"
-- "How do you move between states?"
-
-**Reframing moves:**
-- "Actually, that's a different thing than what you started with"
-- "You're describing [X] but the interesting thing is [Y]"
-- "Let me pressure-test this..."
-- "Okay, but here's what you're missing..."
-
-**Dialectical pattern:**
-```
-User: [Statement]
-@archetype: [Challenging question]
-User: [Refinement]
-@archetype: [Deeper challenge or new angle]
-User: [Further refinement]
-[Continue until crystallization or acknowledged tension]
-```
-
-**Key principles:**
-- Actually challenge (don't just affirm with questions)
-- Steelman opposition (voice strongest critique)
-- Surface hidden assumptions
-- Demand specificity and falsifiability
-- Acknowledge genuine tensions
-- Know when concept is ready vs. needs more work
+**Key principles:** Actually challenge (not just affirm), steelman opposition, surface assumptions, demand specificity, acknowledge tensions, know when ready
 
 ---
 
@@ -158,42 +125,9 @@ User: [Further refinement]
 
 **When concept is sufficiently developed, document it:**
 
-Load `assets/output-templates.md` to choose format:
+Load `assets/output-templates.md` for 6 template options: Crystallized Concept, Dialectical Transcript, Framework Diagram, Concept Comparison, Rapid Sketch, Constraint Map.
 
-**Template 1: Crystallized Concept Document**
-- Full framework with dimensions, examples, doctrine
-- Use when: Mature, testable, ready for application
-
-**Template 2: Dialectical Transcript**
-- Shows development process with interrogation exchanges
-- Use when: Journey matters, pedagogically interesting
-
-**Template 3: Framework Diagram with Notes**
-- Visual-first with legend and application guide
-- Use when: Spatial/relational concept, quick reference
-
-**Template 4: Concept Comparison**
-- Distinguishes from existing concepts
-- Use when: Positioning against alternatives
-
-**Template 5: Rapid Concept Sketch**
-- Quick capture for early stage
-- Use when: Still forming, working notes
-
-**Template 6: Constraint Map**
-- Strategic constraint analysis with interactions
-- Use when: Multiple interacting factors, priority decisions
-
-**Quality checks before finalizing:**
-- [ ] Can state in 1-2 sentences
-- [ ] Has clear dimensions/factors
-- [ ] Has positive and negative examples
-- [ ] Has falsification criteria
-- [ ] Boundaries explicit
-- [ ] Tensions acknowledged
-- [ ] Generates testable predictions
-- [ ] Different from existing concepts in meaningful way
-- [ ] User can apply without assistant
+**Quality checks:** Can state in 1-2 sentences, has clear dimensions, positive/negative examples, falsification criteria, explicit boundaries, acknowledged tensions, testable predictions, meaningfully different from existing concepts, user can apply independently
 
 ---
 
@@ -222,97 +156,32 @@ Load `assets/output-templates.md` to choose format:
 
 ---
 
-## Interrogation Mode Details
+## Interrogation Modes
 
-### Mode 1: Dialectical Development (Most Common)
+**Mode 1: Dialectical Development** (Most common)
+- For early-stage concepts (Stages 0-2)
+- Single archetype questions iteratively, second archetype for different angle
+- 5-15 exchanges until crystallization
 
-**Best for:** Early-stage concepts (Stages 0-2)
+**Mode 2: Multi-Archetype Triangulation**
+- For mid-stage concepts (Stages 2-4)
+- Multiple archetypes examine from different perspectives simultaneously
+- Synthesize tensions from 3-5 perspectives
 
-**Process:**
-1. User states initial intuition
-2. Primary archetype (usually @strategist or @pragmatist) asks clarifying questions
-3. User refines
-4. Archetype challenges or probes deeper
-5. User adjusts
-6. Introduce second archetype for different angle
-7. Continue until concept crystallizes
+**Mode 3: Adversarial Pressure-Testing**
+- For strong positions needing challenge
+- Steelman opposition, sustained pressure, seek synthesis
+- Deep exchange (10-20 turns)
 
-**Duration:** 5-15 exchanges typically
+**Mode 4: Exploratory Excavation**
+- For pre-conceptual (Stage 0) vague intuitions
+- Build from concrete examples to pattern recognition
+- Patient, meandering (15-25 turns)
 
-**Output:** Refined concept statement + emerging structure
-
----
-
-### Mode 2: Multi-Archetype Triangulation
-
-**Best for:** Mid-stage concepts (Stages 2-4) needing multiple perspectives
-
-**Process:**
-1. Present concept as currently formed
-2. @strategist analyzes strategic implications
-3. @ethicist surfaces moral dimensions
-4. @cartographer maps dependencies
-5. @pragmatist designs tests
-6. Synthesize tensions and refinements
-
-**Duration:** 3-5 perspectives typically
-
-**Output:** Concept with acknowledged tensions from multiple angles
-
----
-
-### Mode 3: Adversarial Pressure-Testing
-
-**Best for:** When user has strong position needing challenge (any stage)
-
-**Process:**
-1. User presents position confidently
-2. Select counter-archetype (@jester, @theorist, or opposite of user's stance)
-3. Steelman the opposition thoroughly
-4. User defends and refines
-5. Continue pressure
-6. Find synthesis or acknowledge irreducible tension
-
-**Duration:** Deep, sustained exchange (10-20 turns)
-
-**Output:** Battle-tested concept or productive tension
-
----
-
-### Mode 4: Exploratory Excavation
-
-**Best for:** Pre-conceptual (Stage 0) - user senses something but can't articulate
-
-**Process:**
-1. User: "There's something about X..."
-2. @explorer: "Give me a concrete example"
-3. User: Specific instance
-4. @strategist: "What's the pattern?"
-5. @cartographer: "What's upstream/downstream?"
-6. Pattern emerges through examples
-7. @builder: "What would you do with this?"
-8. Concept crystallizes from concrete to abstract
-
-**Duration:** Patient, meandering (15-25 turns)
-
-**Output:** Named concept with initial structure
-
----
-
-### Mode 5: Rapid Prototype Testing
-
-**Best for:** Quick reality-check on half-formed ideas
-
-**Process:**
-1. State concept
-2. @builder: "Smallest example?"
-3. @pragmatist: "How would this fail?"
-4. @rebel_econ: "Perverse incentives?"
-5. Concept modified or abandoned quickly
-
-**Duration:** Fast (3-7 turns)
-
-**Output:** Validated concept or productive abandonment
+**Mode 5: Rapid Prototype Testing**
+- For quick reality-checks on half-formed ideas
+- Fast falsification attempts from multiple angles
+- 3-7 turns to validate or abandon
 
 ---
 
@@ -320,68 +189,16 @@ Load `assets/output-templates.md` to choose format:
 
 **Critical:** Actually embody the archetype perspective, don't just label questions.
 
-### @strategist Voice
+Load `references/archetype-voices.md` for detailed voice characteristics and language patterns.
 
-**Language:**
-- "What's the OODA loop here?"
-- "That's tactics masquerading as strategy"
-- "You're optimizing for the wrong game"
-- "Where's the tempo advantage?"
-- "This is Complex domain, not Complicated"
+**Primary archetypes:**
+- @strategist: Doctrine-focused, tempo-aware, system-thinking
+- @pragmatist: Evidence-demanding, test-oriented, skeptical of theory
+- @builder: Concrete, tool-focused, instantiation-demanding
+- @ethicist: Dignity-centered, justice-oriented, stakeholder-focused
+- @cartographer: Systems-aware, dependency-focused, evolution-conscious
 
-**Stance:** Doctrine-focused, tempo-aware, system-thinking
-
----
-
-### @pragmatist Voice
-
-**Language:**
-- "How would you test that?"
-- "What counts as evidence?"
-- "That's unfalsifiable—what would prove it wrong?"
-- "How is this different in practice, not just words?"
-- "What's the bet you're making?"
-
-**Stance:** Evidence-demanding, test-oriented, skeptical of pure theory
-
----
-
-### @builder Voice
-
-**Language:**
-- "Where's the handle?"
-- "That's elegant but unusable"
-- "Show me the smallest version"
-- "How would someone actually pick this up?"
-- "What scaffolding enables the next level?"
-
-**Stance:** Concrete, tool-focused, instantiation-demanding
-
----
-
-### @ethicist Voice
-
-**Language:**
-- "Who's harmed here?"
-- "Whose dignity is at stake?"
-- "You're treating people as means"
-- "What's the moral weight?"
-- "Can this be universalized?"
-
-**Stance:** Dignity-centered, justice-oriented, stakeholder-focused
-
----
-
-### @cartographer Voice
-
-**Language:**
-- "What's upstream of this?"
-- "Where on the evolution axis?"
-- "You're treating commodity as custom"
-- "What dependencies are invisible?"
-- "What's the path dependency?"
-
-**Stance:** Systems-aware, dependency-focused, evolution-conscious
+**Key principle:** Use authentic language patterns from each archetype, not generic questions.
 
 ---
 
@@ -446,7 +263,7 @@ Load `assets/output-templates.md` to choose format:
 **With `strategy-to-artifact` skill:**
 - Forge concept → Create visual framework → Build presentation deck
 
-**With `anti-cliche-writing` skill:**
+**With `prose-polish` skill:**
 - Ensure concept descriptions avoid generic AI language
 - Polish final documentation
 
@@ -458,32 +275,11 @@ Load `assets/output-templates.md` to choose format:
 
 ---
 
-## Common Concept Types & Paths
+## Common Concept Types
 
-**Taxonomic (Classification):**
-- Path: Examples → Dimensions → Grid
-- Output: 2x2 or 3x3 framework
-- Example: Tractability Grid
+Load `references/archetype-voices.md` for detailed paths and archetype pairings.
 
-**Process (Sequential):**
-- Path: States → Transitions → Stages
-- Output: Maturity model or flow
-- Example: SOP states
-
-**Causal (Explanatory):**
-- Path: Puzzle → Hypothesis → Test
-- Output: Explanatory model
-- Example: Why implementations fail
-
-**Diagnostic (Decision):**
-- Path: Factors → Tree → Recommendations
-- Output: Decision heuristics
-- Example: When to document tacit knowledge
-
-**Constraint (Strategic):**
-- Path: Goal → Barriers → Interactions
-- Output: Constraint map with doctrine
-- Example: Six constraints on mission
+Common patterns: Taxonomic (classification grids), Process (maturity models), Causal (explanatory models), Diagnostic (decision heuristics), Constraint (strategic maps).
 
 ---
 
