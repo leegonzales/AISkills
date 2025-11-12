@@ -1,10 +1,13 @@
 ---
 name: codex-peer-review
-description: Leverage Codex CLI for AI peer review, second opinions on architecture and design decisions, cross-validation of implementations, security analysis, and alternative approach generation. Use when making high-stakes decisions, reviewing complex architecture, or when explicitly requested for a second AI perspective. Triggers include "get a second opinion," "review this architecture," "validate this approach," or "what would Codex think?"
+description: [CLAUDE CODE ONLY] Leverage Codex CLI for AI peer review, second opinions on architecture and design decisions, cross-validation of implementations, security analysis, and alternative approach generation. Requires terminal access to execute Codex CLI commands. Use when making high-stakes decisions, reviewing complex architecture, or when explicitly requested for a second AI perspective. Triggers include "get a second opinion," "review this architecture," "validate this approach," or "what would Codex think?"
 license: Complete terms in LICENSE.txt
+environment: claude-code
 ---
 
 # Codex Peer Review Skill
+
+🖥️ **Claude Code Only** - Requires terminal access to execute Codex CLI commands.
 
 Enable Claude Code to leverage OpenAI's Codex CLI for collaborative AI reasoning, peer review, and multi-perspective analysis of code architecture, design decisions, and implementations.
 
