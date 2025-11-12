@@ -146,22 +146,20 @@ Skills are automatically discovered from your skills directories.
 #### Personal Skills (Available Globally)
 
 ```bash
-# Navigate to your global skills directory
 cd ~/.claude/skills/
-
-# Clone or copy the skill
-cp -r /path/to/AISkills/CodexPeerReview/codex-peer-review ./
+git clone https://github.com/leegonzales/AISkills.git temp-aiskills
+cp -r temp-aiskills/CodexPeerReview/codex-peer-review ./
+rm -rf temp-aiskills
 ```
 
 #### Project Skills (Project-Specific)
 
 ```bash
-# Install for a specific project
 cd your-project/
 mkdir -p .claude/skills
-
-# Copy the skill
-cp -r /path/to/AISkills/CodexPeerReview/codex-peer-review .claude/skills/
+git clone https://github.com/leegonzales/AISkills.git temp-aiskills
+cp -r temp-aiskills/CodexPeerReview/codex-peer-review .claude/skills/
+rm -rf temp-aiskills
 ```
 
 **Documentation:** [Claude Code Skills Guide](https://docs.claude.com/en/docs/claude-code/skills)
