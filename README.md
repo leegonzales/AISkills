@@ -126,6 +126,32 @@ Transform messy discourse into structured argument maps. Extract claims, map log
 
 ---
 
+### 6. Codex Peer Review (v1.0.0)
+
+Leverage OpenAI's Codex CLI for AI peer review and second opinions on architecture, design decisions, and implementations. Get multi-perspective analysis for high-stakes technical decisions.
+
+**Features:**
+- Architecture validation and critique
+- Design decision cross-validation from two AI perspectives
+- Security review with complementary vulnerability analysis
+- Performance optimization with multi-perspective bottleneck identification
+- Testing strategy validation
+- Alternative approach generation through collaborative AI reasoning
+
+**Use for:**
+- Architecture review before major implementation
+- Second opinions on critical design decisions
+- Security review of authentication/authorization code
+- Performance analysis and optimization recommendations
+- Testing strategy and coverage gap identification
+- Learning from complex code with multi-perspective explanations
+
+**Prerequisites:** Requires [Codex CLI](https://developers.openai.com/codex/cli/) installation
+
+**[View Codex Peer Review →](CodexPeerReview/)**
+
+---
+
 ## Installation
 
 ### For Claude Code
@@ -144,6 +170,7 @@ cp -r /path/to/AISkills/ResearchToEssay/research-to-essay ./
 cp -r /path/to/AISkills/ConceptForge/concept-forge ./
 cp -r /path/to/AISkills/ProcessMapper/process-mapper ./
 cp -r /path/to/AISkills/Claimify/claimify ./
+cp -r /path/to/AISkills/CodexPeerReview/codex-peer-review ./
 ```
 
 #### Project Skills (Project-Specific)
@@ -156,6 +183,7 @@ mkdir -p .claude/skills
 # Copy desired skills
 cp -r /path/to/AISkills/ProsePolish/prose-polish .claude/skills/
 cp -r /path/to/AISkills/ResearchToEssay/research-to-essay .claude/skills/
+cp -r /path/to/AISkills/CodexPeerReview/codex-peer-review .claude/skills/
 # ... add others as needed
 ```
 
@@ -174,6 +202,7 @@ Each skill includes a versioned `.skill` file (ZIP format) in its `dist/` folder
 - **Concept Forge v1.0.0**: [concept-forge-v1.0.0.skill](ConceptForge/dist/concept-forge-v1.0.0.skill)
 - **Process Mapper v1.0.0**: [process-mapper-v1.0.0.skill](ProcessMapper/dist/process-mapper-v1.0.0.skill)
 - **Claimify v1.0.0**: [claimify-v1.0.0.skill](Claimify/dist/claimify-v1.0.0.skill)
+- **Codex Peer Review v1.0.0**: [codex-peer-review-v1.0.0.skill](CodexPeerReview/dist/codex-peer-review-v1.0.0.skill)
 
 #### Method 1: Install Globally (Recommended)
 
@@ -240,6 +269,13 @@ Once installed, skills are **automatically invoked by Claude** based on your nat
 "What assumptions does this reasoning make?"
 ```
 
+**Codex Peer Review:**
+```
+"Get a second opinion on this architecture"
+"Review this code with Codex for security issues"
+"What would Codex think about this design decision?"
+```
+
 ---
 
 ## Repository Structure
@@ -268,10 +304,15 @@ AISkills/
 │   │   └── process-mapper-v1.0.0.skill
 │   ├── process-mapper/                 # Source skill
 │   └── README.md
-└── Claimify/                           # Argument structure analysis
+├── Claimify/                           # Argument structure analysis
+│   ├── dist/
+│   │   └── claimify-v1.0.0.skill
+│   ├── claimify/                       # Source skill
+│   └── README.md
+└── CodexPeerReview/                    # AI peer review with Codex CLI
     ├── dist/
-    │   └── claimify-v1.0.0.skill
-    ├── claimify/                       # Source skill
+    │   └── codex-peer-review-v1.0.0.skill
+    ├── codex-peer-review/              # Source skill
     └── README.md
 ```
 
@@ -312,6 +353,7 @@ All skills in this collection follow these principles:
 | Concept Forge | v1.0.0 | 2025-11-02 | Initial release |
 | Process Mapper | v1.0.0 | 2025-11-02 | Initial release |
 | Claimify | v1.0.0 | 2025-10-31 | Initial release |
+| Codex Peer Review | v1.0.0 | 2025-11-12 | Initial release - AI peer review with Codex CLI |
 
 ---
 
@@ -408,6 +450,6 @@ Each skill may have its own license - check individual skill directories for det
 
 ---
 
-**Current Skills**: 5 | **Total Downloads**: 78KB | **Last Updated**: 2025-11-03
+**Current Skills**: 6 | **Total Downloads**: 126KB | **Last Updated**: 2025-11-12
 
 Built with Claude Code | [Learn More](https://docs.claude.com/en/docs/claude-code)
