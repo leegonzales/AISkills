@@ -126,9 +126,11 @@ Transform messy discourse into structured argument maps. Extract claims, map log
 
 ---
 
-### 6. Codex Peer Review (v1.0.0)
+### 6. Codex Peer Review (v1.0.0) 🖥️ **Claude Code Only**
 
 Leverage OpenAI's Codex CLI for AI peer review and second opinions on architecture, design decisions, and implementations. Get multi-perspective analysis for high-stakes technical decisions.
+
+**⚠️ Requires Claude Code** - This skill needs terminal access to execute Codex CLI commands. Not available for Claude web chat.
 
 **Features:**
 - Architecture validation and critique
@@ -146,7 +148,9 @@ Leverage OpenAI's Codex CLI for AI peer review and second opinions on architectu
 - Testing strategy and coverage gap identification
 - Learning from complex code with multi-perspective explanations
 
-**Prerequisites:** Requires [Codex CLI](https://developers.openai.com/codex/cli/) installation
+**Prerequisites:**
+- Claude Code environment (requires terminal access)
+- [Codex CLI](https://developers.openai.com/codex/cli/) installed locally
 
 **[View Codex Peer Review →](CodexPeerReview/)**
 
@@ -202,7 +206,8 @@ Each skill includes a versioned `.skill` file (ZIP format) in its `dist/` folder
 - **Concept Forge v1.0.0**: [concept-forge-v1.0.0.skill](ConceptForge/dist/concept-forge-v1.0.0.skill)
 - **Process Mapper v1.0.0**: [process-mapper-v1.0.0.skill](ProcessMapper/dist/process-mapper-v1.0.0.skill)
 - **Claimify v1.0.0**: [claimify-v1.0.0.skill](Claimify/dist/claimify-v1.0.0.skill)
-- **Codex Peer Review v1.0.0**: [codex-peer-review-v1.0.0.skill](CodexPeerReview/dist/codex-peer-review-v1.0.0.skill)
+
+**Note:** Codex Peer Review is Claude Code only (requires terminal access) - not available for web chat.
 
 #### Method 1: Install Globally (Recommended)
 
@@ -309,9 +314,7 @@ AISkills/
 │   │   └── claimify-v1.0.0.skill
 │   ├── claimify/                       # Source skill
 │   └── README.md
-└── CodexPeerReview/                    # AI peer review with Codex CLI
-    ├── dist/
-    │   └── codex-peer-review-v1.0.0.skill
+└── CodexPeerReview/                    # AI peer review (Claude Code only)
     ├── codex-peer-review/              # Source skill
     └── README.md
 ```
