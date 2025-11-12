@@ -4,6 +4,8 @@
 **License:** MIT
 **Author:** Claude Code AI Skills Collection
 
+🖥️ **Claude Code Only** - This skill requires terminal access to execute Codex CLI commands.
+
 Enable Claude Code to leverage OpenAI's Codex CLI for AI peer review, second opinions on architecture and design decisions, cross-validation of implementations, and multi-perspective analysis.
 
 ---
@@ -166,27 +168,16 @@ cp -r /path/to/AISkills/CodexPeerReview/codex-peer-review .claude/skills/
 
 ---
 
-### Install for Claude Web Chat
+### ⚠️ Not Available for Claude Web Chat
 
-Download the packaged skill from `dist/`:
+**This skill requires Claude Code** with terminal access to execute Codex CLI commands. It cannot function in Claude web chat's sandboxed browser environment.
 
-**[codex-peer-review-v1.0.0.skill](dist/codex-peer-review-v1.0.0.skill)**
+**Why it doesn't work on web:**
+- Cannot execute bash/terminal commands
+- Cannot access locally installed CLI tools like Codex
+- Requires system-level command execution
 
-#### Method 1: Install Globally
-
-1. Go to [claude.ai](https://claude.ai)
-2. Navigate to **Settings > Capabilities**
-3. Ensure "Code execution and file creation" is enabled
-4. Click **"Upload skill"**
-5. Select the downloaded `.skill` file
-6. Toggle the skill on/off as needed
-
-#### Method 2: Upload Per-Conversation
-
-1. Start a conversation at [claude.ai](https://claude.ai)
-2. Click the attachment button (📎)
-3. Upload the `.skill` file
-4. The skill will be available for that conversation only
+**Use Claude Code instead** where terminal access is available.
 
 ---
 
