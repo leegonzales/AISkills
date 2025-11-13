@@ -209,13 +209,14 @@ Leverage Google's Gemini API for AI peer review with massive context windows and
 
 Skills are automatically discovered from your skills directories. Install system-wide or per-project.
 
-#### Personal Skills (Available Globally)
+#### Option 1: Clone Entire Repository (Recommended)
 
 ```bash
-# Navigate to your global skills directory
-cd ~/.claude/skills/
+# Clone the repository
+git clone https://github.com/leegonzales/AISkills.git
 
-# Clone or download, then copy skills
+# Install globally (available in all projects)
+cd ~/.claude/skills/
 cp -r /path/to/AISkills/ProsePolish/prose-polish ./
 cp -r /path/to/AISkills/ResearchToEssay/research-to-essay ./
 cp -r /path/to/AISkills/ConceptForge/concept-forge ./
@@ -223,20 +224,33 @@ cp -r /path/to/AISkills/ProcessMapper/process-mapper ./
 cp -r /path/to/AISkills/Claimify/claimify ./
 cp -r /path/to/AISkills/CodexPeerReview/codex-peer-review ./
 cp -r /path/to/AISkills/GeminiPeerReview/gemini-peer-review ./
+
+# Or install for specific project only
+cd your-project/.claude/skills/
+cp -r /path/to/AISkills/ProsePolish/prose-polish ./
+# ... add other skills as needed
 ```
 
-#### Project Skills (Project-Specific)
+#### Option 2: Download Individual Skills via GitHub
 
 ```bash
-# Install skills for a specific project
-cd your-project/
-mkdir -p .claude/skills
+# Navigate to your skills directory
+cd ~/.claude/skills/  # for global install
+# or
+cd your-project/.claude/skills/  # for project-specific install
 
-# Copy desired skills
-cp -r /path/to/AISkills/ProsePolish/prose-polish .claude/skills/
-cp -r /path/to/AISkills/ResearchToEssay/research-to-essay .claude/skills/
-cp -r /path/to/AISkills/CodexPeerReview/codex-peer-review .claude/skills/
-# ... add others as needed
+# Download individual skills using curl
+# Example: Prose Polish
+curl -L https://github.com/leegonzales/AISkills/archive/refs/heads/main.tar.gz | \
+  tar xz --strip=2 AISkills-main/ProsePolish/prose-polish
+
+# Example: Codex Peer Review
+curl -L https://github.com/leegonzales/AISkills/archive/refs/heads/main.tar.gz | \
+  tar xz --strip=2 AISkills-main/CodexPeerReview/codex-peer-review
+
+# Example: Gemini Peer Review (requires CLI setup - see skill docs)
+curl -L https://github.com/leegonzales/AISkills/archive/refs/heads/main.tar.gz | \
+  tar xz --strip=2 AISkills-main/GeminiPeerReview/gemini-peer-review
 ```
 
 **Documentation:** [Claude Code Skills Guide](https://docs.claude.com/en/docs/claude-code/skills)
@@ -245,17 +259,31 @@ cp -r /path/to/AISkills/CodexPeerReview/codex-peer-review .claude/skills/
 
 ### For Claude Web Chat
 
-Each skill includes a versioned `.skill` file (ZIP format) in its `dist/` folder. Two installation methods available:
+Each skill includes a versioned `.skill` file (ZIP format) in its `dist/` folder.
 
-#### Download Links
+#### Download .skill Files
 
-- **Prose Polish v1.1.0**: [prose-polish-v1.1.0.skill](ProsePolish/dist/prose-polish-v1.1.0.skill)
-- **Research-to-Essay v1.0.0**: [research-to-essay-v1.0.0.skill](ResearchToEssay/dist/research-to-essay-v1.0.0.skill)
-- **Concept Forge v1.0.0**: [concept-forge-v1.0.0.skill](ConceptForge/dist/concept-forge-v1.0.0.skill)
-- **Process Mapper v1.0.0**: [process-mapper-v1.0.0.skill](ProcessMapper/dist/process-mapper-v1.0.0.skill)
-- **Claimify v1.0.0**: [claimify-v1.0.0.skill](Claimify/dist/claimify-v1.0.0.skill)
+**Option 1: Direct GitHub Download**
 
-**Note:** Codex Peer Review is Claude Code only (requires terminal access) - not available for web chat.
+Click to download from GitHub:
+- **Prose Polish v1.1.0**: [Download](https://github.com/leegonzales/AISkills/raw/main/ProsePolish/dist/prose-polish-v1.1.0.skill)
+- **Research-to-Essay v1.0.0**: [Download](https://github.com/leegonzales/AISkills/raw/main/ResearchToEssay/dist/research-to-essay-v1.0.0.skill)
+- **Concept Forge v1.0.0**: [Download](https://github.com/leegonzales/AISkills/raw/main/ConceptForge/dist/concept-forge-v1.0.0.skill)
+- **Process Mapper v1.0.0**: [Download](https://github.com/leegonzales/AISkills/raw/main/ProcessMapper/dist/process-mapper-v1.0.0.skill)
+- **Claimify v1.0.0**: [Download](https://github.com/leegonzales/AISkills/raw/main/Claimify/dist/claimify-v1.0.0.skill)
+
+**Option 2: Download via curl**
+
+```bash
+# Download to current directory
+curl -LO https://github.com/leegonzales/AISkills/raw/main/ProsePolish/dist/prose-polish-v1.1.0.skill
+curl -LO https://github.com/leegonzales/AISkills/raw/main/ResearchToEssay/dist/research-to-essay-v1.0.0.skill
+curl -LO https://github.com/leegonzales/AISkills/raw/main/ConceptForge/dist/concept-forge-v1.0.0.skill
+curl -LO https://github.com/leegonzales/AISkills/raw/main/ProcessMapper/dist/process-mapper-v1.0.0.skill
+curl -LO https://github.com/leegonzales/AISkills/raw/main/Claimify/dist/claimify-v1.0.0.skill
+```
+
+**Note:** Codex and Gemini Peer Review skills are Claude Code only (require terminal access) - not available for web chat.
 
 #### Method 1: Install Globally (Recommended)
 
