@@ -209,13 +209,14 @@ Leverage Google's Gemini API for AI peer review with massive context windows and
 
 Skills are automatically discovered from your skills directories. Install system-wide or per-project.
 
-#### Personal Skills (Available Globally)
+#### Option 1: Clone Entire Repository (Recommended)
 
 ```bash
-# Navigate to your global skills directory
-cd ~/.claude/skills/
+# Clone the repository
+git clone https://github.com/leegonzales/AISkills.git
 
-# Clone or download, then copy skills
+# Install globally (available in all projects)
+cd ~/.claude/skills/
 cp -r /path/to/AISkills/ProsePolish/prose-polish ./
 cp -r /path/to/AISkills/ResearchToEssay/research-to-essay ./
 cp -r /path/to/AISkills/ConceptForge/concept-forge ./
@@ -223,20 +224,33 @@ cp -r /path/to/AISkills/ProcessMapper/process-mapper ./
 cp -r /path/to/AISkills/Claimify/claimify ./
 cp -r /path/to/AISkills/CodexPeerReview/codex-peer-review ./
 cp -r /path/to/AISkills/GeminiPeerReview/gemini-peer-review ./
+
+# Or install for specific project only
+cd your-project/.claude/skills/
+cp -r /path/to/AISkills/ProsePolish/prose-polish ./
+# ... add other skills as needed
 ```
 
-#### Project Skills (Project-Specific)
+#### Option 2: Download Individual Skills via GitHub
 
 ```bash
-# Install skills for a specific project
-cd your-project/
-mkdir -p .claude/skills
+# Navigate to your skills directory
+cd ~/.claude/skills/  # for global install
+# or
+cd your-project/.claude/skills/  # for project-specific install
 
-# Copy desired skills
-cp -r /path/to/AISkills/ProsePolish/prose-polish .claude/skills/
-cp -r /path/to/AISkills/ResearchToEssay/research-to-essay .claude/skills/
-cp -r /path/to/AISkills/CodexPeerReview/codex-peer-review .claude/skills/
-# ... add others as needed
+# Download individual skills using curl
+# Example: Prose Polish
+curl -L https://github.com/leegonzales/AISkills/archive/refs/heads/main.tar.gz | \
+  tar xz --strip=2 AISkills-main/ProsePolish/prose-polish
+
+# Example: Codex Peer Review
+curl -L https://github.com/leegonzales/AISkills/archive/refs/heads/main.tar.gz | \
+  tar xz --strip=2 AISkills-main/CodexPeerReview/codex-peer-review
+
+# Example: Gemini Peer Review (requires CLI setup - see skill docs)
+curl -L https://github.com/leegonzales/AISkills/archive/refs/heads/main.tar.gz | \
+  tar xz --strip=2 AISkills-main/GeminiPeerReview/gemini-peer-review
 ```
 
 **Documentation:** [Claude Code Skills Guide](https://docs.claude.com/en/docs/claude-code/skills)
@@ -245,17 +259,31 @@ cp -r /path/to/AISkills/CodexPeerReview/codex-peer-review .claude/skills/
 
 ### For Claude Web Chat
 
-Each skill includes a versioned `.skill` file (ZIP format) in its `dist/` folder. Two installation methods available:
+Each skill includes a versioned `.skill` file (ZIP format) in its `dist/` folder.
 
-#### Download Links
+#### Download .skill Files
 
-- **Prose Polish v1.1.0**: [prose-polish-v1.1.0.skill](ProsePolish/dist/prose-polish-v1.1.0.skill)
-- **Research-to-Essay v1.0.0**: [research-to-essay-v1.0.0.skill](ResearchToEssay/dist/research-to-essay-v1.0.0.skill)
-- **Concept Forge v1.0.0**: [concept-forge-v1.0.0.skill](ConceptForge/dist/concept-forge-v1.0.0.skill)
-- **Process Mapper v1.0.0**: [process-mapper-v1.0.0.skill](ProcessMapper/dist/process-mapper-v1.0.0.skill)
-- **Claimify v1.0.0**: [claimify-v1.0.0.skill](Claimify/dist/claimify-v1.0.0.skill)
+**Option 1: Direct GitHub Download**
 
-**Note:** Codex Peer Review is Claude Code only (requires terminal access) - not available for web chat.
+Click to download from GitHub:
+- **Prose Polish v1.1.0**: [Download](https://github.com/leegonzales/AISkills/raw/main/ProsePolish/dist/prose-polish-v1.1.0.skill)
+- **Research-to-Essay v1.0.0**: [Download](https://github.com/leegonzales/AISkills/raw/main/ResearchToEssay/dist/research-to-essay-v1.0.0.skill)
+- **Concept Forge v1.0.0**: [Download](https://github.com/leegonzales/AISkills/raw/main/ConceptForge/dist/concept-forge-v1.0.0.skill)
+- **Process Mapper v1.0.0**: [Download](https://github.com/leegonzales/AISkills/raw/main/ProcessMapper/dist/process-mapper-v1.0.0.skill)
+- **Claimify v1.0.0**: [Download](https://github.com/leegonzales/AISkills/raw/main/Claimify/dist/claimify-v1.0.0.skill)
+
+**Option 2: Download via curl**
+
+```bash
+# Download to current directory
+curl -LO https://github.com/leegonzales/AISkills/raw/main/ProsePolish/dist/prose-polish-v1.1.0.skill
+curl -LO https://github.com/leegonzales/AISkills/raw/main/ResearchToEssay/dist/research-to-essay-v1.0.0.skill
+curl -LO https://github.com/leegonzales/AISkills/raw/main/ConceptForge/dist/concept-forge-v1.0.0.skill
+curl -LO https://github.com/leegonzales/AISkills/raw/main/ProcessMapper/dist/process-mapper-v1.0.0.skill
+curl -LO https://github.com/leegonzales/AISkills/raw/main/Claimify/dist/claimify-v1.0.0.skill
+```
+
+**Note:** Codex and Gemini Peer Review skills are Claude Code only (require terminal access) - not available for web chat.
 
 #### Method 1: Install Globally (Recommended)
 
@@ -473,58 +501,16 @@ For issues or feature requests, please open an issue.
 
 ## Testing & Quality Assurance
 
-The Codex and Gemini Peer Review skills have undergone comprehensive testing to ensure production readiness.
+Both Codex and Gemini Peer Review skills have been validated for production readiness through comprehensive testing.
 
-### Test Summary
+| Skill | Pass Rate | Avg Quality | Status |
+|-------|-----------|-------------|--------|
+| **Codex Peer Review** | 100% (7/7) | 4.8/5.0 | ✅ Production Ready |
+| **Gemini Peer Review** | 87.5% (7/8) | 5.0/5.0 | ✅ Production Ready |
 
-**Comprehensive Testing Program:**
-- **27 test cases** across 4 phases (Core, Specialized, Integration, Edge Cases)
-- **93% overall pass rate** (25/27 tests passed)
-- **4.6/5.0 average quality score** across all tests
-- **Real-world validation** on 9k LOC production codebase
-
-| Skill | Tests | Pass Rate | Avg Score | Status |
-|-------|-------|-----------|-----------|--------|
-| **Codex Peer Review** | 7/7 | 100% | 4.8/5.0 | ✅ Production Ready |
-| **Gemini Peer Review** | 7/8 | 87.5% | 5.0/5.0 | ✅ Production Ready |
-| **Both Together** | - | - | +44% coverage | 🏆 Exceptional Value |
-
-### Key Validated Capabilities
-
-**Codex Strengths:**
-- Line-level bug detection (4 critical bugs found that Claude missed)
-- 100% critical vulnerability detection in security reviews
-- Precise performance bottleneck identification (all 5 major bottlenecks found)
-- Fast, concise analysis (~80 seconds)
-
-**Gemini Strengths:**
-- Large codebase analysis (9,033 LOC in single 1M token context)
-- Perfect 5/5 scores on all executed tests
-- Cross-module security analysis (attack surface mapping)
-- Research-grounded recommendations (15+ current citations)
-
-**Complementary Value:**
-- **44% more issues identified** when using both vs single AI
-- High-confidence validation through convergent findings
-- Trade-off revelation through divergent perspectives
-- Tactical (Codex) + Strategic (Gemini) comprehensive coverage
-
-### Test Documentation
-
-**Comprehensive Reports Available:**
-- [FINAL_TEST_REPORT.md](FINAL_TEST_REPORT.md) - Complete 27-test analysis (900+ lines)
-- [EXECUTIVE_SUMMARY.md](EXECUTIVE_SUMMARY.md) - Production readiness assessment
-- [test-results/](test-results/) - 40+ individual test reports and artifacts
-- [CodexPeerReview/TESTING.md](CodexPeerReview/TESTING.md) - Codex-specific results
-- [GeminiPeerReview/TESTING.md](GeminiPeerReview/TESTING.md) - Gemini-specific results
-
-**Test Methodology:**
-- Automated AI agent testing for objectivity
-- Real production codebase (prompt-evolve genetic algorithm framework)
-- Quality scoring on 1-5 scales with specific success criteria
-- Comparative analysis to validate complementary value
-
-**Production Status:** Both skills approved for production deployment with excellent quality scores and comprehensive validation.
+**For complete testing documentation, methodology, and detailed results:**
+- [CodexPeerReview/TESTING.md](CodexPeerReview/TESTING.md) - Codex testing results and capabilities
+- [GeminiPeerReview/TESTING.md](GeminiPeerReview/TESTING.md) - Gemini testing results and capabilities
 
 ---
 
