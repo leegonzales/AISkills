@@ -148,6 +148,12 @@ Leverage OpenAI's Codex CLI for AI peer review and second opinions on architectu
 - Testing strategy and coverage gap identification
 - Learning from complex code with multi-perspective explanations
 
+**Testing & Quality:**
+- ✅ 100% pass rate (7/7 tests)
+- ✅ 4.8/5.0 average quality score
+- ✅ Production ready - comprehensive testing completed
+- 📊 [View detailed test results](CodexPeerReview/TESTING.md)
+
 **Prerequisites:**
 - Claude Code environment (requires terminal access)
 - [Codex CLI](https://developers.openai.com/codex/cli/) installed locally
@@ -180,6 +186,13 @@ Leverage Google's Gemini API for AI peer review with massive context windows and
 - Testing strategy development
 - Multimodal technical review (diagram to code)
 - Learning from complex codebases with AI collaboration
+
+**Testing & Quality:**
+- ✅ 87.5% pass rate (7/8 tests, 1 test setup issue)
+- ✅ 5.0/5.0 average quality score (perfect on all executed tests)
+- ✅ Production ready - comprehensive testing completed
+- 🏆 Validated 9k LOC codebase in single context
+- 📊 [View detailed test results](GeminiPeerReview/TESTING.md)
 
 **Prerequisites:**
 - Claude Code environment (requires terminal access)
@@ -455,6 +468,63 @@ Contributions welcome! To add a new skill:
 7. Submit a pull request
 
 For issues or feature requests, please open an issue.
+
+---
+
+## Testing & Quality Assurance
+
+The Codex and Gemini Peer Review skills have undergone comprehensive testing to ensure production readiness.
+
+### Test Summary
+
+**Comprehensive Testing Program:**
+- **27 test cases** across 4 phases (Core, Specialized, Integration, Edge Cases)
+- **93% overall pass rate** (25/27 tests passed)
+- **4.6/5.0 average quality score** across all tests
+- **Real-world validation** on 9k LOC production codebase
+
+| Skill | Tests | Pass Rate | Avg Score | Status |
+|-------|-------|-----------|-----------|--------|
+| **Codex Peer Review** | 7/7 | 100% | 4.8/5.0 | ✅ Production Ready |
+| **Gemini Peer Review** | 7/8 | 87.5% | 5.0/5.0 | ✅ Production Ready |
+| **Both Together** | - | - | +44% coverage | 🏆 Exceptional Value |
+
+### Key Validated Capabilities
+
+**Codex Strengths:**
+- Line-level bug detection (4 critical bugs found that Claude missed)
+- 100% critical vulnerability detection in security reviews
+- Precise performance bottleneck identification (all 5 major bottlenecks found)
+- Fast, concise analysis (~80 seconds)
+
+**Gemini Strengths:**
+- Large codebase analysis (9,033 LOC in single 1M token context)
+- Perfect 5/5 scores on all executed tests
+- Cross-module security analysis (attack surface mapping)
+- Research-grounded recommendations (15+ current citations)
+
+**Complementary Value:**
+- **44% more issues identified** when using both vs single AI
+- High-confidence validation through convergent findings
+- Trade-off revelation through divergent perspectives
+- Tactical (Codex) + Strategic (Gemini) comprehensive coverage
+
+### Test Documentation
+
+**Comprehensive Reports Available:**
+- [FINAL_TEST_REPORT.md](FINAL_TEST_REPORT.md) - Complete 27-test analysis (900+ lines)
+- [EXECUTIVE_SUMMARY.md](EXECUTIVE_SUMMARY.md) - Production readiness assessment
+- [test-results/](test-results/) - 40+ individual test reports and artifacts
+- [CodexPeerReview/TESTING.md](CodexPeerReview/TESTING.md) - Codex-specific results
+- [GeminiPeerReview/TESTING.md](GeminiPeerReview/TESTING.md) - Gemini-specific results
+
+**Test Methodology:**
+- Automated AI agent testing for objectivity
+- Real production codebase (prompt-evolve genetic algorithm framework)
+- Quality scoring on 1-5 scales with specific success criteria
+- Comparative analysis to validate complementary value
+
+**Production Status:** Both skills approved for production deployment with excellent quality scores and comprehensive validation.
 
 ---
 

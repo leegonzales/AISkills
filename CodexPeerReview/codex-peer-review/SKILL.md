@@ -1,6 +1,6 @@
 ---
 name: codex-peer-review
-description: [CLAUDE CODE ONLY] Leverage Codex CLI for AI peer review, second opinions on architecture and design decisions, cross-validation of implementations, security analysis, and alternative approach generation. Requires terminal access to execute Codex CLI commands. Use when making high-stakes decisions, reviewing complex architecture, or when explicitly requested for a second AI perspective. Triggers include "get a second opinion," "review this architecture," "validate this approach," or "what would Codex think?"
+description: [CLAUDE CODE ONLY] Leverage Codex CLI for AI peer review, second opinions on architecture and design decisions, cross-validation of implementations, security analysis, and alternative approach generation. Requires terminal access to execute Codex CLI commands. Use when making high-stakes decisions, reviewing complex architecture, or when explicitly requested for a second AI perspective. Must be explicitly invoked using skill syntax.
 license: Complete terms in LICENSE.txt
 environment: claude-code
 ---
@@ -49,17 +49,59 @@ This skill enables strategic collaboration between Claude Code (Anthropic) and C
 - Low-impact tactical changes
 - Codex CLI is not available/installed
 
-### Trigger Patterns
+### How to Invoke This Skill
 
-User phrases that indicate peer review would be valuable:
+**Important:** This skill requires explicit invocation. It is not automatically triggered by natural language.
+
+**To use this skill, Claude must explicitly invoke it using:**
+
+```
+skill: "codex-peer-review"
+```
+
+**User phrases that indicate this skill would be valuable:**
 - "Get a second opinion on..."
 - "What would Codex think about..."
-- "Review this architecture"
-- "Validate this approach"
+- "Review this architecture with Codex"
+- "Use Codex to validate this approach"
 - "Are there better alternatives to..."
-- "Cross-check this implementation"
-- "Security review needed"
-- "Is this the right design?"
+- "Get Codex peer review for this"
+- "Security review with Codex needed"
+- "Ask Codex about this design"
+
+When these phrases appear, Claude should suggest using this skill and invoke it explicitly if appropriate.
+
+---
+
+### Codex vs Gemini: Which Peer Review Skill?
+
+Both Codex and Gemini peer review skills provide valuable second opinions, but excel in different scenarios.
+
+**Use Codex Peer Review when:**
+- Code size < 500 LOC (focused reviews)
+- Need precise, line-level bug detection
+- Want fast analysis with concise output
+- Reviewing single modules or functions
+- Need tactical implementation feedback
+- Performance bottleneck identification (specific issues)
+- Quick validation of design decisions
+
+**Use Gemini Peer Review when:**
+- Code size > 5k LOC (large codebase analysis)
+- Need full codebase context (up to 1M tokens)
+- Reviewing architecture across multiple modules
+- Analyzing diagrams + code together (multimodal)
+- Want research-grounded recommendations (current best practices)
+- Cross-module security analysis (attack surface mapping)
+- Systemic performance patterns
+- Design consistency checking
+
+**For mid-range codebases (500-5k LOC):**
+- Use **Codex** if: Focused review, single module, speed priority, specific bugs
+- Use **Gemini** if: Cross-module patterns, holistic view, diagram analysis, research grounding
+- Consider **Both** for: Critical decisions requiring maximum confidence
+
+**For maximum value on high-stakes decisions:** Use both skills sequentially and apply synthesis framework (see references/synthesis-framework.md).
 
 ---
 
@@ -594,8 +636,6 @@ quiet = false
 ---
 
 ## Example Workflows
-
-Load `references/workflow-examples.md` for complete scenarios.
 
 ### Example: Architecture Decision
 
