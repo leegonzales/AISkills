@@ -473,58 +473,16 @@ For issues or feature requests, please open an issue.
 
 ## Testing & Quality Assurance
 
-The Codex and Gemini Peer Review skills have undergone comprehensive testing to ensure production readiness.
+Both Codex and Gemini Peer Review skills have been validated for production readiness through comprehensive testing.
 
-### Test Summary
+| Skill | Pass Rate | Avg Quality | Status |
+|-------|-----------|-------------|--------|
+| **Codex Peer Review** | 100% (7/7) | 4.8/5.0 | ✅ Production Ready |
+| **Gemini Peer Review** | 87.5% (7/8) | 5.0/5.0 | ✅ Production Ready |
 
-**Comprehensive Testing Program:**
-- **27 test cases** across 4 phases (Core, Specialized, Integration, Edge Cases)
-- **93% overall pass rate** (25/27 tests passed)
-- **4.6/5.0 average quality score** across all tests
-- **Real-world validation** on 9k LOC production codebase
-
-| Skill | Tests | Pass Rate | Avg Score | Status |
-|-------|-------|-----------|-----------|--------|
-| **Codex Peer Review** | 7/7 | 100% | 4.8/5.0 | ✅ Production Ready |
-| **Gemini Peer Review** | 7/8 | 87.5% | 5.0/5.0 | ✅ Production Ready |
-| **Both Together** | - | - | +44% coverage | 🏆 Exceptional Value |
-
-### Key Validated Capabilities
-
-**Codex Strengths:**
-- Line-level bug detection (4 critical bugs found that Claude missed)
-- 100% critical vulnerability detection in security reviews
-- Precise performance bottleneck identification (all 5 major bottlenecks found)
-- Fast, concise analysis (~80 seconds)
-
-**Gemini Strengths:**
-- Large codebase analysis (9,033 LOC in single 1M token context)
-- Perfect 5/5 scores on all executed tests
-- Cross-module security analysis (attack surface mapping)
-- Research-grounded recommendations (15+ current citations)
-
-**Complementary Value:**
-- **44% more issues identified** when using both vs single AI
-- High-confidence validation through convergent findings
-- Trade-off revelation through divergent perspectives
-- Tactical (Codex) + Strategic (Gemini) comprehensive coverage
-
-### Test Documentation
-
-**Comprehensive Reports Available:**
-- [FINAL_TEST_REPORT.md](FINAL_TEST_REPORT.md) - Complete 27-test analysis (900+ lines)
-- [EXECUTIVE_SUMMARY.md](EXECUTIVE_SUMMARY.md) - Production readiness assessment
-- [test-results/](test-results/) - 40+ individual test reports and artifacts
-- [CodexPeerReview/TESTING.md](CodexPeerReview/TESTING.md) - Codex-specific results
-- [GeminiPeerReview/TESTING.md](GeminiPeerReview/TESTING.md) - Gemini-specific results
-
-**Test Methodology:**
-- Automated AI agent testing for objectivity
-- Real production codebase (prompt-evolve genetic algorithm framework)
-- Quality scoring on 1-5 scales with specific success criteria
-- Comparative analysis to validate complementary value
-
-**Production Status:** Both skills approved for production deployment with excellent quality scores and comprehensive validation.
+**For complete testing documentation, methodology, and detailed results:**
+- [CodexPeerReview/TESTING.md](CodexPeerReview/TESTING.md) - Codex testing results and capabilities
+- [GeminiPeerReview/TESTING.md](GeminiPeerReview/TESTING.md) - Gemini testing results and capabilities
 
 ---
 
