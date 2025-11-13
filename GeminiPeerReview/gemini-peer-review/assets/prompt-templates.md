@@ -1,18 +1,18 @@
-# Ready-to-Use Prompt Templates for Gemini Peer Review
+# Prompt Templates for Gemini Peer Review
 
-Ready-to-use prompt templates for common peer review scenarios. Copy, customize with your context, and use with Gemini CLI or API.
+Ready-to-use prompt templates for common peer review scenarios. Copy, customize with your context, and use with Gemini CLI.
 
 ---
 
 ## Overview
 
-This guide provides battle-tested prompt templates for conducting thorough peer reviews using Google Gemini. Each template is designed to leverage Gemini's 1M token context window and advanced reasoning capabilities.
+This guide provides battle-tested prompt templates for conducting thorough peer reviews using Google Gemini. Each template is designed to leverage Gemini's 2M token context window and advanced reasoning capabilities.
 
 **Template Benefits:**
 - Copy-paste ready for immediate use
 - Optimized for Gemini 2.5 Pro and Flash models
 - Structured for comprehensive analysis
-- Include both CLI and Python API usage patterns
+- CLI-focused with heredoc patterns
 - Target specific review scenarios
 
 **Model Selection Guide:**
@@ -86,29 +86,12 @@ Review Focus:
 Expected Output: Risk assessment with severity levels, improvement recommendations, and alternative approaches to consider
 ```
 
-**Usage with Gemini CLI:**
+**Usage:**
 ```bash
 gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
 [paste filled template]
 EOF
 )"
-```
-
-**Usage with Python API:**
-```python
-import google.generativeai as genai
-import os
-
-genai.configure(api_key=os.environ['GEMINI_API_KEY'])
-
-model = genai.GenerativeModel('gemini-2.5-pro')
-
-prompt = """
-[paste filled template]
-"""
-
-response = model.generate_content(prompt)
-print(response.text)
 ```
 
 ---
@@ -167,16 +150,12 @@ Review Focus:
 Expected Output: Performance and scalability assessment, optimization recommendations, alternative design approaches
 ```
 
-**Usage with Gemini CLI (File Reference):**
+**Usage:**
 ```bash
-# If schema is in files
-gemini --model gemini-2.5-pro -p "Review this database architecture: @./database/schema.sql @./docs/architecture.md
-
-Focus on:
-- Schema design and normalization
-- Index strategy
-- Query performance at scale
-- Scalability approach"
+gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
+[paste filled template]
+EOF
+)"
 ```
 
 ---
@@ -242,27 +221,12 @@ Question: Which option is recommended given these criteria and context? What are
 Expected Output: Comparative analysis against criteria, recommendation with rationale, risk assessment for each option
 ```
 
-**Usage with Python API (with Search Grounding):**
-```python
-import google.generativeai as genai
-import os
-
-genai.configure(api_key=os.environ['GEMINI_API_KEY'])
-
-# Enable Google Search grounding for current information
-model = genai.GenerativeModel(
-    'gemini-2.5-pro',
-    tools='google_search_retrieval'
-)
-
-prompt = """
-[paste filled template with search-relevant questions]
-
-Please use current 2025 information about these technologies.
-"""
-
-response = model.generate_content(prompt)
-print(response.text)
+**Usage:**
+```bash
+gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
+[paste filled template]
+EOF
+)"
 ```
 
 ---
@@ -315,17 +279,12 @@ Question: Which approach is recommended? What are the key trade-offs and risks?
 Expected Output: Recommendation with rationale, trade-off analysis, risk mitigation strategies
 ```
 
-**Usage with Gemini CLI (Interactive):**
+**Usage:**
 ```bash
-gemini --model gemini-2.5-flash -i "$(cat <<'EOF'
-I need help deciding on an implementation approach.
+gemini --model gemini-2.5-flash -p "$(cat <<'EOF'
 [paste filled template]
 EOF
 )"
-
-# Then continue with follow-up questions:
-# gemini> What if we also need to consider backward compatibility?
-# gemini> Can you provide code examples for Approach A?
 ```
 
 ---
@@ -383,77 +342,12 @@ Review Focus:
 Expected Output: Prioritized vulnerabilities with severity (Critical/High/Medium/Low), specific attack vectors, and detailed remediation recommendations
 ```
 
-**Usage with Gemini CLI (File Reference):**
+**Usage:**
 ```bash
-gemini --model gemini-2.5-pro -p "Conduct security review of authentication system.
-
-@./src/auth/login.ts
-@./src/auth/session.ts
-@./src/middleware/auth.ts
-
-Threat Model:
-- Credential stuffing / brute force attacks
-- Session hijacking
-- Token theft (XSS, MITM)
-- Privilege escalation
-
-Focus on:
-- Vulnerability identification
-- Attack vector analysis
-- Best practice compliance
-- Remediation recommendations with severity levels"
-```
-
-**Usage with Python API (with File Context):**
-```python
-import google.generativeai as genai
-import os
-
-genai.configure(api_key=os.environ['GEMINI_API_KEY'])
-
-model = genai.GenerativeModel('gemini-2.5-pro')
-
-# Read authentication code files
-with open('./src/auth/login.ts', 'r') as f:
-    login_code = f.read()
-
-with open('./src/auth/session.ts', 'r') as f:
-    session_code = f.read()
-
-prompt = f"""
-[SECURITY REVIEW: Authentication System]
-
-System Purpose: SaaS project management platform
-User Sensitivity: Business data, multiple user roles
-Compliance Requirements: SOC2 compliance required
-
-Authentication Code - login.ts:
-```typescript
-{login_code}
-```
-
-Session Management - session.ts:
-```typescript
-{session_code}
-```
-
-Threat Model:
-- Credential stuffing / brute force attacks
-- Session hijacking
-- Token theft (XSS, man-in-the-middle)
-- Privilege escalation
-
-Review Focus:
-- Vulnerability identification with severity levels
-- Attack vector analysis
-- Best practice compliance
-- Specific remediation recommendations
-
-Expected Output: Prioritized vulnerabilities (Critical/High/Medium/Low) with detailed remediation steps
-"""
-
-response = model.generate_content(prompt)
-print(response.text)
+gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
+[paste filled template]
+EOF
+)"
 ```
 
 ---
@@ -510,22 +404,12 @@ Review Focus:
 Expected Output: Vulnerability assessment with severity, attack scenarios, and prioritized remediation plan
 ```
 
-**Usage with Gemini CLI (Multiple Files):**
+**Usage:**
 ```bash
-gemini --model gemini-2.5-pro -p "Security review for REST API.
-
-@./src/api/users.js
-@./src/api/orders.js
-@./src/middleware/validate.js
-
-Focus on OWASP API Security Top 10:
-- Injection vulnerabilities
-- Broken authentication
-- Excessive data exposure
-- Lack of resources & rate limiting
-- Security misconfiguration
-
-Provide severity levels and remediation priority."
+gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
+[paste filled template]
+EOF
+)"
 ```
 
 ---
@@ -586,28 +470,12 @@ Analysis Focus:
 Expected Output: Prioritized optimization recommendations with estimated impact (% improvement), implementation complexity, and risk assessment
 ```
 
-**Usage with Gemini CLI:**
+**Usage:**
 ```bash
-gemini --model gemini-2.5-flash -p "Performance analysis for checkout endpoint.
-
-@./src/api/checkout.ts
-@./src/services/payment.ts
-@./src/db/order-repository.ts
-
-Current Performance:
-- Average: 450ms
-- p95: 850ms
-- p99: 1200ms
-
-Target: < 200ms average
-
-Analysis Focus:
-- N+1 query patterns
-- Database optimization
-- Caching opportunities
-- Async operations
-
-Provide specific recommendations with estimated impact."
+gemini --model gemini-2.5-flash -p "$(cat <<'EOF'
+[paste filled template]
+EOF
+)"
 ```
 
 ---
@@ -658,64 +526,12 @@ Analysis Focus:
 Expected Output: Query optimization recommendations with estimated performance improvement, required schema changes, and trade-off analysis
 ```
 
-**Usage with Python API (with Schema Context):**
-```python
-import google.generativeai as genai
-import os
-
-genai.configure(api_key=os.environ['GEMINI_API_KEY'])
-
-model = genai.GenerativeModel('gemini-2.5-flash')
-
-# Read schema and query files
-with open('./database/schema.sql', 'r') as f:
-    schema = f.read()
-
-with open('./queries/user-orders.sql', 'r') as f:
-    query = f.read()
-
-with open('./profiling/explain-plan.txt', 'r') as f:
-    explain_plan = f.read()
-
-prompt = f"""
-[PERFORMANCE ANALYSIS: Database Query]
-
-Query Purpose: Fetch user orders with product details
-Current Performance: 2.4 seconds, 1.2M rows scanned
-Target Performance: < 200ms
-Execution Frequency: 50,000 times/day
-
-Query Code:
-```sql
-{query}
-```
-
-Table Schemas:
-```sql
-{schema}
-```
-
-Query Explain Plan:
-```
-{explain_plan}
-```
-
-Data Context:
-- orders table: 5M rows, growing 50K/day
-- products table: 100K rows, stable
-- order_items table: 15M rows, growing 150K/day
-
-Analysis Focus:
-- Query plan optimization
-- Index recommendations
-- Join strategy
-- Query rewriting opportunities
-
-Expected Output: Specific optimization recommendations with estimated performance gains
-"""
-
-response = model.generate_content(prompt)
-print(response.text)
+**Usage:**
+```bash
+gemini --model gemini-2.5-flash -p "$(cat <<'EOF'
+[paste filled template]
+EOF
+)"
 ```
 
 ---
@@ -769,37 +585,24 @@ Review Focus:
 Expected Output: Prioritized list of test cases to add, testing strategy recommendations, and test quality improvements
 ```
 
-**Usage with Gemini CLI:**
+**Usage:**
 ```bash
-gemini --model gemini-2.5-flash -p "Review test coverage and generate missing tests.
-
-@./src/payment-processor.ts
-@./tests/payment-processor.test.ts
-
-Current Coverage:
-- Unit: 65%
-- Integration: 30%
-- E2E: 20%
-
-Critical Paths:
-1. Payment authorization flow
-2. Refund processing
-3. Failed payment handling
-
-Generate:
-1. Missing test cases prioritized by risk
-2. Test code for highest priority cases
-3. Integration test strategy"
+gemini --model gemini-2.5-flash -p "$(cat <<'EOF'
+[paste filled template]
+EOF
+)"
 ```
 
 ---
 
 ## Usage Examples
 
-### Example 1: Architecture Review with CLI
+### Example 1: Using Architecture Review Template
 
 ```bash
-# Filled template for e-commerce microservices
+# 1. Copy template from above
+# 2. Fill in with your specific context
+# 3. Execute with Gemini CLI
 
 gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
 [ARCHITECTURE REVIEW: E-Commerce Microservices]
@@ -813,7 +616,7 @@ Current Architecture:
 **Services:**
 1. Product Service - Manages catalog (Node.js, PostgreSQL)
 2. Order Service - Handles purchases (Node.js, PostgreSQL)
-3. Payment Service - Processes payments (Node.js, Stripe)
+3. Payment Service - Processes payments (Node.js, external payment gateway)
 4. User Service - Authentication & profiles (Node.js, PostgreSQL)
 5. Inventory Service - Stock management (Python, PostgreSQL)
 
@@ -840,668 +643,159 @@ Key Architectural Decisions:
 Specific Concerns:
 - Data consistency between Order and Inventory services (eventual consistency)
 - Distributed transaction handling for order placement
-- Service communication overhead causing latency
-- How to handle inventory service downtime during order placement
+- Service communication overhead (latency)
 
 Review Focus:
 - Service boundaries and cohesion
-- Data consistency approach (saga pattern vs alternatives)
+- Data consistency approach (sagas vs other patterns)
 - Scalability bottlenecks
-- Failure modes and resilience strategies
+- Failure modes (what happens if Inventory service is down during order?)
 - Alternative architectural approaches
 
-Expected Output: Risk assessment with severity levels, improvement recommendations, and alternative approaches to consider
+Expected Output: Risk assessment with severity levels, improvement recommendations, alternative approaches to consider
 EOF
 )"
 ```
 
-### Example 2: Security Review with Python API
+---
 
-```python
-import google.generativeai as genai
-import os
+### Example 2: Using Security Review Template
 
-genai.configure(api_key=os.environ['GEMINI_API_KEY'])
-
-model = genai.GenerativeModel('gemini-2.5-pro')
-
-# Read authentication code
-with open('./src/auth/jwt.ts', 'r') as f:
-    jwt_code = f.read()
-
-prompt = f"""
+```bash
+gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
 [SECURITY REVIEW: JWT Authentication]
 
 System Purpose: SaaS project management platform
-User Sensitivity: Business data, multiple user roles (admin, manager, member)
+User Sensitivity: Business data, multiple user roles
 Compliance Requirements: SOC2 compliance required
 
 Authentication Flow:
-1. User submits email/password to /api/login
-2. Server validates credentials against bcrypt hash in PostgreSQL
+1. User submits email/password
+2. Server validates credentials against bcrypt hash
 3. Server generates JWT access token (15min expiry) + refresh token (7 day expiry)
 4. Client stores tokens in localStorage
-5. Client includes access token in Authorization: Bearer header
-6. On access token expiry, client uses refresh token at /api/refresh
-7. Refresh endpoint validates and issues new access token
+5. Client includes access token in Authorization header
+6. On expiry, client uses refresh token to get new access token
 
 Code for Review:
 ```typescript
-{jwt_code}
+// Token generation
+async function generateTokens(userId: string) {
+  const accessToken = jwt.sign(
+    { userId, type: 'access' },
+    process.env.JWT_SECRET,
+    { expiresIn: '15m' }
+  );
+
+  const refreshToken = jwt.sign(
+    { userId, type: 'refresh' },
+    process.env.REFRESH_SECRET,
+    { expiresIn: '7d' }
+  );
+
+  await db.refreshTokens.insert({
+    userId,
+    token: refreshToken,
+    expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+  });
+
+  return { accessToken, refreshToken };
+}
+
+// Token validation
+async function validateToken(token: string) {
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    return decoded.userId;
+  } catch (error) {
+    throw new Error('Invalid token');
+  }
+}
+
+// Refresh endpoint
+async function refreshAccessToken(refreshToken: string) {
+  const decoded = jwt.verify(refreshToken, process.env.REFRESH_SECRET);
+
+  const storedToken = await db.refreshTokens.findOne({
+    userId: decoded.userId,
+    token: refreshToken
+  });
+
+  if (!storedToken) {
+    throw new Error('Invalid refresh token');
+  }
+
+  const accessToken = jwt.sign(
+    { userId: decoded.userId, type: 'access' },
+    process.env.JWT_SECRET,
+    { expiresIn: '15m' }
+  );
+
+  return accessToken;
+}
 ```
 
 Threat Model:
 - XSS attacks (token theft from localStorage)
-- Man-in-the-middle (token interception over network)
-- Refresh token theft and replay attacks
-- Concurrent refresh token usage (multi-tab scenarios)
-- Brute force attacks on login endpoint
-- Session fixation attacks
-
-Implementation Details:
-- Session Management: Stateless JWT approach
-- Token Strategy: JWT with HS256 signing, refresh tokens stored in database
-- Password Storage: bcrypt with cost factor 10
-- Multi-factor: Not implemented (planned)
-- Rate Limiting: 5 attempts per 15 minutes on /api/login
+- Man-in-the-middle (token interception)
+- Refresh token theft and reuse
+- Concurrent refresh attacks (multi-tab)
+- Brute force attacks
+- Session fixation
 
 Specific Security Concerns:
-- Tokens in localStorage vulnerable to XSS
-- No refresh token rotation implemented
-- No token revocation mechanism for compromised tokens
-- Missing rate limiting on /api/refresh endpoint
-- Potential timing attacks in token comparison
+- Tokens in localStorage (XSS vulnerability)
+- No refresh token rotation
+- No token revocation mechanism
+- Missing rate limiting on auth endpoints
+- Timing attacks on token comparison
 
 Review Focus:
-- Token storage security (localStorage vs httpOnly cookies)
-- Refresh token handling and rotation strategy
+- Token storage security
+- Refresh token handling
 - Token validation robustness
-- Attack vector analysis with real-world scenarios
-- OWASP best practices compliance
-- Immediate vs long-term security improvements
-
-Expected Output:
-1. Prioritized vulnerabilities with severity (Critical/High/Medium/Low)
-2. Specific attack scenarios for each vulnerability
-3. Detailed remediation recommendations
-4. Quick wins vs strategic improvements
-5. Code examples for top 3 fixes
-"""
-
-response = model.generate_content(prompt)
-print(response.text)
-
-# Save review to file
-with open('./security-review-report.md', 'w') as f:
-    f.write(response.text)
-
-print("\nSecurity review complete. Report saved to security-review-report.md")
-```
-
-### Example 3: Performance Analysis with File References
-
-```bash
-# Analyze slow checkout endpoint
-
-gemini --model gemini-2.5-flash -p "Performance optimization review for checkout API.
-
-Code files:
-@./src/api/checkout.ts
-@./src/services/order-service.ts
-@./src/services/inventory-service.ts
-@./src/db/repositories/order-repo.ts
-
-Current Performance Metrics:
-- Average latency: 680ms
-- p95 latency: 1,200ms
-- p99 latency: 2,100ms
-- Throughput: 45 req/sec
-
-Target Performance:
-- Average latency: < 250ms
-- p95 latency: < 500ms
-- Throughput: 200 req/sec
-
-Scale Context:
-- Current: 10K orders/day
-- Growth: 50K orders/day in 6 months
-- Database: PostgreSQL with 5M orders, 15M order_items
-
-Known Issues:
-- Multiple sequential database queries in checkout flow
-- Synchronous inventory check calls external service
-- No caching of product data during checkout
-
-Technology Stack:
-- Node.js Express API
-- PostgreSQL database
-- Redis available but not utilized
-- Running on GCP Cloud Run
-
-Analysis Focus:
-1. Identify N+1 query patterns
-2. Database query optimization opportunities
-3. Caching strategy recommendations
-4. Async operation opportunities
-5. Code refactoring for performance
-
-Expected Output:
-1. Prioritized optimization recommendations
-2. Estimated performance impact for each (% improvement)
-3. Implementation complexity (Low/Medium/High)
-4. Code examples for top 3 optimizations
-5. Risk assessment for each change"
-```
-
-### Example 4: Test Coverage with Interactive Session
-
-```bash
-# Start interactive session for test generation
-
-gemini --model gemini-2.5-flash -i "I need to improve test coverage for the payment processing module.
-
-@./src/payment-processor.ts
-@./tests/payment-processor.test.ts
-
-Current Coverage:
-- Unit: 58%
-- Integration: 25%
-- E2E: 15%
-
-Critical Paths Missing Coverage:
-1. Failed payment retry logic (3 attempts with exponential backoff)
-2. Partial refund processing
-3. Concurrent payment attempts for same order
-4. Payment webhook handling from Stripe
-5. Idempotency key validation
-
-Known Testing Gaps:
-- Error paths not tested (network failures, API timeouts)
-- Edge cases missing (zero amount, negative amounts, currency mismatch)
-- Integration tests with Stripe webhook absent
-- Race condition testing not implemented
-
-Testing Concerns:
-- Existing tests are brittle (hardcoded IDs, dates)
-- Test suite takes 3 minutes to run
-- Flaky webhook tests (timing-dependent)
-
-Generate:
-1. Prioritized list of test cases to add
-2. Complete test code for top 5 highest-priority cases
-3. Integration test strategy for Stripe webhooks
-4. Recommendations for reducing test brittleness"
-
-# Then continue with follow-up questions:
-# gemini> Can you also generate test fixtures for these test cases?
-# gemini> How should we mock the Stripe API calls?
-# gemini> Show me how to test the race condition scenario
-```
-
----
-
-## Tips for Template Customization
-
-### Be Specific with Context
-
-**Vague (Avoid):**
-```
-Review this code for issues.
-@./src/app.js
-```
-
-**Specific (Better):**
-```
-Security review for Express.js authentication API.
-
-@./src/auth/login.js
-@./src/middleware/auth.js
-
-Focus on:
-- JWT token handling
-- Password validation
-- Rate limiting implementation
-- SQL injection vulnerabilities
-
-Compliance: Must meet OWASP Top 10 requirements
-```
-
-### Leverage Gemini's Strengths
-
-**1. Use 1M Token Context Window:**
-```bash
-# Review entire codebase at once
-gemini --model gemini-2.5-pro -p "Architecture review of entire project.
-
-@./src/
-@./tests/
-@./docs/architecture.md
-
-Analyze service boundaries, data flow, and identify architectural risks."
-```
-
-**2. Enable Search Grounding for Current Information:**
-```python
-model = genai.GenerativeModel(
-    'gemini-2.5-pro',
-    tools='google_search_retrieval'
-)
-
-prompt = """
-Technology selection: Choose between Next.js 15, Remix, and Astro for blog platform.
-
-Use latest 2025 information about:
-- Performance benchmarks
-- Community support
-- Production readiness
-- Latest features
-
-[rest of template]
-"""
-```
-
-**3. Use Multimodal Capabilities:**
-```bash
-# Review architecture diagram
-gemini -p "Review this architecture diagram and compare to actual implementation.
-
-@./docs/architecture-diagram.png
-@./src/
-
-Identify discrepancies and suggest updates."
-```
-
-### Structure Output Expectations
-
-**Generic (Avoid):**
-```
-Expected Output: Analysis and recommendations
-```
-
-**Structured (Better):**
-```
-Expected Output:
-1. Executive Summary (2-3 sentences)
-2. Risk Assessment Table (Risk | Severity | Impact | Mitigation)
-3. Prioritized Recommendations (High/Medium/Low priority)
-4. Code Examples for top 3 fixes
-5. Implementation Timeline (Quick wins vs strategic improvements)
-6. Trade-offs and Considerations
-```
-
-### Iterate Based on Results
-
-If first response isn't detailed enough:
-
-```bash
-# Initial review
-gemini -p "[template with security review]"
-
-# Follow-up for more detail
-gemini -p "Provide specific code examples for the top 3 vulnerabilities identified.
-Include before/after code snippets."
-
-# Request attack scenarios
-gemini -p "For the XSS vulnerability, provide a concrete attack scenario with:
-1. Attacker's payload
-2. Step-by-step exploitation
-3. Expected impact
-4. Detailed remediation code"
-```
-
----
-
-## Common Template Mistakes
-
-### Mistake 1: Too Little Context
-
-**Problem:**
-```bash
-gemini -p "Review @./app.js"
-```
-
-**Solution:**
-```bash
-gemini -p "Security review for Express.js REST API.
-
-@./app.js
-
-Application Context:
-- User authentication and profile management
-- Handles sensitive PII data
-- 50K daily active users
-- SOC2 compliance required
-
-Focus on:
-- OWASP Top 10 vulnerabilities
-- Input validation
-- Authentication/authorization
-- Data exposure risks
-
-Provide severity levels and remediation priority."
-```
-
-### Mistake 2: Vague Review Focus
-
-**Problem:**
-```
-Review Focus: Make it better
-```
-
-**Solution:**
-```
-Review Focus:
-1. N+1 query patterns in ORM usage
-2. Missing database indexes for common queries
-3. Inefficient algorithm complexity (> O(n log n))
-4. Caching opportunities for frequently accessed data
-5. Synchronous operations that could be async
-```
-
-### Mistake 3: No Performance Baseline
-
-**Problem:**
-```
-Optimize this code for better performance.
-```
-
-**Solution:**
-```
-Current Performance:
-- Average response time: 850ms
-- p95: 1,400ms
-- Memory usage: 450MB per request
-
-Target Performance:
-- Average response time: < 200ms
-- p95: < 400ms
-- Memory usage: < 100MB per request
-
-Bottlenecks identified:
-- Database query takes 600ms (EXPLAIN shows full table scan)
-- JSON serialization takes 150ms (2MB response)
-- No caching (same data fetched on every request)
-```
-
-### Mistake 4: Missing Technology Context
-
-**Problem:**
-```
-Review this database design.
-```
-
-**Solution:**
-```
-Database Design Review
-
-Technology Stack:
-- Database: PostgreSQL 15
-- ORM: Prisma
-- Expected scale: 10M rows in orders table
-- Read/write ratio: 80/20
-- Latency requirement: < 100ms for queries
-- Infrastructure: GCP Cloud SQL with 4 vCPU, 16GB RAM
-```
-
-### Mistake 5: No Output Format Specification
-
-**Problem:**
-```
-Expected Output: Analysis
-```
-
-**Solution:**
-```
-Expected Output Format:
-
-## Executive Summary
-[2-3 sentence overview of findings]
-
-## Vulnerabilities
-| Severity | Vulnerability | Location | Attack Vector | Remediation |
-|----------|--------------|----------|---------------|-------------|
-
-## Detailed Analysis
-[For each vulnerability:]
-- Description
-- Code snippet showing issue
-- Attack scenario
-- Remediation steps
-- Code example of fix
-
-## Recommendations by Priority
-### High Priority (Implement This Sprint)
-### Medium Priority (Next 2 Sprints)
-### Low Priority (Backlog)
-
-## Trade-offs and Considerations
-```
-
----
-
-## Template Iteration Workflow
-
-### Step 1: Start with Base Template
-
-```bash
-# Use template as-is for first review
-gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
-[ARCHITECTURE REVIEW: Microservices System]
-[filled template]
+- Attack vector analysis
+- Best practice compliance
+- Missing security controls
+
+Expected Output: Prioritized vulnerabilities with severity, attack vectors, and remediation recommendations
 EOF
 )"
 ```
 
-### Step 2: Analyze Initial Response
+---
 
-Review the output for:
-- Depth of analysis
-- Specificity of recommendations
-- Relevance to your concerns
-- Missing areas
+## Tips for Using Templates
 
-### Step 3: Refine with Follow-up
+### Customization
 
-```bash
-# Request more detail on specific areas
-gemini -p "Provide more detail on the data consistency concern.
+1. **Be Specific:** Replace bracketed placeholders with actual details
+2. **Add Context:** Include relevant constraints and requirements
+3. **Focus Questions:** Tailor "Review Focus" to your specific concerns
+4. **Set Expectations:** Clearly state what format/detail you need in output
 
-Specifically:
-1. Compare Saga pattern vs 2-phase commit for our use case
-2. Show code example of Saga implementation for order/inventory
-3. Analyze failure scenarios and recovery mechanisms
-4. Estimate implementation effort and risks"
+### Common Mistakes
+
+**Too Vague:**
+```
+System: Web app
+Question: Is it good?
 ```
 
-### Step 4: Request Alternative Formats
-
-```bash
-# Get structured output
-gemini -p "Convert the previous analysis to a decision matrix table comparing:
-
-| Approach | Consistency | Performance | Complexity | Risk | Recommended |
-|----------|-------------|-------------|------------|------|-------------|"
+**Better:**
+```
+System: E-commerce checkout flow processing 10K orders/day
+Question: Review for payment security, data consistency during order processing, and scalability to 50K orders/day
 ```
 
-### Step 5: Generate Actionable Artifacts
+### Iteration
 
-```bash
-# Create implementation tickets
-gemini -p "Based on the architecture review, generate:
-
-1. GitHub issue template for each high-priority recommendation
-2. Technical design document outline for data consistency solution
-3. Test plan for validating the improvements
-4. Migration plan with rollback strategy"
-```
-
-### Step 6: Continuous Improvement
-
-Save your refined templates:
-
-```bash
-# Save successful template variations
-mkdir -p ~/.gemini-templates
-cat > ~/.gemini-templates/architecture-review-v2.md <<'EOF'
-[Your refined template based on successful reviews]
-EOF
-```
+If first response isn't satisfactory:
+1. Add more specific context
+2. Narrow or broaden the question
+3. Clarify what output format you need
+4. Provide example of what you're looking for
 
 ---
 
-## Advanced Tips
-
-### Use Session Memory for Context
-
-```bash
-# Start interactive session with project context
-gemini -i "Project context:
-- Node.js microservices on GCP
-- PostgreSQL + Redis
-- 100K DAU, 10K orders/day
-- Team: 5 developers, 6-month timeline
-- Focus: Scale to 50K orders/day
-
-I'll be asking for multiple reviews using this context."
-
-# Then use templates without repeating context
-gemini> [paste architecture review template - context already loaded]
-gemini> [paste security review template - context already loaded]
-```
-
-### Combine Multiple Templates
-
-```bash
-gemini --model gemini-2.5-pro -p "Comprehensive review combining:
-
-1. Architecture Review
-@./docs/architecture.md
-
-2. Security Review
-@./src/auth/
-
-3. Performance Analysis
-@./src/api/
-
-For each area, provide:
-- Risk assessment
-- Prioritized recommendations
-- Quick wins vs strategic improvements
-- Estimated effort and impact"
-```
-
-### Use JSON Output for Automation
-
-```bash
-# Get structured JSON output
-gemini --output-format json -p "Security review with JSON output.
-
-@./src/auth/
-
-Output format:
-{
-  \"vulnerabilities\": [
-    {
-      \"severity\": \"High|Medium|Low\",
-      \"title\": \"...\",
-      \"description\": \"...\",
-      \"location\": \"file:line\",
-      \"remediation\": \"...\"
-    }
-  ],
-  \"summary\": {
-    \"total\": 0,
-    \"critical\": 0,
-    \"high\": 0,
-    \"medium\": 0,
-    \"low\": 0
-  }
-}"
-```
-
-### Integrate with CI/CD
-
-```python
-#!/usr/bin/env python3
-"""
-security-review.py - Automated security review in CI/CD
-"""
-import google.generativeai as genai
-import os
-import json
-import sys
-
-genai.configure(api_key=os.environ['GEMINI_API_KEY'])
-model = genai.GenerativeModel('gemini-2.5-pro')
-
-# Read files to review
-changed_files = sys.argv[1:] if len(sys.argv) > 1 else []
-
-files_content = {}
-for file_path in changed_files:
-    with open(file_path, 'r') as f:
-        files_content[file_path] = f.read()
-
-# Build prompt
-files_section = "\n\n".join([
-    f"File: {path}\n```\n{content}\n```"
-    for path, content in files_content.items()
-])
-
-prompt = f"""
-[SECURITY REVIEW: Code Changes]
-
-Files Changed:
-{files_section}
-
-Review Focus:
-- OWASP Top 10 vulnerabilities
-- Input validation
-- Authentication/authorization
-- Sensitive data exposure
-- Security misconfigurations
-
-Output JSON format:
-{{
-  "has_vulnerabilities": true/false,
-  "vulnerabilities": [
-    {{
-      "severity": "Critical|High|Medium|Low",
-      "file": "path",
-      "line": 0,
-      "title": "...",
-      "description": "...",
-      "remediation": "..."
-    }}
-  ],
-  "block_merge": true/false
-}}
-"""
-
-response = model.generate_content(prompt)
-
-# Parse JSON from response
-# Handle Gemini's JSON in markdown code blocks
-response_text = response.text
-if "```json" in response_text:
-    json_str = response_text.split("```json")[1].split("```")[0].strip()
-else:
-    json_str = response_text
-
-result = json.loads(json_str)
-
-# Print results
-print(json.dumps(result, indent=2))
-
-# Exit with error if critical/high vulnerabilities found
-if result.get('block_merge', False):
-    print("\n❌ Security vulnerabilities found. Blocking merge.", file=sys.stderr)
-    sys.exit(1)
-else:
-    print("\n✅ No blocking security issues found.")
-    sys.exit(0)
-```
-
----
-
-These templates provide battle-tested starting points for effective peer review with Gemini. Customize them for your specific needs and context, and iterate based on results to develop your own refined template library.
+These templates provide starting points for effective peer review. Customize them for your specific needs and context.
