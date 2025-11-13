@@ -1,6 +1,22 @@
 # Context Preparation for Gemini Peer Review
 
-Effective peer review depends on providing Gemini with clear, focused context. This guide covers what to include, how to frame questions, and how to leverage Gemini's unique capabilities for the best results.
+Effective peer review depends on providing Gemini with clear, focused context. This guide covers what to include, how to frame questions, and how to leverage Gemini's unique capabilities using the Gemini CLI.
+
+---
+
+## Installation
+
+Install the Gemini CLI globally:
+
+```bash
+npm install -g @google/genai-cli
+```
+
+Configure your API key:
+
+```bash
+export GEMINI_API_KEY="your-api-key-here"
+```
 
 ---
 
@@ -47,7 +63,7 @@ Effective peer review depends on providing Gemini with clear, focused context. T
 - Don't fear providing comprehensive file sets
 
 **Multimodal Capabilities:**
-- Include architecture diagrams as images
+- Include architecture diagrams as images (`gemini --image diagram.png`)
 - Reference design mockups (PNG, JPG)
 - Attach specification PDFs
 - Screenshots of UI issues
@@ -63,7 +79,9 @@ Effective peer review depends on providing Gemini with clear, focused context. T
 
 ### Template 1: Architecture Review
 
-```
+```bash
+# CLI invocation with multimodal support
+gemini --image ./architecture-diagram.png -p "$(cat <<'EOF'
 [ARCHITECTURE REVIEW REQUEST]
 
 System Purpose: [What the system does]
@@ -75,12 +93,11 @@ Key Components:
 - [Component 2: purpose, technology]
 - [Component 3: purpose, technology]
 
-Architecture Diagram: [Attach image or describe]
-@./architecture-diagram.png
+Architecture Diagram: See attached image
 
 Code Structure:
-@./src/services/
-@./src/api/
+$(find ./src/services -type f -name "*.ts" | head -20)
+$(find ./src/api -type f -name "*.ts" | head -20)
 
 Key Design Decisions:
 1. [Decision 1: what and why]
@@ -101,15 +118,19 @@ Please analyze:
 - Alternative approaches using current best practices
 
 Expected Output: Risk assessment and improvement recommendations
+EOF
+)"
 ```
 
-**Gemini Advantage:** With 1M token context, include entire service directories without worrying about token limits. Attach architecture diagrams as images for visual analysis.
+**Gemini Advantage:** With 1M token context, include entire service directories without worrying about token limits. Attach architecture diagrams as images for visual analysis using `--image` flag.
 
 ---
 
 ### Template 2: Design Decision
 
-```
+```bash
+# CLI invocation with search grounding
+gemini -p "$(cat <<'EOF'
 [DESIGN DECISION VALIDATION]
 
 Decision Point: [What needs to be decided]
@@ -152,6 +173,8 @@ Additional Context:
 Question: Which option is recommended given these criteria? What trade-offs are most significant?
 
 Expected Output: Comparative analysis and recommendation with rationale, including industry current practices
+EOF
+)"
 ```
 
 **Gemini Advantage:** Can search current best practices and latest framework releases to inform recommendations. Ask it to ground decisions in real-time information.
@@ -160,7 +183,9 @@ Expected Output: Comparative analysis and recommendation with rationale, includi
 
 ### Template 3: Security Review
 
-```
+```bash
+# CLI invocation for security analysis
+gemini -p "$(cat <<'EOF'
 [SECURITY REVIEW REQUEST]
 
 Code Purpose: [What this code does]
@@ -168,8 +193,9 @@ Sensitivity: [Data handled, access level, compliance requirements]
 Threat Model: [Known threats or attack vectors]
 
 Code for Review:
-@./src/auth/jwt-handler.ts
-@./src/middleware/auth-middleware.ts
+$(cat ./src/auth/jwt-handler.ts)
+
+$(cat ./src/middleware/auth-middleware.ts)
 
 Security Concerns:
 - [Concern 1: authentication, authorization, etc.]
@@ -192,6 +218,8 @@ Review Focus:
 - Data exposure paths
 
 Expected Output: Prioritized security issues with severity levels and remediation recommendations
+EOF
+)"
 ```
 
 **Gemini Advantage:** Request latest OWASP guidelines and current security best practices. Gemini can search for recently discovered vulnerabilities in dependencies.
@@ -200,7 +228,9 @@ Expected Output: Prioritized security issues with severity levels and remediatio
 
 ### Template 4: Performance Analysis
 
-```
+```bash
+# CLI invocation with profiling data
+gemini --image ./profiling-flame-graph.png -p "$(cat <<'EOF'
 [PERFORMANCE ANALYSIS REQUEST]
 
 System Context: [What this code does in the larger system]
@@ -209,11 +239,14 @@ Performance Requirements: [Target metrics]
 Scale: [Expected load, data volume]
 
 Code for Analysis:
-@./src/api/query-handler.ts
-@./src/database/repositories/
+$(cat ./src/api/query-handler.ts)
 
-Profiling Data: [If available]
-@./profiling-report.txt
+$(find ./src/database/repositories -type f -name "*.ts" -exec cat {} \;)
+
+Profiling Data:
+$(cat ./profiling-report.txt)
+
+Flame Graph: See attached image
 
 Current Metrics:
 - Latency: [current vs target]
@@ -242,15 +275,19 @@ Additional Request:
 - Compare with industry benchmarks
 
 Expected Output: Prioritized optimization recommendations with complexity/impact assessment
+EOF
+)"
 ```
 
-**Gemini Advantage:** Can analyze large profiling outputs and search for current optimization techniques specific to your stack.
+**Gemini Advantage:** Can analyze large profiling outputs and search for current optimization techniques specific to your stack. Use `--image` for flame graphs.
 
 ---
 
 ### Template 5: Testing Strategy
 
-```
+```bash
+# CLI invocation for test strategy review
+gemini -p "$(cat <<'EOF'
 [TESTING STRATEGY REVIEW]
 
 Code/Feature Under Test: [What's being tested]
@@ -258,12 +295,14 @@ Current Test Coverage: [Percentage, what's covered]
 Test Types: [Unit, integration, e2e currently used]
 
 Code Structure:
-@./src/features/payment-processing/
-@./tests/payment-processing/
+$(find ./src/features/payment-processing -type f -name "*.ts")
+
+$(find ./tests/payment-processing -type f -name "*.test.ts")
 
 Current Tests:
-@./tests/unit/payment-handler.test.ts
-@./tests/integration/checkout-flow.test.ts
+$(cat ./tests/unit/payment-handler.test.ts)
+
+$(cat ./tests/integration/checkout-flow.test.ts)
 
 Testing Concerns:
 - [Concern 1: coverage gaps, brittle tests, etc.]
@@ -289,6 +328,8 @@ Additional Request:
 - Recommend modern testing tools if applicable
 
 Expected Output: Testing improvement plan with prioritized recommendations
+EOF
+)"
 ```
 
 **Gemini Advantage:** With large context window, can analyze entire test suites and production code together. Can search for latest testing frameworks and patterns.
@@ -297,15 +338,18 @@ Expected Output: Testing improvement plan with prioritized recommendations
 
 ### Template 6: Code Review & Learning
 
-```
+```bash
+# CLI invocation for learning with visual aids
+gemini --image ./flow-diagram.png --image ./class-structure.png -p "$(cat <<'EOF'
 [CODE REVIEW FOR LEARNING]
 
 Code Context: [Where this code comes from, what it does]
 Learning Goal: [What you want to understand]
 
 Code for Review:
-@./src/advanced-feature/
-@./lib/custom-implementation.ts
+$(find ./src/advanced-feature -type f -name "*.ts" -exec cat {} \;)
+
+$(cat ./lib/custom-implementation.ts)
 
 Specific Questions:
 1. [Question 1: What pattern is being used here?]
@@ -318,9 +362,7 @@ Background:
 - What's unclear: [Specific confusing parts]
 - What I've tried: [Previous attempts to understand]
 
-Visual Aids (if applicable):
-@./flow-diagram.png
-@./class-structure.png
+Visual Aids: See attached diagrams
 
 Additional Request:
 - Explain in terms accessible to someone with [experience level]
@@ -328,6 +370,8 @@ Additional Request:
 - Compare with how this is typically done in [current year]
 
 Expected Output: Clear explanation of patterns, design decisions, potential concerns, and modern alternatives
+EOF
+)"
 ```
 
 **Gemini Advantage:** Multimodal capability means you can include diagrams you've sketched. Can search for current tutorials and documentation.
@@ -336,17 +380,19 @@ Expected Output: Clear explanation of patterns, design decisions, potential conc
 
 ### Template 7: Refactoring Review
 
-```
+```bash
+# CLI invocation for refactoring review
+gemini -p "$(cat <<'EOF'
 [REFACTORING REVIEW REQUEST]
 
 Refactoring Goal: [What you're trying to improve]
 Current Issues: [Technical debt, complexity, performance, etc.]
 
 Before Code:
-@./src/legacy/old-implementation.js
+$(cat ./src/legacy/old-implementation.js)
 
 Proposed Refactoring:
-@./src/refactored/new-implementation.ts
+$(cat ./src/refactored/new-implementation.ts)
 
 Refactoring Approach:
 - [Change 1: pattern used, rationale]
@@ -371,6 +417,8 @@ Additional Request:
 - Suggest modern alternatives if this approach is outdated
 
 Expected Output: Assessment of refactoring approach, identified risks, alternative suggestions
+EOF
+)"
 ```
 
 **Gemini Advantage:** Can compare old and new implementations with full context, search for current refactoring patterns, and suggest modern alternatives.
@@ -382,16 +430,57 @@ Expected Output: Assessment of refactoring approach, identified risks, alternati
 ### Question Quality Spectrum
 
 **Excellent questions (specific, actionable):**
-- "Review this microservices architecture @./architecture.png. Are service boundaries well-defined considering domain-driven design principles? Check against current DDD best practices."
-- "Compare these three caching strategies @./cache-redis.ts @./cache-memory.ts @./cache-cdn.ts for our image serving use case. Consider memory overhead, cache invalidation, and cold-start performance. Search for latest caching patterns."
-- "Security review this JWT flow @./auth/jwt.ts. Focus on token expiration, refresh handling, session management. Check against latest OWASP JWT guidelines."
+```bash
+# Architecture review with diagram
+gemini --image ./architecture.png -p "Review this microservices architecture. Are service boundaries well-defined considering domain-driven design principles? Check against current DDD best practices."
+
+# Caching strategy comparison
+gemini -p "$(cat <<'EOF'
+Compare these three caching strategies for our image serving use case:
+$(cat ./cache-redis.ts)
+$(cat ./cache-memory.ts)
+$(cat ./cache-cdn.ts)
+
+Consider memory overhead, cache invalidation, and cold-start performance. Search for latest caching patterns.
+EOF
+)"
+
+# Security review
+gemini -p "$(cat <<'EOF'
+Security review this JWT flow:
+$(cat ./auth/jwt.ts)
+
+Focus on token expiration, refresh handling, session management. Check against latest OWASP JWT guidelines.
+EOF
+)"
+```
 
 **Good questions (clear focus, could be more specific):**
-- "Is this architecture scalable?"
-  - Better: "Will this architecture @./services/ scale to 10K concurrent users with sub-100ms latency? What bottlenecks exist?"
+```bash
+# Vague
+gemini -p "Is this architecture scalable?"
 
-- "Review this code for performance"
-  - Better: "Identify performance bottlenecks in @./query-handler.ts that currently takes 500ms. Focus on N+1 queries and database indexing."
+# Better - specific with context
+gemini -p "$(cat <<'EOF'
+Will this architecture scale to 10K concurrent users with sub-100ms latency?
+$(find ./src/services -type f -name "*.ts" -exec cat {} \;)
+
+What bottlenecks exist?
+EOF
+)"
+
+# Vague
+gemini -p "Review this code for performance"
+
+# Better - specific metrics and focus
+gemini -p "$(cat <<'EOF'
+Identify performance bottlenecks in this query handler that currently takes 500ms:
+$(cat ./query-handler.ts)
+
+Focus on N+1 queries and database indexing.
+EOF
+)"
+```
 
 **Poor questions (vague, unanswerable):**
 - "Is this code good?" → What aspect? What criteria?
@@ -402,12 +491,16 @@ Expected Output: Assessment of refactoring approach, identified risks, alternati
 ### Question Framing Patterns
 
 **For architecture review:**
-```
+```bash
+gemini --image ./architecture-diagram.png -p "$(cat <<'EOF'
 Review this architecture focusing on [specific concerns].
 
 Context: [scale, requirements, constraints]
-Architecture: @./architecture-diagram.png
-Code: @./src/services/
+
+Architecture: See attached diagram
+
+Code:
+$(find ./src/services -type f -name "*.ts" -exec cat {} \;)
 
 Key decisions: [decision 1], [decision 2], [decision 3]
 
@@ -416,15 +509,22 @@ Specific questions:
 - What risks exist for [concern 2: scalability, reliability, etc.]?
 - What are current industry best practices for [architectural choice]?
 - Are there better alternatives using modern approaches?
+EOF
+)"
 ```
 
 **For design decisions:**
-```
+```bash
+gemini -p "$(cat <<'EOF'
 Compare these approaches for [specific use case].
 
 Context: [requirements, constraints]
-Option A: @./approach-a/
-Option B: @./approach-b/
+
+Option A:
+$(find ./approach-a -type f -exec cat {} \;)
+
+Option B:
+$(find ./approach-b -type f -exec cat {} \;)
 
 Evaluation criteria: [criterion 1], [criterion 2], [criterion 3]
 
@@ -434,13 +534,18 @@ Which approach is preferable considering:
 - Latest framework capabilities
 
 What are the most significant trade-offs?
+EOF
+)"
 ```
 
 **For security review:**
-```
+```bash
+gemini -p "$(cat <<'EOF'
 Security review [component] focusing on [specific threats].
 
-Code: @./security-critical/
+Code:
+$(find ./security-critical -type f -exec cat {} \;)
+
 Threats: [threat 1], [threat 2], [threat 3]
 Compliance: [requirements]
 
@@ -449,32 +554,43 @@ Questions:
 - How could an attacker exploit [attack vector]?
 - What hardening opportunities exist?
 - Does this comply with latest [OWASP/other] guidelines?
+EOF
+)"
 ```
 
 **For performance:**
-```
+```bash
+gemini -p "$(cat <<'EOF'
 Analyze performance of [component].
 
 Current metrics: [performance data]
 Target: [performance requirements]
 Scale: [expected load]
 
-Code: @./performance-critical/
-Profiling: @./profile-output.txt
+Code:
+$(find ./performance-critical -type f -exec cat {} \;)
+
+Profiling:
+$(cat ./profile-output.txt)
 
 Questions:
 - What are the bottlenecks?
 - What optimization approaches are most impactful?
 - What are current best practices for optimizing [specific operation]?
 - Trade-offs in optimization strategies?
+EOF
+)"
 ```
 
 **For learning:**
-```
+```bash
+gemini --image ./flow-chart.png -p "$(cat <<'EOF'
 Explain [code/pattern] in terms accessible to [experience level].
 
-Code: @./complex-implementation/
-Diagrams: @./flow-chart.png
+Code:
+$(find ./complex-implementation -type f -exec cat {} \;)
+
+Diagrams: See attached image
 
 Background: [what you know, what's confusing]
 
@@ -483,6 +599,8 @@ Questions:
 - How does this compare to standard approaches?
 - What are modern alternatives?
 - Where can I learn more? (search for resources)
+EOF
+)"
 ```
 
 ---
@@ -531,53 +649,77 @@ Questions:
 ### Providing File Structure
 
 **When reviewing architecture:**
-```
+```bash
+gemini --image ./docs/architecture.png -p "$(cat <<'EOF'
 Project Structure:
-@./README.md
+$(cat ./README.md)
 
 src/
 ├── api/
 │   ├── handlers/
-│   │   @./src/api/handlers/
+$(find ./src/api/handlers -type f -name "*.ts" | sed 's/^/│   │   /')
 │   ├── middleware/
-│   │   @./src/api/middleware/
+$(find ./src/api/middleware -type f -name "*.ts" | sed 's/^/│   │   /')
 │   └── routes.ts
-│       @./src/api/routes.ts
 ├── services/
-│   @./src/services/
+$(find ./src/services -type f -name "*.ts" | sed 's/^/│   /')
 ├── data/
-│   @./src/data/
+$(find ./src/data -type f -name "*.ts" | sed 's/^/│   /')
 └── shared/
-    @./src/shared/
+$(find ./src/shared -type f -name "*.ts" | sed 's/^/    /')
 
-Architecture: @./docs/architecture.png
+Architecture: See attached diagram
 
 Key files for review:
-- Order processing: @./src/api/handlers/order-handler.ts
-- Business logic: @./src/services/order-service.ts
-- Data access: @./src/data/repositories/order-repo.ts
+
+Order processing:
+$(cat ./src/api/handlers/order-handler.ts)
+
+Business logic:
+$(cat ./src/services/order-service.ts)
+
+Data access:
+$(cat ./src/data/repositories/order-repo.ts)
+EOF
+)"
 ```
 
 ### Including Visual Assets
 
 **Architecture diagrams:**
-```
-System Architecture: @./docs/architecture-diagram.png
-Database Schema: @./docs/database-erd.png
-Sequence Flow: @./docs/auth-sequence.png
+```bash
+# Multiple diagrams for comprehensive review
+gemini --image ./docs/architecture-diagram.png \
+       --image ./docs/database-erd.png \
+       --image ./docs/auth-sequence.png \
+       -p "Review this system architecture focusing on service boundaries and data flow. See attached diagrams."
 ```
 
 **UI/Design review:**
-```
-Current UI: @./screenshots/current-ui.png
-Proposed Design: @./designs/new-mockup.png
-User Flow: @./designs/user-journey.pdf
+```bash
+# UI comparison with mockups
+gemini --image ./screenshots/current-ui.png \
+       --image ./designs/new-mockup.png \
+       --image ./designs/user-journey.pdf \
+       -p "$(cat <<'EOF'
+Compare current UI with proposed design.
+Focus on usability improvements and visual consistency.
+User flow diagram shows the expected interaction pattern.
+EOF
+)"
 ```
 
 **Performance data:**
-```
-Profiling Output: @./profiling/flame-graph.png
-Metrics Dashboard: @./monitoring/performance-screenshot.png
+```bash
+# Profiling visualization with data
+gemini --image ./profiling/flame-graph.png \
+       --image ./monitoring/performance-screenshot.png \
+       -p "$(cat <<'EOF'
+Analyze these performance metrics and identify bottlenecks.
+Flame graph shows CPU profiling data.
+Dashboard shows real-time metrics under load.
+EOF
+)"
 ```
 
 ---
@@ -682,8 +824,11 @@ Even with 1M tokens, focused context yields better results:
 ### Optimization Strategies
 
 **Use .geminiignore:**
-```
-# Exclude from context
+
+Create a `.geminiignore` file in your project root to exclude unnecessary files:
+
+```bash
+# .geminiignore
 node_modules/
 dist/
 build/
@@ -691,23 +836,36 @@ build/
 *.map
 coverage/
 .git/
+*.log
+.env
+```
+
+Then when using `find` commands, respect the ignore file:
+
+```bash
+# Exclude ignored paths
+gemini -p "$(cat <<'EOF'
+Review all services for authentication vulnerabilities:
+$(find ./services -type f -name "*.ts" ! -path "*/node_modules/*" ! -path "*/dist/*" -exec cat {} \;)
+EOF
+)"
 ```
 
 **Focus with specific questions despite large context:**
-```
-Good:
-"Review all services @./services/ for authentication vulnerabilities"
+```bash
+# Good - specific concern
+gemini -p "$(cat <<'EOF'
+Review all services for authentication vulnerabilities:
+$(find ./services -type f -name "*.ts" -exec cat {} \;)
+EOF
+)"
 
-Not as good:
-"Review all services @./services/ and tell me about them"
-```
-
-**Leverage compression for long sessions:**
-```
-# In Gemini CLI
-gemini> /compress
-
-# Saves tokens while preserving key context
+# Not as good - unfocused
+gemini -p "$(cat <<'EOF'
+Review all services and tell me about them:
+$(find ./services -type f -name "*.ts" -exec cat {} \;)
+EOF
+)"
 ```
 
 ### When Context is Still Too Large
@@ -814,12 +972,20 @@ Before invoking Gemini peer review, verify:
 - Focus the analysis direction
 
 **Example:**
-```
-Poor:
-"Review everything in @./entire-codebase/"
+```bash
+# Poor - unfocused
+gemini -p "$(cat <<'EOF'
+Review everything:
+$(find ./entire-codebase -type f -exec cat {} \;)
+EOF
+)"
 
-Better:
-"Review all authentication code in @./entire-codebase/ for security vulnerabilities and compliance with latest OWASP guidelines"
+# Better - specific security focus
+gemini -p "$(cat <<'EOF'
+Review all authentication code for security vulnerabilities and compliance with latest OWASP guidelines:
+$(find ./entire-codebase -type f -name "*auth*" -exec cat {} \;)
+EOF
+)"
 ```
 
 ---
@@ -833,18 +999,21 @@ Better:
 **Fix:** Always include key constraints and limitations
 
 **Example:**
-```
-Poor:
-"What's the best database?"
+```bash
+# Poor - no constraints
+gemini -p "What's the best database?"
 
-Better:
-"What's the best database for:
+# Better - specific constraints
+gemini -p "$(cat <<'EOF'
+What's the best database for:
 - 10M daily transactions
 - Strong consistency required
 - Team expertise: PostgreSQL
 - Budget: $5K/month
 - Must deploy on AWS
-- Check current performance benchmarks"
+- Check current performance benchmarks
+EOF
+)"
 ```
 
 ---
@@ -888,12 +1057,12 @@ Better:
 **Fix:** Attach architecture diagrams, UI screenshots, PDFs directly
 
 **Example:**
-```
-Poor:
-"The architecture has an API gateway that routes to three services..."
+```bash
+# Poor - text description
+gemini -p "The architecture has an API gateway that routes to three services..."
 
-Better:
-"Review this architecture @./architecture-diagram.png focusing on service boundaries"
+# Better - attach diagram
+gemini --image ./architecture-diagram.png -p "Review this architecture focusing on service boundaries"
 ```
 
 ---
@@ -907,9 +1076,15 @@ Better:
 **Fix:** Explicitly request current information when relevant
 
 **Example:**
-```
-Enhanced:
-"Review this React component and compare against current React 19 best practices (search for latest patterns)"
+```bash
+# Enhanced - request current best practices
+gemini -p "$(cat <<'EOF'
+Review this React component:
+$(cat ./component.tsx)
+
+Compare against current React 19 best practices (search for latest patterns).
+EOF
+)"
 ```
 
 ---
@@ -961,21 +1136,25 @@ If initial peer review isn't satisfactory:
 
 ### Example 1: Architecture Review with Multimodal Context
 
-```
+```bash
+# CLI invocation with multimodal context and comprehensive codebase
+gemini --image ./docs/architecture-diagram.png \
+       --image ./docs/database-schema.png \
+       -p "$(cat <<'EOF'
 [ARCHITECTURE REVIEW: Multi-Tenant SaaS Platform]
 
 System Purpose: B2B project management SaaS
 Scale: 100-500 tenant organizations, 50-5K users per tenant
 Stage: Greenfield design
 
-Visual Architecture:
-@./docs/architecture-diagram.png
-@./docs/database-schema.png
+Visual Architecture: See attached diagrams
 
 Complete Service Code:
-@./src/services/
-@./src/api/
-@./src/data/
+$(find ./src/services -type f -exec cat {} \;)
+
+$(find ./src/api -type f -exec cat {} \;)
+
+$(find ./src/data -type f -exec cat {} \;)
 
 Key Components:
 - API Gateway (Kong) → routes requests, enforces rate limits
@@ -991,14 +1170,18 @@ Option A: Shared database with row-level security (RLS)
 - tenant_id column on all tables
 - Row-level security policies enforce tenant isolation
 - Shared connection pool
-- Implementation: @./prototypes/rls-approach/
+
+Implementation:
+$(find ./prototypes/rls-approach -type f -exec cat {} \;)
 
 Option B: Separate database per tenant
 - PostgreSQL database created per tenant
 - Complete data isolation at DB level
 - Connection pooling per tenant
 - Database provisioning automation required
-- Implementation: @./prototypes/db-per-tenant/
+
+Implementation:
+$(find ./prototypes/db-per-tenant -type f -exec cat {} \;)
 
 Context:
 - Strong data isolation requirements (handling sensitive project data)
@@ -1030,11 +1213,13 @@ Expected Output:
 - Implementation considerations
 - Comparison with current industry practices
 - Alternative or hybrid approaches
+EOF
+)"
 ```
 
 **Why this is good:**
-- Includes architecture diagram for visual understanding
-- Provides complete code context (leverages 1M window)
+- Includes architecture diagrams via `--image` flags for visual understanding
+- Provides complete code context using `find` and `cat` (leverages 1M window)
 - Includes prototype implementations for both options
 - Specifies constraints clearly
 - Requests search for current practices
@@ -1045,24 +1230,28 @@ Expected Output:
 
 ### Example 2: Security Review with Compliance Requirements
 
-```
+```bash
+# CLI invocation with PDFs and multimodal compliance review
+gemini --image ./docs/auth-sequence-diagram.png \
+       --image ./docs/security-requirements.pdf \
+       --image ./docs/pci-dss-checklist.pdf \
+       -p "$(cat <<'EOF'
 [SECURITY REVIEW: JWT Authentication Implementation]
 
 System: REST API for financial data aggregation
 Sensitivity: OAuth tokens, financial account credentials, PII
 Compliance: SOC2, PCI DSS requirements
 
-Authentication Flow Diagram:
-@./docs/auth-sequence-diagram.png
+Authentication Flow Diagram: See attached sequence diagram
 
 Complete Implementation:
-@./src/auth/
-@./src/middleware/auth/
-@./config/jwt-config.ts
+$(find ./src/auth -type f -exec cat {} \;)
 
-Specification Documents:
-@./docs/security-requirements.pdf
-@./docs/pci-dss-checklist.pdf
+$(find ./src/middleware/auth -type f -exec cat {} \;)
+
+$(cat ./config/jwt-config.ts)
+
+Specification Documents: See attached PDFs
 
 Authentication Flow:
 1. User logs in with email/password
@@ -1072,12 +1261,17 @@ Authentication Flow:
 5. On expiry, client uses refresh token to get new access token
 
 Current Implementation:
-@./src/auth/token-generator.ts
-@./src/auth/token-validator.ts
-@./src/auth/refresh-handler.ts
+Token Generator:
+$(cat ./src/auth/token-generator.ts)
+
+Token Validator:
+$(cat ./src/auth/token-validator.ts)
+
+Refresh Handler:
+$(cat ./src/auth/refresh-handler.ts)
 
 Database Schema:
-@./src/data/models/refresh-tokens.ts
+$(cat ./src/data/models/refresh-tokens.ts)
 
 Specific Security Concerns:
 - Token storage (refresh tokens in database, access tokens client-side)
@@ -1118,12 +1312,14 @@ Expected Output:
 - Remediation recommendations with code examples
 - Compliance gap analysis
 - Modern security patterns for financial APIs
+EOF
+)"
 ```
 
 **Why this is good:**
-- Includes sequence diagram for flow understanding
-- Provides complete auth implementation
-- References compliance documents as PDFs
+- Includes sequence diagram via `--image` for flow understanding
+- Provides complete auth implementation using `cat` and `find`
+- References compliance documents as PDFs via `--image`
 - Specific threat model and concerns
 - Requests latest security guidelines via search
 - Clear compliance requirements
@@ -1133,7 +1329,10 @@ Expected Output:
 
 ### Example 3: Performance Analysis with Profiling Data
 
-```
+```bash
+# CLI invocation with profiling visualizations and comprehensive data
+gemini --image ./profiling/flame-graph.png \
+       -p "$(cat <<'EOF'
 [PERFORMANCE ANALYSIS: Query Handler Optimization]
 
 System Context: E-commerce product search and filtering API
@@ -1153,21 +1352,28 @@ Scale:
 - 500 req/sec average, 2K req/sec peak
 
 Complete Implementation:
-@./src/api/handlers/search-handler.ts
-@./src/services/search-service.ts
-@./src/data/repositories/product-repository.ts
-@./src/data/models/
+$(cat ./src/api/handlers/search-handler.ts)
+
+$(cat ./src/services/search-service.ts)
+
+$(cat ./src/data/repositories/product-repository.ts)
+
+$(find ./src/data/models -type f -exec cat {} \;)
 
 Database Schema:
-@./database/schema.sql
+$(cat ./database/schema.sql)
 
 Profiling Data:
-@./profiling/flame-graph.png
-@./profiling/query-analysis.txt
-@./profiling/trace-output.json
+Flame Graph: See attached image
+
+Query Analysis:
+$(cat ./profiling/query-analysis.txt)
+
+Trace Output:
+$(cat ./profiling/trace-output.json)
 
 Example Slow Queries:
-@./profiling/slow-queries.sql
+$(cat ./profiling/slow-queries.sql)
 
 Infrastructure:
 - PostgreSQL 15 on AWS RDS (db.r6g.2xlarge)
@@ -1213,42 +1419,57 @@ Expected Output:
 - Architecture improvement suggestions
 - Industry benchmark comparison
 - Expected performance gains per recommendation
+EOF
+)"
 ```
 
 **Why this is good:**
-- Includes profiling visualizations and data
-- Provides complete code and database schema
+- Includes profiling flame graph via `--image` for visualization
+- Provides complete code and database schema using `cat`
 - Clear performance targets and current metrics
 - Specific constraints and budget
 - Requests industry benchmarks via search
-- Comprehensive context for deep analysis
+- Comprehensive context for deep analysis (leverages 1M window)
 
 ---
 
 ### Example 4: Code Learning with Visual Context
 
-```
+```bash
+# CLI invocation with hand-drawn diagrams and screenshots
+gemini --image ./diagrams/state-flow.png \
+       --image ./screenshots/devtools-state.png \
+       -p "$(cat <<'EOF'
 [CODE REVIEW FOR LEARNING: Advanced React Pattern]
 
 Code Context: Internal state management library found in production codebase
 Learning Goal: Understand the pattern, why it was chosen, and if it's still appropriate
 
 Code Implementation:
-@./src/lib/state-management/
-@./src/lib/state-management/core.ts
-@./src/lib/state-management/hooks.ts
-@./src/lib/state-management/types.ts
+$(find ./src/lib/state-management -type f -exec cat {} \;)
+
+Core:
+$(cat ./src/lib/state-management/core.ts)
+
+Hooks:
+$(cat ./src/lib/state-management/hooks.ts)
+
+Types:
+$(cat ./src/lib/state-management/types.ts)
 
 Usage Examples:
-@./src/features/dashboard/state.ts
-@./src/features/checkout/state.ts
+Dashboard State:
+$(cat ./src/features/dashboard/state.ts)
 
-Documentation (if any):
-@./docs/state-management.md
+Checkout State:
+$(cat ./src/features/checkout/state.ts)
 
-Visual Aids:
-@./diagrams/state-flow.png (hand-drawn diagram I created)
-@./screenshots/devtools-state.png
+Documentation:
+$(cat ./docs/state-management.md)
+
+Visual Aids: See attached images
+- State flow diagram (hand-drawn)
+- DevTools screenshot showing state
 
 Specific Questions:
 1. What state management pattern is being used here?
@@ -1282,12 +1503,15 @@ Expected Output:
 - Comparison with modern alternatives
 - Recommendation on keep vs migrate
 - Learning resources for deeper understanding
+EOF
+)"
 ```
 
 **Why this is good:**
-- Includes complete implementation for context
+- Includes complete implementation using `find` and `cat`
 - Provides usage examples to show pattern in practice
-- Includes visual diagrams (even hand-drawn)
+- Includes visual diagrams via `--image` (even hand-drawn ones work!)
+- Includes DevTools screenshots for runtime behavior
 - Clear learning goals and questions
 - Specifies experience level for explanation
 - Requests current best practices via search

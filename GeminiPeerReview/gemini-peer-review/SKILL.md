@@ -1,15 +1,15 @@
 ---
 name: gemini-peer-review
-description: "[CLAUDE CODE ONLY] Leverage Google Gemini API for AI peer review and second opinions on technical decisions"
-license: MIT License - Complete terms in LICENSE.txt
+description: [CLAUDE CODE ONLY] Leverage Gemini CLI for AI peer review, second opinions on architecture and design decisions, cross-validation of implementations, security analysis, alternative approaches, and holistic codebase analysis. Requires terminal access to execute Gemini CLI commands. Use when making high-stakes decisions, reviewing complex architecture, analyzing large codebases, or when explicitly requested for a second AI perspective. Triggers include "get a second opinion," "review this architecture," "validate this approach," or "what would Gemini think?"
+license: Complete terms in LICENSE.txt
 environment: claude-code
 ---
 
 # Gemini Peer Review - AI Collaboration Skill
 
-🖥️ **Claude Code Only** - Requires Python and Gemini API access for executing API calls.
+🖥️ **Claude Code Only** - Requires terminal access to execute Gemini CLI commands.
 
-Enable Claude Code to leverage Google's Gemini API for collaborative AI reasoning, peer review, and multi-perspective analysis of code architecture, design decisions, and implementations.
+Enable Claude Code to leverage Google's Gemini CLI for collaborative AI reasoning, peer review, and multi-perspective analysis of code architecture, design decisions, and implementations.
 
 ## Core Philosophy
 
@@ -51,7 +51,7 @@ Gemini's massive 1M token context window allows it to process entire codebases w
 - Time-sensitive quick fixes
 - No significant trade-offs exist
 - Low-impact tactical changes
-- Gemini API is not configured/available
+- Gemini CLI is not available/installed
 
 ### Trigger Patterns
 
@@ -137,47 +137,42 @@ Scale considerations: [users, data volume, performance requirements]
 
 ---
 
-### 3. Invoke Gemini API
+### 3. Invoke Gemini CLI
 
-**Execute appropriate API call:**
+**Execute appropriate CLI command:**
 
-Load `references/gemini-commands.md` for complete API reference.
+Load `references/gemini-commands.md` for complete reference.
 
-**Python API invocation (recommended):**
+**Common patterns:**
 
-```python
-import google.generativeai as genai
-import os
-
-# Configure API
-genai.configure(api_key=os.environ['GEMINI_API_KEY'])
-
-# Select model
-model = genai.GenerativeModel('gemini-2.5-pro')  # Best for complex reasoning
-# or
-model = genai.GenerativeModel('gemini-2.5-flash')  # Faster, still excellent
-
-# Generate response
-response = model.generate_content(prepared_context_and_question)
-
-# Extract analysis
-gemini_analysis = response.text
+**Non-interactive review (recommended):**
+```bash
+gemini -p "$(cat <<'EOF'
+[prepared context and question here]
+EOF
+)"
 ```
 
-**With multimodal input:**
+**With model selection:**
+```bash
+gemini --model gemini-2.5-pro --quiet -p "$(cat <<'EOF'
+[context for complex reasoning]
+EOF
+)"
+```
 
-```python
-# Include architecture diagram
-import PIL.Image
+**With multimodal (image/diagram):**
+```bash
+gemini --image architecture.png -p "Analyze this architecture diagram: [question]"
+```
 
-diagram = PIL.Image.open('architecture-diagram.png')
-
-response = model.generate_content([
-    "Analyze this architecture diagram:",
-    diagram,
-    "Additional context:\n" + prepared_context,
-    "\nQuestion:\n" + question
-])
+**Security-focused review:**
+```bash
+gemini -p "$(cat <<'EOF'
+Security review focus:
+[context and code]
+EOF
+)"
 ```
 
 **Model selection guidelines:**
@@ -194,44 +189,49 @@ response = model.generate_content([
 - Straightforward analysis
 - Code review of standard patterns
 - Performance analysis with clear metrics
-- Budget optimization (lower cost)
+- Default choice for most cases
+
+**Key flags:**
+- `-p` / `--prompt`: Provide prompt text directly
+- `--model`: Select specific model (pro vs flash)
+- `--quiet`: Suppress interactive prompts
+- `--image`: Attach architecture diagrams or screenshots
+- `--json`: Output in JSON format for parsing
 
 **Common patterns:**
 
 **Architecture review:**
-```python
-context = f"""
+```bash
+gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
 Review this microservices architecture:
 
-[Include service definitions, API contracts, data flow diagrams]
+[Service definitions, API contracts, data flow]
 
 Concerns: scalability, data consistency, deployment complexity
 Question: Are the service boundaries appropriate? Any architectural risks?
-"""
-
-response = model.generate_content(context)
+EOF
+)"
 ```
 
 **Security-focused review:**
-```python
-context = f"""
+```bash
+gemini -p "$(cat <<'EOF'
 Security review of authentication system:
 
-[Include auth code, session management, token handling]
+[Auth code, session management, token handling]
 
-Threat model: [describe attack vectors you're concerned about]
+Threat model: [attack vectors]
 Question: Identify vulnerabilities, attack vectors, and hardening opportunities.
-"""
-
-response = model.generate_content(context)
+EOF
+)"
 ```
 
 **Design decision with alternatives:**
-```python
-context = f"""
+```bash
+gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
 Design decision: Event sourcing vs traditional CRUD
 
-[Include domain model, use cases, team context]
+[Domain model, use cases, team context]
 
 Alternatives:
 A) Event sourcing with CQRS
@@ -239,16 +239,14 @@ B) Traditional CRUD with audit logs
 C) Hybrid approach
 
 Question: Analyze trade-offs for our context and recommend approach.
-"""
-
-response = model.generate_content(context)
+EOF
+)"
 ```
 
 **Error handling:**
-- If Gemini API not configured, inform user and provide setup instructions
+- If Gemini CLI not installed, inform user and provide installation instructions
 - If API limits reached, note limitation and proceed with Claude-only analysis
 - If response is unclear, reformulate question and retry once
-- Handle rate limiting gracefully with backoff
 
 ---
 
@@ -526,34 +524,20 @@ Load `references/use-case-patterns.md` for detailed examples of each scenario.
 
 ---
 
-## API Reference (Quick Lookup)
+## Command Reference (Quick Lookup)
 
-Load `references/gemini-commands.md` for complete API documentation.
+Load `references/gemini-commands.md` for complete command documentation.
 
 **Quick reference:**
 
-| Use Case | Model | Python Pattern |
-|----------|-------|---------------|
-| Complex architecture review | `gemini-2.5-pro` | `model.generate_content(context)` |
-| Review with diagram | `gemini-2.5-pro` | `model.generate_content([image, context])` |
-| Security analysis | `gemini-2.5-pro` | `model.generate_content(security_context)` |
-| Fast code review | `gemini-2.5-flash` | `model.generate_content(code_review)` |
-| PDF analysis | `gemini-2.5-pro` | `model.generate_content([pdf_data, question])` |
-| Large codebase analysis | `gemini-2.5-pro` | `model.generate_content(full_codebase)` |
-
-**Environment setup:**
-```bash
-export GEMINI_API_KEY="your-api-key-here"
-```
-
-**Basic Python setup:**
-```python
-import google.generativeai as genai
-import os
-
-genai.configure(api_key=os.environ['GEMINI_API_KEY'])
-model = genai.GenerativeModel('gemini-2.5-pro')
-```
+| Use Case | Command Pattern | Flags |
+|----------|----------------|-------|
+| Architecture review | `gemini --model gemini-2.5-pro -p "[context]"` | `--model` for complex reasoning |
+| Review with diagram | `gemini --image diagram.png -p "[question]"` | `--image` for visual context |
+| Security analysis | `gemini -p "Security: [code]"` | `-p` for prompt text |
+| Fast code review | `gemini -p "[code review]"` | Default flash model |
+| Large codebase analysis | `gemini --model gemini-2.5-pro -p "[full context]"` | Pro model for 1M token context |
+| Quick validation | `gemini "[question]"` | Interactive mode |
 
 ---
 
@@ -687,137 +671,97 @@ model = genai.GenerativeModel('gemini-2.5-pro')
 
 ## Installation Requirements
 
-**Gemini API access required to use this skill.**
+**Gemini CLI must be installed to use this skill.**
 
-### Option 1: Gemini API Key (Recommended for Individual Developers)
+### Installation
+
+```bash
+# Install via npm (recommended)
+npm install -g @google/gemini-cli
+
+# Verify installation
+gemini --version
+```
+
+**Requires Node.js 20+**
+
+### Authentication
+
+```bash
+# Option 1: OAuth login (recommended)
+gemini login
+
+# Option 2: API key
+gemini config set apiKey YOUR_API_KEY
+```
 
 **Get API Key:**
 1. Visit Google AI Studio: https://aistudio.google.com/apikey
 2. Sign in with Google account
 3. Create new API key
-4. Copy key for configuration
-
-**Configure:**
-```bash
-# Set environment variable
-export GEMINI_API_KEY="your-api-key-here"
-
-# Or create .env file
-echo "GEMINI_API_KEY=your-api-key-here" > .env
-```
+4. Use with `gemini config set apiKey YOUR_KEY`
 
 **Free Tier:**
 - 60 requests per minute
-- 1,000 requests per day
+- 1,500 requests per day
 - Access to Gemini 2.5 Pro (1M context)
 - No credit card required
 
-**Install Python SDK:**
-```bash
-pip install google-generativeai
-```
-
-### Option 2: Vertex AI (Enterprise)
-
-**For production/team use:**
+### Configuration
 
 ```bash
-# Install Google Cloud SDK
-# https://cloud.google.com/sdk/docs/install
+# Set default model
+gemini config set defaultModel gemini-2.5-flash
 
-# Authenticate
-gcloud auth application-default login
+# For complex reasoning tasks
+gemini config set defaultModel gemini-2.5-pro
 
-# Set project
-export GOOGLE_CLOUD_PROJECT="your-project-id"
-export GOOGLE_CLOUD_LOCATION="us-central1"
-
-# Install SDK
-pip install google-cloud-aiplatform
+# View current config
+gemini config list
 ```
-
-**Benefits:**
-- Higher rate limits
-- Enterprise security
-- SLA guarantees
-- Integration with Google Cloud
 
 ### Verification
 
-**Test API access:**
-```python
-import google.generativeai as genai
-import os
+```bash
+# Test CLI access
+gemini "Hello, Gemini!"
 
-genai.configure(api_key=os.environ['GEMINI_API_KEY'])
-model = genai.GenerativeModel('gemini-2.5-flash')
-
-response = model.generate_content("Hello, Gemini!")
-print(response.text)
+# If successful, you'll see a response from Gemini
 ```
 
-**If successful, you'll see a response from Gemini.**
-
-**If Gemini API is not available:**
-1. Inform user that peer review requires Gemini API access
-2. Provide setup instructions (link to `references/setup-guide.md`)
-3. Continue with Claude-only analysis if user can't configure
+**If Gemini CLI is not available:**
+1. Inform user that peer review requires Gemini CLI
+2. Provide installation instructions (link to `references/setup-guide.md`)
+3. Continue with Claude-only analysis if user can't install
 4. Note that second opinion isn't available
 
 ---
 
 ## Configuration
 
-### Environment Variables
+**Optional configuration via CLI:**
 
-**Required:**
 ```bash
-GEMINI_API_KEY="your-api-key-here"
-```
+# Set default model
+gemini config set defaultModel gemini-2.5-flash  # Faster
+# or
+gemini config set defaultModel gemini-2.5-pro    # Complex reasoning
 
-**Optional (Vertex AI):**
-```bash
-GOOGLE_CLOUD_PROJECT="your-project-id"
-GOOGLE_CLOUD_LOCATION="us-central1"
-GOOGLE_APPLICATION_CREDENTIALS="/path/to/service-account.json"
-```
+# Set generation parameters (optional)
+gemini config set temperature 0.3     # More focused (0.0-1.0)
+gemini config set maxTokens 8192      # Response length limit
 
-### Python Configuration Options
+# View all settings
+gemini config list
 
-**Generation config (optional customization):**
-```python
-generation_config = {
-    'temperature': 0.7,      # Creativity (0.0-1.0, lower = more focused)
-    'top_p': 0.8,            # Nucleus sampling
-    'top_k': 40,             # Token selection diversity
-    'max_output_tokens': 8192,  # Response length limit
-}
-
-model = genai.GenerativeModel(
-    'gemini-2.5-pro',
-    generation_config=generation_config
-)
-```
-
-**Safety settings:**
-```python
-safety_settings = {
-    'HARM_CATEGORY_DANGEROUS_CONTENT': 'BLOCK_NONE',
-    'HARM_CATEGORY_HATE_SPEECH': 'BLOCK_NONE',
-    'HARM_CATEGORY_HARASSMENT': 'BLOCK_NONE',
-    'HARM_CATEGORY_SEXUALLY_EXPLICIT': 'BLOCK_NONE',
-}
-
-model = genai.GenerativeModel(
-    'gemini-2.5-pro',
-    safety_settings=safety_settings
-)
+# Reset to defaults
+gemini config reset
 ```
 
 **For peer review, recommended settings:**
+- `defaultModel`: `gemini-2.5-flash` for most cases, `gemini-2.5-pro` for complex analysis
 - `temperature`: 0.3-0.5 (more focused, less creative)
-- `max_output_tokens`: 8192 (allow detailed analysis)
-- Safety settings: `BLOCK_NONE` (code review shouldn't trigger safety filters)
+- `maxTokens`: 8192 (allow detailed analysis)
 
 ---
 
@@ -825,12 +769,12 @@ model = genai.GenerativeModel(
 
 ### Technical Limitations
 
-- Requires Gemini API configuration and internet connectivity
-- Subject to Google API rate limits (generous free tier: 60/min, 1,000/day)
+- Requires Gemini CLI installation and authentication
+- Subject to Google API rate limits (generous free tier: 60/min, 1,500/day)
 - Cloud-based processing (code sent to Google servers)
 - No offline mode available
-- Rate limits shared across Gemini products
 - Response time varies with model and context size
+- Requires Node.js 20+ environment
 
 ### Philosophical Considerations
 
@@ -883,14 +827,8 @@ Load `references/workflow-examples.md` for complete scenarios.
 **Claude initial analysis:** [Provides analysis of trade-offs]
 
 **Invoke peer review:**
-```python
-import google.generativeai as genai
-import os
-
-genai.configure(api_key=os.environ['GEMINI_API_KEY'])
-model = genai.GenerativeModel('gemini-2.5-pro')
-
-context = """
+```bash
+gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
 Review multi-tenant SaaS architecture decision:
 
 CONTEXT:
@@ -925,14 +863,12 @@ EXPECTED OUTPUT:
 - Trade-off matrix
 - Recommendation with rationale
 - Migration path considerations
-"""
-
-response = model.generate_content(context)
-gemini_analysis = response.text
+EOF
+)"
 ```
 
 **Synthesis:**
-Compare Claude's and Codex's trade-off analysis, extract key insights, present balanced recommendation with rationale from both perspectives.
+Compare Claude's and Gemini's trade-off analysis, extract key insights, present balanced recommendation with rationale from both perspectives.
 
 ---
 
@@ -941,15 +877,8 @@ Compare Claude's and Codex's trade-off analysis, extract key insights, present b
 **User:** "Review authentication implementation for security issues"
 
 **Invoke peer review:**
-```python
-# Read authentication code
-auth_code = read_files([
-    'src/auth/session.py',
-    'src/auth/tokens.py',
-    'src/middleware/auth.py'
-])
-
-context = f"""
+```bash
+gemini -p "$(cat <<'EOF'
 Security review of authentication system:
 
 THREAT MODEL:
@@ -960,7 +889,7 @@ THREAT MODEL:
 - XSS-based token theft
 
 IMPLEMENTATION:
-{auth_code}
+[Include auth code from src/auth/session.py, tokens.py, middleware/auth.py]
 
 SECURITY REQUIREMENTS:
 - 99.9% prevention of unauthorized access
@@ -977,9 +906,8 @@ EXPECTED OUTPUT:
 - Attack vector analysis
 - Specific remediation recommendations
 - Best practice gaps
-"""
-
-response = model.generate_content(context)
+EOF
+)"
 ```
 
 **Synthesis:**
@@ -992,15 +920,12 @@ Combine security findings from both AIs, create prioritized remediation list.
 **User:** "Help me understand this unfamiliar 60k LOC codebase"
 
 **Invoke peer review (leveraging 1M context):**
-```python
-# Read entire codebase (Gemini can handle it!)
-codebase = read_entire_repo(exclude=['node_modules', 'dist', '.git'])
-
-context = f"""
+```bash
+gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
 Analyze this complete backend codebase:
 
 CODEBASE:
-{codebase}  # All 60k LOC - Gemini's 1M token window can process this!
+[Include entire codebase - Gemini's 1M token window can process 60k LOC!]
 
 CONTEXT:
 - E-commerce platform backend
@@ -1022,9 +947,8 @@ EXPECTED OUTPUT:
 - Critical code paths
 - Scalability considerations
 - Onboarding guide structure
-"""
-
-response = model.generate_content(context)
+EOF
+)"
 ```
 
 **Gemini advantage on display:**
@@ -1037,27 +961,15 @@ This is where Gemini truly shines—processing entire codebases in one context t
 **User:** "Does our implementation match the original architecture design?"
 
 **Invoke peer review with diagram:**
-```python
-import PIL.Image
-
-# Load architecture diagram
-architecture_diagram = PIL.Image.open('docs/architecture-v2.png')
-
-# Read implementation
-implementation = read_files([
-    'src/services/*',
-    'src/api/*',
-    'infrastructure/*'
-])
-
-context = f"""
+```bash
+gemini --image docs/architecture-v2.png -p "$(cat <<'EOF'
 Compare architecture design vs. implementation:
 
 DESIGN SPECIFICATION:
-[Architecture diagram shows intended service structure]
+[See attached architecture diagram showing intended service structure]
 
 IMPLEMENTATION:
-{implementation}
+[Include implementation code from src/services/*, src/api/*, infrastructure/*]
 
 QUESTIONS:
 1. Does implementation match intended architecture?
@@ -1071,13 +983,8 @@ EXPECTED OUTPUT:
 - Gap identification
 - Risk assessment of deviations
 - Recommendations for alignment
-"""
-
-response = model.generate_content([
-    "Architecture diagram:",
-    architecture_diagram,
-    context
-])
+EOF
+)"
 ```
 
 **Gemini advantage on display:**
@@ -1163,14 +1070,14 @@ Multimodal analysis—comparing visual architecture with actual code—is a uniq
 ## Related Resources
 
 ### Official Documentation
-- Gemini API Documentation: https://ai.google.dev/docs
+- Gemini CLI Documentation: https://github.com/google/generative-ai-cli
 - Google AI Studio: https://aistudio.google.com
-- Vertex AI Documentation: https://cloud.google.com/vertex-ai/docs
+- Gemini API Documentation: https://ai.google.dev/docs
 
 ### Learning Resources
-- Gemini API Quickstart: https://ai.google.dev/gemini-api/docs/quickstart
-- Python SDK Guide: https://ai.google.dev/gemini-api/docs/python-api
+- Gemini CLI Guide: https://github.com/google/generative-ai-cli#readme
 - Multimodal Examples: https://ai.google.dev/gemini-api/docs/vision
+- API Reference: https://ai.google.dev/gemini-api/docs
 
 ### Architecture & Design
 - Architecture Decision Records (ADR) patterns

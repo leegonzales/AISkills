@@ -1,14 +1,14 @@
-# Gemini API Reference for Peer Review
+# Gemini CLI Command Reference
 
-Complete reference for Google Gemini API usage patterns relevant to peer review workflows.
+Complete reference for Gemini CLI commands and flags relevant to peer review workflows.
 
 ---
 
 ## Overview
 
-This reference provides API-level guidance for integrating Gemini models into peer review workflows. Unlike CLI-based tools, Gemini API integration requires programmatic implementation in Python or TypeScript/Node.js.
+Gemini CLI brings Google's Gemini models directly into your terminal for AI-powered peer review. Unlike API-based tools, the CLI provides interactive and non-interactive modes for seamless integration into development workflows.
 
-**Purpose:** Enable automated peer review through Gemini's powerful models with 1M+ token context windows
+**Purpose:** Enable automated and interactive peer review through Gemini's powerful models with 1M+ token context windows
 
 **Primary Use Cases:**
 - Architecture review and validation
@@ -18,1917 +18,1179 @@ This reference provides API-level guidance for integrating Gemini models into pe
 - Testing strategy assessment
 - Code quality review
 
+**Key Differentiators:**
+- 1M token context window (swallow entire codebases)
+- Multimodal capabilities (images, PDFs, video, audio)
+- Google Search grounding for real-time context
+- Open source (Apache 2.0)
+- Generous free tier (60 req/min, 1,000 req/day)
+
 ---
 
-## API Basics
+## Installation & Authentication
 
-### Authentication Methods
+### Installation
 
-#### Option 1: Gemini API Key (Recommended for Development)
-
-**Obtain API Key:**
-1. Visit Google AI Studio: https://aistudio.google.com/apikey
-2. Create or select project
-3. Generate API key
-
-**Set Environment Variable:**
 ```bash
-export GEMINI_API_KEY="your-api-key-here"
+# Global NPM installation (recommended)
+npm install -g @google/gemini-cli
+
+# Homebrew (macOS/Linux)
+brew install gemini-cli
+
+# Quick test (no installation)
+npx https://github.com/google-gemini/gemini-cli
+
+# Verify installation
+gemini --version
 ```
 
-**Pros:**
-- Simple setup
-- Free tier: 100 requests/day
-- No Google Cloud account required
+### Authentication
 
-**Cons:**
-- Lower rate limits than Vertex AI
-- Manual key management
+#### Option 1: Login with Google (Recommended for Individuals)
+
+```bash
+# Launch CLI and select "Login with Google"
+gemini
+
+# Browser opens for OAuth flow
+# No API key management required
+```
+
+**Benefits:**
+- Free tier: 60 requests/min, 1,000 requests/day
+- Access to Gemini 2.5 Pro (1M context)
+- No credit card required
 
 ---
 
-#### Option 2: Vertex AI (Recommended for Production)
+#### Option 2: Gemini API Key
 
-**Setup Application Default Credentials:**
 ```bash
-# Set project and region
+# Obtain API key from Google AI Studio
+# https://aistudio.google.com/apikey
+
+# Set environment variable
+export GEMINI_API_KEY="your-api-key-here"
+
+# Or persist in .gemini/.env
+mkdir -p .gemini
+cat > .gemini/.env << EOF
+GEMINI_API_KEY=your-api-key-here
+EOF
+```
+
+**Benefits:**
+- Free tier: 100 requests/day
+- Usage-based billing for higher limits
+
+---
+
+#### Option 3: Vertex AI (Enterprise)
+
+```bash
+# Set up Application Default Credentials
 export GOOGLE_CLOUD_PROJECT="your-project-id"
 export GOOGLE_CLOUD_LOCATION="us-central1"
 
 # Authenticate
 gcloud auth application-default login
-```
 
-**Service Account (Production):**
-```bash
+# Or use service account
 export GOOGLE_APPLICATION_CREDENTIALS="/path/to/service-account-key.json"
-export GOOGLE_CLOUD_PROJECT="your-project-id"
-export GOOGLE_CLOUD_LOCATION="us-central1"
 ```
 
-**Pros:**
+**Benefits:**
 - Enterprise security
 - Higher rate limits
 - Pay-as-you-go scaling
-- SLA guarantees
-
-**Cons:**
-- Requires Google Cloud account
-- More complex setup
 
 ---
 
-### Available Models
+## Command Basics
 
-#### Gemini 2.5 Pro (`gemini-2.5-pro`)
-- **Context:** 1,048,576 input tokens / 65,536 output tokens
-- **Inputs:** Text, images, video, audio, PDF
-- **Best For:** Complex reasoning, large codebases, multi-step analysis
-- **Key Features:** Advanced reasoning, code execution, function calling
-- **Use Case:** Deep architecture reviews, complex security analysis
+### Interactive Mode
 
-#### Gemini 2.5 Flash (`gemini-2.5-flash`)
-- **Context:** 1,048,576 input tokens / 65,536 output tokens
-- **Inputs:** Text, images, video, audio
-- **Best For:** Fast processing, high-throughput scenarios
-- **Key Features:** Thinking mode, function calling, code execution
-- **Use Case:** Quick code reviews, batch processing
+**Usage:** `gemini`
 
-#### Gemini 2.5 Flash-Lite (`gemini-2.5-flash-lite`)
-- **Context:** 1,048,576 input tokens / 65,536 output tokens
-- **Inputs:** Text, image, video, audio, PDF
-- **Best For:** Cost-efficient high-volume processing
-- **Key Features:** Function calling, code execution, structured outputs
-- **Use Case:** Lightweight analysis, cost-sensitive applications
+**Description:** Launch interactive terminal UI for conversational interaction
+
+```bash
+# Start interactive session
+gemini
+
+# At gemini> prompt, you can:
+gemini> Review the architecture in @./architecture.md
+gemini> What security issues exist in @./src/auth/?
+gemini> /tools    # List available tools
+gemini> /stats    # Show token usage
+gemini> /quit     # Exit
+```
+
+**Use for peer review:**
+- Conversational code exploration
+- Iterative refinement
+- Follow-up questions
+- Deep architectural analysis
+
+---
+
+### Non-Interactive Mode
+
+**Usage:** `gemini -p "prompt"`
+**Alias:** `--prompt`
+
+**Description:** One-shot execution with output to stdout
+
+```bash
+# Simple query
+gemini -p "Review this code for security issues"
+
+# With file reference
+gemini -p "Analyze architecture in @./architecture.md"
+
+# Multi-line prompt with heredoc
+gemini -p "$(cat <<'EOF'
+Review this authentication flow for:
+- Security vulnerabilities
+- Performance issues
+- Best practice violations
+
+Code: @./src/auth/handler.js
+EOF
+)"
+```
+
+**Use for peer review (recommended):**
+- Automated workflows
+- CI/CD integration
+- Scriptable analysis
+- Predictable, repeatable reviews
+
+---
+
+### Interactive with Initial Prompt
+
+**Usage:** `gemini -i "prompt"`
+**Alias:** `--prompt-interactive`
+
+**Description:** Start interactive session with initial context
+
+```bash
+# Start with context
+gemini -i "I need help reviewing the microservices architecture"
+
+# Then continue conversation
+gemini> Show me service boundaries @./services/
+gemini> What are the data consistency risks?
+gemini> Recommend improvements
+```
+
+---
+
+## Core Commands
+
+### Basic Execution
+
+```bash
+# Interactive mode
+gemini
+
+# Non-interactive (one-shot)
+gemini -p "your prompt here"
+
+# Interactive with initial prompt
+gemini -i "initial context prompt"
+```
+
+---
+
+### Slash Commands (/)
+
+Available within interactive sessions for session management:
+
+```bash
+/help           # Display help
+/tools          # List available tools
+/settings       # Open settings editor
+/stats          # Show token usage
+/mcp            # Show MCP server status
+/memory show    # Show current memory
+/memory add     # Add context to memory
+/compress       # Compress conversation to save tokens
+/chat save      # Save current conversation
+/chat resume    # Resume saved conversation
+/quit           # Exit CLI
+```
+
+---
+
+### At Commands (@)
+
+File and resource references:
+
+```bash
+@path/to/file.txt           # Include file content
+@path/to/directory/         # Include directory contents
+@image.png                  # Include image
+@document.pdf               # Include PDF
+@https://url.com            # Fetch URL content
+```
+
+---
+
+### Shell Commands (!)
+
+Execute shell commands directly:
+
+```bash
+!ls -la                     # Run shell command
+!git status                 # Git commands
+!npm test                   # Run tests
+!                           # Toggle shell mode
+```
+
+---
+
+## Key Flags & Options
+
+### Model Selection
+
+```bash
+# Use Pro model (best reasoning, complex tasks)
+gemini --model gemini-2.5-pro -p "prompt"
+
+# Use Flash model (fast, efficient, recommended)
+gemini --model gemini-2.5-flash -p "prompt"
+
+# Use Flash-Lite (fastest, most cost-efficient)
+gemini --model gemini-2.5-flash-lite -p "prompt"
+```
 
 **Model Selection Guide:**
-- **Pro:** Use for deep architectural analysis requiring complex reasoning
-- **Flash:** Use for standard peer reviews requiring fast turnaround
-- **Flash-Lite:** Use for simple checks or high-volume batch processing
+- **Pro:** Deep architectural analysis, complex security reviews
+- **Flash:** Standard code reviews, performance analysis (recommended)
+- **Flash-Lite:** Simple checks, high-volume processing
 
 ---
 
-### Rate Limits
+### Output Formats
 
-#### Free Tier (API Key - Unpaid)
-```
-Rate Limits:
-- 10 requests per minute
-- 250 requests per day
+```bash
+# Default text output (human-readable)
+gemini -p "analyze architecture"
 
-Models:
-- Flash models only
-```
+# JSON output (programmatic parsing)
+gemini --output-format json -p "analyze and return structured data"
 
-#### Free Tier (Google Account Login)
-```
-Rate Limits:
-- 60 requests per minute
-- 1,000 requests per day
-
-Models:
-- Gemini 2.5 Pro
-- Gemini 2.5 Flash
+# Stream JSON (newline-delimited events)
+gemini --output-format stream-json -p "process large files"
 ```
 
-#### Paid Tier (Pay-As-You-Go)
-```
-Billing:
-- $1.25 per million input tokens
-- $5.00 per million output tokens
-- 64% reduction for cached tokens
-
-Rate Limits:
-- Variable by project quota
-- Scale to production needs
-```
-
-**Cost Optimization Tips:**
-- Use Flash for simple reviews (same context, lower cost)
-- Cache common context (architecture docs, style guides)
-- Batch similar requests
-- Monitor token usage
+**Recommended for peer review:**
+- `text`: Human consumption, manual review
+- `json`: Automated processing, CI/CD integration
 
 ---
 
-## Core API Calls
+### Execution Modes
 
-### Basic Text Generation (Python)
+```bash
+# YOLO mode (auto-approve all tool calls)
+gemini --yolo -p "fix bugs and run tests"
 
-```python
-import google.generativeai as genai
-import os
+# Sandbox mode (safe execution)
+gemini --sandbox -p "execute untrusted code"
+gemini -s -p "prompt"
 
-# Configure API key
-genai.configure(api_key=os.environ["GEMINI_API_KEY"])
+# Debug mode
+gemini --debug -p "troubleshoot issue"
+gemini -d -p "prompt"
 
-# Initialize model
-model = genai.GenerativeModel("gemini-2.5-flash")
-
-# Generate response
-prompt = """
-Review this code for security vulnerabilities:
-
-def authenticate_user(username, password):
-    query = f"SELECT * FROM users WHERE username='{username}' AND password='{password}'"
-    return db.execute(query)
-"""
-
-response = model.generate_content(prompt)
-print(response.text)
+# Quiet mode (suppress extra output)
+gemini --quiet -p "prompt"
 ```
 
-**Output:**
-```
-CRITICAL SECURITY VULNERABILITY: SQL Injection
+**Recommended for peer review:**
+- Avoid `--yolo` for review (use for implementation)
+- Use `--sandbox` for untrusted code execution
+- Default mode (ask for approval) for transparency
 
-The code is vulnerable to SQL injection attacks...
-[detailed analysis]
+---
+
+### Display Options
+
+```bash
+# Markdown style
+gemini --style dark -p "prompt"
+gemini -t light -p "prompt"
+# Options: ascii, dark, light, pink
+
+# Line wrapping
+gemini --wrap 100 -p "prompt"
+gemini -w 80 -p "prompt"
+
+# Multi-line input
+gemini --multiline
 ```
 
 ---
 
-### Basic Text Generation (TypeScript/Node.js)
+### Session Management
 
-```typescript
-import { GoogleGenerativeAI } from "@google/generative-ai";
+```bash
+# Persist session summary
+gemini --session-summary -p "prompt"
 
-// Initialize client
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
-
-// Get model
-const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-
-// Generate response
-const prompt = `
-Review this architecture for scalability issues:
-
-[architecture description]
-`;
-
-const result = await model.generateContent(prompt);
-const response = await result.response;
-const text = response.text();
-
-console.log(text);
+# Enable checkpointing
+gemini --checkpointing -p "prompt"
 ```
 
 ---
 
-### Multi-Turn Conversations (Python)
+### Configuration
 
-```python
-import google.generativeai as genai
-
-model = genai.GenerativeModel("gemini-2.5-flash")
-
-# Start chat session
-chat = model.start_chat(history=[])
-
-# First turn: Initial review
-response1 = chat.send_message("""
-Review this microservices architecture:
-
-Services:
-- API Gateway (Node.js)
-- User Service (Python)
-- Order Service (Go)
-- PostgreSQL databases per service
-""")
-print("Turn 1:", response1.text)
-
-# Second turn: Follow-up question
-response2 = chat.send_message("""
-What are the data consistency risks with this approach?
-""")
-print("Turn 2:", response2.text)
-
-# Third turn: Design alternative
-response3 = chat.send_message("""
-Propose an alternative that reduces consistency risks.
-""")
-print("Turn 3:", response3.text)
+```bash
+# Custom config file
+gemini -c /path/to/config.json -p "prompt"
+gemini --config config.json -p "prompt"
 ```
-
-**Use Case:** Iterative architecture refinement with context preservation
 
 ---
 
-### With Images/Files (Python)
+## Available Models
 
-```python
-import google.generativeai as genai
-from pathlib import Path
+### Gemini 2.5 Pro (`gemini-2.5-pro`)
 
-model = genai.GenerativeModel("gemini-2.5-pro")
+**Context:** 1,048,576 input tokens / 65,536 output tokens
+**Inputs:** Audio, images, video, text, PDF
 
-# Upload architecture diagram
-architecture_diagram = genai.upload_file(
-    path="architecture-diagram.png",
-    display_name="System Architecture"
-)
+**Capabilities:**
+- Advanced reasoning and thinking
+- Code execution
+- Function calling
+- Structured outputs
+- Search grounding
+- Context caching
 
-# Wait for processing
-import time
-while architecture_diagram.state.name == "PROCESSING":
-    time.sleep(1)
-    architecture_diagram = genai.get_file(architecture_diagram.name)
+**Best For:**
+- Complex architectural analysis
+- Deep security reviews
+- Multi-step problem solving
+- Large codebase comprehension
 
-# Review with image context
-prompt = """
-Analyze this architecture diagram.
+**Usage:**
+```bash
+gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
+Perform deep architectural analysis of this microservices system.
+Consider:
+- Service boundaries and coupling
+- Data consistency patterns
+- Scalability bottlenecks
+- Security boundaries
+- Operational complexity
+
+Architecture: @./architecture.md
+Services: @./services/
+EOF
+)"
+```
+
+---
+
+### Gemini 2.5 Flash (`gemini-2.5-flash`)
+
+**Context:** 1,048,576 input tokens / 65,536 output tokens
+**Inputs:** Text, images, video, audio
+
+**Capabilities:**
+- Thinking mode
+- Function calling
+- Code execution
+- File search
+- Structured outputs
+
+**Best For:**
+- Standard code reviews
+- Performance analysis
+- Testing strategy review
+- Quick architectural assessments
+
+**Usage:**
+```bash
+gemini --model gemini-2.5-flash -p "$(cat <<'EOF'
+Review this code for:
+- Security vulnerabilities
+- Performance issues
+- Best practice violations
+- Missing error handling
+
+Code: @./src/payment-processor.js
+EOF
+)"
+```
+
+---
+
+### Gemini 2.5 Flash-Lite (`gemini-2.5-flash-lite`)
+
+**Context:** 1,048,576 input tokens / 65,536 output tokens
+**Inputs:** Text, image, video, audio, PDF
+
+**Capabilities:**
+- Function calling
+- Code execution
+- Structured outputs
+- Search grounding
+
+**Best For:**
+- Simple code quality checks
+- High-volume batch processing
+- Cost-sensitive applications
+
+**Usage:**
+```bash
+gemini --model gemini-2.5-flash-lite -p "Check for common bugs in @./src/utils/"
+```
+
+---
+
+## Command Patterns for Peer Review
+
+### Pattern 1: Architecture Review
+
+```bash
+gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
+[ARCHITECTURE REVIEW]
+
+System: Multi-tenant SaaS Platform
+Scale: 100-500 tenants, 50-5K users per tenant
+Constraints: Strict tenant data isolation required
+
+Architecture:
+@./architecture.md
+
+Focus Areas:
+- Service boundaries and dependencies
+- Data consistency approach
+- Scalability bottlenecks
+- Security boundaries (tenant isolation)
+- Operational complexity
+- Failure modes and recovery
+
+Question: Provide comprehensive risk assessment with improvement recommendations.
+
+Expected Output:
+1. Risk Level (CRITICAL/HIGH/MEDIUM/LOW)
+2. Key Concerns (with severity)
+3. Recommendations (prioritized by impact)
+4. Trade-offs to consider
+EOF
+)"
+```
+
+**Why this pattern:**
+- Pro model for complex reasoning
+- Structured prompt with context
+- Clear focus areas
+- Expected output format
+
+---
+
+### Pattern 2: Architecture Review with Diagram
+
+```bash
+gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
+Analyze the attached architecture diagram.
 
 Context:
 - E-commerce platform
 - 100K daily active users
-- High availability requirements
+- High availability requirements (99.9% uptime)
+- Payment processing critical path
+
+Diagram: @./architecture-diagram.png
+Code: @./services/
 
 Questions:
 1. Single points of failure?
 2. Scalability bottlenecks?
 3. Data consistency issues?
+4. Security vulnerabilities?
 
-Expected Output: Risk assessment with severity levels
-"""
-
-response = model.generate_content([architecture_diagram, prompt])
-print(response.text)
-
-# Clean up
-genai.delete_file(architecture_diagram.name)
+Expected Output: Risk assessment with specific recommendations
+EOF
+)"
 ```
+
+**Why this pattern:**
+- Multimodal analysis (diagram + code)
+- Specific questions for focus
+- Business context included
 
 ---
 
-### With PDF Documents (Python)
+### Pattern 3: Security Review
 
-```python
-import google.generativeai as genai
+```bash
+gemini --model gemini-2.5-flash -p "$(cat <<'EOF'
+[SECURITY REVIEW]
 
-model = genai.GenerativeModel("gemini-2.5-pro")
+Threat Model:
+- SQL Injection
+- Authentication bypass
+- Session fixation
+- XSS attacks
+- Sensitive data exposure
+- Timing attacks
 
-# Upload design document
-design_doc = genai.upload_file(
-    path="system-design-doc.pdf",
-    display_name="System Design"
-)
+Code to Review:
+@./src/auth/login-handler.js
+@./src/auth/session-manager.js
 
-# Wait for processing
-import time
-while design_doc.state.name == "PROCESSING":
-    time.sleep(2)
-    design_doc = genai.get_file(design_doc.name)
+Question: Identify all security vulnerabilities with OWASP classification.
 
-# Review design document
-prompt = """
-Review this system design document.
+Expected Output:
+1. Vulnerability Summary (count by severity)
+2. Detailed Findings (CRITICAL first)
+   - OWASP category
+   - Severity level
+   - Exploit scenario
+   - Remediation steps with code examples
+3. Security Best Practices Recommendations
 
-Focus areas:
-- Architectural soundness
-- Security considerations
-- Scalability concerns
-- Operational complexity
-
-Expected Output: Structured review with recommendations
-"""
-
-response = model.generate_content([design_doc, prompt])
-print(response.text)
-
-# Clean up
-genai.delete_file(design_doc.name)
+Prioritize by severity and exploitability.
+EOF
+)"
 ```
+
+**Why this pattern:**
+- Flash model (sufficient for security analysis)
+- Explicit threat model
+- OWASP framework for structure
+- Code examples requested
 
 ---
 
-## Key Parameters
+### Pattern 4: Performance Analysis
 
-### temperature
+```bash
+gemini --model gemini-2.5-flash -p "$(cat <<'EOF'
+[PERFORMANCE ANALYSIS]
 
-**Type:** Float (0.0 to 2.0)
-**Default:** 1.0
+Current Performance:
+- Latency avg: 500ms
+- Latency p99: 2s
+- Throughput: 100 req/s
 
-**Description:** Controls randomness in responses
+Target Performance:
+- Latency avg: 100ms
+- Latency p99: 300ms
+- Throughput: 500 req/s
 
-**Usage:**
-```python
-generation_config = {
-    "temperature": 0.2,  # Low temperature for consistent, focused analysis
-}
+Context: 1000 concurrent users, average 5 orders per user
 
-model = genai.GenerativeModel(
-    "gemini-2.5-flash",
-    generation_config=generation_config
-)
+Code:
+@./src/api/order-handler.ts
+
+Known Issues:
+- N+1 query pattern in order items fetch
+- No database indexing on foreign keys
+- Synchronous external API calls
+
+Question: Identify performance bottlenecks and provide optimization recommendations.
+
+Expected Output:
+For each optimization:
+- Bottleneck identified
+- Expected performance improvement
+- Implementation effort (LOW/MEDIUM/HIGH)
+- Code example
+- Potential trade-offs
+
+Prioritize by impact/effort ratio.
+EOF
+)"
 ```
 
-**Recommended for Peer Review:**
-- `0.1-0.3`: Security reviews, compliance checks (maximum consistency)
-- `0.4-0.6`: Architecture reviews, design decisions (balanced)
-- `0.7-1.0`: Creative solutions, alternative approaches (more variation)
+**Why this pattern:**
+- Current vs target metrics
+- Known issues for context
+- Impact/effort prioritization
+- Code examples requested
 
 ---
 
-### top_p (Nucleus Sampling)
+### Pattern 5: Design Decision Evaluation
 
-**Type:** Float (0.0 to 1.0)
-**Default:** 0.95
+```bash
+gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
+[DESIGN DECISION EVALUATION]
 
-**Description:** Cumulative probability threshold for token selection
+Decision: Caching strategy for product catalog
 
-**Usage:**
-```python
-generation_config = {
-    "top_p": 0.8,  # More focused token selection
-}
+Option A: Redis with TTL-based invalidation
+Pros: Fast, simple, horizontally scalable
+Cons: Stale data risk, invalidation complexity
 
-model = genai.GenerativeModel(
-    "gemini-2.5-flash",
-    generation_config=generation_config
-)
-```
+Option B: Event-driven cache invalidation
+Pros: Always fresh data, precise control
+Cons: Complex implementation, event overhead
 
-**Recommended for Peer Review:**
-- `0.8-0.9`: Focused, high-confidence analysis
-- `0.95-1.0`: Allow broader vocabulary and phrasing
+Option C: Hybrid (Redis + event invalidation)
+Pros: Fast + fresh, best of both worlds
+Cons: Most complex, higher operational overhead
 
----
+Evaluation Criteria (in priority order):
+1. Data freshness
+2. Query performance
+3. Implementation complexity
+4. Operational overhead
+5. Team familiarity
 
-### top_k
-
-**Type:** Integer
-**Default:** 40
-
-**Description:** Limit token selection to top k most likely tokens
-
-**Usage:**
-```python
-generation_config = {
-    "top_k": 20,  # More deterministic responses
-}
-
-model = genai.GenerativeModel(
-    "gemini-2.5-flash",
-    generation_config=generation_config
-)
-```
-
-**Recommended for Peer Review:**
-- `20-30`: Highly consistent technical analysis
-- `40-60`: Balance between consistency and natural language
-
----
-
-### max_output_tokens
-
-**Type:** Integer
-**Default:** 8192
-**Maximum:** 65,536 (for 2.5 series)
-
-**Description:** Maximum length of generated response
-
-**Usage:**
-```python
-generation_config = {
-    "max_output_tokens": 4096,  # Moderate-length review
-}
-
-model = genai.GenerativeModel(
-    "gemini-2.5-flash",
-    generation_config=generation_config
-)
-```
-
-**Recommended for Peer Review:**
-- `2048-4096`: Quick reviews, focused analysis
-- `4096-8192`: Comprehensive reviews
-- `8192+`: Deep architectural analysis, detailed reports
-
----
-
-### safety_settings
-
-**Type:** Dictionary of safety categories and thresholds
-
-**Description:** Content filtering controls
-
-**Usage:**
-```python
-from google.generativeai.types import HarmCategory, HarmBlockThreshold
-
-safety_settings = {
-    HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
-    HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
-    HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
-    HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
-}
-
-model = genai.GenerativeModel(
-    "gemini-2.5-flash",
-    safety_settings=safety_settings
-)
-```
-
-**Recommended for Peer Review:**
-- Generally use `BLOCK_NONE` to avoid false positives on technical content
-- Code and security discussions may trigger filters inappropriately
-
----
-
-### response_mime_type (Structured Outputs)
-
-**Type:** String
-**Options:** `"text/plain"`, `"application/json"`
-
-**Description:** Force structured JSON responses
-
-**Usage:**
-```python
-import json
-
-generation_config = {
-    "response_mime_type": "application/json",
-}
-
-model = genai.GenerativeModel(
-    "gemini-2.5-flash",
-    generation_config=generation_config
-)
-
-prompt = """
-Review this architecture and return JSON:
-
-{
-  "risk_level": "HIGH|MEDIUM|LOW",
-  "concerns": ["concern1", "concern2"],
-  "recommendations": ["rec1", "rec2"]
-}
-
-Architecture: [description]
-"""
-
-response = model.generate_content(prompt)
-result = json.loads(response.text)
-print(f"Risk: {result['risk_level']}")
-```
-
-**Recommended for Peer Review:**
-- Structured reports for automation
-- CI/CD integration
-- Programmatic decision-making
-
----
-
-### system_instruction
-
-**Type:** String
-
-**Description:** Persistent instructions for the model (role/behavior)
-
-**Usage:**
-```python
-system_instruction = """
-You are a senior software architect conducting peer reviews.
-
-Your analysis should:
-- Prioritize security, scalability, and maintainability
-- Provide specific, actionable recommendations
-- Highlight trade-offs explicitly
-- Use risk levels: CRITICAL, HIGH, MEDIUM, LOW
-- Be concise but thorough
-
-Always structure feedback with:
-1. Summary
-2. Key concerns (with severity)
-3. Recommendations (prioritized)
-"""
-
-model = genai.GenerativeModel(
-    "gemini-2.5-flash",
-    system_instruction=system_instruction
-)
-
-response = model.generate_content("Review this architecture: [content]")
-```
-
-**Recommended for Peer Review:**
-- Set consistent review standards
-- Define expected output format
-- Establish expertise level and perspective
-
----
-
-## API Patterns for Peer Review
-
-### Pattern 1: Architecture Review
-
-```python
-import google.generativeai as genai
-import os
-
-def review_architecture(architecture_description: str, context: dict) -> dict:
-    """
-    Comprehensive architecture review with structured output.
-
-    Args:
-        architecture_description: Textual description or codex.md content
-        context: Dict with scale, constraints, requirements
-
-    Returns:
-        Structured review with risk assessment
-    """
-    genai.configure(api_key=os.environ["GEMINI_API_KEY"])
-
-    system_instruction = """
-    You are a senior software architect specializing in distributed systems.
-
-    Review approach:
-    - Assess scalability, security, reliability, operational complexity
-    - Identify single points of failure
-    - Evaluate technology choices
-    - Consider team capabilities and constraints
-
-    Output format:
-    1. Risk Level: CRITICAL/HIGH/MEDIUM/LOW
-    2. Key Concerns (with severity)
-    3. Recommendations (prioritized by impact)
-    4. Trade-offs to consider
-    """
-
-    generation_config = {
-        "temperature": 0.3,  # Consistent, focused analysis
-        "top_p": 0.8,
-        "max_output_tokens": 8192,
-    }
-
-    model = genai.GenerativeModel(
-        "gemini-2.5-pro",  # Use Pro for complex reasoning
-        generation_config=generation_config,
-        system_instruction=system_instruction
-    )
-
-    prompt = f"""
-    [ARCHITECTURE REVIEW]
-
-    System: {context.get('system_name', 'N/A')}
-    Scale: {context.get('scale', 'N/A')}
-    Users: {context.get('users', 'N/A')}
-    Constraints: {context.get('constraints', 'None specified')}
-
-    Architecture:
-    {architecture_description}
-
-    Focus Areas:
-    - Service boundaries and dependencies
-    - Data consistency approach
-    - Scalability bottlenecks
-    - Security boundaries
-    - Operational complexity
-    - Failure modes
-
-    Provide comprehensive review with risk assessment.
-    """
-
-    response = model.generate_content(prompt)
-
-    return {
-        "review": response.text,
-        "model": "gemini-2.5-pro",
-        "timestamp": datetime.now().isoformat(),
-        "context": context
-    }
-
-
-# Usage
-context = {
-    "system_name": "Multi-tenant SaaS Platform",
-    "scale": "100-500 tenants",
-    "users": "50-5K users per tenant",
-    "constraints": "Strict tenant data isolation required"
-}
-
-architecture = """
-Microservices architecture:
-- API Gateway (Node.js) - public entry point
-- Auth Service (Python) - JWT-based authentication
-- Tenant Service (Go) - tenant management
-- App Service (Node.js) - core business logic
-- PostgreSQL with row-level security per service
-- Redis for session storage
-- BullMQ for background jobs
-"""
-
-review_result = review_architecture(architecture, context)
-print(review_result["review"])
-```
-
----
-
-### Pattern 2: Security Review
-
-```python
-import google.generativeai as genai
-from typing import List, Dict
-
-def security_review(code: str, threat_model: List[str]) -> Dict:
-    """
-    Security-focused code review.
-
-    Args:
-        code: Source code to review
-        threat_model: List of threats to check (e.g., ["SQL Injection", "XSS"])
-
-    Returns:
-        Structured vulnerability assessment
-    """
-    genai.configure(api_key=os.environ["GEMINI_API_KEY"])
-
-    system_instruction = """
-    You are a security engineer conducting code security reviews.
-
-    Analysis approach:
-    - Identify vulnerabilities with OWASP classification
-    - Assess severity: CRITICAL, HIGH, MEDIUM, LOW
-    - Provide specific remediation steps
-    - Include code examples for fixes
-
-    Output structure:
-    1. Vulnerability Summary (count by severity)
-    2. Detailed Findings (CRITICAL first)
-    3. Remediation Steps (prioritized)
-    4. Security Best Practices Recommendations
-    """
-
-    generation_config = {
-        "temperature": 0.1,  # Maximum consistency for security
-        "top_p": 0.8,
-        "max_output_tokens": 8192,
-    }
-
-    # Block none for technical content
-    from google.generativeai.types import HarmCategory, HarmBlockThreshold
-    safety_settings = {
-        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
-    }
-
-    model = genai.GenerativeModel(
-        "gemini-2.5-pro",
-        generation_config=generation_config,
-        system_instruction=system_instruction,
-        safety_settings=safety_settings
-    )
-
-    prompt = f"""
-    [SECURITY REVIEW]
-
-    Threat Model:
-    {chr(10).join(f"- {threat}" for threat in threat_model)}
-
-    Code to Review:
-    ```
-    {code}
-    ```
-
-    Identify all security vulnerabilities with:
-    - OWASP classification
-    - Severity level (CRITICAL/HIGH/MEDIUM/LOW)
-    - Exploit scenario
-    - Remediation steps with code examples
-
-    Prioritize findings by severity and exploitability.
-    """
-
-    response = model.generate_content(prompt)
-
-    return {
-        "vulnerabilities": response.text,
-        "threat_model": threat_model,
-        "model": "gemini-2.5-pro"
-    }
-
-
-# Usage
-code_sample = """
-def login(request):
-    username = request.POST['username']
-    password = request.POST['password']
-
-    query = f"SELECT * FROM users WHERE username='{username}' AND password='{password}'"
-    result = db.execute(query)
-
-    if result:
-        session['user_id'] = result['id']
-        return redirect('/dashboard')
-    else:
-        return render('login.html', error="Invalid credentials")
-"""
-
-threat_model = [
-    "SQL Injection",
-    "Session Fixation",
-    "Weak Password Storage",
-    "Timing Attacks"
-]
-
-security_results = security_review(code_sample, threat_model)
-print(security_results["vulnerabilities"])
-```
-
----
-
-### Pattern 3: Performance Analysis
-
-```python
-import google.generativeai as genai
-
-def performance_analysis(
-    code: str,
-    current_metrics: dict,
-    target_metrics: dict,
-    context: str
-) -> dict:
-    """
-    Performance bottleneck identification and optimization.
-
-    Args:
-        code: Source code or file reference
-        current_metrics: Current performance (e.g., {"latency_p99": "2s"})
-        target_metrics: Target performance (e.g., {"latency_p99": "300ms"})
-        context: Additional context (load, constraints)
-
-    Returns:
-        Optimization recommendations prioritized by impact
-    """
-    genai.configure(api_key=os.environ["GEMINI_API_KEY"])
-
-    system_instruction = """
-    You are a performance engineering expert.
-
-    Analysis approach:
-    - Identify bottlenecks (database, network, CPU, memory)
-    - Estimate optimization impact (effort vs. performance gain)
-    - Consider trade-offs (complexity, maintainability)
-    - Provide specific code improvements
-
-    Output structure:
-    1. Bottleneck Analysis (prioritized)
-    2. Optimization Recommendations (impact/effort matrix)
-    3. Implementation Examples
-    4. Measurement Strategy
-    """
-
-    generation_config = {
-        "temperature": 0.4,
-        "top_p": 0.85,
-        "max_output_tokens": 8192,
-    }
-
-    model = genai.GenerativeModel(
-        "gemini-2.5-flash",  # Flash sufficient for performance analysis
-        generation_config=generation_config,
-        system_instruction=system_instruction
-    )
-
-    prompt = f"""
-    [PERFORMANCE ANALYSIS]
-
-    Current Performance:
-    {chr(10).join(f"- {k}: {v}" for k, v in current_metrics.items())}
-
-    Target Performance:
-    {chr(10).join(f"- {k}: {v}" for k, v in target_metrics.items())}
-
-    Context: {context}
-
-    Code:
-    ```
-    {code}
-    ```
-
-    Identify performance bottlenecks and provide optimization recommendations.
-
-    For each optimization:
-    - Bottleneck identified
-    - Expected performance improvement
-    - Implementation effort (LOW/MEDIUM/HIGH)
-    - Code example
-    - Potential trade-offs
-
-    Prioritize by impact/effort ratio.
-    """
-
-    response = model.generate_content(prompt)
-
-    return {
-        "analysis": response.text,
-        "current_metrics": current_metrics,
-        "target_metrics": target_metrics,
-        "model": "gemini-2.5-flash"
-    }
-
-
-# Usage
-slow_code = """
-def get_user_orders(user_id):
-    user = db.query("SELECT * FROM users WHERE id = ?", user_id)
-    orders = []
-
-    for order_id in user['order_ids']:
-        order = db.query("SELECT * FROM orders WHERE id = ?", order_id)
-
-        # Get order items
-        items = []
-        for item_id in order['item_ids']:
-            item = db.query("SELECT * FROM items WHERE id = ?", item_id)
-            items.append(item)
-
-        order['items'] = items
-        orders.append(order)
-
-    return orders
-"""
-
-perf_results = performance_analysis(
-    code=slow_code,
-    current_metrics={
-        "latency_avg": "500ms",
-        "latency_p99": "2s",
-        "throughput": "100 req/s"
-    },
-    target_metrics={
-        "latency_avg": "100ms",
-        "latency_p99": "300ms",
-        "throughput": "500 req/s"
-    },
-    context="1000 concurrent users, average 5 orders per user"
-)
-
-print(perf_results["analysis"])
-```
-
----
-
-### Pattern 4: Design Decision Evaluation
-
-```python
-import google.generativeai as genai
-from typing import List, Dict
-
-def evaluate_design_options(
-    decision: str,
-    options: List[Dict[str, any]],
-    criteria: List[str],
-    context: str
-) -> dict:
-    """
-    Compare design alternatives with structured evaluation.
-
-    Args:
-        decision: Decision being made
-        options: List of options with pros/cons
-        criteria: Evaluation criteria (prioritized)
-        context: System context and constraints
-
-    Returns:
-        Comparative analysis with recommendation
-    """
-    genai.configure(api_key=os.environ["GEMINI_API_KEY"])
-
-    system_instruction = """
-    You are a technical architect evaluating design decisions.
-
-    Evaluation approach:
-    - Score each option against criteria
-    - Consider short-term vs. long-term implications
-    - Assess risk and complexity
-    - Provide clear recommendation with rationale
-
-    Output structure:
-    1. Option Comparison Matrix
-    2. Criterion-by-Criterion Analysis
-    3. Recommendation with Rationale
-    4. Implementation Considerations
-    5. Decision Risks (what could go wrong)
-    """
-
-    generation_config = {
-        "temperature": 0.5,  # Balanced for comparative analysis
-        "top_p": 0.85,
-        "max_output_tokens": 8192,
-    }
-
-    model = genai.GenerativeModel(
-        "gemini-2.5-pro",
-        generation_config=generation_config,
-        system_instruction=system_instruction
-    )
-
-    options_formatted = "\n\n".join([
-        f"Option {i+1}: {opt['name']}\n"
-        f"Pros: {', '.join(opt['pros'])}\n"
-        f"Cons: {', '.join(opt['cons'])}"
-        for i, opt in enumerate(options)
-    ])
-
-    criteria_formatted = "\n".join([
-        f"{i+1}. {criterion}" for i, criterion in enumerate(criteria)
-    ])
-
-    prompt = f"""
-    [DESIGN DECISION EVALUATION]
-
-    Decision: {decision}
-
-    Options:
-    {options_formatted}
-
-    Evaluation Criteria (in priority order):
-    {criteria_formatted}
-
-    Context:
-    {context}
-
-    Provide comprehensive comparison and recommendation.
-
-    For each option, score against criteria and explain trade-offs.
-    Recommend the best option with clear rationale.
-    Identify key risks and mitigation strategies.
-    """
-
-    response = model.generate_content(prompt)
-
-    return {
-        "evaluation": response.text,
-        "decision": decision,
-        "options_count": len(options),
-        "model": "gemini-2.5-pro"
-    }
-
-
-# Usage
-decision = "Caching strategy for product catalog"
-
-options = [
-    {
-        "name": "Redis with TTL-based invalidation",
-        "pros": ["Fast", "Simple", "Horizontally scalable"],
-        "cons": ["Stale data risk", "Invalidation complexity"]
-    },
-    {
-        "name": "Event-driven cache invalidation",
-        "pros": ["Always fresh data", "Precise control"],
-        "cons": ["Complex implementation", "Event overhead"]
-    },
-    {
-        "name": "Hybrid (Redis + event invalidation)",
-        "pros": ["Fast + fresh", "Best of both worlds"],
-        "cons": ["Most complex", "Higher operational overhead"]
-    }
-]
-
-criteria = [
-    "Data freshness",
-    "Query performance",
-    "Implementation complexity",
-    "Operational overhead",
-    "Team familiarity"
-]
-
-context = """
+Context:
 - 10K product SKUs
 - Updates 100x/day
 - Read-heavy (1M reads/day)
 - Team familiar with Redis, less with event streaming
 - Must support real-time inventory updates
-"""
 
-decision_results = evaluate_design_options(decision, options, criteria, context)
-print(decision_results["evaluation"])
+Question: Which option is recommended? What are the critical trade-offs?
+
+Expected Output:
+1. Option Comparison Matrix
+2. Criterion-by-Criterion Analysis
+3. Recommendation with Rationale
+4. Implementation Considerations
+5. Decision Risks (what could go wrong)
+EOF
+)"
 ```
+
+**Why this pattern:**
+- Pro model for comparative reasoning
+- Structured options with pros/cons
+- Prioritized criteria
+- Business context and constraints
 
 ---
 
-### Pattern 5: Testing Strategy Review
+### Pattern 6: Testing Strategy Review
 
-```python
-import google.generativeai as genai
+```bash
+gemini --model gemini-2.5-flash -p "$(cat <<'EOF'
+[TESTING STRATEGY REVIEW]
 
-def review_testing_strategy(
-    module: str,
-    current_coverage: str,
-    test_types: List[str],
-    sample_tests: str,
-    concerns: List[str]
-) -> dict:
-    """
-    Evaluate testing strategy and suggest improvements.
+Module: User authentication service
+Current Coverage: 60%
+Test Types: Unit tests only, no integration tests
 
-    Args:
-        module: Module or component being tested
-        current_coverage: Current test coverage percentage
-        test_types: Types of tests currently implemented
-        sample_tests: Sample test code
-        concerns: Known testing concerns or gaps
+Sample Tests:
+@./tests/auth/login.test.js
 
-    Returns:
-        Testing improvement recommendations
-    """
-    genai.configure(api_key=os.environ["GEMINI_API_KEY"])
+Known Concerns:
+- Missing edge cases (password reset, token expiration)
+- No integration tests for full auth flow
+- Brittle mocks for JWT validation
+- No security testing (brute force, timing attacks)
+- Missing error path testing
 
-    system_instruction = """
-    You are a QA engineering expert specializing in test strategy.
+Question: What testing improvements are most valuable?
 
-    Review approach:
-    - Assess test coverage adequacy
-    - Identify missing test scenarios
-    - Evaluate test quality (brittleness, maintainability)
-    - Recommend test types and priorities
+Expected Output:
+1. Coverage Assessment
+2. Missing Test Scenarios (prioritized by risk)
+3. Test Quality Issues
+4. Recommended Improvements with examples
+5. Testing Best Practices
 
-    Output structure:
-    1. Coverage Assessment
-    2. Missing Test Scenarios (prioritized)
-    3. Test Quality Issues
-    4. Recommended Improvements (with examples)
-    5. Testing Best Practices
-    """
-
-    generation_config = {
-        "temperature": 0.4,
-        "top_p": 0.85,
-        "max_output_tokens": 8192,
-    }
-
-    model = genai.GenerativeModel(
-        "gemini-2.5-flash",
-        generation_config=generation_config,
-        system_instruction=system_instruction
-    )
-
-    prompt = f"""
-    [TESTING STRATEGY REVIEW]
-
-    Module: {module}
-    Current Coverage: {current_coverage}
-    Test Types: {', '.join(test_types)}
-
-    Sample Tests:
-    ```
-    {sample_tests}
-    ```
-
-    Known Concerns:
-    {chr(10).join(f"- {concern}" for concern in concerns)}
-
-    Review testing strategy and recommend improvements.
-
-    Focus on:
-    - Missing edge cases
-    - Test type gaps (unit, integration, e2e)
-    - Test quality and maintainability
-    - Coverage priorities
-
-    Provide specific test examples for key improvements.
-    """
-
-    response = model.generate_content(prompt)
-
-    return {
-        "review": response.text,
-        "module": module,
-        "current_coverage": current_coverage,
-        "model": "gemini-2.5-flash"
-    }
-
-
-# Usage
-sample_tests = """
-describe('UserAuth', () => {
-  it('should authenticate valid user', async () => {
-    const result = await authenticateUser('test@example.com', 'password123');
-    expect(result.success).toBe(true);
-  });
-
-  it('should reject invalid password', async () => {
-    const result = await authenticateUser('test@example.com', 'wrongpass');
-    expect(result.success).toBe(false);
-  });
-});
-"""
-
-testing_results = review_testing_strategy(
-    module="User Authentication Service",
-    current_coverage="60%",
-    test_types=["Unit tests"],
-    sample_tests=sample_tests,
-    concerns=[
-        "Missing edge cases (password reset, token expiration)",
-        "No integration tests for full auth flow",
-        "Brittle mocks for JWT validation",
-        "No security testing (brute force, timing attacks)"
-    ]
-)
-
-print(testing_results["review"])
+Provide specific test examples for top 3 improvements.
+EOF
+)"
 ```
+
+**Why this pattern:**
+- Flash model (sufficient for testing review)
+- Current state assessment
+- Specific concerns identified
+- Prioritization by risk
 
 ---
 
-### Pattern 6: Code Review
+### Pattern 7: Code Review
 
-```python
-import google.generativeai as genai
+```bash
+gemini --model gemini-2.5-flash -p "$(cat <<'EOF'
+[CODE REVIEW - JavaScript]
 
-def code_review(
-    code: str,
-    language: str,
-    focus_areas: List[str],
-    style_guide: str = None
-) -> dict:
-    """
-    General code review for quality, style, and best practices.
+Focus Areas:
+- Security vulnerabilities
+- Performance issues
+- Error handling
+- Code style and maintainability
+- Best practices (async/await, null checks)
 
-    Args:
-        code: Source code to review
-        language: Programming language
-        focus_areas: Specific areas to focus on
-        style_guide: Optional style guide reference
+Style Guide:
+- Use async/await (no callbacks)
+- Explicit error handling
+- Input validation required
+- No SQL string concatenation
 
-    Returns:
-        Code review findings and suggestions
-    """
-    genai.configure(api_key=os.environ["GEMINI_API_KEY"])
+Code:
+@./src/api/user-handler.js
+@./src/api/order-handler.js
 
-    system_instruction = f"""
-    You are a senior {language} developer conducting code review.
+Question: Provide comprehensive code review.
 
-    Review approach:
-    - Assess code quality, readability, maintainability
-    - Check adherence to {language} best practices
-    - Identify potential bugs and edge cases
-    - Suggest refactoring opportunities
+Expected Output:
+1. Summary (overall quality assessment)
+2. Issues (categorized: CRITICAL, MAJOR, MINOR)
+   - Severity
+   - Description
+   - Line number if applicable
+   - Suggested fix with code example
+3. Positive Observations
+4. Refactoring Opportunities
 
-    Output structure:
-    1. Summary (overall quality assessment)
-    2. Issues (categorized: CRITICAL, MAJOR, MINOR)
-    3. Suggestions (with code examples)
-    4. Positive Observations
-    """
-
-    generation_config = {
-        "temperature": 0.3,
-        "top_p": 0.85,
-        "max_output_tokens": 8192,
-    }
-
-    model = genai.GenerativeModel(
-        "gemini-2.5-flash",
-        generation_config=generation_config,
-        system_instruction=system_instruction
-    )
-
-    style_context = f"\n\nStyle Guide:\n{style_guide}" if style_guide else ""
-
-    prompt = f"""
-    [CODE REVIEW - {language}]
-
-    Focus Areas:
-    {chr(10).join(f"- {area}" for area in focus_areas)}
-    {style_context}
-
-    Code:
-    ```{language.lower()}
-    {code}
-    ```
-
-    Provide comprehensive code review covering focus areas.
-
-    For each issue:
-    - Severity (CRITICAL/MAJOR/MINOR)
-    - Description
-    - Suggested fix with code example
-
-    Also highlight what the code does well.
-    """
-
-    response = model.generate_content(prompt)
-
-    return {
-        "review": response.text,
-        "language": language,
-        "focus_areas": focus_areas,
-        "model": "gemini-2.5-flash"
-    }
-
-
-# Usage
-code_sample = """
-async function getUserData(userId) {
-  const user = await db.query(`SELECT * FROM users WHERE id = ${userId}`);
-  const orders = await db.query(`SELECT * FROM orders WHERE user_id = ${userId}`);
-
-  return {
-    ...user,
-    orders: orders
-  };
-}
-"""
-
-code_review_results = code_review(
-    code=code_sample,
-    language="JavaScript",
-    focus_areas=[
-        "Security vulnerabilities",
-        "Performance",
-        "Error handling",
-        "Code style"
-    ],
-    style_guide="Use async/await, avoid SQL injection, handle errors explicitly"
-)
-
-print(code_review_results["review"])
+Highlight what the code does well.
+EOF
+)"
 ```
+
+**Why this pattern:**
+- Flash model (efficient for code review)
+- Clear focus areas
+- Style guide for consistency
+- Balanced feedback (positive + negative)
 
 ---
 
-## Error Handling Strategies
+## Error Handling
 
 ### Common Errors
 
-#### Invalid API Key
-```python
-try:
-    genai.configure(api_key=os.environ["GEMINI_API_KEY"])
-    model = genai.GenerativeModel("gemini-2.5-flash")
-    response = model.generate_content("Test prompt")
-except Exception as e:
-    if "API key not valid" in str(e):
-        print("Error: Invalid API key. Check GEMINI_API_KEY environment variable.")
-    else:
-        raise
+#### Authentication Required
+
+```bash
+# Error: "Authentication required"
+# Solution: Sign in
+gemini  # Select login method from menu
 ```
 
 ---
 
 #### Rate Limit Exceeded
-```python
-import time
-from google.api_core.exceptions import ResourceExhausted
 
-def generate_with_retry(model, prompt, max_retries=3):
-    """Generate content with exponential backoff retry."""
-    for attempt in range(max_retries):
-        try:
-            response = model.generate_content(prompt)
-            return response.text
-        except ResourceExhausted as e:
-            if attempt < max_retries - 1:
-                wait_time = 2 ** attempt  # Exponential backoff: 1s, 2s, 4s
-                print(f"Rate limit hit. Waiting {wait_time}s before retry...")
-                time.sleep(wait_time)
-            else:
-                print("Rate limit exceeded after retries. Upgrade plan or wait.")
-                raise
+```bash
+# Check usage
+gemini
+gemini> /stats
 
-# Usage
-model = genai.GenerativeModel("gemini-2.5-flash")
-result = generate_with_retry(model, "Review this architecture: [content]")
+# Shows:
+# Token usage: 45,234 / 1,000,000
+# Requests: 58 / 60 per minute
+# Daily quota: 234 / 1,000
+
+# Wait for rate limit reset or upgrade plan
 ```
 
 ---
 
-#### Content Safety Block
-```python
-from google.generativeai.types import HarmCategory, HarmBlockThreshold
+#### Context Too Large
 
-# Disable safety filters for technical content
-safety_settings = {
-    HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
-    HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
-    HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
-    HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
-}
+```bash
+# Error: "Context exceeds limit"
+# Solution: Compress conversation or reduce files
+gemini
+gemini> /compress
 
-model = genai.GenerativeModel(
-    "gemini-2.5-flash",
-    safety_settings=safety_settings
-)
-
-try:
-    response = model.generate_content(prompt)
-except Exception as e:
-    if "blocked" in str(e).lower():
-        print("Content was blocked by safety filters despite settings.")
-        print("Try rephrasing the prompt or use different model.")
-    else:
-        raise
+# Or be more specific
+gemini -p "Review only @./src/auth/login.js (not entire directory)"
 ```
 
 ---
 
-#### File Processing Timeout
-```python
-import time
+#### Model Not Available
 
-def upload_file_with_wait(file_path: str, max_wait: int = 60):
-    """Upload file and wait for processing with timeout."""
-    uploaded_file = genai.upload_file(path=file_path)
+```bash
+# Error: "Model not available"
+# Solution: Check available models
+gemini
+gemini> /settings
 
-    start_time = time.time()
-    while uploaded_file.state.name == "PROCESSING":
-        if time.time() - start_time > max_wait:
-            genai.delete_file(uploaded_file.name)
-            raise TimeoutError(f"File processing exceeded {max_wait}s timeout")
+# Switch to available model
+gemini --model gemini-2.5-flash -p "prompt"
+```
 
-        time.sleep(2)
-        uploaded_file = genai.get_file(uploaded_file.name)
+---
 
-    if uploaded_file.state.name == "FAILED":
-        raise ValueError(f"File processing failed: {uploaded_file.state}")
+### Retry Strategies
 
-    return uploaded_file
+```bash
+# For transient errors (network, timeouts)
+gemini -p "prompt" || sleep 2 && gemini -p "prompt"
 
-# Usage
-try:
-    diagram = upload_file_with_wait("large-diagram.png", max_wait=120)
-    # Use diagram...
-finally:
-    genai.delete_file(diagram.name)
+# For rate limits
+# Check status first
+gemini
+gemini> /stats
+# Then retry after cooldown
+
+# For unclear responses
+# Reformulate with more specific question
+gemini -p "$(cat <<'EOF'
+[More specific prompt with additional context]
+EOF
+)"
 ```
 
 ---
 
 ## Best Practices
 
-### 1. When to Use Which Model
+### 1. Use Non-Interactive Mode for Automation
 
-**Use Gemini 2.5 Pro when:**
-- Complex architectural analysis requiring deep reasoning
-- Multi-step evaluation with trade-offs
-- Large codebase comprehension (utilize 1M context)
-- Critical security reviews
-- Detailed design decision evaluation
+**Recommended:**
+```bash
+gemini -p "prompt"
+```
 
-**Use Gemini 2.5 Flash when:**
-- Standard code reviews
-- Performance analysis
-- Testing strategy review
-- Quick architectural assessments
-- High-throughput batch processing
-
-**Use Gemini 2.5 Flash-Lite when:**
-- Simple code quality checks
-- Linting-style reviews
-- High-volume automated reviews
-- Cost-sensitive applications
+**Why:** Predictable, scriptable, suitable for CI/CD
 
 ---
 
-### 2. Context Management
+### 2. Structure Prompts with Heredocs
 
-**Provide Structured Context:**
-```python
-prompt = f"""
-[REVIEW TYPE]
-
-Context:
-- System: {system_name}
-- Scale: {scale}
-- Constraints: {constraints}
-
-[CONTENT TO REVIEW]
-
-Focus Areas:
-- Area 1
-- Area 2
-
-Expected Output: [format description]
-"""
+**Recommended:**
+```bash
+gemini -p "$(cat <<'EOF'
+[Structured multi-line prompt]
+...
+EOF
+)"
 ```
 
-**Use System Instructions for Consistency:**
-```python
-system_instruction = """
-You are a [role] conducting [type] reviews.
-
-Your analysis should:
-- Point 1
-- Point 2
-- Point 3
-"""
-
-model = genai.GenerativeModel(
-    "gemini-2.5-flash",
-    system_instruction=system_instruction
-)
-```
+**Why:** Clean multi-line prompts, easy to maintain, proper escaping
 
 ---
 
-### 3. Token Optimization
+### 3. Specify Output Expectations
 
-**Monitor Token Usage:**
-```python
-response = model.generate_content(prompt)
-
-# Access usage metadata
-print(f"Prompt tokens: {response.usage_metadata.prompt_token_count}")
-print(f"Response tokens: {response.usage_metadata.candidates_token_count}")
-print(f"Total tokens: {response.usage_metadata.total_token_count}")
+**Recommended:**
+```bash
+"... Expected Output: Risk assessment with severity levels and mitigation strategies"
 ```
 
-**Use Context Caching (For Repeated Context):**
-```python
-# Cache common context (architecture docs, style guides)
-# Reduces token costs by 64% for cached portions
-# Note: Caching API varies by SDK version - check docs
+**Why:** Gemini provides structured, actionable responses
 
-# General approach: Include static context early in prompt
-# Gemini automatically caches frequently-used content
+---
+
+### 4. Use Flash for Most Peer Reviews
+
+**Recommended:**
+```bash
+gemini --model gemini-2.5-flash -p "standard review prompt"
 ```
 
-**Batch Similar Requests:**
-```python
-import asyncio
+**Why:** Same 1M context, faster, more cost-efficient than Pro
 
-async def batch_review(files: List[str]) -> List[dict]:
-    """Review multiple files in parallel."""
-    model = genai.GenerativeModel("gemini-2.5-flash")
+**Use Pro for:**
+- Complex architectural analysis
+- Multi-step reasoning
+- Deep security reviews
 
-    async def review_file(file_path: str):
-        with open(file_path, 'r') as f:
-            code = f.read()
+---
 
-        response = model.generate_content(f"Review this code:\n\n{code}")
-        return {"file": file_path, "review": response.text}
+### 5. Leverage Multimodal Capabilities
 
-    tasks = [review_file(f) for f in files]
-    return await asyncio.gather(*tasks)
+**Recommended:**
+```bash
+gemini -p "Analyze architecture: @./diagram.png @./architecture.md"
+```
 
-# Usage
-results = asyncio.run(batch_review(["file1.py", "file2.py", "file3.py"]))
+**Why:** Visual context often clearer than text descriptions
+
+---
+
+### 6. Monitor Token Usage
+
+```bash
+# Check usage regularly
+gemini
+gemini> /stats
+
+# Compress to save tokens
+gemini> /compress
+
+# Use .geminiignore
+cat > .geminiignore << EOF
+node_modules/
+dist/
+build/
+*.min.js
+docs/
+EOF
 ```
 
 ---
 
-### 4. Response Parsing
+### 7. Use Sandbox for Untrusted Code
 
-**Structured JSON Output:**
-```python
-generation_config = {
-    "response_mime_type": "application/json",
-}
-
-model = genai.GenerativeModel(
-    "gemini-2.5-flash",
-    generation_config=generation_config
-)
-
-prompt = """
-Review this code and return JSON:
-
-{
-  "risk_level": "HIGH|MEDIUM|LOW",
-  "issues": [
-    {
-      "severity": "CRITICAL|HIGH|MEDIUM|LOW",
-      "description": "...",
-      "line": 10,
-      "fix": "..."
-    }
-  ],
-  "recommendations": ["..."]
-}
-
-Code: [code here]
-"""
-
-response = model.generate_content(prompt)
-result = json.loads(response.text)
-
-# Access structured data
-print(f"Risk: {result['risk_level']}")
-for issue in result['issues']:
-    print(f"{issue['severity']}: {issue['description']}")
+```bash
+# Safe execution
+gemini --sandbox -p "execute and test this code"
+gemini -s -p "prompt"
 ```
 
-**Text Parsing with Regex:**
-```python
-import re
+**Why:** Prevents unintended system modifications
 
-response = model.generate_content("Review architecture...")
-text = response.text
+---
 
-# Extract risk level
-risk_match = re.search(r'Risk Level:\s*(CRITICAL|HIGH|MEDIUM|LOW)', text)
-if risk_match:
-    risk_level = risk_match.group(1)
+### 8. Set Up Project Context
 
-# Extract numbered recommendations
-recommendations = re.findall(r'\d+\.\s*(.+)', text)
+```bash
+# Create GEMINI.md in project root
+cat > GEMINI.md << 'EOF'
+# Project: Multi-Tenant SaaS Platform
+
+## Architecture
+- Microservices (Node.js, Go, Python)
+- PostgreSQL with RLS for multi-tenancy
+- Redis for caching
+- BullMQ for background jobs
+
+## Code Style
+- TypeScript strict mode
+- Functional patterns preferred
+- Jest for testing
+- ESLint + Prettier
+
+## Key Decisions
+- Multi-tenancy via RLS (see ADR-001)
+- JWT authentication (see ADR-002)
+EOF
+
+# Gemini automatically reads GEMINI.md for context
 ```
 
 ---
 
 ## Integration Examples
 
-### Python Integration
+### CI/CD Pipeline (GitHub Actions)
 
-**Complete Review Script:**
-```python
-#!/usr/bin/env python3
-"""
-Architecture review automation script using Gemini API.
-"""
+```yaml
+name: Gemini Peer Review
 
-import google.generativeai as genai
-import os
-import sys
-import json
-from pathlib import Path
+on: [pull_request]
 
-def load_architecture(file_path: str) -> str:
-    """Load architecture description from file."""
-    return Path(file_path).read_text()
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
 
-def review_architecture(arch_content: str) -> dict:
-    """Perform architecture review."""
-    genai.configure(api_key=os.environ["GEMINI_API_KEY"])
+      - name: Install Gemini CLI
+        run: npm install -g @google/gemini-cli
 
-    system_instruction = """
-    You are a senior software architect conducting peer reviews.
-    Provide structured, actionable feedback focusing on:
-    - Scalability
-    - Security
-    - Maintainability
-    - Operational complexity
-    """
+      - name: Architecture Review
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          REVIEW=$(gemini -p "$(cat <<'EOF'
+          Review architecture changes in this PR.
 
-    generation_config = {
-        "temperature": 0.3,
-        "max_output_tokens": 8192,
-        "response_mime_type": "application/json",
-    }
+          Changed files: $(git diff origin/main --name-only)
 
-    model = genai.GenerativeModel(
-        "gemini-2.5-pro",
-        generation_config=generation_config,
-        system_instruction=system_instruction
-    )
+          Focus:
+          - Breaking changes
+          - Security implications
+          - Performance impacts
 
-    prompt = f"""
-    Review this architecture and return JSON:
+          Expected Output: Risk level (HIGH/MEDIUM/LOW) with justification
+          EOF
+          )")
 
-    {{
-      "risk_level": "CRITICAL|HIGH|MEDIUM|LOW",
-      "concerns": [
-        {{
-          "severity": "CRITICAL|HIGH|MEDIUM|LOW",
-          "category": "scalability|security|maintainability|operations",
-          "description": "...",
-          "impact": "..."
-        }}
+          echo "$REVIEW"
+
+          # Fail if HIGH risk
+          if echo "$REVIEW" | grep -q "HIGH"; then
+            echo "HIGH risk identified. Review required."
+            exit 1
+          fi
+```
+
+---
+
+### Git Pre-Commit Hook
+
+```bash
+#!/bin/bash
+# .git/hooks/pre-commit
+
+# Security review of staged files
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(js|ts|py)$')
+
+if [ -n "$STAGED_FILES" ]; then
+  echo "Running security review..."
+
+  REVIEW=$(gemini -p "$(cat <<EOF
+Security review of staged files:
+
+$(for file in $STAGED_FILES; do
+  echo "- @./$file"
+done)
+
+Focus on CRITICAL and HIGH severity issues only.
+Expected Output: List of security issues or "No issues found"
+EOF
+)")
+
+  echo "$REVIEW"
+
+  if echo "$REVIEW" | grep -q "CRITICAL\|HIGH"; then
+    echo ""
+    echo "Security concerns identified. Review output above."
+    echo "To commit anyway, use: git commit --no-verify"
+    exit 1
+  fi
+fi
+
+echo "Security review passed."
+```
+
+---
+
+### Bash Script for Batch Review
+
+```bash
+#!/bin/bash
+# review-all.sh - Batch review all services
+
+SERVICES=(
+  "api-gateway"
+  "auth-service"
+  "user-service"
+  "order-service"
+)
+
+for service in "${SERVICES[@]}"; do
+  echo "Reviewing $service..."
+
+  gemini --model gemini-2.5-flash -p "$(cat <<EOF
+Review service: $service
+
+Code: @./services/$service/
+
+Focus:
+- Security vulnerabilities
+- Performance issues
+- Best practice violations
+
+Expected Output: Summary with risk level
+EOF
+)" > "reviews/$service-review.txt"
+
+  echo "Review saved to reviews/$service-review.txt"
+done
+
+echo "All reviews complete."
+```
+
+---
+
+### VS Code Task
+
+```json
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Gemini Peer Review",
+      "type": "shell",
+      "command": "gemini",
+      "args": [
+        "-p",
+        "Review ${file} for security and performance issues. Expected Output: List of issues with severity levels."
       ],
-      "recommendations": [
-        {{
-          "priority": 1,
-          "description": "...",
-          "rationale": "..."
-        }}
-      ]
-    }}
-
-    Architecture:
-    {arch_content}
-    """
-
-    response = model.generate_content(prompt)
-    return json.loads(response.text)
-
-def main():
-    if len(sys.argv) < 2:
-        print("Usage: python review.py <architecture-file>")
-        sys.exit(1)
-
-    arch_file = sys.argv[1]
-    arch_content = load_architecture(arch_file)
-
-    print(f"Reviewing {arch_file}...")
-    result = review_architecture(arch_content)
-
-    print(f"\nRisk Level: {result['risk_level']}\n")
-
-    if result['concerns']:
-        print("Concerns:")
-        for concern in result['concerns']:
-            print(f"  [{concern['severity']}] {concern['category']}: {concern['description']}")
-        print()
-
-    if result['recommendations']:
-        print("Recommendations:")
-        for rec in result['recommendations']:
-            print(f"  {rec['priority']}. {rec['description']}")
-            print(f"     Rationale: {rec['rationale']}")
-        print()
-
-    # Exit with error code if HIGH or CRITICAL risk
-    if result['risk_level'] in ['HIGH', 'CRITICAL']:
-        sys.exit(1)
-
-if __name__ == "__main__":
-    main()
-```
-
-**Usage:**
-```bash
-export GEMINI_API_KEY="your-api-key"
-python review.py architecture.md
-```
-
----
-
-### TypeScript/Node.js Integration
-
-**Complete Review Module:**
-```typescript
-import { GoogleGenerativeAI } from "@google/generative-ai";
-import * as fs from "fs";
-
-interface ReviewResult {
-  riskLevel: "CRITICAL" | "HIGH" | "MEDIUM" | "LOW";
-  concerns: Array<{
-    severity: string;
-    category: string;
-    description: string;
-    impact: string;
-  }>;
-  recommendations: Array<{
-    priority: number;
-    description: string;
-    rationale: string;
-  }>;
-}
-
-class ArchitectureReviewer {
-  private genAI: GoogleGenerativeAI;
-  private model: any;
-
-  constructor(apiKey: string) {
-    this.genAI = new GoogleGenerativeAI(apiKey);
-
-    this.model = this.genAI.getGenerativeModel({
-      model: "gemini-2.5-pro",
-      generationConfig: {
-        temperature: 0.3,
-        maxOutputTokens: 8192,
-        responseMimeType: "application/json",
-      },
-      systemInstruction: `
-        You are a senior software architect conducting peer reviews.
-        Provide structured, actionable feedback focusing on:
-        - Scalability
-        - Security
-        - Maintainability
-        - Operational complexity
-      `,
-    });
-  }
-
-  async reviewArchitecture(archContent: string): Promise<ReviewResult> {
-    const prompt = `
-      Review this architecture and return JSON:
-
-      {
-        "riskLevel": "CRITICAL|HIGH|MEDIUM|LOW",
-        "concerns": [
-          {
-            "severity": "CRITICAL|HIGH|MEDIUM|LOW",
-            "category": "scalability|security|maintainability|operations",
-            "description": "...",
-            "impact": "..."
-          }
-        ],
-        "recommendations": [
-          {
-            "priority": 1,
-            "description": "...",
-            "rationale": "..."
-          }
-        ]
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
       }
-
-      Architecture:
-      ${archContent}
-    `;
-
-    const result = await this.model.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text();
-
-    return JSON.parse(text) as ReviewResult;
-  }
-
-  async reviewFile(filePath: string): Promise<ReviewResult> {
-    const content = fs.readFileSync(filePath, "utf-8");
-    return this.reviewArchitecture(content);
-  }
+    },
+    {
+      "label": "Gemini Architecture Review",
+      "type": "shell",
+      "command": "gemini",
+      "args": [
+        "--model",
+        "gemini-2.5-pro",
+        "-p",
+        "Comprehensive architecture review of entire project. Focus on scalability, security, maintainability."
+      ],
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    }
+  ]
 }
-
-// Usage
-async function main() {
-  const apiKey = process.env.GEMINI_API_KEY!;
-  const reviewer = new ArchitectureReviewer(apiKey);
-
-  const archFile = process.argv[2];
-  if (!archFile) {
-    console.error("Usage: node review.js <architecture-file>");
-    process.exit(1);
-  }
-
-  console.log(`Reviewing ${archFile}...`);
-  const result = await reviewer.reviewFile(archFile);
-
-  console.log(`\nRisk Level: ${result.riskLevel}\n`);
-
-  if (result.concerns.length > 0) {
-    console.log("Concerns:");
-    result.concerns.forEach((concern) => {
-      console.log(`  [${concern.severity}] ${concern.category}: ${concern.description}`);
-    });
-    console.log();
-  }
-
-  if (result.recommendations.length > 0) {
-    console.log("Recommendations:");
-    result.recommendations.forEach((rec) => {
-      console.log(`  ${rec.priority}. ${rec.description}`);
-      console.log(`     Rationale: ${rec.rationale}`);
-    });
-    console.log();
-  }
-
-  // Exit with error if HIGH or CRITICAL risk
-  if (["HIGH", "CRITICAL"].includes(result.riskLevel)) {
-    process.exit(1);
-  }
-}
-
-main().catch(console.error);
-```
-
-**Usage:**
-```bash
-export GEMINI_API_KEY="your-api-key"
-npx ts-node review.ts architecture.md
-```
-
----
-
-### Environment Variable Management
-
-**Development (.env file):**
-```bash
-# .env
-GEMINI_API_KEY=your-api-key-here
-GOOGLE_CLOUD_PROJECT=your-project-id
-GOOGLE_CLOUD_LOCATION=us-central1
-```
-
-**Load with Python:**
-```python
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
-api_key = os.environ["GEMINI_API_KEY"]
-```
-
-**Load with Node.js:**
-```typescript
-import * as dotenv from "dotenv";
-dotenv.config();
-
-const apiKey = process.env.GEMINI_API_KEY!;
-```
-
-**Production (Environment Variables):**
-```bash
-# Set in deployment environment
-export GEMINI_API_KEY="production-key"
-
-# Or use cloud secret managers
-# AWS Secrets Manager, GCP Secret Manager, Azure Key Vault
 ```
 
 ---
 
 ## Quick Reference
 
-### API Call Patterns
+### Command Quick Reference
 
-| Use Case | Model | Temperature | Max Tokens | Safety |
-|----------|-------|-------------|------------|--------|
-| Architecture Review | Pro | 0.3 | 8192 | BLOCK_NONE |
-| Security Review | Pro | 0.1 | 8192 | BLOCK_NONE |
-| Performance Analysis | Flash | 0.4 | 8192 | Default |
-| Design Evaluation | Pro | 0.5 | 8192 | Default |
-| Testing Strategy | Flash | 0.4 | 8192 | Default |
-| Code Review | Flash | 0.3 | 8192 | BLOCK_NONE |
-
----
-
-### Python Boilerplate
-
-```python
-import google.generativeai as genai
-import os
-
-# Configure
-genai.configure(api_key=os.environ["GEMINI_API_KEY"])
-
-# Create model
-generation_config = {
-    "temperature": 0.3,
-    "max_output_tokens": 8192,
-}
-
-model = genai.GenerativeModel(
-    "gemini-2.5-flash",
-    generation_config=generation_config
-)
-
-# Generate
-response = model.generate_content("Your prompt here")
-print(response.text)
-```
+| Use Case | Command | Key Flags |
+|----------|---------|-----------|
+| Architecture review | `gemini -p "[context]"` | `--model gemini-2.5-pro` |
+| Review with diagram | `gemini -p "analyze: @diagram.png"` | None (multimodal) |
+| Security review | `gemini -p "[threat model + code]"` | `--model gemini-2.5-flash` |
+| Performance analysis | `gemini -p "[metrics + code]"` | `--model gemini-2.5-flash` |
+| Design comparison | `gemini -p "[options + criteria]"` | `--model gemini-2.5-pro` |
+| Testing strategy | `gemini -p "[coverage + concerns]"` | `--model gemini-2.5-flash` |
+| Code review | `gemini -p "[focus areas + code]"` | `--model gemini-2.5-flash` |
+| Interactive exploration | `gemini` | None (interactive) |
+| JSON output | `gemini --output-format json -p "[prompt]"` | `--output-format json` |
+| Sandbox execution | `gemini --sandbox -p "[prompt]"` | `--sandbox` or `-s` |
 
 ---
 
-### TypeScript Boilerplate
+### Flag Quick Reference
 
-```typescript
-import { GoogleGenerativeAI } from "@google/generative-ai";
-
-// Initialize
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
-
-// Create model
-const model = genAI.getGenerativeModel({
-  model: "gemini-2.5-flash",
-  generationConfig: {
-    temperature: 0.3,
-    maxOutputTokens: 8192,
-  },
-});
-
-// Generate
-const result = await model.generateContent("Your prompt here");
-const response = await result.response;
-console.log(response.text());
-```
+| Flag | Short | Description | Recommended Use |
+|------|-------|-------------|----------------|
+| `--prompt` | `-p` | Non-interactive mode | Automation, CI/CD |
+| `--prompt-interactive` | `-i` | Start interactive with context | Conversational review |
+| `--model` | None | Select model | Pro for complex, Flash for standard |
+| `--output-format` | None | json, stream-json, text | JSON for automation |
+| `--sandbox` | `-s` | Safe execution mode | Untrusted code |
+| `--yolo` | None | Auto-approve tools | Implementation (not review) |
+| `--debug` | `-d` | Debug mode | Troubleshooting |
+| `--quiet` | None | Suppress extra output | Scripts |
+| `--style` | `-t` | Markdown style | Visual preference |
+| `--wrap` | `-w` | Line wrapping | Readability |
 
 ---
 
-This API reference provides comprehensive guidance for integrating Gemini models into peer review workflows using Python and TypeScript/Node.js.
+### Slash Command Quick Reference
+
+| Command | Description | Use Case |
+|---------|-------------|----------|
+| `/help` | Show help | Learn commands |
+| `/tools` | List available tools | See capabilities |
+| `/stats` | Show token usage | Monitor quota |
+| `/settings` | Open settings | Configure model, etc. |
+| `/mcp` | Show MCP server status | Check integrations |
+| `/memory show` | Show current memory | View context |
+| `/compress` | Compress conversation | Save tokens |
+| `/chat save` | Save conversation | Resume later |
+| `/quit` | Exit CLI | End session |
+
+---
+
+This command reference provides comprehensive guidance for using Gemini CLI in peer review workflows through direct CLI invocation rather than API calls.

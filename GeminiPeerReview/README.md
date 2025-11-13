@@ -1,12 +1,12 @@
-# 🖥️ Gemini Peer Review - Claude Code Skill
-
-> **Claude Code Only** - This skill requires Claude Code's terminal access and Python to invoke the Gemini API programmatically. It is not available in web chat.
+# Gemini Peer Review
 
 **Version:** 1.0.0
 **License:** MIT
 **Author:** Claude Code AI Skills Collection
 
-Enable Claude Code to leverage Google's Gemini API for AI peer review, second opinions on architecture and design decisions, cross-validation of implementations, and multi-perspective analysis enhanced by Gemini's massive 1M token context window and multimodal capabilities.
+🖥️ **Claude Code Only** - This skill requires terminal access to execute Gemini CLI commands.
+
+Enable Claude Code to leverage Google's Gemini CLI for AI peer review, second opinions on architecture and design decisions, cross-validation of implementations, and multi-perspective analysis enhanced by Gemini's massive 1M token context window and multimodal capabilities.
 
 ---
 
@@ -123,17 +123,31 @@ This isn't about replacing Claude Code's capabilities—it's about adding a seco
 
 ### Prerequisites
 
-**1. Python 3.8+** must be installed (required for Gemini API SDK)
+**1. Gemini CLI** must be installed to use this skill.
 
-**2. Gemini API Access** is required to use this skill
+#### Install Gemini CLI
 
----
+```bash
+# Via npm (recommended)
+npm install -g @google/gemini-cli
 
-### Gemini API Setup
+# Verify installation
+gemini --version
+```
 
-**1. Get API Key:**
+#### Authenticate
 
-Visit [Google AI Studio](https://aistudio.google.com/apikey) and create an API key.
+```bash
+# Option 1: OAuth login (recommended)
+gemini login
+
+# Option 2: API key
+# Get API key from https://aistudio.google.com/apikey
+gemini config set apiKey YOUR_API_KEY_HERE
+
+# Verify authentication
+gemini "Hello, Gemini!"
+```
 
 **Free Tier Benefits:**
 - 60 requests per minute
@@ -142,54 +156,7 @@ Visit [Google AI Studio](https://aistudio.google.com/apikey) and create an API k
 - Access to Gemini 2.5 Flash
 - No credit card required
 
-**2. Set Environment Variable:**
-
-```bash
-# Add to ~/.zshrc or ~/.bashrc
-export GEMINI_API_KEY="your-api-key-here"
-
-# Reload shell
-source ~/.zshrc
-```
-
-**3. Install Python SDK:**
-
-```bash
-pip install google-generativeai
-```
-
-**4. Verify Setup:**
-
-```python
-import google.generativeai as genai
-import os
-
-genai.configure(api_key=os.environ['GEMINI_API_KEY'])
-model = genai.GenerativeModel('gemini-2.5-flash')
-response = model.generate_content("Hello, Gemini!")
-print(response.text)
-```
-
-If successful, you'll see a response from Gemini.
-
-**Alternative: Vertex AI (Enterprise)**
-
-For production/enterprise use with higher limits:
-
-```bash
-# Install Google Cloud SDK
-# https://cloud.google.com/sdk/docs/install
-
-# Authenticate
-gcloud auth application-default login
-
-# Set project
-export GOOGLE_CLOUD_PROJECT="your-project-id"
-export GOOGLE_CLOUD_LOCATION="us-central1"
-
-# Install SDK
-pip install google-cloud-aiplatform
-```
+**Official Documentation:** [Gemini CLI](https://ai.google.dev/gemini-api/docs/cli)
 
 ---
 
@@ -237,12 +204,11 @@ rm -rf temp-aiskills
 
 ### ⚠️ Not Available for Claude Web Chat
 
-**This skill requires Claude Code** with terminal access to execute Python code and call the Gemini API. It cannot function in Claude web chat's sandboxed browser environment.
+**This skill requires Claude Code** with terminal access to execute Gemini CLI commands. It cannot function in Claude web chat's sandboxed browser environment.
 
 **Why it doesn't work on web:**
-- Cannot execute Python/terminal commands
-- Cannot access environment variables for API keys
-- Cannot make API calls to external services
+- Cannot execute bash/terminal commands
+- Cannot access locally installed CLI tools like Gemini
 - Requires system-level command execution
 
 **Use Claude Code instead** where terminal access is available.
@@ -274,7 +240,7 @@ User: "I'm choosing between Redis with TTL-based invalidation and event-driven c
 Claude Code: Let me analyze both approaches and get Gemini's perspective as well.
 
 [Claude analyzes]
-[Invokes Gemini peer review via Python API]
+[Invokes Gemini peer review via CLI]
 [Synthesizes both perspectives]
 
 Claude Code: Here's the analysis from both perspectives:
@@ -484,10 +450,10 @@ Claude Code: Gemini processed the entire 60k LOC codebase and identified:
 - Set output expectations
 - Include multimodal assets if applicable
 
-**3. Gemini API Invocation**
-- Configure Gemini API with Python SDK
+**3. Gemini CLI Invocation**
+- Execute Gemini CLI with prepared context
 - Select appropriate model (Pro vs Flash)
-- Execute API call with prepared context
+- Use appropriate command flags
 - Handle responses and errors
 - Process multimodal inputs if included
 
@@ -569,10 +535,11 @@ The skill includes detailed reference documentation:
 - Multimodal input preparation
 - Common preparation mistakes
 
-**[Gemini API Commands Reference](gemini-peer-review/references/gemini-commands.md)**
-- Complete API reference
-- Python SDK usage patterns
+**[Gemini CLI Commands Reference](gemini-peer-review/references/gemini-commands.md)**
+- Complete CLI command reference
+- Flags and options
 - Model selection guidelines (Pro vs Flash)
+- Command patterns for peer review
 - Multimodal input examples
 - Error handling and retry strategies
 
@@ -602,48 +569,47 @@ The skill includes detailed reference documentation:
 
 ## Configuration
 
-### Environment Variables
+### Optional Gemini CLI Configuration
 
-**Required:**
+Set default model and parameters:
+
 ```bash
-GEMINI_API_KEY="your-api-key-here"
-```
+# Set default model
+gemini config set defaultModel gemini-2.5-pro
 
-**Optional (Vertex AI):**
-```bash
-GOOGLE_CLOUD_PROJECT="your-project-id"
-GOOGLE_CLOUD_LOCATION="us-central1"
-GOOGLE_APPLICATION_CREDENTIALS="/path/to/service-account.json"
-```
+# Set temperature for more focused responses
+gemini config set temperature 0.3
 
-### Python API Configuration
+# Set max output tokens for detailed analysis
+gemini config set maxOutputTokens 8192
 
-**Basic setup:**
-```python
-import google.generativeai as genai
-import os
-
-genai.configure(api_key=os.environ['GEMINI_API_KEY'])
-```
-
-**Generation config (optional customization):**
-```python
-generation_config = {
-    'temperature': 0.3,      # More focused for peer review
-    'top_p': 0.8,
-    'top_k': 40,
-    'max_output_tokens': 8192,
-}
-
-model = genai.GenerativeModel(
-    'gemini-2.5-pro',
-    generation_config=generation_config
-)
+# View current configuration
+gemini config list
 ```
 
 **Recommended peer review settings:**
+- `defaultModel`: `gemini-2.5-pro` (best for complex reasoning)
 - `temperature`: 0.3-0.5 (more focused, less creative)
-- `max_output_tokens`: 8192 (allow detailed analysis)
+- `maxOutputTokens`: 8192 (allow detailed analysis)
+
+### Project Context
+
+Create `gemini.md` in your project root for project-specific context:
+
+```markdown
+# Project: Your Project Name
+
+## Architecture
+[High-level architecture description]
+
+## Code Style
+[Coding conventions]
+
+## Key Decisions
+[Important architectural decisions]
+```
+
+Gemini CLI can reference this for enhanced context awareness.
 
 ---
 
@@ -666,7 +632,7 @@ model = genai.GenerativeModel(
 - Simple, straightforward implementations
 - Time-sensitive quick fixes
 - Low-impact tactical changes
-- When Gemini API unavailable
+- When Gemini CLI unavailable
 
 ### Effective Context Preparation
 
@@ -722,10 +688,11 @@ model = genai.GenerativeModel(
 
 ### Technical Limitations
 
-- Requires Gemini API configuration and internet connectivity
+- Requires Gemini CLI installation and authentication
 - Subject to Google API rate limits (generous free tier: 60/min, 1,000/day)
 - Cloud-based processing (code sent to Google servers)
 - No offline mode available
+- Sequential analysis (not real-time collaboration)
 - Response quality depends on prompt clarity
 - Multimodal processing requires appropriate file formats
 
@@ -736,7 +703,7 @@ model = genai.GenerativeModel(
 - Peer review adds time to workflow
 - Over-reliance can slow decision-making
 - Different training data → different perspectives
-- Privacy: code sent to Google cloud (consider for sensitive/proprietary code)
+- Privacy: code sent to Google Cloud (consider for sensitive/proprietary code)
 
 ### When to Trust Which Perspective
 
@@ -752,18 +719,34 @@ model = genai.GenerativeModel(
 
 ## Troubleshooting
 
-### API Key Not Found
+### Gemini CLI Not Found
 
-**Problem:** `KeyError: 'GEMINI_API_KEY'` or "API key not configured"
+**Problem:** `gemini: command not found`
+
+**Solution:** Install Gemini CLI:
+```bash
+npm install -g @google/gemini-cli
+
+# Verify installation
+gemini --version
+```
+
+---
+
+### Authentication Errors
+
+**Problem:** `Authentication required` or authentication failures
 
 **Solution:**
 ```bash
-# Check if set
-echo $GEMINI_API_KEY
+# OAuth login (recommended)
+gemini login
 
-# If not set, add to shell config
-echo 'export GEMINI_API_KEY="your-api-key-here"' >> ~/.zshrc
-source ~/.zshrc
+# Or set API key
+gemini config set apiKey YOUR_API_KEY_HERE
+
+# Verify authentication
+gemini "Hello, Gemini!"
 ```
 
 ---
@@ -776,11 +759,11 @@ source ~/.zshrc
 - Free tier: 60 requests/minute, 1,000/day
 - Wait for rate limit reset
 - Upgrade to paid tier for higher limits
-- Use `gemini-2.5-flash` for faster, lower-cost requests
+- Switch to `gemini-2.5-flash` for faster, lower-cost requests
 
-```python
+```bash
 # Switch to Flash model
-model = genai.GenerativeModel('gemini-2.5-flash')
+gemini config set defaultModel gemini-2.5-flash
 ```
 
 ---
@@ -792,21 +775,12 @@ model = genai.GenerativeModel('gemini-2.5-flash')
 **Solution:**
 Configure safety settings for code review:
 
-```python
-safety_settings = {
-    'HARM_CATEGORY_DANGEROUS_CONTENT': 'BLOCK_NONE',
-    'HARM_CATEGORY_HATE_SPEECH': 'BLOCK_NONE',
-    'HARM_CATEGORY_HARASSMENT': 'BLOCK_NONE',
-    'HARM_CATEGORY_SEXUALLY_EXPLICIT': 'BLOCK_NONE',
-}
-
-model = genai.GenerativeModel(
-    'gemini-2.5-pro',
-    safety_settings=safety_settings
-)
+```bash
+# Adjust safety settings for technical content
+gemini config set safetySettings "BLOCK_NONE"
 ```
 
-Code review shouldn't trigger safety filters with these settings.
+Code review shouldn't trigger safety filters with adjusted settings.
 
 ---
 
@@ -824,33 +798,39 @@ Code review shouldn't trigger safety filters with these settings.
 
 ---
 
-### Python SDK Import Error
-
-**Problem:** `ModuleNotFoundError: No module named 'google.generativeai'`
-
-**Solution:**
-```bash
-pip install google-generativeai
-```
-
----
-
 ### Model Not Found
 
 **Problem:** "Model not found" or invalid model name
 
 **Solution:**
 Use correct model names:
-- `gemini-2.5-pro` (best for complex reasoning)
-- `gemini-2.5-flash` (faster, still excellent)
+- `gemini-2.5-pro` (best for complex reasoning, 1M context)
+- `gemini-2.5-flash` (faster, still excellent, 1M context)
 - `gemini-2.5-flash-lite` (fastest, most cost-efficient)
 
-```python
-# Correct
-model = genai.GenerativeModel('gemini-2.5-pro')
+```bash
+# Set correct model
+gemini config set defaultModel gemini-2.5-pro
 
-# Incorrect
-model = genai.GenerativeModel('gemini-pro')  # Old model name
+# Verify
+gemini config list
+```
+
+---
+
+### Network or Connectivity Issues
+
+**Problem:** Connection errors or timeouts
+
+**Solution:**
+- Verify internet connectivity
+- Check firewall settings
+- Retry with exponential backoff
+- Use proxy configuration if needed
+
+```bash
+# Set proxy if required
+gemini config set httpProxy http://proxy.example.com:8080
 ```
 
 ---
@@ -942,17 +922,20 @@ A: Use peer review for complex architecture decisions, security-critical code, s
 **Q: What if Claude and Gemini disagree?**
 A: Disagreement is valuable—it reveals trade-offs and different priorities. The synthesis explains why they differ and provides a decision framework based on your context.
 
-**Q: What's the cost?**
-A: Gemini API has a generous free tier (60 req/min, 1,000 req/day) with no credit card required. Paid tiers available for higher usage. See [Rate Limits & Pricing](https://ai.google.dev/pricing).
+**Q: Does this cost extra?**
+A: Gemini CLI uses Google's API with a generous free tier (60 req/min, 1,000 req/day) with no credit card required. Paid tiers available for higher usage. See [Rate Limits & Pricing](https://ai.google.dev/pricing).
+
+**Q: Can I use this without Gemini CLI?**
+A: No, the skill requires Gemini CLI. Claude will inform you if it's not available and continue with Claude-only analysis.
 
 **Q: Is my code sent to Google?**
-A: Yes, when using Gemini API, code is sent to Google servers for processing. Consider this for sensitive/proprietary code. Use Claude alone if code cannot be sent externally.
+A: Yes, when using Gemini CLI, code is sent to Google servers for processing. Consider this for sensitive/proprietary code. Use Claude alone if code cannot be sent externally.
 
 **Q: When should I use Pro vs Flash model?**
 A: Use `gemini-2.5-pro` for complex architectural decisions, security-critical reviews, and deep trade-off analysis. Use `gemini-2.5-flash` for faster turnaround, straightforward analysis, and cost optimization. Both have 1M token context.
 
 **Q: Can I use this offline?**
-A: No, Gemini API requires internet connectivity. Code is processed in Google's cloud.
+A: No, Gemini CLI requires internet connectivity. Code is processed in Google's Cloud.
 
 **Q: How does Gemini's 1M token context help?**
 A: It enables processing entire codebases (50k+ LOC) in single context, revealing cross-module patterns, dependencies, and systemic issues impossible to detect with chunked analysis. This is Gemini's biggest advantage.
@@ -968,14 +951,14 @@ A: When perspectives converge, confidence increases. When they diverge, consider
 ## Version History
 
 ### v1.0.0 (2025-01-12)
-- Initial release with full Gemini API integration
+- Initial release with Gemini CLI integration
 - Architecture review, design decisions, security, performance, testing, learning use cases
 - Large codebase analysis leveraging 1M token context
 - Multimodal analysis (diagrams, PDFs, designs)
 - Comprehensive synthesis framework
 - Complete documentation and templates
 - Ready-to-use prompt templates
-- Python SDK integration examples
+- CLI command patterns and examples
 
 ---
 
@@ -1001,19 +984,18 @@ Contributions welcome! To improve this skill:
 ## Resources
 
 ### Official Documentation
+- [Gemini CLI Documentation](https://ai.google.dev/gemini-api/docs/cli)
 - [Gemini API Documentation](https://ai.google.dev/docs)
 - [Google AI Studio](https://aistudio.google.com)
-- [Vertex AI Documentation](https://cloud.google.com/vertex-ai/docs)
-- [Python SDK Guide](https://ai.google.dev/gemini-api/docs/python-api)
+- [Rate Limits & Pricing](https://ai.google.dev/pricing)
 
 ### Claude Code
 - [Claude Code Documentation](https://docs.claude.com/en/docs/claude-code)
 - [Claude Code Skills Guide](https://docs.claude.com/en/docs/claude-code/skills)
 
 ### Learning Resources
-- [Gemini API Quickstart](https://ai.google.dev/gemini-api/docs/quickstart)
+- [Gemini CLI Quickstart](https://ai.google.dev/gemini-api/docs/cli/quickstart)
 - [Multimodal Examples](https://ai.google.dev/gemini-api/docs/vision)
-- [Rate Limits & Pricing](https://ai.google.dev/pricing)
 
 ### Related Skills
 - [Codex Peer Review](../CodexPeerReview/) - OpenAI Codex CLI alternative
@@ -1036,8 +1018,8 @@ MIT License - See [LICENSE](LICENSE.txt) for details.
 - Check [Claude Code documentation](https://docs.claude.com/en/docs/claude-code)
 - Review [comprehensive guides](gemini-peer-review/references/) in this skill
 
-**Gemini API Issues:**
-- Consult [Gemini API documentation](https://ai.google.dev/docs)
+**Gemini CLI Issues:**
+- Consult [Gemini CLI documentation](https://ai.google.dev/gemini-api/docs/cli)
 - Check [Google AI Studio](https://aistudio.google.com)
 - Review [troubleshooting guide](#troubleshooting) above
 
