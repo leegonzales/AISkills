@@ -1,6 +1,6 @@
 ---
 name: gemini-peer-review
-description: [CLAUDE CODE ONLY] Leverage Gemini CLI for AI peer review, second opinions on architecture and design decisions, cross-validation of implementations, security analysis, alternative approaches, and holistic codebase analysis. Requires terminal access to execute Gemini CLI commands. Use when making high-stakes decisions, reviewing complex architecture, analyzing large codebases, or when explicitly requested for a second AI perspective. Triggers include "get a second opinion," "review this architecture," "validate this approach," or "what would Gemini think?"
+description: [CLAUDE CODE ONLY] Leverage Gemini CLI for AI peer review, second opinions on architecture and design decisions, cross-validation of implementations, security analysis, alternative approaches, and holistic codebase analysis. Requires terminal access to execute Gemini CLI commands. Use when making high-stakes decisions, reviewing complex architecture, analyzing large codebases (1M token context window), or when explicitly requested for a second AI perspective. Must be explicitly invoked using skill syntax.
 license: Complete terms in LICENSE.txt
 environment: claude-code
 ---
@@ -53,19 +53,61 @@ Gemini's massive 1M token context window allows it to process entire codebases w
 - Low-impact tactical changes
 - Gemini CLI is not available/installed
 
-### Trigger Patterns
+### How to Invoke This Skill
 
-User phrases that indicate peer review would be valuable:
+**Important:** This skill requires explicit invocation. It is not automatically triggered by natural language.
+
+**To use this skill, Claude must explicitly invoke it using:**
+
+```
+skill: "gemini-peer-review"
+```
+
+**User phrases that indicate this skill would be valuable:**
 - "Get a second opinion on..."
 - "What would Gemini think about..."
-- "Review this architecture"
-- "Validate this approach"
+- "Review this architecture with Gemini"
+- "Use Gemini to validate this approach"
 - "Are there better alternatives to..."
-- "Cross-check this implementation"
-- "Security review needed"
-- "Is this the right design?"
-- "Analyze the entire codebase"
-- "Review this architecture diagram"
+- "Get Gemini peer review for this"
+- "Security review with Gemini needed"
+- "Ask Gemini about this design"
+- "Analyze the entire codebase with Gemini"
+- "Review this architecture diagram with Gemini"
+
+When these phrases appear, Claude should suggest using this skill and invoke it explicitly if appropriate.
+
+---
+
+### Codex vs Gemini: Which Peer Review Skill?
+
+Both Codex and Gemini peer review skills provide valuable second opinions, but excel in different scenarios.
+
+**Use Gemini Peer Review when:**
+- Code size > 5k LOC (large codebase analysis)
+- Need full codebase context (up to 1M tokens)
+- Reviewing architecture across multiple modules
+- Analyzing diagrams + code together (multimodal)
+- Want research-grounded recommendations (current best practices)
+- Cross-module security analysis (attack surface mapping)
+- Systemic performance patterns
+- Design consistency checking
+
+**Use Codex Peer Review when:**
+- Code size < 500 LOC (focused reviews)
+- Need precise, line-level bug detection
+- Want fast analysis with concise output
+- Reviewing single modules or functions
+- Need tactical implementation feedback
+- Performance bottleneck identification (specific issues)
+- Quick validation of design decisions
+
+**For mid-range codebases (500-5k LOC):**
+- Use **Gemini** if: Cross-module patterns, holistic view, diagram analysis, research grounding
+- Use **Codex** if: Focused review, single module, speed priority, specific bugs
+- Consider **Both** for: Critical decisions requiring maximum confidence
+
+**For maximum value on high-stakes decisions:** Use both skills sequentially and apply synthesis framework (see references/synthesis-framework.md).
 
 ---
 
