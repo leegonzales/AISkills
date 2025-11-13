@@ -156,6 +156,40 @@ Leverage OpenAI's Codex CLI for AI peer review and second opinions on architectu
 
 ---
 
+### 7. Gemini Peer Review (v1.0.0) 🖥️ **Claude Code Only**
+
+Leverage Google's Gemini API for AI peer review with massive context windows and multimodal capabilities. Get complementary perspectives from Claude + Gemini on architecture, design, and implementation decisions.
+
+**⚠️ Requires Claude Code** - This skill needs terminal access to invoke the Gemini API programmatically. Not available for Claude web chat.
+
+**Features:**
+- Architecture validation with 1M token context window (entire codebases)
+- Design decision analysis from dual AI perspectives
+- Security review with threat modeling and vulnerability identification
+- Performance optimization with bottleneck detection
+- Testing strategy validation and coverage gap analysis
+- Multimodal technical review (diagrams, PDFs, designs)
+- Large codebase analysis (60k+ lines in single context)
+- Google Search grounding for current best practices
+
+**Use for:**
+- Architecture review with full codebase context
+- Second opinions on critical technical decisions
+- Security audits with comprehensive threat analysis
+- Performance analysis across large systems
+- Testing strategy development
+- Multimodal technical review (diagram to code)
+- Learning from complex codebases with AI collaboration
+
+**Prerequisites:**
+- Claude Code environment (requires terminal access)
+- [Google Gemini API key](https://makersuite.google.com/app/apikey) (free tier available)
+- Python 3.8+ with `google-generativeai` package
+
+**[View Gemini Peer Review →](GeminiPeerReview/)**
+
+---
+
 ## Installation
 
 ### For Claude Code
@@ -175,6 +209,7 @@ cp -r /path/to/AISkills/ConceptForge/concept-forge ./
 cp -r /path/to/AISkills/ProcessMapper/process-mapper ./
 cp -r /path/to/AISkills/Claimify/claimify ./
 cp -r /path/to/AISkills/CodexPeerReview/codex-peer-review ./
+cp -r /path/to/AISkills/GeminiPeerReview/gemini-peer-review ./
 ```
 
 #### Project Skills (Project-Specific)
@@ -281,6 +316,14 @@ Once installed, skills are **automatically invoked by Claude** based on your nat
 "What would Codex think about this design decision?"
 ```
 
+**Gemini Peer Review:**
+```
+"Get Gemini's perspective on this architecture"
+"Review this entire codebase for security vulnerabilities"
+"Analyze this diagram and code together for inconsistencies"
+"What would Gemini recommend for this performance issue?"
+```
+
 ---
 
 ## Repository Structure
@@ -314,8 +357,11 @@ AISkills/
 │   │   └── claimify-v1.0.0.skill
 │   ├── claimify/                       # Source skill
 │   └── README.md
-└── CodexPeerReview/                    # AI peer review (Claude Code only)
-    ├── codex-peer-review/              # Source skill
+├── CodexPeerReview/                    # AI peer review with Codex (Claude Code only)
+│   ├── codex-peer-review/              # Source skill
+│   └── README.md
+└── GeminiPeerReview/                   # AI peer review with Gemini (Claude Code only)
+    ├── gemini-peer-review/             # Source skill
     └── README.md
 ```
 
@@ -357,6 +403,7 @@ All skills in this collection follow these principles:
 | Process Mapper | v1.0.0 | 2025-11-02 | Initial release |
 | Claimify | v1.0.0 | 2025-10-31 | Initial release |
 | Codex Peer Review | v1.0.0 | 2025-11-12 | Initial release - AI peer review with Codex CLI |
+| Gemini Peer Review | v1.0.0 | 2025-01-12 | Initial release - AI peer review with Gemini API, 1M context |
 
 ---
 
@@ -453,6 +500,6 @@ Each skill may have its own license - check individual skill directories for det
 
 ---
 
-**Current Skills**: 6 | **Total Downloads**: 126KB | **Last Updated**: 2025-11-12
+**Current Skills**: 7 | **Total Downloads**: 126KB | **Last Updated**: 2025-01-12
 
 Built with Claude Code | [Learn More](https://docs.claude.com/en/docs/claude-code)
