@@ -142,7 +142,7 @@ gemini --version
 gemini login
 
 # Option 2: API key
-# Get API key from https://aistudio.google.com/apikey
+# Get API key from https://aistudio.google.com/app/apikey
 gemini config set apiKey YOUR_API_KEY_HERE
 
 # Verify authentication
@@ -156,7 +156,7 @@ gemini "Hello, Gemini!"
 - Access to Gemini 2.5 Flash
 - No credit card required
 
-**Official Documentation:** [Gemini CLI](https://ai.google.dev/gemini-api/docs/cli)
+**Official Documentation:** [Gemini CLI](https://github.com/google-gemini/gemini-cli)
 
 ---
 
@@ -923,7 +923,7 @@ A: Use peer review for complex architecture decisions, security-critical code, s
 A: Disagreement is valuable—it reveals trade-offs and different priorities. The synthesis explains why they differ and provides a decision framework based on your context.
 
 **Q: Does this cost extra?**
-A: Gemini CLI uses Google's API with a generous free tier (60 req/min, 1,000 req/day) with no credit card required. Paid tiers available for higher usage. See [Rate Limits & Pricing](https://ai.google.dev/pricing).
+A: Gemini CLI uses Google's API with a generous free tier (60 req/min, 1,000 req/day) with no credit card required. Paid tiers available for higher usage. See [Rate Limits & Pricing](https://ai.google.dev/gemini-api/docs/pricing).
 
 **Q: Can I use this without Gemini CLI?**
 A: No, the skill requires Gemini CLI. Claude will inform you if it's not available and continue with Claude-only analysis.
@@ -1024,9 +1024,6 @@ When used together with Codex Peer Review:
 
 **Comprehensive testing reports:**
 - [TESTING.md](TESTING.md) - Full test results and methodology
-- [../FINAL_TEST_REPORT.md](../FINAL_TEST_REPORT.md) - Complete 27-test analysis
-- [../EXECUTIVE_SUMMARY.md](../EXECUTIVE_SUMMARY.md) - Executive overview
-- [../test-results/](../test-results/) - Individual test reports
 
 **Test Methodology:**
 - 8 use case tests on real codebase (prompt-evolve, 9k LOC)
@@ -1061,17 +1058,17 @@ Contributions welcome! To improve this skill:
 ## Resources
 
 ### Official Documentation
-- [Gemini CLI Documentation](https://ai.google.dev/gemini-api/docs/cli)
-- [Gemini API Documentation](https://ai.google.dev/docs)
+- [Gemini CLI Documentation](https://github.com/google-gemini/gemini-cli)
+- [Gemini API Documentation](https://ai.google.dev/gemini-api/docs)
 - [Google AI Studio](https://aistudio.google.com)
-- [Rate Limits & Pricing](https://ai.google.dev/pricing)
+- [Rate Limits & Pricing](https://ai.google.dev/gemini-api/docs/pricing)
 
 ### Claude Code
 - [Claude Code Documentation](https://docs.claude.com/en/docs/claude-code)
 - [Claude Code Skills Guide](https://docs.claude.com/en/docs/claude-code/skills)
 
 ### Learning Resources
-- [Gemini CLI Quickstart](https://ai.google.dev/gemini-api/docs/cli/quickstart)
+- [Gemini CLI Quickstart](https://github.com/google-gemini/gemini-cli#quick-start)
 - [Multimodal Examples](https://ai.google.dev/gemini-api/docs/vision)
 
 ### Related Skills
@@ -1084,7 +1081,7 @@ Contributions welcome! To improve this skill:
 
 ## License
 
-MIT License - See [LICENSE](LICENSE.txt) for details.
+MIT License - See [LICENSE](../LICENSE) for details.
 
 ---
 
@@ -1096,7 +1093,7 @@ MIT License - See [LICENSE](LICENSE.txt) for details.
 - Review [comprehensive guides](gemini-peer-review/references/) in this skill
 
 **Gemini CLI Issues:**
-- Consult [Gemini CLI documentation](https://ai.google.dev/gemini-api/docs/cli)
+- Consult [Gemini CLI documentation](https://github.com/google-gemini/gemini-cli)
 - Check [Google AI Studio](https://aistudio.google.com)
 - Review [troubleshooting guide](#troubleshooting) above
 
