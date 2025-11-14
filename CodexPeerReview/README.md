@@ -135,7 +135,7 @@ codex --version
 codex /status
 ```
 
-**Official Documentation:** [Codex CLI](https://developers.openai.com/codex/cli/)
+**Official Documentation:** [Codex CLI](https://developers.openai.com/codex/cli)
 
 ---
 
@@ -716,9 +716,6 @@ When used together with Gemini Peer Review:
 
 **Comprehensive testing reports:**
 - [TESTING.md](TESTING.md) - Full test results and methodology
-- [../FINAL_TEST_REPORT.md](../FINAL_TEST_REPORT.md) - Complete 27-test analysis
-- [../EXECUTIVE_SUMMARY.md](../EXECUTIVE_SUMMARY.md) - Executive overview
-- [../test-results/](../test-results/) - Individual test reports
 
 **Test Methodology:**
 - 7 use case tests on real codebase (prompt-evolve, 9k LOC)
@@ -745,9 +742,9 @@ Contributions welcome! To improve this skill:
 ## Resources
 
 ### Documentation
-- [Claude Code Documentation](https://docs.claude.com/en/docs/claude-code)
+- [Claude Code Documentation](https://docs.claude.com/en/docs/claude-code/overview)
 - [Claude Code Skills Guide](https://docs.claude.com/en/docs/claude-code/skills)
-- [Codex CLI Documentation](https://developers.openai.com/codex/cli/)
+- [Codex CLI Documentation](https://developers.openai.com/codex/cli)
 
 ### Related Skills
 - [Concept Forge](../ConceptForge/) - Dialectical concept development
@@ -766,11 +763,11 @@ MIT License - See [LICENSE](LICENSE.txt) for details.
 
 **Issues or Questions:**
 - Open an issue in this repository
-- Check [Claude Code documentation](https://docs.claude.com/en/docs/claude-code)
+- Check [Claude Code documentation](https://docs.claude.com/en/docs/claude-code/overview)
 - Review [comprehensive guides](codex-peer-review/references/) in this skill
 
 **Codex CLI Issues:**
-- Consult [Codex CLI documentation](https://developers.openai.com/codex/cli/)
+- Consult [Codex CLI documentation](https://developers.openai.com/codex/cli)
 - Check OpenAI developer forums
 
 ---
