@@ -1,0 +1,49 @@
+{
+  "common_structures": [
+    "grew on me",
+    "make up",
+    "put down",
+    "outstanding in",
+    "take for granted",
+    "runs in the family",
+    "lost in translation",
+    "break the ice",
+    "piece of cake",
+    "missed the boat"
+  ],
+  "dad_phrases": [
+    "it grew on me",
+    "make up",
+    "outstanding in",
+    "put down",
+    "runs in the family",
+    "take for granted",
+    "two tired",
+    "piece of cake",
+    "break the ice"
+  ],
+  "homophone_pairs": [
+    ["two", "too"],
+    ["tuna", "tune a"],
+    ["mugged", "mug"],
+    ["thyme", "time"],
+    ["past", "pasta"],
+    ["hole", "whole"],
+    ["stake", "steak"],
+    ["write", "right"],
+    ["flour", "flower"],
+    ["bear", "bare"]
+  ],
+  "double_meaning_words": [
+    "made",
+    "cool",
+    "sharp",
+    "bright",
+    "heavy",
+    "light",
+    "play",
+    "pitch",
+    "charge",
+    "bank"
+  ]
+}
