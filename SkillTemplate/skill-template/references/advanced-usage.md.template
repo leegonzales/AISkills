@@ -1,0 +1,59 @@
+# {{SKILL_NAME}} Advanced Usage
+
+Advanced patterns and techniques for {{SKILL_NAME}}.
+
+## Pattern 1: {{PATTERN_1_NAME}}
+
+**Use When:** {{PATTERN_1_USE_CASE}}
+
+**Implementation:**
+```
+{{PATTERN_1_IMPLEMENTATION}}
+```
+
+**Benefits:**
+- {{PATTERN_1_BENEFIT_1}}
+- {{PATTERN_1_BENEFIT_2}}
+
+---
+
+## Pattern 2: {{PATTERN_2_NAME}}
+
+**Use When:** {{PATTERN_2_USE_CASE}}
+
+**Implementation:**
+```
+{{PATTERN_2_IMPLEMENTATION}}
+```
+
+**Benefits:**
+- {{PATTERN_2_BENEFIT_1}}
+- {{PATTERN_2_BENEFIT_2}}
+
+---
+
+## Integration with Other Skills
+
+### With {{OTHER_SKILL_1}}
+
+{{INTEGRATION_DESCRIPTION_1}}
+
+### With {{OTHER_SKILL_2}}
+
+{{INTEGRATION_DESCRIPTION_2}}
+
+---
+
+## Performance Optimization
+
+### Tip 1: {{OPTIMIZATION_TIP_1}}
+
+{{OPTIMIZATION_DESCRIPTION_1}}
+
+### Tip 2: {{OPTIMIZATION_TIP_2}}
+
+{{OPTIMIZATION_DESCRIPTION_2}}
+
+---
+
+For basic usage, see [examples.md](examples.md).

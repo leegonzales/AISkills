@@ -1,0 +1,63 @@
+#!/usr/bin/env python3
+"""
+{{SKILL_NAME}} Validator
+
+Validates skill functionality and outputs.
+
+Usage:
+    python3 validator.py [options]
+"""
+
+import argparse
+import sys
+
+
+def validate_output(output):
+    """
+    Validate skill output format.
+
+    Args:
+        output: The output to validate
+
+    Returns:
+        bool: True if valid, False otherwise
+    """
+    # TODO: Implement validation logic
+    return True
+
+
+def main():
+    """Main entry point."""
+    parser = argparse.ArgumentParser(
+        description="Validate {{SKILL_NAME}} outputs"
+    )
+    parser.add_argument(
+        "--input",
+        type=str,
+        help="Input to validate",
+    )
+    parser.add_argument(
+        "--verbose",
+        action="store_true",
+        help="Verbose output",
+    )
+
+    args = parser.parse_args()
+
+    # Implement validation logic here
+    if args.verbose:
+        print("Running validation...")
+
+    # Example validation
+    is_valid = validate_output(args.input)
+
+    if is_valid:
+        print("✅ Validation passed")
+        sys.exit(0)
+    else:
+        print("❌ Validation failed")
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()

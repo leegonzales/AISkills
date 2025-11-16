@@ -1,0 +1,37 @@
+# Changelog
+
+All notable changes to {{SKILL_NAME}} will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [1.0.0] - {{RELEASE_DATE}}
+
+### Added
+- Initial release of {{SKILL_NAME}}
+- {{FEATURE_1}}
+- {{FEATURE_2}}
+- {{FEATURE_3}}
+
+### Features
+- {{DETAILED_FEATURE_1}}
+- {{DETAILED_FEATURE_2}}
+
+### Documentation
+- Complete README with installation and usage
+- Reference documentation in references/
+- {{ADDITIONAL_DOCS}}
+
+## [Unreleased]
+
+### Planned for v1.1
+- {{FUTURE_FEATURE_1}}
+- {{FUTURE_FEATURE_2}}
+
+### Under Consideration
+- {{CONSIDERATION_1}}
+- {{CONSIDERATION_2}}
+
+---
+
+[1.0.0]: https://github.com/leegonzales/AISkills/releases/tag/{{skill-name}}-v1.0.0
