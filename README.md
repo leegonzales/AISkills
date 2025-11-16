@@ -229,6 +229,97 @@ High-fidelity context transfer protocol for moving conversations between AI agen
 
 ---
 
+### 9. Dad Joke Validator (v1.1.0)
+
+Analyze and score jokes on the dad joke quality spectrum with scientific precision. Multi-dimensional feedback on pun quality, groan factor, wholesomeness, and structure. Can also generate dad jokes using template-based systems.
+
+**Features:**
+- 4-dimensional scoring system (Pun Quality, Groan Factor, Wholesomeness, Structure)
+- Overall dad joke score (0-100 scale) with quality tiers
+- Improvement suggestions for low-scoring jokes
+- Template-based joke generation with automatic validation
+- Batch generation with quality filtering
+- CLI tools for validation and generation
+- Asset databases for puns, homophones, and wholesome themes
+- Comprehensive test suite (11 tests, all passing)
+
+**Use for:**
+- Validate if a joke is truly "dad joke material"
+- Get detailed feedback on why jokes succeed or fail
+- Generate dad jokes using 8 different templates
+- Learn what makes effective wordplay and puns
+- Quality-filter joke collections (only keep 85+ scores)
+- Iterative joke writing with scoring feedback
+- Understanding dad joke psychology and structure
+
+**Technical Features:**
+- Homophone detection (two/too, tuna/tune a, bear/bare, etc.)
+- Double-meaning word analysis (light, cool, sharp, bright, etc.)
+- Pun pattern matching (grew on me, make up, outstanding in field)
+- Wholesome content validation with red flag detection
+- Over-explanation penalties for joke clarity
+- Template-based generation with best-of-N selection
+
+**Testing & Quality:**
+- ✅ 100% pass rate (11/11 tests)
+- ✅ Gemini peer review completed - all recommendations implemented (v1.0.1)
+- ✅ Production ready - comprehensive heuristic-based scoring
+
+**[View Dad Joke Validator →](DadJokeValidator/)**
+
+---
+
+### 10. Context Continuity - Claude Code Edition (v1.0.0) 🖥️ **Claude Code Only**
+
+Claude Code-optimized context transfer for development workflows. Preserves code context, git state, and running services when moving work between Claude Code sessions.
+
+**⚠️ Requires Claude Code** - This skill needs terminal access for git commands and environment inspection. Not available for Claude web chat.
+
+**Features:**
+- Single development-optimized mode (~400-600 words)
+- § Code Context - Active files, functions modified, code state
+- § Git State - Branch, commits, staged/unstaged changes, merge status
+- § Environment State - Running services, ports, dependencies, env vars
+- § Technical Decisions - Design choices with peer review integration
+- § Open Loops - Next actions, blockers, pending tests
+- § Testing & Validation - Test status, coverage, manual testing
+- Git-aware: Automatically captures `git status` and `git diff` output
+- Peer review integration: Captures Codex/Gemini recommendations inline
+
+**Use for:**
+- Continuing development work in fresh Claude Code session
+- Resuming after context window fills (180K+ tokens)
+- Handing off work to another developer (with AI context preserved)
+- Documenting state before major refactoring
+- Post-peer-review implementation tracking
+- Bug fix investigations in progress
+
+**Peer Review Integration Example:**
+```markdown
+§ TECHNICAL DECISIONS
+**Peer Review Integration**:
+- Codex consulted: Yes - Recommended Redis, flagged memory limits
+- Gemini consulted: Yes - Suggested Redis Cluster for scaling
+- Agreements: Both validated Redis for performance needs
+- Disagreements: Memory limits (1GB vs 2GB) - chose 1.5GB
+```
+
+**Difference from Base Context Continuity:**
+| Feature | Base Skill | Code Edition |
+|---------|-----------|--------------|
+| Target | General conversations | Development only |
+| Tool State | Optional [T] tags | Mandatory §§ sections |
+| Git Context | Not included | Required |
+| Peer Review | Not mentioned | Integrated workflow |
+
+**Prerequisites:**
+- Claude Code environment (requires terminal access)
+- Git repository (skill runs git commands)
+
+**[View Context Continuity - Code Edition →](ContextContinuityCode/)**
+
+---
+
 ## Installation
 
 ### For Claude Code
@@ -251,6 +342,8 @@ cp -r /path/to/AISkills/Claimify/claimify ./
 cp -r /path/to/AISkills/CodexPeerReview/codex-peer-review ./
 cp -r /path/to/AISkills/GeminiPeerReview/gemini-peer-review ./
 cp -r /path/to/AISkills/ContextContinuity/context-continuity ./
+cp -r /path/to/AISkills/ContextContinuityCode/context-continuity-code ./
+cp -r /path/to/AISkills/DadJokeValidator/dad-joke-validator ./
 
 # Or install for specific project only
 cd your-project/.claude/skills/
@@ -299,6 +392,7 @@ Click to download from GitHub:
 - **Process Mapper v1.0.0**: [Download](https://github.com/leegonzales/AISkills/raw/main/ProcessMapper/dist/process-mapper-v1.0.0.skill)
 - **Claimify v1.0.0**: [Download](https://github.com/leegonzales/AISkills/raw/main/Claimify/dist/claimify-v1.0.0.skill)
 - **Context Continuity v1.0.0**: [Download](https://github.com/leegonzales/AISkills/raw/main/ContextContinuity/dist/context-continuity-v1.0.0.skill)
+- **Dad Joke Validator v1.1.0**: [Download](https://github.com/leegonzales/AISkills/raw/main/DadJokeValidator/dist/dad-joke-validator-v1.1.0.skill)
 
 **Option 2: Download via curl**
 
@@ -310,6 +404,7 @@ curl -LO https://github.com/leegonzales/AISkills/raw/main/ConceptForge/dist/conc
 curl -LO https://github.com/leegonzales/AISkills/raw/main/ProcessMapper/dist/process-mapper-v1.0.0.skill
 curl -LO https://github.com/leegonzales/AISkills/raw/main/Claimify/dist/claimify-v1.0.0.skill
 curl -LO https://github.com/leegonzales/AISkills/raw/main/ContextContinuity/dist/context-continuity-v1.0.0.skill
+curl -LO https://github.com/leegonzales/AISkills/raw/main/DadJokeValidator/dist/dad-joke-validator-v1.1.0.skill
 ```
 
 **Note:** Codex and Gemini Peer Review skills are Claude Code only (require terminal access) - not available for web chat.
@@ -402,6 +497,15 @@ Once installed, skills are **automatically invoked by Claude** based on your nat
 "Prepare a context transfer for another agent"
 ```
 
+**Dad Joke Validator:**
+```
+"Is this a dad joke? 'Why did the bicycle fall over?'"
+"Score this joke on dad joke quality"
+"Generate 5 dad jokes about programming"
+"Help me write a better dad joke about food"
+"Validate my joke collection and keep only the best ones"
+```
+
 ---
 
 ## Repository Structure
@@ -441,12 +545,18 @@ AISkills/
 ├── GeminiPeerReview/                   # AI peer review with Gemini (Claude Code only)
 │   ├── gemini-peer-review/             # Source skill
 │   └── README.md
-└── ContextContinuity/                  # High-fidelity context transfer
+├── ContextContinuity/                  # High-fidelity context transfer
+│   ├── dist/
+│   │   └── context-continuity-v1.0.0.skill
+│   ├── context-continuity/             # Source skill
+│   ├── Context Continuity Guide.md
+│   ├── Context Continuity Analysis.md
+│   └── README.md
+└── DadJokeValidator/                   # Dad joke analysis and generation
     ├── dist/
-    │   └── context-continuity-v1.0.0.skill
-    ├── context-continuity/             # Source skill
-    ├── Context Continuity Guide.md
-    ├── Context Continuity Analysis.md
+    │   └── dad-joke-validator-v1.1.0.skill
+    ├── dad-joke-validator/             # Source skill
+    ├── CHANGELOG.md
     └── README.md
 ```
 
@@ -490,6 +600,8 @@ All skills in this collection follow these principles:
 | Codex Peer Review | v1.0.0 | 2025-11-12 | Initial release - AI peer review with Codex CLI |
 | Gemini Peer Review | v1.0.0 | 2025-01-12 | Initial release - AI peer review with Gemini API, 1M context |
 | Context Continuity | v1.0.0 | 2025-11-16 | Initial release - High-fidelity context transfer protocol |
+| Context Continuity - Code Edition | v1.0.0 | 2025-11-16 | Claude Code-optimized dev context transfer with peer review integration |
+| Dad Joke Validator | v1.1.0 | 2025-11-16 | Template-based generation, Gemini peer review improvements |
 
 ---
 
@@ -601,6 +713,6 @@ Each skill may have its own license - check individual skill directories for det
 
 ---
 
-**Current Skills**: 8 | **Total Downloads**: 153KB | **Last Updated**: 2025-11-16
+**Current Skills**: 10 | **Total Downloads**: 191KB | **Last Updated**: 2025-11-16
 
 Built with Claude Code | [Learn More](https://docs.claude.com/en/docs/claude-code)
