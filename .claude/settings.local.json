@@ -72,7 +72,16 @@
       "Bash(dist/dad-joke-validator-v1.1.0.skill.sha256)",
       "Bash(git fetch:*)",
       "Bash(iconv:*)",
-      "Bash(/dev/null)"
+      "Bash(/dev/null)",
+      "Bash(./scripts/package-skill.sh:*)",
+      "Bash(./scripts/test-skill-installation.sh:*)",
+      "Bash(for script in package-skill.sh batch-package.sh test-skill-installation.sh)",
+      "Bash(do if [ -x \"scripts/$script\" ])",
+      "Bash(then echo \"✅ scripts/$script is executable\")",
+      "Bash(else echo \"❌ scripts/$script is missing or not executable\")",
+      "Bash(exit 1)",
+      "Bash(fi)",
+      "Bash(./scripts/validate-skill.sh:*)"
     ],
     "deny": [],
     "ask": []

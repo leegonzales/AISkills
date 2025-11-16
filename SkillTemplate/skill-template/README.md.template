@@ -1,0 +1,88 @@
+# {{SKILL_TITLE}}
+
+{{COMPREHENSIVE_DESCRIPTION}}
+
+## Features
+
+- {{FEATURE_1}}
+- {{FEATURE_2}}
+- {{FEATURE_3}}
+
+## Installation
+
+### For Claude Code
+
+```bash
+# Install globally
+cp -r {{skill-name}} ~/.claude/skills/
+
+# Or install for specific project
+cp -r {{skill-name}} your-project/.claude/skills/
+```
+
+### For Claude Web Chat
+
+Download the packaged skill file:
+- [{{skill-name}}-v1.0.0.skill](dist/{{skill-name}}-v1.0.0.skill)
+
+Then upload to Claude:
+1. Go to [claude.ai](https://claude.ai)
+2. Navigate to Settings > Capabilities
+3. Click "Upload skill"
+4. Select the .skill file
+
+## Usage
+
+### Basic Example
+
+{{BASIC_USAGE_EXAMPLE_WITH_CONTEXT}}
+
+### Advanced Example
+
+{{ADVANCED_USAGE_EXAMPLE_WITH_CONTEXT}}
+
+## Documentation
+
+- **[SKILL.md](SKILL.md)** - Core skill definition (read by Claude)
+- **[examples.md](references/examples.md)** - Detailed usage examples
+- **[advanced-usage.md](references/advanced-usage.md)** - Advanced patterns
+- **[troubleshooting.md](references/troubleshooting.md)** - Common issues and solutions
+
+## Development
+
+### Testing
+
+{{TESTING_INSTRUCTIONS}}
+
+### Building
+
+To package this skill:
+```bash
+../../scripts/package-skill.sh {{skill-name}}
+```
+
+## Version History
+
+See [CHANGELOG.md](CHANGELOG.md) for detailed version history.
+
+## License
+
+MIT License - see [LICENSE](LICENSE) for details.
+
+## Contributing
+
+Contributions welcome! Please:
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+## Questions?
+
+- **Usage Issues:** Check [troubleshooting.md](references/troubleshooting.md)
+- **Feature Requests:** Open an issue
+- **General Help:** See [Claude Code Documentation](https://docs.claude.com/en/docs/claude-code)
+
+---
+
+Built with Claude Code | Part of [AISkills Collection](https://github.com/leegonzales/AISkills)

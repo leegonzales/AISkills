@@ -1,0 +1,58 @@
+# {{SKILL_NAME}} Troubleshooting
+
+Common issues and solutions for {{SKILL_NAME}}.
+
+## Issue: {{ISSUE_1_TITLE}}
+
+**Symptoms:** {{ISSUE_1_SYMPTOMS}}
+
+**Cause:** {{ISSUE_1_CAUSE}}
+
+**Solution:**
+```
+{{ISSUE_1_SOLUTION}}
+```
+
+---
+
+## Issue: {{ISSUE_2_TITLE}}
+
+**Symptoms:** {{ISSUE_2_SYMPTOMS}}
+
+**Cause:** {{ISSUE_2_CAUSE}}
+
+**Solution:**
+```
+{{ISSUE_2_SOLUTION}}
+```
+
+---
+
+## Issue: {{ISSUE_3_TITLE}}
+
+**Symptoms:** {{ISSUE_3_SYMPTOMS}}
+
+**Cause:** {{ISSUE_3_CAUSE}}
+
+**Solution:**
+```
+{{ISSUE_3_SOLUTION}}
+```
+
+---
+
+## Getting Help
+
+If you encounter an issue not listed here:
+
+1. Check the [examples.md](examples.md) for correct usage
+2. Review the [advanced-usage.md](advanced-usage.md) for patterns
+3. Open an issue on GitHub with:
+   - Clear description of the problem
+   - Steps to reproduce
+   - Expected vs actual behavior
+   - Your environment (Claude Code version, OS, etc.)
+
+---
+
+For general usage, see the main [README.md](../README.md).

@@ -1,0 +1,67 @@
+---
+name: {{SKILL_NAME}}
+description: {{SKILL_DESCRIPTION}}
+---
+
+# {{SKILL_TITLE}}
+
+{{BRIEF_OVERVIEW}}
+
+## When to Use
+
+Invoke when user:
+- {{TRIGGER_PHRASE_1}}
+- {{TRIGGER_PHRASE_2}}
+- {{TRIGGER_PHRASE_3}}
+
+## Core Capabilities
+
+### 1. {{CAPABILITY_1_NAME}}
+
+{{CAPABILITY_1_DESCRIPTION}}
+
+**Example:**
+```
+{{CAPABILITY_1_EXAMPLE}}
+```
+
+### 2. {{CAPABILITY_2_NAME}}
+
+{{CAPABILITY_2_DESCRIPTION}}
+
+## How to Use
+
+**Basic Usage:**
+```
+{{BASIC_USAGE_EXAMPLE}}
+```
+
+**Advanced Usage:**
+```
+{{ADVANCED_USAGE_EXAMPLE}}
+```
+
+## Output Format
+
+{{OUTPUT_FORMAT_DESCRIPTION}}
+
+## Limitations
+
+- {{LIMITATION_1}}
+- {{LIMITATION_2}}
+
+## Best Practices
+
+1. **{{BEST_PRACTICE_1_NAME}}**: {{BEST_PRACTICE_1_DESCRIPTION}}
+2. **{{BEST_PRACTICE_2_NAME}}**: {{BEST_PRACTICE_2_DESCRIPTION}}
+
+## References
+
+For detailed examples and advanced usage, see:
+- `references/examples.md` - Worked examples
+- `references/advanced-usage.md` - Advanced patterns
+- `references/troubleshooting.md` - Common issues
+
+---
+
+**Note:** Keep this file under 500 words for context efficiency. Detailed content goes in references/.

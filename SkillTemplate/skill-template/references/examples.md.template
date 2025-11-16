@@ -1,0 +1,77 @@
+# {{SKILL_NAME}} Examples
+
+Detailed examples demonstrating {{SKILL_NAME}} capabilities.
+
+## Example 1: {{EXAMPLE_1_TITLE}}
+
+**Scenario:** {{EXAMPLE_1_SCENARIO}}
+
+**Input:**
+```
+{{EXAMPLE_1_INPUT}}
+```
+
+**Output:**
+```
+{{EXAMPLE_1_OUTPUT}}
+```
+
+**Explanation:** {{EXAMPLE_1_EXPLANATION}}
+
+---
+
+## Example 2: {{EXAMPLE_2_TITLE}}
+
+**Scenario:** {{EXAMPLE_2_SCENARIO}}
+
+**Input:**
+```
+{{EXAMPLE_2_INPUT}}
+```
+
+**Output:**
+```
+{{EXAMPLE_2_OUTPUT}}
+```
+
+**Explanation:** {{EXAMPLE_2_EXPLANATION}}
+
+---
+
+## Example 3: {{EXAMPLE_3_TITLE}}
+
+**Scenario:** {{EXAMPLE_3_SCENARIO}}
+
+**Input:**
+```
+{{EXAMPLE_3_INPUT}}
+```
+
+**Output:**
+```
+{{EXAMPLE_3_OUTPUT}}
+```
+
+**Explanation:** {{EXAMPLE_3_EXPLANATION}}
+
+---
+
+## Advanced Example: {{ADVANCED_EXAMPLE_TITLE}}
+
+**Scenario:** {{ADVANCED_EXAMPLE_SCENARIO}}
+
+**Input:**
+```
+{{ADVANCED_EXAMPLE_INPUT}}
+```
+
+**Output:**
+```
+{{ADVANCED_EXAMPLE_OUTPUT}}
+```
+
+**Explanation:** {{ADVANCED_EXAMPLE_EXPLANATION}}
+
+---
+
+For more examples, see the main [README.md](../README.md).
