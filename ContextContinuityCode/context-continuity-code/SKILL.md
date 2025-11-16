@@ -1,6 +1,5 @@
 ---
 name: context-continuity-code
-version: 1.0.0
 description: Claude Code-optimized context transfer for development workflows. Preserves code context, git state, running services, and development environment when moving work between sessions. Works seamlessly with peer review skills (Codex/Gemini). Use when transferring development work to a new Claude Code session.
 ---
 

@@ -1,6 +1,5 @@
 ---
 name: context-continuity
-version: 1.0.0
 description: High-fidelity context transfer protocol for moving conversations between AI agents. Preserves decision tempo, open loops, and critical context with graceful degradation. Use when the user says "transfer," "handoff," "continue this in another chat," or needs to work around context window limits. Produces structured artifacts (Minimal ~200 words, Full ~1000 words). DO NOT trigger on simple "summarize our conversation" requests—only when transfer intent is explicit.
 ---
 
