@@ -1,0 +1,9 @@
+{
+  "name": "mcp-builder",
+  "version": "1.0.0",
+  "package": "mcp-builder-v1.0.0.skill",
+  "size": "64K",
+  "sha256": "4b963ebdc7e64e2300ba953b94ae6439aada51c95dab1e97d05a7732831a8fc0",
+  "packaged_at": "2025-11-16T23:10:56Z",
+  "packager": "SKILL-9 Automation v1.0"
+}
