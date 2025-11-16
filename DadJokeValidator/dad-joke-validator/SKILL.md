@@ -1,7 +1,6 @@
 ---
 name: dad-joke-validator
 description: Analyze and score jokes on the dad joke quality spectrum with multi-dimensional feedback on pun quality, groan factor, wholesomeness, and structure. Can also generate dad jokes.
-version: 1.1.0
 ---
 
 # Dad Joke Validator
