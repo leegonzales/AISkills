@@ -1,0 +1,57 @@
+{
+  "positive_topics": [
+    "books",
+    "reading",
+    "coffee",
+    "food",
+    "cooking",
+    "animals",
+    "pets",
+    "birds",
+    "gardens",
+    "plants",
+    "weather",
+    "seasons",
+    "sports",
+    "music",
+    "instruments",
+    "school",
+    "teachers",
+    "science",
+    "math",
+    "jobs",
+    "tools",
+    "buildings",
+    "transportation",
+    "space",
+    "ocean"
+  ],
+  "family_friendly_adjectives": [
+    "happy",
+    "silly",
+    "funny",
+    "clever",
+    "smart",
+    "kind",
+    "helpful",
+    "friendly",
+    "cheerful",
+    "bright"
+  ],
+  "red_flags": [
+    "alcohol",
+    "drunk",
+    "beer",
+    "wine",
+    "whiskey",
+    "vodka",
+    "sex",
+    "hell",
+    "damn"
+  ],
+  "mild_flags": [
+    "stupid",
+    "ugly",
+    "lies"
+  ]
+}
