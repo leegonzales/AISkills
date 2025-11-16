@@ -1,0 +1,127 @@
+Review this Go code implementing intelligent LLM-powered mutation strategies for prompt evolution.
+
+CONTEXT:
+- Project: prompt-evolve - Genetic algorithm for prompt optimization
+- File: pkg/mutations/strategies.go
+- Purpose: LLM-powered intelligent mutations for prompts
+- Language: Go
+
+CODE:
+```go
+// Package mutations provides intelligent LLM-powered mutation strategies for prompt evolution
+package mutations
+
+import (
+	"context"
+	"crypto/rand"
+	"fmt"
+	"math/big"
+	"strings"
+	"sync"
+)
+
+// LLMProvider interface for mutation operations
+type LLMProvider interface {
+	Generate(ctx context.Context, prompt string) (string, error)
+	GenerateWithSystem(ctx context.Context, system, prompt string) (string, error)
+}
+
+// MutationStrategy defines different types of intelligent mutations
+type MutationStrategy int
+
+const (
+	// Semantic mutations that preserve meaning while improving clarity
+	SemanticImprovement MutationStrategy = iota
+	// Style mutations that change tone or approach
+	StyleVariation
+	// Specificity mutations that add or remove detail
+	SpecificityAdjustment
+	// Structure mutations that reorganize prompt components
+	StructuralReorganization
+	// Creative mutations that explore alternative approaches
+	CreativeExploration
+)
+
+// Mutator provides intelligent LLM-powered mutations
+type Mutator struct {
+	provider LLMProvider
+	model    string
+	mutex    sync.RWMutex
+
+	// Configuration
+	temperature       float64
+	maxRetries        int
+	contextWindow     int
+	preserveLength    bool
+	creativityLevel   float64
+}
+
+// MutatorConfig configures the mutation behavior
+type MutatorConfig struct {
+	Model             string  `json:"model"`
+	Temperature       float64 `json:"temperature"`
+	MaxRetries        int     `json:"max_retries"`
+	ContextWindow     int     `json:"context_window"`
+	PreserveLength    bool    `json:"preserve_length"`
+	CreativityLevel   float64 `json:"creativity_level"`
+}
+
+// NewMutator creates a new intelligent mutator
+func NewMutator(provider LLMProvider, config MutatorConfig) *Mutator {
+	return &Mutator{
+		provider:          provider,
+		model:             config.Model,
+		temperature:       config.Temperature,
+		maxRetries:        config.MaxRetries,
+		contextWindow:     config.ContextWindow,
+		preserveLength:    config.PreserveLength,
+		creativityLevel:   config.CreativityLevel,
+	}
+}
+
+// Mutate applies intelligent mutation to a prompt using LLM reasoning
+func (m *Mutator) Mutate(ctx context.Context, prompt string, strategy MutationStrategy) (string, error) {
+	if strings.TrimSpace(prompt) == "" {
+		return prompt, fmt.Errorf("cannot mutate empty prompt")
+	}
+
+	m.mutex.RLock()
+	defer m.mutex.RUnlock()
+
+	// Choose mutation approach based on strategy
+	systemPrompt := m.getSystemPrompt(strategy)
+	userPrompt := m.buildMutationPrompt(prompt, strategy)
+
+	// Attempt mutation with retries
+	for attempt := 0; attempt < m.maxRetries; attempt++ {
+		result, err := m.provider.GenerateWithSystem(ctx, systemPrompt, userPrompt)
+		if err != nil {
+			if attempt == m.maxRetries-1 {
+				return "", fmt.Errorf("mutation failed after %d attempts: %w", m.maxRetries, err)
+			}
+			continue
+		}
+
+		// Validate and clean the result
+		mutated := m.cleanMutationResult(result, prompt)
+		if mutated != "" && mutated != prompt {
+			return mutated, nil
+		}
+	}
+
+	return "", fmt.Errorf("mutation produced no valid result after %d attempts", m.maxRetries)
+}
+```
+
+REVIEW FOCUS:
+1. Architecture & Design: Is the interface abstraction appropriate? Are the mutation strategies well-designed?
+2. Error Handling: Are errors handled properly? Any edge cases missed?
+3. Concurrency: Is the mutex usage correct? Any race condition concerns?
+4. LLM Integration: Is the retry logic sound? Are the system prompts effective?
+5. Code Quality: Any improvements or concerns?
+
+EXPECTED OUTPUT:
+- Architecture analysis
+- Potential issues or concerns
+- Specific recommendations
+- Alternative approaches if applicable

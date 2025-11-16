@@ -1,0 +1,128 @@
+sequenceDiagram
+    participant User
+    participant Bootstrap as prompt-bootstrap
+    participant Evolve as prompt-evolve
+    participant LLMEngine
+    participant PopMgr as Population Manager
+    participant Mutator
+    participant Fitness as Fitness Evaluator
+    participant Provider as LLM Provider
+    participant CostTracker as Cost Tracker
+
+    Note over User,CostTracker: PHASE 1: Bootstrap - Generate Initial Population
+
+    User->>Bootstrap: Seed prompt
+    Bootstrap->>Provider: Request variants<br/>(Claude Opus)
+    Provider-->>Bootstrap: N high-quality variants
+    Bootstrap->>User: Initial population JSON
+
+    Note over User,CostTracker: PHASE 2: Evolution - Genetic Algorithm Loop
+
+    User->>Evolve: Initial population JSON
+    Evolve->>LLMEngine: Start evolution
+    LLMEngine->>PopMgr: Initialize population
+    PopMgr-->>LLMEngine: Population initialized
+
+    loop For each generation (1 to N)
+
+        Note over LLMEngine,Fitness: Evaluate Current Population
+
+        LLMEngine->>PopMgr: Get individuals
+        PopMgr-->>LLMEngine: Current population
+
+        loop For each individual
+            LLMEngine->>Fitness: Evaluate prompt
+            Fitness-->>LLMEngine: Fitness score
+        end
+
+        Note over LLMEngine,PopMgr: Calculate Statistics & Adapt
+
+        LLMEngine->>LLMEngine: Calculate diversity<br/>(Levenshtein distance)
+        LLMEngine->>LLMEngine: Adapt mutation rate<br/>Adapt crossover rate
+
+        Note over LLMEngine,Mutator: Parent Selection
+
+        LLMEngine->>PopMgr: SelectParents(pressure)
+        PopMgr->>PopMgr: Rank-based selection<br/>with adaptive pressure
+        PopMgr-->>LLMEngine: Parent individuals
+
+        Note over LLMEngine,Provider: Generate Offspring
+
+        loop For each parent pair
+
+            alt Crossover (probabilistic)
+                LLMEngine->>Mutator: Crossover(parent1, parent2)
+                Mutator->>Provider: Request semantic blend
+                Provider-->>Mutator: Blended prompt
+                Mutator-->>LLMEngine: Child1, Child2
+                LLMEngine->>CostTracker: Track tokens
+            else No Crossover
+                LLMEngine->>LLMEngine: Clone parents
+            end
+
+            alt Mutation (probabilistic)
+                LLMEngine->>Mutator: Mutate(child, strategy)
+                Mutator->>Mutator: Select mutation strategy<br/>(5 strategies)
+                Mutator->>Provider: Request mutation<br/>(with system prompt)
+                Provider-->>Mutator: Mutated prompt
+                Mutator->>Mutator: Clean result
+                Mutator-->>LLMEngine: Mutated child
+                LLMEngine->>CostTracker: Track tokens
+            end
+
+        end
+
+        Note over LLMEngine,Fitness: Evaluate Offspring
+
+        loop For each offspring
+            LLMEngine->>Fitness: Evaluate prompt
+            Fitness-->>LLMEngine: Fitness score
+        end
+
+        Note over LLMEngine,PopMgr: Survival Selection (Elitism)
+
+        LLMEngine->>LLMEngine: Combine parents + offspring
+        LLMEngine->>LLMEngine: Sort by fitness
+        LLMEngine->>LLMEngine: Select top N individuals
+        LLMEngine->>PopMgr: ReplacePopulation(survivors)
+        PopMgr->>PopMgr: Record generation stats
+        PopMgr-->>LLMEngine: Population replaced
+
+        LLMEngine->>LLMEngine: Update best individual
+
+        alt Every 10 generations
+            LLMEngine->>User: Log progress<br/>(Best, Avg, Diversity)
+        end
+
+    end
+
+    Note over LLMEngine,CostTracker: Build Final Result
+
+    LLMEngine->>PopMgr: GetBestIndividual()
+    PopMgr-->>LLMEngine: Best prompt
+    LLMEngine->>PopMgr: GetEvolutionProgress()
+    PopMgr-->>LLMEngine: All generation stats
+    LLMEngine->>CostTracker: Get cost summary
+    CostTracker-->>LLMEngine: Total cost & tokens
+
+    LLMEngine-->>Evolve: EvolutionResult<br/>(Best prompt, fitness, stats)
+    Evolve->>User: Best prompt + history JSON
+
+    Note over User,CostTracker: PHASE 3: Evaluation (Optional)
+
+    User->>Fitness: Evolved prompts
+    loop For each prompt
+        Fitness->>Provider: LLM judge evaluation
+        Provider-->>Fitness: Detailed metrics
+    end
+    Fitness->>User: Evaluation report<br/>(Rankings, comparisons)
+
+    Note over User,CostTracker: Key Data Structures Flow
+
+    Note right of PopMgr: Individual:<br/>- Prompt: string<br/>- Fitness: float64
+
+    Note right of LLMEngine: GenerationStats:<br/>- Generation: int<br/>- BestFitness: float64<br/>- AvgFitness: float64<br/>- Diversity: float64
+
+    Note right of Mutator: MutationStrategy:<br/>1. SemanticImprovement<br/>2. StyleVariation<br/>3. SpecificityAdjustment<br/>4. StructuralReorganization<br/>5. CreativeExploration
+
+    Note right of Fitness: Fitness Metrics:<br/>- Clarity (0.3)<br/>- Specificity (0.3)<br/>- Conciseness (0.2)<br/>- Relevance (0.2)

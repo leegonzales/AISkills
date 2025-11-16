@@ -48,7 +48,7 @@ When analyzing a joke, score across these dimensions:
 - Misdirection technique
 
 **Overall Dad Joke Score (0-100)**
-- Formula: (Pun Quality � 2.5) + (Groan Factor � 3) + (Wholesomeness � 3) + (Structure � 1.5)
+- Formula: (Pun Quality * 2.5) + (Groan Factor * 3) + (Wholesomeness * 3) + (Structure * 1.5)
 - 85-100: Peak dad joke territory
 - 70-84: Solid dad joke
 - 50-69: Dad joke adjacent (needs work)
