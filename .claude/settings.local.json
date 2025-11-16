@@ -81,7 +81,10 @@
       "Bash(else echo \"❌ scripts/$script is missing or not executable\")",
       "Bash(exit 1)",
       "Bash(fi)",
-      "Bash(./scripts/validate-skill.sh:*)"
+      "Bash(./scripts/validate-skill.sh:*)",
+      "Bash(/Users/leegonzales/Projects/leegonzales/AISkills/SkillTemplate/scripts/validate-skill.sh:*)",
+      "Bash(ln:*)",
+      "Bash(/Users/leegonzales/Projects/leegonzales/AISkills/SkillPackager/scripts/package-skill.sh:*)"
     ],
     "deny": [],
     "ask": []
