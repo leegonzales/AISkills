@@ -203,6 +203,32 @@ Leverage Google's Gemini API for AI peer review with massive context windows and
 
 ---
 
+### 8. Context Continuity (v1.0.0)
+
+High-fidelity context transfer protocol for moving conversations between AI agents. Preserves decision tempo, open loops, and critical context with graceful degradation.
+
+**Features:**
+- Dual-mode operation: Minimal (~200 words) and Full (~1000 words) artifacts
+- Auto-selects mode based on conversation complexity (user can override)
+- Antifragile structure with critical information first (survives truncation)
+- Decision log with taxonomy (explicit/implicit/emergent) prevents rehashing
+- Handshake protocol for receiving agents to confirm understanding
+- Evolution tags ([G/C/P/K] or simplified [New/Developing/Stable/Standard])
+- Optional [T] tag for tool/environment state (Claude Code power users)
+- Python validator for artifact quality checking
+
+**Use for:**
+- Continuing work in a fresh Claude conversation
+- Switching between Claude instances while preserving context
+- Working around context window limits
+- Transferring complex strategic discussions to new agents
+- Maintaining decision history across multiple sessions
+- Cross-system handoffs (Claude to other LLMs)
+
+**[View Context Continuity →](ContextContinuity/)**
+
+---
+
 ## Installation
 
 ### For Claude Code
@@ -224,6 +250,7 @@ cp -r /path/to/AISkills/ProcessMapper/process-mapper ./
 cp -r /path/to/AISkills/Claimify/claimify ./
 cp -r /path/to/AISkills/CodexPeerReview/codex-peer-review ./
 cp -r /path/to/AISkills/GeminiPeerReview/gemini-peer-review ./
+cp -r /path/to/AISkills/ContextContinuity/context-continuity ./
 
 # Or install for specific project only
 cd your-project/.claude/skills/
@@ -271,6 +298,7 @@ Click to download from GitHub:
 - **Concept Forge v1.0.0**: [Download](https://github.com/leegonzales/AISkills/raw/main/ConceptForge/dist/concept-forge-v1.0.0.skill)
 - **Process Mapper v1.0.0**: [Download](https://github.com/leegonzales/AISkills/raw/main/ProcessMapper/dist/process-mapper-v1.0.0.skill)
 - **Claimify v1.0.0**: [Download](https://github.com/leegonzales/AISkills/raw/main/Claimify/dist/claimify-v1.0.0.skill)
+- **Context Continuity v1.0.0**: [Download](https://github.com/leegonzales/AISkills/raw/main/ContextContinuity/dist/context-continuity-v1.0.0.skill)
 
 **Option 2: Download via curl**
 
@@ -281,6 +309,7 @@ curl -LO https://github.com/leegonzales/AISkills/raw/main/ResearchToEssay/dist/r
 curl -LO https://github.com/leegonzales/AISkills/raw/main/ConceptForge/dist/concept-forge-v1.0.0.skill
 curl -LO https://github.com/leegonzales/AISkills/raw/main/ProcessMapper/dist/process-mapper-v1.0.0.skill
 curl -LO https://github.com/leegonzales/AISkills/raw/main/Claimify/dist/claimify-v1.0.0.skill
+curl -LO https://github.com/leegonzales/AISkills/raw/main/ContextContinuity/dist/context-continuity-v1.0.0.skill
 ```
 
 **Note:** Codex and Gemini Peer Review skills are Claude Code only (require terminal access) - not available for web chat.
@@ -365,6 +394,14 @@ Once installed, skills are **automatically invoked by Claude** based on your nat
 "What would Gemini recommend for this performance issue?"
 ```
 
+**Context Continuity:**
+```
+"Transfer this conversation to another chat"
+"Create a handoff artifact for continuing this work"
+"I need to continue this in a fresh conversation"
+"Prepare a context transfer for another agent"
+```
+
 ---
 
 ## Repository Structure
@@ -401,8 +438,15 @@ AISkills/
 ├── CodexPeerReview/                    # AI peer review with Codex (Claude Code only)
 │   ├── codex-peer-review/              # Source skill
 │   └── README.md
-└── GeminiPeerReview/                   # AI peer review with Gemini (Claude Code only)
-    ├── gemini-peer-review/             # Source skill
+├── GeminiPeerReview/                   # AI peer review with Gemini (Claude Code only)
+│   ├── gemini-peer-review/             # Source skill
+│   └── README.md
+└── ContextContinuity/                  # High-fidelity context transfer
+    ├── dist/
+    │   └── context-continuity-v1.0.0.skill
+    ├── context-continuity/             # Source skill
+    ├── Context Continuity Guide.md
+    ├── Context Continuity Analysis.md
     └── README.md
 ```
 
@@ -445,6 +489,7 @@ All skills in this collection follow these principles:
 | Claimify | v1.0.0 | 2025-10-31 | Initial release |
 | Codex Peer Review | v1.0.0 | 2025-11-12 | Initial release - AI peer review with Codex CLI |
 | Gemini Peer Review | v1.0.0 | 2025-01-12 | Initial release - AI peer review with Gemini API, 1M context |
+| Context Continuity | v1.0.0 | 2025-11-16 | Initial release - High-fidelity context transfer protocol |
 
 ---
 
@@ -556,6 +601,6 @@ Each skill may have its own license - check individual skill directories for det
 
 ---
 
-**Current Skills**: 7 | **Total Downloads**: 126KB | **Last Updated**: 2025-01-12
+**Current Skills**: 8 | **Total Downloads**: 153KB | **Last Updated**: 2025-11-16
 
 Built with Claude Code | [Learn More](https://docs.claude.com/en/docs/claude-code)
