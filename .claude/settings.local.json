@@ -86,7 +86,11 @@
       "Bash(ln:*)",
       "Bash(/Users/leegonzales/Projects/leegonzales/AISkills/SkillPackager/scripts/package-skill.sh:*)",
       "Bash(git clone:*)",
-      "Bash(bash /Users/leegonzales/Projects/leegonzales/AISkills/SkillTemplate/scripts/validate-skill.sh:*)"
+      "Bash(bash /Users/leegonzales/Projects/leegonzales/AISkills/SkillTemplate/scripts/validate-skill.sh:*)",
+      "Bash(git sparse-checkout:*)",
+      "Bash(git rm:*)",
+      "Bash(tar:*)",
+      "Bash(bash:*)"
     ],
     "deny": [],
     "ask": []
