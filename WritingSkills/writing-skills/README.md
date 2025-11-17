@@ -522,6 +522,12 @@ For AISkills-specific integration issues, open an issue in the AISkills reposito
 - **systematic-debugging** (from superpowers) - Debugging methodology
 - **verification-before-completion** (from superpowers) - Quality gates
 
+**Exemplary implementations:**
+- **csv-data-summarizer** (AISkills) - Exemplary "DO NOT ASK" proactive pattern using persuasion principles
+  - See `/CSVDataSummarizer/csv-data-summarizer/references/proactive-design-principles.md`
+  - Demonstrates commitment & consistency, authority, and social proof principles
+  - Template for creating proactive skills that eliminate decision paralysis
+
 ### External Resources
 
 - **Original source:** https://github.com/obra/superpowers/tree/main/skills/writing-skills

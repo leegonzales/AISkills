@@ -1,0 +1,9 @@
+{
+  "name": "csv-data-summarizer",
+  "version": "1.0.0",
+  "package": "csv-data-summarizer-v1.0.0.skill",
+  "size": "32K",
+  "sha256": "2785e4d87047987dd9b4cd01c5becad5b8b0aa458eef878b14ff0fb1d33e3612",
+  "packaged_at": "2025-11-17T03:38:11Z",
+  "packager": "SKILL-9 Automation v1.0"
+}
