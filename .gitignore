@@ -56,7 +56,6 @@ test-results/
 *-test-results/
 
 # Temporary work directories
-ContextContinuity/
 *-temp/
 *-scratch/
 
