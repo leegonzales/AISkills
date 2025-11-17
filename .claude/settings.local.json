@@ -84,7 +84,9 @@
       "Bash(./scripts/validate-skill.sh:*)",
       "Bash(/Users/leegonzales/Projects/leegonzales/AISkills/SkillTemplate/scripts/validate-skill.sh:*)",
       "Bash(ln:*)",
-      "Bash(/Users/leegonzales/Projects/leegonzales/AISkills/SkillPackager/scripts/package-skill.sh:*)"
+      "Bash(/Users/leegonzales/Projects/leegonzales/AISkills/SkillPackager/scripts/package-skill.sh:*)",
+      "Bash(git clone:*)",
+      "Bash(bash /Users/leegonzales/Projects/leegonzales/AISkills/SkillTemplate/scripts/validate-skill.sh:*)"
     ],
     "deny": [],
     "ask": []

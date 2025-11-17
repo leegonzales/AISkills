@@ -48,3 +48,20 @@ test_claims.json
 
 # Keep dist/ folders with versioned releases
 # (don't ignore dist/)
+
+# Test and research artifacts (keep in docs/ or local only)
+test-data/
+test-results/
+*-test-data/
+*-test-results/
+
+# Temporary work directories
+ContextContinuity/
+*-temp/
+*-scratch/
+
+# Research and planning docs (keep in docs/)
+*-research-report.md
+*-test-plan.md
+*-execution-plan.md
+*-substack-draft.md
