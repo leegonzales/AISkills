@@ -1,4 +1,0 @@
-Simple sorting function in Python:
-
-def sort_numbers(numbers):
-    return sorted(numbers)
