@@ -170,7 +170,7 @@ Load `references/codex-commands.md` for complete command reference.
 
 **Non-interactive review (recommended):**
 ```bash
-codex exec --quiet "[prepared context and question]"
+codex exec "[prepared context and question]"
 ```
 
 **Architecture review with diagram:**
@@ -180,7 +180,7 @@ codex --image architecture-diagram.png "Analyze this architecture: [question]"
 
 **Security-focused review:**
 ```bash
-codex exec -q "Security review focus: [context and code]"
+codex exec "Security review focus: [context and code]"
 ```
 
 **Full auto for implementation suggestions:**
@@ -189,7 +189,6 @@ codex --full-auto "Suggest improvements to: [context]"
 ```
 
 **Key flags:**
-- `--quiet` / `-q`: Non-interactive mode for automation
 - `--full-auto`: Unattended mode with minimal prompts
 - `--image` / `-i`: Attach architecture diagrams or screenshots
 - `exec`: Non-interactive execution streaming to stdout
@@ -410,9 +409,9 @@ Load `references/codex-commands.md` for complete command documentation.
 
 | Use Case | Command Pattern | Flags |
 |----------|----------------|-------|
-| Architecture review | `codex exec --quiet "[context]"` | `--quiet` for non-interactive |
+| Architecture review | `codex exec "[context]"` | `exec` for non-interactive |
 | Review with diagram | `codex --image diagram.png "[question]"` | `--image` for visual context |
-| Security analysis | `codex exec -q "Security: [code]"` | `-q` for automation-friendly |
+| Security analysis | `codex exec "Security: [code]"` | `exec` for automation-friendly |
 | Implementation suggestions | `codex --full-auto "[context]"` | `--full-auto` for unattended |
 | Quick validation | `codex "[question]"` | Interactive mode |
 
@@ -589,13 +588,9 @@ ask_for_approval = "suggest"
 
 # Sandbox mode (none|workspace-read|workspace-write)
 sandbox = "workspace-read"
-
-# Default quiet mode
-quiet = false
 ```
 
 **For peer review, recommended settings:**
-- `quiet = true` for non-interactive use
 - `sandbox = "workspace-read"` for read-only safety
 - `ask_for_approval = "suggest"` for transparency
 
@@ -645,7 +640,7 @@ quiet = false
 
 **Invoke peer review:**
 ```bash
-codex exec --quiet "Review multi-tenant SaaS architecture decision:
+codex exec "Review multi-tenant SaaS architecture decision:
 
 CONTEXT:
 - B2B SaaS with 100-500 tenants expected
