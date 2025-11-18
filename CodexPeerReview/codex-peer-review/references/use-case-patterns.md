@@ -64,7 +64,7 @@ Expected Output: Risk assessment and improvement recommendations
 **3. Invoke Codex**
 
 ```bash
-codex exec --quiet --sandbox workspace-read "$(cat <<'EOF'
+codex exec --sandbox workspace-read "$(cat <<'EOF'
 [prepared architecture context]
 EOF
 )"
@@ -212,7 +212,7 @@ Expected Output: Comparative analysis and recommendation with rationale
 **5. Invoke Codex**
 
 ```bash
-codex exec --quiet "$(cat <<'EOF'
+codex exec "$(cat <<'EOF'
 [prepared decision context]
 EOF
 )"
@@ -365,7 +365,7 @@ Expected Output: Prioritized vulnerabilities with severity and remediation steps
 **4. Invoke Codex**
 
 ```bash
-codex exec --quiet --sandbox none "$(cat <<'EOF'
+codex exec --sandbox none "$(cat <<'EOF'
 [prepared security context]
 EOF
 )"
@@ -557,7 +557,7 @@ Expected Output: Prioritized optimizations with complexity/impact assessment
 **5. Invoke Codex**
 
 ```bash
-codex exec --quiet --sandbox workspace-read "$(cat <<'EOF'
+codex exec --sandbox workspace-read "$(cat <<'EOF'
 [prepared performance context]
 EOF
 )"
@@ -749,7 +749,7 @@ Expected Output: Testing improvement plan with prioritized recommendations
 **4. Invoke Codex**
 
 ```bash
-codex exec --quiet --sandbox workspace-read "$(cat <<'EOF'
+codex exec --sandbox workspace-read "$(cat <<'EOF'
 [prepared testing context]
 EOF
 )"
@@ -966,7 +966,7 @@ Expected Output: Clear explanation of patterns, design decisions, and potential 
 **4. Invoke Codex**
 
 ```bash
-codex exec --quiet "$(cat <<'EOF'
+codex exec "$(cat <<'EOF'
 [prepared learning context]
 EOF
 )"
