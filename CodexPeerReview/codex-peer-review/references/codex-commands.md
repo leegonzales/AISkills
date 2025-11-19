@@ -25,7 +25,6 @@ For peer review, **non-interactive mode** is recommended for predictable, automa
 **Common flags:**
 - `--image` / `-i`: Attach image files (diagrams, screenshots)
 - `--full-auto`: Unattended mode with minimal prompts
-- `--quiet` / `-q`: Non-interactive quiet mode
 
 **Examples:**
 ```bash
@@ -54,7 +53,6 @@ codex --full-auto "Suggest improvements to the authentication flow"
 **Description:** Non-interactive execution streaming results to stdout
 
 **Common flags:**
-- `--quiet` / `-q`: Suppress interactive prompts
 - `--output` / `-o`: Output format (text, json, jsonl)
 - `--resume`: Resume previous session
 - `--full-auto`: Unattended automation
@@ -62,7 +60,7 @@ codex --full-auto "Suggest improvements to the authentication flow"
 **Examples:**
 ```bash
 # Non-interactive code review
-codex exec --quiet "Review this code for security issues: [code]"
+codex exec "Review this code for security issues: [code]"
 
 # JSON output for programmatic parsing
 codex exec --output json "Analyze architecture and return JSON"
@@ -128,24 +126,6 @@ codex --full-auto "Generate test cases for this module"
 **⚠️ Warning:** Use carefully in peer review—can make changes without explicit approval
 
 **Recommended for peer review:** Generally avoid unless you specifically want Codex to make changes automatically
-
----
-
-**Flag:** `--quiet` / `-q`
-
-**Description:** Non-interactive quiet mode for automation
-
-**Behavior:**
-- Suppresses interactive prompts
-- Streams output to stdout
-- Suitable for scripts and CI/CD
-
-**Usage:**
-```bash
-codex exec --quiet "Analyze performance bottlenecks"
-```
-
-**Recommended for peer review:** Yes—predictable, scriptable behavior
 
 ---
 
@@ -281,9 +261,6 @@ ask_for_approval = "suggest"
 # Sandbox mode (none|workspace-read|workspace-write)
 sandbox = "workspace-read"
 
-# Default quiet mode
-quiet = false
-
 # Output format
 output_format = "text"
 ```
@@ -293,7 +270,6 @@ output_format = "text"
 model = "codex-1"
 ask_for_approval = "suggest"
 sandbox = "workspace-read"
-quiet = true
 output_format = "text"
 ```
 
@@ -387,7 +363,7 @@ Focus: Clean code, test coverage
 
 **Command:**
 ```bash
-codex exec --quiet --sandbox workspace-read "$(cat <<'EOF'
+codex exec --sandbox workspace-read "$(cat <<'EOF'
 [ARCHITECTURE REVIEW]
 
 System: Multi-tenant SaaS platform
@@ -410,7 +386,7 @@ EOF
 ```
 
 **Why this pattern:**
-- `--quiet`: Non-interactive for automation
+- `exec`: Non-interactive execution
 - `--sandbox workspace-read`: Safe read-only access
 - `$(cat <<'EOF' ... EOF)`: Clean multi-line prompt
 
@@ -448,7 +424,7 @@ EOF
 
 **Command:**
 ```bash
-codex exec --quiet --sandbox none "$(cat <<'EOF'
+codex exec --sandbox none "$(cat <<'EOF'
 [SECURITY REVIEW]
 
 Code:
@@ -477,7 +453,7 @@ EOF
 
 **Command:**
 ```bash
-codex exec --quiet "$(cat <<'EOF'
+codex exec "$(cat <<'EOF'
 [DESIGN DECISION]
 
 Decision: Caching strategy for product catalog
@@ -524,7 +500,7 @@ EOF
 
 **Command:**
 ```bash
-codex exec --quiet --sandbox workspace-read "$(cat <<'EOF'
+codex exec --sandbox workspace-read "$(cat <<'EOF'
 [PERFORMANCE ANALYSIS]
 
 File: src/api/order-handler.ts
@@ -558,7 +534,7 @@ EOF
 
 **Command:**
 ```bash
-codex exec --quiet --sandbox workspace-read "$(cat <<'EOF'
+codex exec --sandbox workspace-read "$(cat <<'EOF'
 [TESTING STRATEGY REVIEW]
 
 Module: User authentication service
@@ -620,19 +596,19 @@ EOF
 **For transient errors (network, timeouts):**
 ```bash
 # Retry with exponential backoff
-codex exec --quiet "[prompt]" || sleep 2 && codex exec --quiet "[prompt]"
+codex exec "[prompt]" || sleep 2 && codex exec "[prompt]"
 ```
 
 **For rate limits:**
 ```bash
 # Check status first
-codex exec --quiet "/status" && codex exec --quiet "[prompt]"
+codex exec "/status" && codex exec "[prompt]"
 ```
 
 **For unclear responses:**
 ```bash
 # Reformulate with more specific question
-codex exec --quiet "[refined prompt with more context]"
+codex exec "[refined prompt with more context]"
 ```
 
 ---
@@ -643,10 +619,10 @@ codex exec --quiet "[refined prompt with more context]"
 
 **Recommended:**
 ```bash
-codex exec --quiet "[prompt]"
+codex exec "[prompt]"
 ```
 
-**Why:** Predictable, scriptable, suitable for automation
+**Why:** `exec` subcommand provides non-interactive execution, predictable and scriptable
 
 ---
 
@@ -665,7 +641,7 @@ codex --sandbox workspace-read "[prompt]"
 
 **Recommended:**
 ```bash
-codex exec --quiet "$(cat <<'EOF'
+codex exec "$(cat <<'EOF'
 [Structured prompt]
 ...
 EOF
@@ -705,7 +681,6 @@ codex --image architecture.png "Analyze this architecture"
 model = "codex-1"
 ask_for_approval = "suggest"
 sandbox = "workspace-read"
-quiet = true
 ```
 
 **Why:** Consistent, safe defaults for peer review
@@ -718,10 +693,10 @@ quiet = true
 
 ```bash
 # First pass: Architecture review
-ARCH_REVIEW=$(codex exec --quiet --output json "Review architecture: [context]")
+ARCH_REVIEW=$(codex exec --output json "Review architecture: [context]")
 
 # Second pass: Security review of identified concerns
-codex exec --quiet "Security review focusing on: $ARCH_REVIEW"
+codex exec "Security review focusing on: $ARCH_REVIEW"
 ```
 
 ---
@@ -730,8 +705,8 @@ codex exec --quiet "Security review focusing on: $ARCH_REVIEW"
 
 ```bash
 # Run multiple reviews in parallel
-codex exec --quiet "Security review: [code]" > security-review.txt &
-codex exec --quiet "Performance review: [code]" > performance-review.txt &
+codex exec "Security review: [code]" > security-review.txt &
+codex exec "Performance review: [code]" > performance-review.txt &
 wait
 cat security-review.txt performance-review.txt
 ```
@@ -760,7 +735,7 @@ codex exec --resume $SESSION_ID "Now focus on security concerns"
 
 echo "Running Codex peer review..."
 
-REVIEW_OUTPUT=$(codex exec --quiet --sandbox workspace-read "$(cat <<'EOF'
+REVIEW_OUTPUT=$(codex exec --sandbox workspace-read "$(cat <<'EOF'
 Review the architecture changes in this PR.
 
 Changes: $(git diff main --name-only)
@@ -795,7 +770,7 @@ fi
 CHANGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(ts|js)$')
 
 if [ -n "$CHANGED_FILES" ]; then
-  codex exec --quiet "Security review these changed files: $CHANGED_FILES" > /tmp/codex-security-review.txt
+  codex exec "Security review these changed files: $CHANGED_FILES" > /tmp/codex-security-review.txt
 
   if grep -q "CRITICAL\|HIGH" /tmp/codex-security-review.txt; then
     echo "Security concerns identified. Review: /tmp/codex-security-review.txt"
@@ -814,7 +789,7 @@ fi
     {
       "label": "Codex Peer Review",
       "type": "shell",
-      "command": "codex exec --quiet 'Review ${file} for security and performance'",
+      "command": "codex exec 'Review ${file} for security and performance'",
       "problemMatcher": [],
       "presentation": {
         "reveal": "always",
@@ -831,11 +806,11 @@ fi
 
 | Use Case | Command | Key Flags |
 |----------|---------|-----------|
-| Architecture review | `codex exec --quiet "[context]"` | `--quiet`, `--sandbox workspace-read` |
+| Architecture review | `codex exec "[context]"` | `exec`, `--sandbox workspace-read` |
 | Review with diagram | `codex --image arch.png "[q]"` | `--image` |
-| Security review | `codex exec -q "[code review]"` | `-q`, `--sandbox none` |
-| Performance analysis | `codex exec --quiet "[context]"` | `--quiet`, `--sandbox workspace-read` |
-| Design comparison | `codex exec --quiet "[options]"` | `--quiet` |
+| Security review | `codex exec "[code review]"` | `exec`, `--sandbox none` |
+| Performance analysis | `codex exec "[context]"` | `exec`, `--sandbox workspace-read` |
+| Design comparison | `codex exec "[options]"` | `exec` |
 | Interactive exploration | `codex "[question]"` | None (interactive) |
 | JSON output | `codex exec -o json "[prompt]"` | `--output json` |
 | Resume session | `codex exec --resume [id]` | `--resume` |
