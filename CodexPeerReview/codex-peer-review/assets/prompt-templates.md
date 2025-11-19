@@ -60,7 +60,7 @@ Expected Output: Risk assessment with severity levels, improvement recommendatio
 
 **Usage:**
 ```bash
-codex exec --quiet --sandbox workspace-read "$(cat <<'EOF'
+codex exec --sandbox workspace-read "$(cat <<'EOF'
 [paste filled template]
 EOF
 )"
@@ -512,7 +512,7 @@ Expected Output: Prioritized list of test cases to add, testing strategy recomme
 # 2. Fill in with your specific context
 # 3. Execute with Codex CLI
 
-codex exec --quiet --sandbox workspace-read "$(cat <<'EOF'
+codex exec --sandbox workspace-read "$(cat <<'EOF'
 [ARCHITECTURE REVIEW: E-Commerce Microservices]
 
 System Purpose: E-commerce platform for B2C retail
@@ -570,7 +570,7 @@ EOF
 ### Example 2: Using Security Review Template
 
 ```bash
-codex exec --quiet --sandbox none "$(cat <<'EOF'
+codex exec --sandbox none "$(cat <<'EOF'
 [SECURITY REVIEW: JWT Authentication]
 
 System Purpose: SaaS project management platform
