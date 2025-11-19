@@ -307,8 +307,9 @@ gemini -s -p "prompt"
 gemini --debug -p "troubleshoot issue"
 gemini -d -p "prompt"
 
-# Quiet mode (suppress extra output)
-gemini --quiet -p "prompt"
+# Clean JSON output (for scripting)
+gemini -p "prompt" --output-format json
+gemini -p "prompt" --output-format stream-json
 ```
 
 **Recommended for peer review:**
@@ -1171,7 +1172,7 @@ echo "All reviews complete."
 | `--sandbox` | `-s` | Safe execution mode | Untrusted code |
 | `--yolo` | None | Auto-approve tools | Implementation (not review) |
 | `--debug` | `-d` | Debug mode | Troubleshooting |
-| `--quiet` | None | Suppress extra output | Scripts |
+| `--output-format` | None | Control output (text/json/stream-json) | Scripts, parsing |
 | `--style` | `-t` | Markdown style | Visual preference |
 | `--wrap` | `-w` | Line wrapping | Readability |
 
