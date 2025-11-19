@@ -197,7 +197,7 @@ EOF
 
 **With model selection:**
 ```bash
-gemini --model gemini-2.5-pro --quiet -p "$(cat <<'EOF'
+gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
 [context for complex reasoning]
 EOF
 )"
@@ -234,11 +234,11 @@ EOF
 - Default choice for most cases
 
 **Key flags:**
-- `-p` / `--prompt`: Provide prompt text directly
-- `--model`: Select specific model (pro vs flash)
-- `--quiet`: Suppress interactive prompts
-- `--image`: Attach architecture diagrams or screenshots
-- `--json`: Output in JSON format for parsing
+- `-p` / `--prompt`: Run in headless mode (non-interactive)
+- `--model` / `-m`: Select specific model (pro vs flash)
+- `--output-format`: Control output format (text/json/stream-json)
+- `--yolo` / `-y`: Auto-approve all actions
+- File references: Use `@file_path` or `@directory/` to include context
 
 **Common patterns:**
 
