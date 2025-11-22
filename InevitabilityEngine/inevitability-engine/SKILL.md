@@ -1,8 +1,7 @@
 ---
 name: inevitability-engine
 description: Systematic research protocol for discovering novel AI-native software businesses in the synthetic workforce era. Maps capability trajectories, analyzes segment-problem spaces, generates business models, and calculates inevitability scores across 3-24 month time horizons. Use when exploring AI business opportunities, conducting market research, or identifying automation-native ventures.
-version: 1.0.0
-license: Complete terms in LICENSE.txt
+license: Complete terms in LICENSE
 ---
 
 # The Inevitability Engine
