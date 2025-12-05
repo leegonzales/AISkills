@@ -5,6 +5,8 @@ description: "Analyze unknown or inherited Excel files to understand what they d
 
 # Excel Auditor
 
+> **🧪 Status: IN TESTING** - Core functionality complete, validation in progress.
+
 Analyze unknown Excel files to understand purpose, audit formulas, detect errors, and generate documentation.
 
 ## Core Workflow
