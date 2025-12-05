@@ -326,6 +326,36 @@ Transform messy discourse into structured argument maps. Extract claims, map log
 
 ### Data & Analysis
 
+#### 18. Excel Auditor (v1.0.0) 🧪 **IN TESTING**
+
+Analyze unknown or inherited Excel files to understand what they do, document their purpose, audit formulas for errors, and assess maintainability risk.
+
+**🧪 Status: In Testing** - Core functionality complete, validation in progress.
+
+**Features:**
+- Structure extraction (sheets, named ranges, tables, VBA detection, external links)
+- Formula analysis with function categorization and complexity metrics
+- Error detection (7 Excel error types: #REF!, #DIV/0!, #VALUE!, etc.)
+- Volatile function identification (NOW, TODAY, RAND, INDIRECT, OFFSET)
+- Purpose inference from formula patterns (financial, lookup, aggregation, scheduling)
+- Pattern recognition for common archetypes (DCF, Budget, P&L, Inventory, CRM)
+- Risk flags (VBA macros, hidden sheets, external links, merged cells)
+- Comprehensive audit report generation
+
+**Use for:**
+- Understanding inherited/legacy spreadsheets ("what does this do?")
+- Formula auditing and error detection
+- Spreadsheet risk and complexity assessment
+- Documentation generation for undocumented Excel files
+- Identifying maintainability concerns before taking ownership
+
+**Prerequisites:**
+- Python 3.8+ with `openpyxl` package
+
+**[View Excel Auditor →](ExcelAuditor/)**
+
+---
+
 #### 16. CSV Data Summarizer (v1.0.0) **[DESIGN REFERENCE]**
 
 Proactive CSV analysis without user prompting. Exemplary "DO NOT ASK" design pattern for autonomous agent behavior.
@@ -716,6 +746,7 @@ AISkills/
 ├── ContextContinuity/                  # High-fidelity context transfer
 ├── ContextContinuityCode/              # Dev-optimized context transfer
 ├── DadJokeValidator/                   # Dad joke analysis and generation
+├── ExcelAuditor/                       # Excel file auditing and analysis 🧪
 ├── MCPBuilder/                         # Custom MCP tool development
 ├── PlaywrightSkill/                    # Browser automation
 ├── WritingSkills/                      # TDD for documentation (META-SKILL)
@@ -783,6 +814,7 @@ All skills in this collection follow these principles:
 | Artifacts Builder | v1.0.0 | 2025-11-16 | React artifacts with 43 shadcn/ui components |
 | NotebookLM | v1.0.0 | 2025-11-16 | Source-grounded Q&A with browser automation |
 | CSV Data Summarizer | v1.0.0 | 2025-11-16 | Proactive data analysis, design pattern reference |
+| Excel Auditor | v1.0.0 | 2025-12-05 | 🧪 IN TESTING - Excel file auditing and formula analysis |
 
 ---
 
@@ -910,6 +942,6 @@ Each skill may have its own license - check individual skill directories for det
 
 ---
 
-**Current Skills**: 19 skills (21 packages) | **Total Size**: ~507KB | **Last Updated**: 2025-11-16
+**Current Skills**: 20 skills (22 packages) | **Total Size**: ~520KB | **Last Updated**: 2025-12-05
 
 Built with Claude Code | [Learn More](https://docs.claude.com/en/docs/claude-code)
