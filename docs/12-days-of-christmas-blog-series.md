@@ -19,24 +19,25 @@
 
 ## The 12 Days
 
-### Day 1: Dad Joke Validator
+### Day 1: Artifacts Builder
 **"A Partridge in a Pear Tree"**
 
-*The lighthearted opener that hooks readers*
+*Build beautiful React apps in a single prompt*
 
-**Skill:** Dad Joke Validator v1.1.0
+**Skill:** Artifacts Builder v1.0.0
 
-**Hook:** "Why did the AI cross the road? To validate that the chicken joke scored at least 75 on the groan factor."
+**Hook:** "On the first day of Christmas, my AI gave to me... a fully functional React dashboard in a pear tree of components."
 
 **Key Points:**
-- 4-dimensional scoring (Pun Quality, Groan Factor, Wholesomeness, Structure)
-- 100% test pass rate (11/11 tests)
-- Template-based joke generation with auto-validation
-- Perfect example of skills being both useful AND fun
+- Vite + React 18 + TypeScript + Tailwind CSS stack
+- 43 pre-installed shadcn/ui components ready to use
+- Single-file bundling for claude.ai artifact compatibility
+- Anti-"AI slop" design guidelines for professional results
+- Component categories: Layout, Navigation, Forms, Feedback, Overlays, Data Display
 
-**Why It Matters:** Demonstrates that Claude Code skills can be whimsical while being professionally engineered. Sets the tone that AI tools should delight users.
+**Why It Matters:** Create sophisticated interactive artifacts—dashboards, forms, games, data explorers—without setup friction. The skill provides the complete modern frontend stack pre-configured.
 
-**CTA:** Try validating your favorite dad jokes and share your scores!
+**CTA:** Build your first interactive dashboard and share it!
 
 ---
 
@@ -325,7 +326,7 @@
 
 **Recap:**
 - 12 skills covering writing, analysis, development, and AI collaboration
-- From fun (Dad Jokes) to foundational (META-skill)
+- From visual (Artifacts Builder) to foundational (META-skill)
 - Total value: 19+ production-ready skills
 - All MIT licensed, professionally documented
 
