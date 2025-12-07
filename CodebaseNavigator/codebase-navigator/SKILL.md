@@ -18,20 +18,40 @@ Invoke when user:
 
 ## Core Workflow
 
-### 1. Check Index Status
+### 1. Check Index Freshness (Auto-Refresh)
 
-Before first search in a new repo:
+**Before searching, check if index is stale (>4 hours):**
+
 ```bash
-osgrep list              # See available stores
-osgrep doctor            # Verify setup is healthy
+# Find store for current repo
+osgrep list
+
+# Check age of relevant store (macOS)
+STORE=~/.osgrep/data/YOUR-STORE.lance
+STORE_AGE=$(( $(date +%s) - $(stat -f %m "$STORE") ))
+
+# If older than 4 hours (14400 seconds), refresh
+if [ $STORE_AGE -gt 14400 ]; then
+  echo "Index is $(( STORE_AGE / 3600 )) hours old - refreshing..."
+  osgrep index
+fi
 ```
+
+**Quick version:** If unsure, just use `--sync`:
+```bash
+osgrep search "query" --sync   # Always safe, updates before searching
+```
+
+### 2. First-Time Setup
 
 If no store exists for current repo:
 ```bash
+osgrep list              # See available stores
+osgrep doctor            # Verify setup is healthy
 osgrep index             # Index current directory (takes ~30s-2min)
 ```
 
-### 2. Search Semantically
+### 3. Search Semantically
 
 **Basic search:**
 ```bash
