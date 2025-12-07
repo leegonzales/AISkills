@@ -103,11 +103,19 @@ Shows relevance scores (0-1) - useful for understanding match quality.
 
 ## Advanced Usage
 
-### Sync Before Search
-If files changed since last index:
+### Keep Index Fresh
+
+osgrep indexes can become stale. **Refresh regularly**, especially after:
+- Pulling new code
+- Creating/deleting files
+- Major refactoring
+
 ```bash
 osgrep search "query" --sync    # Update index then search
+osgrep index                    # Full re-index if --sync isn't enough
 ```
+
+**Symptom of stale index:** Known files not appearing in results, or deleted files still showing up.
 
 ### Background Server
 For large codebases with frequent changes:
@@ -122,6 +130,75 @@ Work with specific indexed stores:
 osgrep --store myproject.lance search "query"
 ```
 
+## Query Refinement
+
+When first search returns too many/wrong results:
+
+**Step 1: Check result quality**
+```bash
+osgrep search "query" --scores  # Low scores (<0.15) = poor matches
+```
+
+**Step 2: Narrow with domain terms**
+```
+❌ "packaging workflow" → finds ArtifactsBuilder, MCPBuilder
+✅ "skill packaging automation" → finds SkillPackager
+```
+
+**Step 3: Add specificity**
+```
+❌ "validation" → too broad (25+ files)
+✅ "YAML frontmatter validation for skills" → targeted
+```
+
+**Step 4: Try synonyms if nothing found**
+```
+❌ "auth" → too terse
+✅ "authentication login session user credentials" → covers variations
+```
+
+## osgrep vs grep: Decision Guide
+
+| Use osgrep when... | Use grep/rg when... |
+|-------------------|---------------------|
+| Searching by concept | Searching for exact strings |
+| "Where is auth handled?" | "Find TODO:" |
+| "How does caching work?" | "Find sha256" |
+| Unknown function names | Known function names |
+| Architecture questions | Error message lookup |
+| Understanding code purpose | Finding specific identifiers |
+
+**Rule of thumb:** If you could type the exact string, use grep. If you're describing what code *does*, use osgrep.
+
+## Combining Tools
+
+### osgrep + Glob (file types)
+osgrep finds code that *mentions* Python, not just .py files:
+```bash
+# Find Python data processing
+osgrep search "python data processing" --compact  # May include .md files
+# Then filter:
+# Use Glob tool with pattern "**/*.py" for actual scripts
+```
+
+### osgrep + grep (refine)
+```bash
+# Step 1: Find relevant area
+osgrep search "checksum verification"  # May miss literal "sha256"
+
+# Step 2: grep for specific term
+grep -r "sha256" --include="*.sh"  # Finds exact matches
+```
+
+### osgrep + Read (understand)
+```bash
+# Step 1: Find files
+osgrep search "error handling middleware" --compact
+
+# Step 2: Read to understand
+# Use Read tool on top results
+```
+
 ## Anti-Patterns
 
 **DON'T:**
@@ -129,19 +206,15 @@ osgrep --store myproject.lance search "query"
 - Dump raw output without synthesis
 - Skip indexing and wonder why searches fail
 - Use single keywords ("auth") instead of phrases ("authentication handling")
+- Expect osgrep to find technical literals like "sha256", "TODO:", error codes
 
 **DO:**
 - Formulate queries as natural language descriptions
 - Check `osgrep list` if searches return nothing
 - Use `--content` when you need more context
 - Combine with file reading for full understanding
-
-## Integration with Other Tools
-
-After finding files with osgrep:
-1. **Read the file** for full context
-2. **Use grep** for exact string matches within known files
-3. **Check git blame** for history of specific lines
+- Use `--scores` to assess match quality
+- Refine queries iteratively when results are poor
 
 ## Example Session
 
