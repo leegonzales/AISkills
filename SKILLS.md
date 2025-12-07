@@ -20,7 +20,7 @@ To use a skill:
 | AWS Serverless | Serverless and event-driven architecture | `AWSSkills/aws-serverless-eda/SKILL.md` |
 | Claimify | Fact-checking and claim verification | `Claimify/claimify/SKILL.md` |
 | Claude Project Docs | Generate CLAUDE.md documentation | `ClaudeProjectDocs/claude-project-docs/SKILL.md` |
-| Codebase Navigator | Semantic code search with osgrep | `CodebaseNavigator/SKILL.md` |
+| Codebase Navigator | Semantic code search with osgrep | `CodebaseNavigator/codebase-navigator/SKILL.md` |
 | Codex Peer Review | AI peer review via Codex CLI | `CodexPeerReview/codex-peer-review/SKILL.md` |
 | Concept Forge | Ideation and concept refinement | `ConceptForge/concept-forge/SKILL.md` |
 | Context Continuity | Session context preservation | `ContextContinuity/context-continuity/SKILL.md` |
