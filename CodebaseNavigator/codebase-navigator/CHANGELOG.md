@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.2] - 2025-12-07
+
+### Added
+- Auto-refresh workflow: check index age, refresh if >4 hours stale
+- Shell snippet for programmatic staleness detection
+- Quick version using --sync flag
+
 ## [1.0.1] - 2025-12-07
 
 ### Added
