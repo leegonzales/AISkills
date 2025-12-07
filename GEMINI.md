@@ -27,7 +27,9 @@ To use a skill listed below:
 | **Code Continuity** | Maintaining code context | `ContextContinuityCode/context-continuity-code/SKILL.md` |
 | **CSV Summarizer** | Analyze CSV data | `CSVDataSummarizer/csv-data-summarizer/SKILL.md` |
 | **Dad Joke Validator** | Rate and generate dad jokes | `DadJokeValidator/dad-joke-validator/SKILL.md` |
+| **Excel Auditor** | Analyze Excel files, audit formulas, detect errors | `ExcelAuditor/excel-auditor/SKILL.md` |
 | **Gemini Peer Review** | Code review specialized for Gemini | `GeminiPeerReview/gemini-peer-review/SKILL.md` |
+| **Inevitability Engine** | AI business opportunity discovery | `InevitabilityEngine/inevitability-engine/SKILL.md` |
 | **MCP Builder** | Build Model Context Protocol servers | `MCPBuilder/mcp-builder/SKILL.md` |
 | **Nano Banana** | AI image generation via Gemini 3 Pro | `NanoBananaSkill/nano-banana/SKILL.md` |
 | **NotebookLM** | NotebookLM integration helper | `NotebookLMSkill/notebooklm/SKILL.md` |
