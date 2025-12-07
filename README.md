@@ -356,6 +356,86 @@ Analyze unknown or inherited Excel files to understand what they do, document th
 
 ---
 
+#### 19. Inevitability Engine (v1.0.0)
+
+Systematic research protocol for discovering AI-native business opportunities. Maps capability trajectories, analyzes segment-problem spaces, and calculates inevitability scores across 3-24 month horizons.
+
+**Features:**
+- 6-phase discovery workflow (Capability Mapping → Synthesis)
+- Capability frontier mapping with time horizon projections
+- Segment-problem matrix analysis (50-100+ pain points)
+- 10 synthetic worker primitives for business model generation
+- Inevitability scoring formula with threshold analysis
+- 7 comprehensive reference files (4,700+ lines of methodology)
+
+**Use for:**
+- AI business opportunity discovery
+- Market research for AI-native ventures
+- Capability trajectory analysis
+- Synthetic workforce opportunity mapping
+- Investment thesis development
+
+**[View Inevitability Engine →](InevitabilityEngine/)**
+
+---
+
+#### 20. Agent Mail (v1.0.0)
+
+Email automation and management for AI agents. Structured email handling with templates and workflow integration.
+
+**[View Agent Mail →](AgentMail/)**
+
+---
+
+#### 21. Codebase Navigator (v1.0.0)
+
+Semantic code search with osgrep integration. Find code patterns, understand architecture, and navigate large codebases efficiently.
+
+**[View Codebase Navigator →](CodebaseNavigator/)**
+
+---
+
+#### 22. Claude Project Docs (v1.0.0)
+
+Generate concise CLAUDE.md files following progressive disclosure best practices. Create well-crafted project documentation (~60 lines) with agent_docs/ structure.
+
+**Features:**
+- 60-line rule for CLAUDE.md (universal, every session)
+- Progressive disclosure with agent_docs/
+- WHAT/WHY/HOW structure
+- Anti-pattern detection and prevention
+- Template library and examples
+
+**Use for:**
+- Set up Claude for new projects
+- Audit existing CLAUDE.md files
+- Create agent documentation structure
+- Optimize context efficiency
+
+**[View Claude Project Docs →](ClaudeProjectDocs/)**
+
+---
+
+#### 23. Nano Banana (v1.0.0)
+
+AI image generation via Google's Gemini 3 Pro Image model through MCP. Generate and edit high-quality images with text rendering capabilities.
+
+**Features:**
+- Text-to-image generation
+- Image editing and modification
+- High-quality text rendering in images
+- MCP server integration
+
+**Use for:**
+- Generate images for content
+- Edit and modify existing images
+- Create graphics with text overlays
+- Visual content generation
+
+**[View Nano Banana →](NanoBananaSkill/)**
+
+---
+
 #### 16. CSV Data Summarizer (v1.0.0) **[DESIGN REFERENCE]**
 
 Proactive CSV analysis without user prompting. Exemplary "DO NOT ASK" design pattern for autonomous agent behavior.
@@ -721,7 +801,14 @@ Each skill includes a versioned `.skill` file (ZIP format) in its `dist/` folder
 ```
 AISkills/
 ├── README.md                           # This file
+├── CLAUDE.md                           # Claude Code context (~55 lines)
+├── GEMINI.md                           # Gemini context (mirrors CLAUDE.md)
+├── SKILLS.md                           # Source of truth skill manifest
 ├── LICENSE                             # MIT License
+├── agent_docs/                         # Progressive disclosure docs
+│   ├── creating-skills.md
+│   ├── packaging.md
+│   └── quality.md
 ├── docs/                               # Documentation and planning
 │   ├── INTEGRATION_PLAN.md
 │   ├── QUALITY_AUDIT_REPORT.md
@@ -747,6 +834,11 @@ AISkills/
 ├── ContextContinuityCode/              # Dev-optimized context transfer
 ├── DadJokeValidator/                   # Dad joke analysis and generation
 ├── ExcelAuditor/                       # Excel file auditing and analysis 🧪
+├── InevitabilityEngine/                # AI business opportunity discovery
+├── AgentMail/                          # Email automation for agents
+├── CodebaseNavigator/                  # Semantic code search
+├── ClaudeProjectDocs/                  # CLAUDE.md generation
+├── NanoBananaSkill/                    # AI image generation via MCP
 ├── MCPBuilder/                         # Custom MCP tool development
 ├── PlaywrightSkill/                    # Browser automation
 ├── WritingSkills/                      # TDD for documentation (META-SKILL)
@@ -942,6 +1034,6 @@ Each skill may have its own license - check individual skill directories for det
 
 ---
 
-**Current Skills**: 20 skills (22 packages) | **Total Size**: ~520KB | **Last Updated**: 2025-12-05
+**Current Skills**: 27 skills | **Total Size**: ~600KB | **Last Updated**: 2025-12-07
 
 Built with Claude Code | [Learn More](https://docs.claude.com/en/docs/claude-code)
