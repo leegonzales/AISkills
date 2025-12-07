@@ -44,7 +44,11 @@ See `GEMINI.md` for the complete skill registry (25+ skills).
 ## Reference Documentation
 
 When working on specific tasks, read:
-- `docs/SKILL-8-SPEC.md` - Skill format specification
-- `docs/skill-evaluation-rubric.md` - Quality criteria
-- `SkillPackager/README.md` - Packaging and distribution
+- `agent_docs/creating-skills.md` - How to create new skills
+- `agent_docs/packaging.md` - Packaging and distribution
+- `agent_docs/quality.md` - Quality standards and evaluation
+
+For detailed specifications:
+- `docs/SKILL-8-SPEC.md` - Full skill format specification
+- `docs/skill-evaluation-rubric.md` - Detailed evaluation rubric
 - `ClaudeProjectDocs/claude-project-docs/SKILL.md` - Documentation best practices
