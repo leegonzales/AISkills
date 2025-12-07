@@ -39,7 +39,7 @@ A collection of Claude Skills - specialized system prompts that extend AI capabi
 
 ## Skill Registry
 
-See `GEMINI.md` for the complete skill registry (25+ skills).
+See `SKILLS.md` for the complete skill manifest (27 skills).
 
 ## Reference Documentation
 

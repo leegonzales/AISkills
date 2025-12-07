@@ -1,40 +1,54 @@
-# Project Context: AISkills
+# AISkills
 
-This repository contains a collection of "Claude Skills" - specialized system prompts and instruction sets that extend AI capabilities.
+A collection of Claude Skills - specialized system prompts that extend AI capabilities for specific domains.
 
-## Usage Protocol
+## Project Structure
 
-To use a skill listed below:
-1.  **Identify** the skill the user is requesting.
-2.  **Read** the corresponding `SKILL.md` file using `read_file`.
-3.  **Adopt** the persona, constraints, and output formats defined in that file for the duration of the task.
+```
+{SkillName}/
+  {skill-slug}/
+    SKILL.md          # Core skill definition (required)
+    README.md         # Human documentation
+    references/       # Progressive disclosure content
+    scripts/          # Helper scripts (if any)
+```
+
+## Development
+
+```bash
+# Validate skill structure
+./SkillPackager/scripts/validate-skill.sh {SkillName}/{skill-slug}
+
+# Package for distribution
+./SkillPackager/scripts/package-skill.sh {SkillName}/{skill-slug}
+```
+
+## Creating Skills
+
+1. Copy `SkillTemplate/example-skill/` to `{NewSkillName}/{skill-slug}/`
+2. Edit `SKILL.md` with your skill definition
+3. Add references/ for detailed content (progressive disclosure)
+4. Update `SKILLS.md` manifest
+
+## Critical Rules
+
+- **SKILL.md is the source of truth** - Read this when skill is invoked
+- **Keep SKILL.md focused** - use references/ for detailed protocols
+- **Directory naming**: PascalCase for folder, kebab-case for slug
+- **Never commit secrets** - check .gitignore
 
 ## Skill Registry
 
-| Skill Name | Description | Path |
-| :--- | :--- | :--- |
-| **Agent Mail** | Email automation and management | `AgentMail/agent-mail/SKILL.md` |
-| **Artifacts Builder** | Create HTML/React artifacts | `ArtifactsBuilder/artifacts-builder/SKILL.md` |
-| **AWS CDK** | AWS Cloud Development Kit assistance | `AWSSkills/aws-cdk-development/SKILL.md` |
-| **AWS Cost Ops** | AWS cost optimization and analysis | `AWSSkills/aws-cost-operations/SKILL.md` |
-| **AWS Serverless** | Serverless architecture patterns | `AWSSkills/aws-serverless-eda/SKILL.md` |
-| **Claimify** | Fact-checking and claim verification | `Claimify/claimify/SKILL.md` |
-| **Claude Project Docs** | Generate CLAUDE.md project documentation | `ClaudeProjectDocs/claude-project-docs/SKILL.md` |
-| **Codebase Navigator** | Semantic code search with osgrep | `CodebaseNavigator/SKILL.md` |
-| **Codex Peer Review** | Code quality review (General) | `CodexPeerReview/codex-peer-review/SKILL.md` |
-| **Concept Forge** | Ideation and concept refinement | `ConceptForge/concept-forge/SKILL.md` |
-| **Context Continuity** | Maintaining context across sessions | `ContextContinuity/context-continuity/SKILL.md` |
-| **Code Continuity** | Maintaining code context | `ContextContinuityCode/context-continuity-code/SKILL.md` |
-| **CSV Summarizer** | Analyze CSV data | `CSVDataSummarizer/csv-data-summarizer/SKILL.md` |
-| **Dad Joke Validator** | Rate and generate dad jokes | `DadJokeValidator/dad-joke-validator/SKILL.md` |
-| **Excel Auditor** | Analyze Excel files, audit formulas, detect errors | `ExcelAuditor/excel-auditor/SKILL.md` |
-| **Gemini Peer Review** | Code review specialized for Gemini | `GeminiPeerReview/gemini-peer-review/SKILL.md` |
-| **Inevitability Engine** | AI business opportunity discovery | `InevitabilityEngine/inevitability-engine/SKILL.md` |
-| **MCP Builder** | Build Model Context Protocol servers | `MCPBuilder/mcp-builder/SKILL.md` |
-| **Nano Banana** | AI image generation via Gemini 3 Pro | `NanoBananaSkill/nano-banana/SKILL.md` |
-| **NotebookLM** | NotebookLM integration helper | `NotebookLMSkill/notebooklm/SKILL.md` |
-| **Playwright** | Browser automation and testing | `PlaywrightSkill/playwright/SKILL.md` |
-| **Process Mapper** | Map business processes | `ProcessMapper/process-mapper/SKILL.md` |
-| **Prose Polish** | Writing style improvement | `ProsePolish/prose-polish/SKILL.md` |
-| **Research to Essay** | Convert research notes to essays | `ResearchToEssay/research-to-essay/SKILL.md` |
-| **Writing Skills** | General writing assistance | `WritingSkills/writing-skills/SKILL.md` |
+See `SKILLS.md` for the complete skill manifest (27 skills).
+
+## Reference Documentation
+
+When working on specific tasks, read:
+- `agent_docs/creating-skills.md` - How to create new skills
+- `agent_docs/packaging.md` - Packaging and distribution
+- `agent_docs/quality.md` - Quality standards and evaluation
+
+For detailed specifications:
+- `docs/SKILL-8-SPEC.md` - Full skill format specification
+- `docs/skill-evaluation-rubric.md` - Detailed evaluation rubric
+- `ClaudeProjectDocs/claude-project-docs/SKILL.md` - Documentation best practices
