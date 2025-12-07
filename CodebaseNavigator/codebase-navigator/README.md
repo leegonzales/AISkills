@@ -14,7 +14,9 @@ Codebase Navigator enables natural language code search. Ask questions like "whe
 - **Natural language queries** - "where do we handle payments?"
 - **Multiple output modes** - snippets, full content, paths only, JSON
 - **Relevance scoring** - See how well results match your query
-- **Live indexing** - Background server for frequently changing codebases
+- **Auto-refresh workflow** - Check index freshness, refresh if stale (>4 hours)
+- **osgrep vs grep guidance** - Know when to use semantic vs literal search
+- **Tool combination patterns** - Combine osgrep with Glob, grep, and Read
 
 ## Requirements
 
@@ -33,6 +35,9 @@ osgrep index
 
 # Search semantically
 osgrep search "user authentication and login"
+
+# Always-safe search (updates index first)
+osgrep search "query" --sync
 ```
 
 ## Usage
@@ -48,7 +53,19 @@ osgrep search "query" --max-count 10    # Limit results
 osgrep search "query" --content         # Show full content
 osgrep search "query" --compact         # Paths only
 osgrep search "query" --scores          # Show relevance
+osgrep search "query" --sync            # Update index first
 ```
+
+## When to Use osgrep vs grep
+
+| Use osgrep | Use grep |
+|------------|----------|
+| Searching by concept | Searching for exact strings |
+| "Where is auth handled?" | "Find TODO:" |
+| Unknown function names | Known identifiers |
+| Architecture questions | Error message lookup |
+
+**Rule of thumb:** If you could type the exact string, use grep. If you're describing what code *does*, use osgrep.
 
 ## Query Tips
 
@@ -66,7 +83,7 @@ See `references/troubleshooting.md` for common issues.
 
 ## Version
 
-1.0.0
+1.0.2
 
 ## License
 
