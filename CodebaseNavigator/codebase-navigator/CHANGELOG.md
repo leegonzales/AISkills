@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.1] - 2025-12-07
+
+### Added
+- Query refinement section with step-by-step guidance
+- osgrep vs grep decision guide table
+- Combining tools section (osgrep + Glob, osgrep + grep, osgrep + Read)
+- Real-world examples from pressure testing
+
+### Changed
+- Enhanced anti-patterns with specific failure cases
+- Added iterative refinement to DO list
+
+### Validated
+- Retroactive TDD validation with 5 pressure scenarios
+- Identified gaps: query refinement, tool selection, combining tools
+- All gaps addressed in this update
+
 ## [1.0.0] - 2025-12-07
 
 ### Added
