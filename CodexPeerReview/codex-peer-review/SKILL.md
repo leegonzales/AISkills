@@ -409,11 +409,21 @@ Load `references/codex-commands.md` for complete command documentation.
 
 | Use Case | Command Pattern | Flags |
 |----------|----------------|-------|
-| Architecture review | `codex exec "[context]"` | `exec` for non-interactive |
+| Architecture review | `codex --reasoning high exec "[context]"` | `--reasoning high` for complex analysis |
+| Security analysis | `codex --reasoning xhigh exec "Security: [code]"` | `--reasoning xhigh` for critical security |
 | Review with diagram | `codex --image diagram.png "[question]"` | `--image` for visual context |
-| Security analysis | `codex exec "Security: [code]"` | `exec` for automation-friendly |
 | Implementation suggestions | `codex --full-auto "[context]"` | `--full-auto` for unattended |
 | Quick validation | `codex "[question]"` | Interactive mode |
+| Resume analysis | `codex /resume` | Continue previous session |
+
+**Reasoning effort flags for peer review:**
+```bash
+# For architectural decisions (recommended)
+codex --reasoning high exec "[context]"
+
+# For security-critical code (maximum reasoning)
+codex --reasoning xhigh exec "[context]"
+```
 
 ---
 
@@ -567,6 +577,87 @@ codex --version
 codex /status
 ```
 
+---
+
+## CRITICAL: Always Use Latest Model
+
+**Before invoking peer review, ALWAYS verify you're using the latest Codex model.**
+
+### Version Check Protocol
+
+**Step 1: Check current Codex CLI and model version**
+```bash
+# Check CLI version
+codex --version
+
+# Check current model in config
+codex /status
+```
+
+**Step 2: Web search for latest available models**
+```
+WebSearch: "OpenAI Codex CLI latest model [current month year]"
+```
+
+**Step 3: Update if outdated**
+```bash
+# Update CLI to latest version
+npm update -g @openai/codex
+# or
+brew upgrade codex
+
+# Update model in config if needed
+# Edit ~/.codex/config.toml and set model = "[latest-model]"
+```
+
+### Current Latest Models (as of December 2025)
+
+| Model | Use Case | Model ID |
+|-------|----------|----------|
+| **GPT-5.1-Codex-Max** | Complex reasoning, architecture, multi-window context (default) | `gpt-5.1-codex-max` |
+| **GPT-5.1-Codex** | Standard analysis, faster response | `gpt-5.1-codex` |
+
+### Reasoning Effort Levels
+
+Codex supports different reasoning effort levels for different task complexity:
+
+| Level | Use Case | Flag |
+|-------|----------|------|
+| `low` | Simple queries, quick checks | `--reasoning low` |
+| `medium` | Daily driver, most tasks | `--reasoning medium` |
+| `high` | Complex architecture, security review | `--reasoning high` |
+| `xhigh` | Maximum reasoning, critical decisions | `--reasoning xhigh` |
+
+**For peer review, use `high` or `xhigh` for best results.**
+
+### New Features (CLI v0.65.0+)
+
+- **`/resume` command**: Resume previous analysis sessions for continuity
+- **Codex Max as default**: Best model now default for signed-in users
+- **Extended context**: Process millions of tokens in single task via compaction
+- **Enhanced markdown tooltips**: Better formatted output
+
+### Why This Matters
+
+- Newer models have dramatically improved reasoning
+- GPT-5.1-Codex-Max can work across multiple context windows
+- Security analysis accuracy improves significantly
+- Outdated models may miss critical issues
+- **This skill is only as good as the model powering it**
+
+### Automated Version Check (Recommended)
+
+Add this check to the beginning of any peer review workflow:
+
+```bash
+# Check Codex version and model
+codex --version && codex /status
+```
+
+If using an older model (e.g., `codex-1` or `gpt-4-*`), update before proceeding.
+
+---
+
 **If Codex CLI is not available:**
 1. Inform user that peer review requires Codex CLI
 2. Provide installation instructions
@@ -580,17 +671,23 @@ codex /status
 **Optional configuration in `~/.codex/config.toml`:**
 
 ```toml
-# Default model
-model = "codex-1"
+# Default model (always use latest - gpt-5.1-codex-max as of Dec 2025)
+model = "gpt-5.1-codex-max"
 
 # Approval mode (suggest|auto|on-failure)
 ask_for_approval = "suggest"
 
 # Sandbox mode (none|workspace-read|workspace-write)
 sandbox = "workspace-read"
+
+# Reasoning effort (low|medium|high|xhigh)
+# Use xhigh for complex analysis, medium for daily tasks
+reasoning_effort = "high"
 ```
 
 **For peer review, recommended settings:**
+- `model = "gpt-5.1-codex-max"` for best reasoning
+- `reasoning_effort = "high"` or `"xhigh"` for complex architecture
 - `sandbox = "workspace-read"` for read-only safety
 - `ask_for_approval = "suggest"` for transparency
 
@@ -640,7 +737,7 @@ sandbox = "workspace-read"
 
 **Invoke peer review:**
 ```bash
-codex exec "Review multi-tenant SaaS architecture decision:
+codex --reasoning xhigh exec "Review multi-tenant SaaS architecture decision:
 
 CONTEXT:
 - B2B SaaS with 100-500 tenants expected
@@ -656,6 +753,8 @@ B) Shared database with row-level security (RLS)
 QUESTION:
 Analyze trade-offs for scalability, operational complexity, data isolation, and cost. Which approach is recommended for this context?"
 ```
+
+*Note: Using `--reasoning xhigh` for maximum analysis on this high-stakes architectural decision.*
 
 **Synthesis:**
 Compare Claude's and Codex's trade-off analysis, extract key insights, present balanced recommendation.
