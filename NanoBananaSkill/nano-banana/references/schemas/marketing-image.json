@@ -1,0 +1,82 @@
+{
+  "marketing_image": {
+    "meta": {
+      "spec_version": "1.0.0",
+      "title": "",
+      "campaign": "",
+      "brand_name": "",
+      "usage_context": "web"
+    },
+    "subject": {
+      "type": "",
+      "name": "",
+      "variant": "",
+      "physical_properties": {
+        "volume_oz": null,
+        "dimensions": null,
+        "finish": null
+      }
+    },
+    "props": {
+      "foreground": [],
+      "midground": [],
+      "background": []
+    },
+    "environment": {
+      "surface": {
+        "material": "",
+        "reflection_strength": 0.0
+      },
+      "background": {
+        "color": "",
+        "texture": null,
+        "effect": null
+      },
+      "atmosphere": {
+        "mood": "",
+        "keywords": []
+      }
+    },
+    "camera": {
+      "angle": "",
+      "framing": "",
+      "focal_length_mm": null,
+      "depth_of_field": "medium"
+    },
+    "lighting": {
+      "key_light_direction": "",
+      "key_light_intensity": "medium",
+      "fill_light_direction": null,
+      "fill_light_intensity": null,
+      "rim_light": false,
+      "color_temperature": "neutral"
+    },
+    "brand": {
+      "logo_asset": null,
+      "primary_colors": [],
+      "must_match_assets": [],
+      "forbidden_changes": []
+    },
+    "controls": {
+      "lock_subject_geometry": true,
+      "lock_logo_and_label": true,
+      "allow_background_variation": false,
+      "allow_prop_relayout": "small_only"
+    }
+  },
+  "_field_options": {
+    "subject.type": ["product_can", "bottle", "pack", "device", "cosmetic", "food", "person", "custom"],
+    "subject.physical_properties.finish": ["matte", "glossy", "metallic", "frosted", "textured"],
+    "props.*.type": ["lime_slice", "ice_cube", "leaf", "flower", "water_droplet", "glass", "fabric", "custom"],
+    "props.*.position": ["front_left", "front_right", "front_center", "around_base", "behind_left", "behind_right"],
+    "environment.surface.material": ["glossy", "marble", "wood", "concrete", "fabric", "water", "seamless_white"],
+    "environment.background.effect": ["solid", "gradient", "bokeh_soft", "bokeh_hard", "motion_blur", "texture"],
+    "camera.angle": ["front", "three_quarter_front", "three_quarter_back", "side", "overhead", "low", "dutch"],
+    "camera.framing": ["extreme_close_up", "close_up", "medium_close", "medium", "medium_wide", "wide"],
+    "camera.depth_of_field": ["shallow", "medium", "deep"],
+    "lighting.key_light_direction": ["left", "right", "front", "back", "top", "top_left", "top_right"],
+    "lighting.key_light_intensity": ["very_low", "low", "medium", "high", "very_high"],
+    "lighting.color_temperature": ["cool", "neutral", "warm", "golden"],
+    "meta.usage_context": ["web", "social", "print", "billboard", "packaging"]
+  }
+}

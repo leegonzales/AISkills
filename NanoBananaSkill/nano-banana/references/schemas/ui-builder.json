@@ -1,0 +1,92 @@
+{
+  "ui_builder": {
+    "meta": {
+      "spec_version": "1.0.0",
+      "name": "",
+      "description": "",
+      "author": "",
+      "tags": []
+    },
+    "app": {
+      "platform": "web",
+      "fidelity": "high-fi",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "light"
+    },
+    "tokens": {
+      "color": {
+        "primary": "#2563EB",
+        "secondary": "#64748B",
+        "background": "#F9FAFB",
+        "surface": "#FFFFFF",
+        "accent": "#F97316",
+        "text_primary": "#111827",
+        "text_secondary": "#6B7280"
+      },
+      "typography": {
+        "font_family": "system_sans",
+        "headline_size": 20,
+        "body_size": 14,
+        "caption_size": 12
+      },
+      "radius": {
+        "sm": 4,
+        "md": 8,
+        "lg": 12,
+        "full": 9999
+      },
+      "spacing_scale": [0, 4, 8, 12, 16, 24, 32, 48]
+    },
+    "screens": [
+      {
+        "id": "",
+        "name": "",
+        "role": "primary",
+        "layout": {
+          "containers": [
+            {
+              "id": "",
+              "type": "stack",
+              "subtype": "horizontal",
+              "region": "top_nav",
+              "children": []
+            }
+          ]
+        }
+      }
+    ],
+    "components": [
+      {
+        "id": "",
+        "screen_id": "",
+        "container_id": "",
+        "component_type": "",
+        "props": {},
+        "data_binding": null
+      }
+    ],
+    "constraints": {
+      "layout_lock": true,
+      "theme_lock": false,
+      "content_lock": false,
+      "min_tap_target": 44
+    }
+  },
+  "_field_options": {
+    "app.platform": ["web", "mobile", "tablet", "desktop"],
+    "app.fidelity": ["wireframe", "low-fi", "mid-fi", "high-fi"],
+    "app.theme": ["light", "dark", "system", "custom"],
+    "screens.role": ["primary", "secondary", "modal", "overlay"],
+    "screens.layout.containers.type": ["stack", "grid", "flex"],
+    "screens.layout.containers.subtype": ["horizontal", "vertical", "auto"],
+    "screens.layout.containers.region": ["top_nav", "sidebar", "content", "footer", "modal", "drawer"],
+    "components.component_type": [
+      "navbar", "sidebar_nav", "button", "input", "card", "avatar",
+      "kpi_grid", "line_chart", "bar_chart", "pie_chart", "data_table",
+      "list", "tabs", "modal", "toast", "dropdown", "toggle", "form"
+    ]
+  }
+}

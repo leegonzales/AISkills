@@ -72,12 +72,28 @@ Once MCP is configured, these tools become available:
 
 ### Core Tools
 
-| Tool | Purpose |
-|------|---------|
-| `gemini_generate_image` | Create new images from text prompts |
-| `gemini_edit_image` | Modify existing images with instructions |
-| `continue_editing` | Refine the last generated image |
-| `get_image_history` | List all generated images in session |
+| Tool | Purpose | Key Parameters |
+|------|---------|----------------|
+| `gemini_generate_image` | Create new images from text prompts | `prompt`, `model`, `aspectRatio`, `imageSize` |
+| `gemini_edit_image` | Modify existing images with instructions | `imagePath`, `instructions`, `model` |
+| `continue_editing` | Refine the last generated image | `instructions` |
+| `get_image_history` | List all generated images in session | - |
+
+### Model Options
+
+| Model ID | Description |
+|----------|-------------|
+| `gemini-3-pro-image-preview` | **Default.** Highest quality, 4K support, best text rendering |
+| `gemini-2.0-flash-exp` | Faster generation, good quality, lower cost |
+| `gemini-2.0-flash-preview-image-generation` | Alternative 2.0 model |
+
+### Image Size (Gemini 3 only)
+
+| Size | Use Case |
+|------|----------|
+| `4K` | Final assets, print, marketing materials |
+| `2K` | Balanced quality and speed |
+| `1K` | Fast iteration, prototyping |
 
 ### Advanced Features
 
@@ -106,6 +122,67 @@ Once MCP is configured, these tools become available:
 2. **Specify Style** - "photorealistic", "oil painting", "3D render", "anime"
 3. **Add Context** - Time of day, weather, setting
 4. **Request Resolution** - "4K", "high resolution", "detailed"
+
+## Precision Mode (JSON Prompting)
+
+For high-stakes work requiring exact reproducibility, use structured JSON schemas.
+
+### When to Activate
+
+Trigger phrases:
+- "I need exact control over..."
+- "Create a product shot for [brand]..."
+- "Generate a UI mockup..."
+- "Make an infographic showing..."
+- "I want to iterate on just the lighting..."
+- "A/B test different versions..."
+
+### Three Schema Types
+
+| Type | Use Case | Key Controls |
+|------|----------|--------------|
+| `marketing_image` | Product shots, hero images | subject, props, lighting, camera, brand locks |
+| `ui_builder` | App screens, dashboards | tokens, screens, containers, components |
+| `diagram_spec` | Flowcharts, infographics | nodes, edges, data constraints |
+
+### The Translator Workflow
+
+1. **Describe** - User explains what they want in plain English
+2. **Clarify** - Claude asks targeted questions for missing fields
+3. **Generate** - Claude outputs structured JSON schema
+4. **Review** - User checks key fields match intent
+5. **Render** - JSON converts to precise prompt for Nano Banana Pro
+6. **Iterate** - Modify specific fields, re-render (scoped changes)
+
+### Example: Product Shot
+
+**User:** "I need a hero shot for Aurora Lime seltzer"
+
+**Claude asks:** "For the Aurora Lime hero shot:
+1. Can size? (12oz standard?)
+2. Props? (lime slices, ice, condensation?)
+3. Background style? (solid color, gradient, bokeh?)
+4. Lighting mood? (bright/refreshing or moody/premium?)"
+
+**Result:** Structured JSON with exact specifications that can be iterated field-by-field.
+
+### Scoped Edits (The Key Unlock)
+
+JSON enables changing ONE thing without regenerating everything:
+
+| Change | What Stays Fixed |
+|--------|------------------|
+| Swap lighting direction | Subject, props, background |
+| Try different camera angle | Lighting, props, environment |
+| Change background color | Subject geometry, lighting setup |
+| Add/remove props | Everything else |
+
+### Reference Docs
+
+- `references/json-prompting.md` - Full JSON prompting guide
+- `references/translator-prompt.md` - Translator system prompt
+- `references/schemas/` - Template schemas for each type
+- `references/examples-json.md` - Filled-out examples
 
 ### Text in Images
 
@@ -171,8 +248,8 @@ Naming format: `generated-[timestamp]-[id].png`
 
 | Model | Speed | Quality | Cost | Best For |
 |-------|-------|---------|------|----------|
-| Gemini 3 Pro Image | Slower | Highest (4K) | Higher | Final assets, print, marketing |
-| Gemini 2.5 Flash Image | Fast | Good (2K) | Lower | Prototyping, iteration, drafts |
+| `gemini-3-pro-image-preview` | Slower | Highest (4K) | Higher | Final assets, print, marketing |
+| `gemini-2.0-flash-exp` | Fast | Good | Lower | Prototyping, iteration, drafts |
 
 ## Troubleshooting
 

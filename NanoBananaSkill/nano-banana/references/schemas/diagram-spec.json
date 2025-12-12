@@ -1,0 +1,125 @@
+{
+  "diagram_spec": {
+    "meta": {
+      "spec_version": "1.0.0",
+      "title": "",
+      "description": "",
+      "author": "",
+      "tags": []
+    },
+    "canvas": {
+      "width": 1920,
+      "height": 1080,
+      "unit": "px",
+      "direction": "left_to_right",
+      "grid": {
+        "columns": 12,
+        "margin": 24
+      }
+    },
+    "semantics": {
+      "diagram_type": "flowchart",
+      "primary_relationship": "control_flow",
+      "swimlanes": []
+    },
+    "tokens": {
+      "color": {
+        "primary": "#2563EB",
+        "secondary": "#64748B",
+        "success": "#10B981",
+        "warning": "#F59E0B",
+        "error": "#EF4444",
+        "background": "#FFFFFF",
+        "border": "#E5E7EB"
+      },
+      "typography": {
+        "font_family": "system_sans",
+        "node_label_size": 14,
+        "edge_label_size": 12,
+        "section_title_size": 18
+      }
+    },
+    "sections": [
+      {
+        "id": "",
+        "name": "",
+        "height_percent": 100,
+        "layout_type": "full_width"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "",
+        "label": "",
+        "role": "process",
+        "section_id": null,
+        "lane": null,
+        "group_id": null,
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "size": {
+          "width": 200,
+          "height": 80
+        },
+        "style": {
+          "shape": "rectangle",
+          "fill_color": "#FFFFFF",
+          "border_color": "#111827"
+        },
+        "data": {}
+      }
+    ],
+    "edges": [
+      {
+        "id": "",
+        "from": "",
+        "to": "",
+        "label": "",
+        "style": {
+          "line_type": "straight",
+          "arrowhead": "standard"
+        }
+      }
+    ],
+    "groups": [
+      {
+        "id": "",
+        "label": "",
+        "type": "cluster",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 800,
+          "height": 400
+        }
+      }
+    ],
+    "data_constraints": [],
+    "legend": {
+      "show": true,
+      "items": []
+    },
+    "constraints": {
+      "layout_lock": false,
+      "allow_auto_routing": true,
+      "preserve_data_accuracy": true
+    },
+    "production": {
+      "resolution_dpi": 150,
+      "export_formats": ["png"],
+      "min_contrast_ratio": 4.5
+    }
+  },
+  "_field_options": {
+    "canvas.direction": ["left_to_right", "top_to_bottom", "right_to_left", "bottom_to_top"],
+    "semantics.diagram_type": ["flowchart", "architecture", "sequence", "swimlane", "mindmap", "org_chart", "timeline", "infographic"],
+    "semantics.primary_relationship": ["control_flow", "data_flow", "dependency", "timeline", "hierarchy", "network"],
+    "sections.layout_type": ["full_width", "two_column", "three_column", "grid_4x4"],
+    "nodes.role": ["start", "end", "process", "decision", "database", "actor", "note", "group", "external", "data"],
+    "nodes.style.shape": ["rectangle", "rounded", "diamond", "ellipse", "cylinder", "parallelogram", "hexagon", "circle"],
+    "edges.style.line_type": ["straight", "orthogonal", "curved", "dashed"],
+    "edges.style.arrowhead": ["standard", "none", "diamond", "circle", "open"]
+  }
+}
