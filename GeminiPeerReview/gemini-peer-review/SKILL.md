@@ -197,7 +197,7 @@ EOF
 
 **With model selection:**
 ```bash
-gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
+gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
 [context for complex reasoning]
 EOF
 )"
@@ -219,14 +219,14 @@ EOF
 
 **Model selection guidelines:**
 
-**Use `gemini-2.5-pro` for:**
+**Use `gemini-3.0-pro` or `gemini-3.0-deep-think` for:**
 - Complex architectural decisions
 - Multi-step reasoning required
 - Deep analysis of trade-offs
 - Security-critical reviews
 - Novel or unfamiliar patterns
 
-**Use `gemini-2.5-flash` for:**
+**Use `gemini-3.0-flash` for:**
 - Faster turnaround needed
 - Straightforward analysis
 - Code review of standard patterns
@@ -244,7 +244,7 @@ EOF
 
 **Architecture review:**
 ```bash
-gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
+gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
 Review this microservices architecture:
 
 [Service definitions, API contracts, data flow]
@@ -270,7 +270,7 @@ EOF
 
 **Design decision with alternatives:**
 ```bash
-gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
+gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
 Design decision: Event sourcing vs traditional CRUD
 
 [Domain model, use cases, team context]
@@ -574,11 +574,11 @@ Load `references/gemini-commands.md` for complete command documentation.
 
 | Use Case | Command Pattern | Flags |
 |----------|----------------|-------|
-| Architecture review | `gemini --model gemini-2.5-pro -p "[context]"` | `--model` for complex reasoning |
+| Architecture review | `gemini --model gemini-3.0-pro -p "[context]"` | `--model` for complex reasoning |
 | Review with diagram | `gemini --image diagram.png -p "[question]"` | `--image` for visual context |
 | Security analysis | `gemini -p "Security: [code]"` | `-p` for prompt text |
 | Fast code review | `gemini -p "[code review]"` | Default flash model |
-| Large codebase analysis | `gemini --model gemini-2.5-pro -p "[full context]"` | Pro model for 1M token context |
+| Large codebase analysis | `gemini --model gemini-3.0-pro -p "[full context]"` | Pro model for 1M token context |
 | Quick validation | `gemini "[question]"` | Interactive mode |
 
 ---
@@ -746,17 +746,17 @@ gemini config set apiKey YOUR_API_KEY
 **Free Tier:**
 - 60 requests per minute
 - 1,500 requests per day
-- Access to Gemini 2.5 Pro (1M context)
+- Access to Gemini 3.0 Pro (1M context)
 - No credit card required
 
 ### Configuration
 
 ```bash
-# Set default model
-gemini config set defaultModel gemini-2.5-flash
+# Set default model (always use latest)
+gemini config set defaultModel gemini-3.0-pro
 
-# For complex reasoning tasks
-gemini config set defaultModel gemini-2.5-pro
+# For fastest response
+gemini config set defaultModel gemini-3.0-flash
 
 # View current config
 gemini config list
@@ -770,6 +770,69 @@ gemini "Hello, Gemini!"
 
 # If successful, you'll see a response from Gemini
 ```
+
+---
+
+## CRITICAL: Always Use Latest Model
+
+**Before invoking peer review, ALWAYS verify you're using the latest Gemini model.**
+
+### Version Check Protocol
+
+**Step 1: Check current model version**
+```bash
+# Ask Gemini what model it is
+gemini -p "What is your exact model ID? Reply with just the model name."
+```
+
+**Step 2: Web search for latest available models**
+```
+WebSearch: "Google Gemini API latest models [current month year]"
+```
+
+**Step 3: Update if outdated**
+```bash
+# If a newer model exists, update the default
+gemini config set defaultModel [latest-model-name]
+
+# Or specify directly in command
+gemini --model [latest-model-name] -p "[your prompt]"
+```
+
+### Current Latest Models (as of December 2025)
+
+| Model | Use Case | Model ID |
+|-------|----------|----------|
+| **Gemini 3.0 Pro** | Complex reasoning, architecture, deep analysis | `gemini-3.0-pro` |
+| **Gemini 3.0 Deep Think** | Multi-step reasoning, research-grade analysis | `gemini-3.0-deep-think` |
+| **Gemini 3.0 Flash** | Fast responses, standard analysis | `gemini-3.0-flash` |
+
+**Note:** Google also provides `-latest` aliases (e.g., `gemini-pro-latest`) that auto-update to newest versions. Use these for automatic updates:
+```bash
+gemini --model gemini-pro-latest -p "[your prompt]"
+```
+
+### Why This Matters
+
+- Newer models have improved reasoning capabilities
+- Security analysis improves with each version
+- Performance and accuracy increase significantly
+- Outdated models may give suboptimal recommendations
+- **This skill is only as good as the model powering it**
+
+### Automated Version Check (Recommended)
+
+Add this check to the beginning of any peer review workflow:
+
+```bash
+# Get current model and check if update needed
+echo "Checking Gemini version..." && \
+gemini -p "State your model ID in one line" 2>&1 | head -5
+```
+
+If the response shows an older model (e.g., `gemini-2.5-*` or `gemini-2.0-*`), update before proceeding.
+
+---
 
 **If Gemini CLI is not available:**
 1. Inform user that peer review requires Gemini CLI
@@ -785,9 +848,9 @@ gemini "Hello, Gemini!"
 
 ```bash
 # Set default model
-gemini config set defaultModel gemini-2.5-flash  # Faster
+gemini config set defaultModel gemini-3.0-flash  # Faster
 # or
-gemini config set defaultModel gemini-2.5-pro    # Complex reasoning
+gemini config set defaultModel gemini-3.0-pro    # Complex reasoning
 
 # Set generation parameters (optional)
 gemini config set temperature 0.3     # More focused (0.0-1.0)
@@ -801,7 +864,7 @@ gemini config reset
 ```
 
 **For peer review, recommended settings:**
-- `defaultModel`: `gemini-2.5-flash` for most cases, `gemini-2.5-pro` for complex analysis
+- `defaultModel`: `gemini-3.0-flash` for most cases, `gemini-3.0-pro` for complex analysis
 - `temperature`: 0.3-0.5 (more focused, less creative)
 - `maxTokens`: 8192 (allow detailed analysis)
 
@@ -870,7 +933,7 @@ Load `references/workflow-examples.md` for complete scenarios.
 
 **Invoke peer review:**
 ```bash
-gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
+gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
 Review multi-tenant SaaS architecture decision:
 
 CONTEXT:
@@ -963,7 +1026,7 @@ Combine security findings from both AIs, create prioritized remediation list.
 
 **Invoke peer review (leveraging 1M context):**
 ```bash
-gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
+gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
 Analyze this complete backend codebase:
 
 CODEBASE:
