@@ -1,5 +1,8 @@
 # AI Skills Collection
 
+[![Run in Smithery](https://smithery.ai/badge/skills/leegonzales)](https://smithery.ai/skills?ns=leegonzales&utm_source=github&utm_medium=badge)
+
+
 A curated collection of professional skills for Claude Code and Claude web chat, designed for enhanced development, analysis, writing, and reasoning workflows.
 
 ## What Are Claude Skills?
