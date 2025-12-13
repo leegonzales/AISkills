@@ -22,6 +22,68 @@ Invoke when user:
 
 Every prompt should address these five elements for maximum control.
 
+## Prompt Density: Finding the Sweet Spot
+
+Prompts fail in two directions:
+- **Too sparse:** Model fills gaps unpredictably, you lose creative control
+- **Too dense:** Model can't execute all instructions, produces confused output
+
+### The Priority Framework
+
+**Tier 1 - MUST INCLUDE (model needs these):**
+- Shot size (wide/medium/close-up)
+- Subject identity (who/what is in frame)
+- Primary action (what happens)
+- One dominant mood/style word
+
+**Tier 2 - SHOULD INCLUDE (significant impact):**
+- Camera movement OR angle (pick one, not both)
+- Lighting quality (natural/dramatic/soft)
+- One audio layer (dialogue OR SFX OR ambient)
+- Setting/environment
+
+**Tier 3 - NICE TO HAVE (diminishing returns):**
+- Secondary audio layers
+- Specific lens type
+- Color palette details
+- Film stock/grain texture
+- Background action
+
+**Rule of thumb:** Include all Tier 1, most of Tier 2, and 1-2 from Tier 3.
+
+### Density Comparison
+
+**TOO SPARSE (model guesses too much):**
+> "A professor talking about philosophy"
+
+**TOO DENSE (model overloaded):**
+> "Medium close-up shot at eye level with a 50mm lens at f/1.8 creating shallow depth of field with bokeh highlights, of a 52-year-old female professor with silver-streaked auburn hair pulled back in a loose bun, wearing an olive tweed jacket with leather elbow patches over a cream silk blouse with a small pearl brooch, standing in a contemporary lecture hall with tiered mahogany seating and brass fixtures visible in the soft background, natural diffused daylight streaming through floor-to-ceiling windows on the left side creating soft rembrandt lighting on her face with a gentle fill from reflected light on the right..."
+
+**OPTIMAL (directed but breathable):**
+> "Medium close-up of a professor in her 50s, tweed jacket, standing in a university lecture hall. She gestures while speaking: 'Kant asked one question: could everyone do this?' Warm natural window light from left, soft academic atmosphere. SFX: marker on whiteboard."
+
+### Calibration Signals
+
+**Signs your prompt is too sparse:**
+- Results vary wildly between generations
+- Key elements missing or wrong
+- Mood/tone inconsistent with intent
+
+**Signs your prompt is too dense:**
+- Model ignores some instructions entirely
+- Unnatural or frozen-looking motion
+- Conflicting elements appear (e.g., both day and night)
+- Audio doesn't match visual action
+
+### Iteration Strategy
+
+1. **Start with Tier 1 only** - generate test
+2. **Add Tier 2 elements** that matter most to your vision
+3. **Add ONE Tier 3 detail** if something specific is missing
+4. **Remove any element the model consistently ignores**
+
+See `references/prompt-calibration.md` for detailed examples and troubleshooting.
+
 ## Cinematography Elements
 
 ### Shot Composition
@@ -115,6 +177,7 @@ SFX: Chair scraping, thunder crack.
 
 ## References
 
+- `references/prompt-calibration.md` - Finding the right detail level
 - `references/cinematography-glossary.md` - Full camera terms
 - `references/prompt-examples.md` - 20+ categorized examples
 - `references/advanced-workflows.md` - Image-to-video, first/last frame
