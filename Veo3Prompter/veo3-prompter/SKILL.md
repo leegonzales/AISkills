@@ -173,7 +173,50 @@ SFX: Chair scraping, thunder crack.
 - **Duration:** 4, 6, or 8 seconds
 - **Resolution:** 720p or 1080p
 - **Aspect Ratio:** 16:9 (landscape) or 9:16 (portrait)
-- **Frame Rate:** 24 FPS
+- **Frame Rate:** Configurable (default: 24 FPS)
+
+## Advanced API Options
+
+When using Veo through API (not Flow), these additional parameters are available:
+
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `negativePrompt` | Elements to exclude from the video | - |
+| `seed` | RNG seed for reproducible results (same prompt + seed = same video) | Random |
+| `enhancePrompt` | Let the model rewrite your prompt for better results | false |
+| `generateAudio` | Generate synchronized audio | true |
+| `personGeneration` | Control person generation: `dont_allow` or `allow_adult` | - |
+| `referenceImages` | Up to 3 asset images OR 1 style image for consistency | - |
+
+### Negative Prompts
+
+Explicitly exclude unwanted elements:
+> "A forest at sunset" + negativePrompt: "people, animals, buildings"
+
+### Seed for Consistency
+
+Use the same seed to reproduce similar results:
+> First generation: seed=12345 → video A
+> Same prompt + seed=12345 → nearly identical video
+
+Useful for:
+- Iterating on a specific "look"
+- Creating variations with controlled changes
+- A/B testing different prompts
+
+### Reference Images
+
+Maintain visual consistency across shots using reference images:
+
+**Asset References (up to 3):**
+- Character appearances
+- Locations/settings
+- Props or products
+
+**Style References (1):**
+- Overall aesthetic
+- Color palette
+- Visual treatment
 
 ## References
 
