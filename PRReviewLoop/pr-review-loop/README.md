@@ -1,40 +1,33 @@
 # PR Review Loop
 
-A Claude Code skill for managing PR review feedback loops with Gemini Code Assist and other reviewers.
+A Claude Code skill for managing PR review feedback loops with Gemini Code Assist and other automated reviewers.
 
-## Overview
+## Features
 
-This skill streamlines the push-review-fix cycle for PRs with automated reviewers. It:
-
-- Monitors CI checks and review comments
-- Fetches and summarizes review feedback by priority
-- Automates the reply-and-resolve workflow for review threads
-- Detects Gemini Code Assist rate limits and falls back to Claude
-- Tracks review cycles to detect diminishing returns
+- **Automated Review Cycles**: Streamline push-review-fix workflow
+- **Gemini Integration**: Works with Gemini Code Assist reviews
+- **Claude Fallback**: Automatic fallback when Gemini is rate-limited
+- **Smart Replies**: Auto-resolve threads when replying to comments
+- **Diminishing Returns**: Detects when to stop iterating
+- **Safe Git Operations**: Wrapper scripts enforce proper git usage
 
 ## Installation
 
-Copy the `pr-review-loop` directory to your Claude skills folder:
+### 1. Copy skill to Claude skills directory
 
 ```bash
 cp -r pr-review-loop ~/.claude/skills/
 ```
 
-Make scripts executable:
+### 2. Make scripts executable
 
 ```bash
 chmod +x ~/.claude/skills/pr-review-loop/scripts/*.sh
 ```
 
-## Prerequisites
+### 3. Add permissions to settings
 
-- **GitHub CLI (`gh`)**: Must be installed and authenticated
-- **pre-commit**: Install globally with `pip install pre-commit`
-- **Pre-commit hooks**: Configure `.pre-commit-config.yaml` in your repo
-
-## Permission Setup
-
-Add these to your Claude Code settings (`.claude/settings.local.json`) to enable autonomous loops:
+Add to `.claude/settings.local.json`:
 
 ```json
 {
@@ -45,69 +38,112 @@ Add these to your Claude Code settings (`.claude/settings.local.json`) to enable
       "Bash(~/.claude/skills/pr-review-loop/scripts/trigger-review.sh:*)",
       "Bash(~/.claude/skills/pr-review-loop/scripts/get-review-comments.sh:*)",
       "Bash(~/.claude/skills/pr-review-loop/scripts/summarize-reviews.sh:*)",
-      "Bash(~/.claude/skills/pr-review-loop/scripts/claude-review.sh:*)",
-      "Bash(~/.claude/skills/pr-review-loop/scripts/check-gemini-quota.sh:*)",
-      "Bash(~/.claude/skills/pr-review-loop/scripts/watch-pr.sh:*)",
-      "Bash(~/.claude/skills/pr-review-loop/scripts/resolve-comment.sh:*)"
+      "Bash(~/.claude/skills/pr-review-loop/scripts/claude-review.sh:*)"
     ]
   }
 }
 ```
 
-## Usage
+## Prerequisites
 
-### Basic Workflow
+| Requirement | Install |
+|-------------|---------|
+| GitHub CLI | `brew install gh` then `gh auth login` |
+| pre-commit | `pip install pre-commit` |
+| Pre-commit hooks | `.pre-commit-config.yaml` in repo |
 
-1. **Push changes to your PR**
-2. **Invoke the skill** by asking Claude to help with PR reviews
-3. **Claude will**:
-   - Fetch review comments
-   - Analyze each suggestion
-   - Apply fixes or explain why not
-   - Reply to each comment (auto-resolving threads)
-   - Push changes and trigger next review
+## Quick Start
 
-### Scripts Reference
+```bash
+# 1. Get review comments
+~/.claude/skills/pr-review-loop/scripts/get-review-comments.sh 42 --with-ids --wait
+
+# 2. Reply to each comment
+~/.claude/skills/pr-review-loop/scripts/reply-to-comment.sh 42 12345 "Fixed - added validation"
+
+# 3. Commit (NEVER use raw git)
+~/.claude/skills/pr-review-loop/scripts/commit-and-push.sh "fix: address review feedback"
+
+# 4. Trigger next review
+~/.claude/skills/pr-review-loop/scripts/trigger-review.sh 42 --wait
+```
+
+## Scripts Reference
 
 | Script | Purpose |
 |--------|---------|
 | `commit-and-push.sh "msg"` | Commit and push (runs pre-commit) |
-| `reply-to-comment.sh <PR> <id> "msg"` | Reply and auto-resolve comment thread |
-| `get-review-comments.sh <PR> [--with-ids] [--wait]` | Fetch comments (--wait polls 5min) |
-| `trigger-review.sh [PR] [--wait] [--claude]` | Trigger review cycle |
-| `summarize-reviews.sh <PR> [--all]` | Summary by priority/file |
-| `watch-pr.sh <PR>` | Background monitor |
+| `reply-to-comment.sh <PR> <id> "msg"` | Reply and auto-resolve thread |
+| `get-review-comments.sh <PR>` | Fetch comments (`--with-ids --wait`) |
+| `trigger-review.sh <PR>` | Trigger review cycle (`--wait --claude`) |
+| `summarize-reviews.sh <PR>` | Summary by priority/file |
 | `claude-review.sh <PR>` | Generate Claude review prompt |
-| `check-gemini-quota.sh <PR>` | Check Gemini rate limit |
-| `resolve-comment.sh <node-id> [reason]` | Manual thread resolve |
+| `check-gemini-quota.sh <PR>` | Check Gemini rate limit status |
+| `watch-pr.sh <PR>` | Background CI/review monitor |
+| `resolve-comment.sh <id>` | Manual thread resolution |
 
-### Gemini Rate Limit Fallback
+## Usage with Claude Code
 
-When Gemini Code Assist hits its daily quota, the skill automatically detects this and can use Claude as a fallback reviewer:
+Invoke the skill by asking Claude to help with PR reviews:
 
-```bash
-~/.claude/skills/pr-review-loop/scripts/trigger-review.sh <PR> --claude
+- "Check for new reviews on my PR"
+- "Help me address the review feedback"
+- "Iterate on PR #42 until it's ready"
+
+Claude will use the skill's workflow and scripts automatically.
+
+## Workflow Overview
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  1. Get Comments                                            │
+│     summarize-reviews.sh <PR>                               │
+│     get-review-comments.sh <PR> --with-ids --wait           │
+└─────────────────────────────────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│  2. For Each Comment                                        │
+│     • Evaluate: Is this worthwhile?                         │
+│     • Fix OR decide to skip                                 │
+│     • Reply: reply-to-comment.sh <PR> <id> "message"        │
+└─────────────────────────────────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│  3. Commit & Push                                           │
+│     commit-and-push.sh "fix: description"                   │
+│     (NEVER use raw git commit/push)                         │
+└─────────────────────────────────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│  4. Trigger Next Review                                     │
+│     trigger-review.sh <PR> --wait                           │
+└─────────────────────────────────────────────────────────────┘
+                           │
+                           ▼
+                    ┌──────┴──────┐
+                    │ New Comments? │
+                    └──────┬──────┘
+                      Yes  │  No
+                       ▼   │   ▼
+                  Go to 1  │  One More Loop
+                           │  Then ask about merge
 ```
 
-## Key Features
+## Gemini Rate Limit Fallback
 
-### Critical Review Evaluation
+When Gemini Code Assist hits its daily quota:
 
-The skill evaluates each review comment critically, skipping:
-- Platform-specific comments not applicable to your code
-- Overly defensive suggestions (excessive null checks)
-- Stylistic preferences that don't match project conventions
+```bash
+# Option 1: Use --claude flag
+~/.claude/skills/pr-review-loop/scripts/trigger-review.sh <PR> --claude
 
-### Diminishing Returns Detection
-
-After 2-3 review cycles, the skill evaluates whether continuing provides value:
-- Are comments addressing real issues or nitpicks?
-- Are we fixing the same type of issue repeatedly?
-- Is the reviewer finding fewer issues?
-
-### One More Loop Rule
-
-When all comments are resolved, the skill does ONE additional review cycle to catch any final feedback, then asks about merging.
+# Option 2: Run directly
+~/.claude/skills/pr-review-loop/scripts/claude-review.sh <PR>
+# Then use Task tool with the generated prompt
+```
 
 ## Attribution
 
@@ -115,4 +151,4 @@ Forked from [devonjones/skill-pr-review-loop](https://github.com/devonjones/skil
 
 ## License
 
-MIT
+MIT - See [LICENSE](LICENSE) for details.
