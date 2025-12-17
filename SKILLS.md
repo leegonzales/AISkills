@@ -9,7 +9,7 @@ To use a skill:
 2. Read the corresponding `SKILL.md` file
 3. Follow the persona, constraints, and output formats defined
 
-## Skills (27)
+## Skills (27 total)
 
 | Skill | Description | Path |
 |-------|-------------|------|
@@ -38,6 +38,8 @@ To use a skill:
 | Prose Polish | Writing style analysis and improvement | `ProsePolish/prose-polish/SKILL.md` |
 | Research to Essay | Convert research notes to essays | `ResearchToEssay/research-to-essay/SKILL.md` |
 | Writing Skills | General writing assistance | `WritingSkills/writing-skills/SKILL.md` |
+| PR Review Loop | Manage PR feedback cycles with Gemini/Claude | `PRReviewLoop/pr-review-loop/SKILL.md` |
+| Veo3 Prompter | Craft cinematic prompts for Veo 3.1 video | `Veo3Prompter/veo3-prompter/SKILL.md` |
 
 ## Infrastructure
 
@@ -49,7 +51,7 @@ To use a skill:
 ## Categories
 
 **Development & Code**
-- Codex Peer Review, Gemini Peer Review, Codebase Navigator, MCP Builder, Playwright
+- Codex Peer Review, Gemini Peer Review, Codebase Navigator, MCP Builder, Playwright, PR Review Loop
 
 **Writing & Content**
 - Prose Polish, Research to Essay, Writing Skills, Claimify
@@ -64,7 +66,7 @@ To use a skill:
 - Inevitability Engine, Context Continuity, Context Continuity Code, Agent Mail
 
 **Creative & Media**
-- Artifacts Builder, Nano Banana, NotebookLM, Concept Forge
+- Artifacts Builder, Nano Banana, NotebookLM, Concept Forge, Veo3 Prompter
 
 **Meta & Documentation**
 - Claude Project Docs, Dad Joke Validator
