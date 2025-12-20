@@ -1,6 +1,6 @@
 # AISkills
 
-A curated collection of **27 professional skills** for Claude Code and Claude web chat. Skills extend Claude's capabilities for development, analysis, writing, and specialized workflows.
+A curated collection of **28 professional skills** for Claude Code and Claude web chat. Skills extend Claude's capabilities for development, analysis, writing, and specialized workflows.
 
 ## What Are Claude Skills?
 
@@ -23,12 +23,13 @@ Skills are modular capabilities that Claude automatically discovers and uses bas
 | [Codebase Navigator](CodebaseNavigator/) | Semantic code search with osgrep integration | 🖥️ Code |
 | [Artifacts Builder](ArtifactsBuilder/) | React artifacts with 43 shadcn/ui components | All |
 
-### Writing & Content (4 skills)
+### Writing & Content (5 skills)
 
 | Skill | Description | Platform |
 |-------|-------------|----------|
 | [Prose Polish](ProsePolish/) | Writing analysis across 4 layers (lexical, structural, rhetorical, voice) | All |
 | [Research-to-Essay](ResearchToEssay/) | 6-phase workflow for research-driven publication-grade writing | All |
+| [Writing Partner](WritingPartner/) | Collaborative essay writing with interview, thread tracking, voice calibration | All |
 | [Writing Skills](WritingSkills/) | META-SKILL: TDD methodology for documentation ("Iron Law") | All |
 | [Claimify](Claimify/) | Transform discourse into structured argument maps | All |
 
