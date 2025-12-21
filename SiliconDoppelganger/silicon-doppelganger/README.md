@@ -105,16 +105,33 @@ Drop "Event Cards" into the simulation to test specific decisions:
 
 ## Installation
 
-### For Claude Code
+### For Claude Code (Terminal)
 
 ```bash
 # From the AISkills repository root:
 cp -r SiliconDoppelganger/silicon-doppelganger ~/.claude/skills/
 ```
 
-### For Claude Projects
+The skill will be available via `skill: "silicon-doppelganger"` in your Claude Code sessions.
 
-Upload the skill files to your Claude Project's knowledge base.
+### For Claude Chat (Web/Desktop)
+
+**Option 1: Claude Project**
+1. Create a new Project at [claude.ai](https://claude.ai)
+2. Upload these files to the Project Knowledge:
+   - `SKILL.md` (required)
+   - `references/extraction-protocol.md`
+   - `references/persona-schema.md`
+   - `references/simulation-guide.md`
+   - `references/scenarios.md`
+3. Start a conversation in the Project
+
+**Option 2: Direct Paste**
+1. Copy the contents of `SKILL.md`
+2. Paste at the start of a new conversation with: "Use this as your system instructions:"
+3. For detailed protocols, paste reference files as needed during the session
+
+**Note:** The skill works best with Claude's most capable models (Opus, Sonnet) due to the complexity of multi-persona simulation.
 
 ## Quick Start
 
