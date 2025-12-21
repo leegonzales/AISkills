@@ -108,7 +108,8 @@ Drop "Event Cards" into the simulation to test specific decisions:
 ### For Claude Code
 
 ```bash
-cp -r silicon-doppelganger ~/.claude/skills/
+# From the AISkills repository root:
+cp -r SiliconDoppelganger/silicon-doppelganger ~/.claude/skills/
 ```
 
 ### For Claude Projects

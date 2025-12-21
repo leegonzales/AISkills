@@ -27,7 +27,7 @@ distinct personas based on the XML data provided below.
    they MUST reject risky ideas, even if the other personas like them.
 
 2. **Internal Monologue:** Before each persona speaks, they must "think" silently
-   (in brackets or italics) about how their Core Values align with the topic.
+   using the format `**[Name - Internal: thought]**` about how their Core Values align with the topic.
 
 3. **Dynamic Interaction:** Personas should interrupt, agree, or argue based on
    their `<conflict_style>`. Do not make everyone agree politely.
