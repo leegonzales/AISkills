@@ -9,11 +9,12 @@ To use a skill:
 2. Read the corresponding `SKILL.md` file
 3. Follow the persona, constraints, and output formats defined
 
-## Skills (27 total)
+## Skills (30 total)
 
 | Skill | Description | Path |
 |-------|-------------|------|
 | Agent Mail | Email automation and management | `AgentMail/agent-mail/SKILL.md` |
+| AI Tool Designer | Design effective tools for AI agents | `AIToolDesigner/ai-tool-designer/SKILL.md` |
 | Artifacts Builder | Create HTML/React artifacts | `ArtifactsBuilder/artifacts-builder/SKILL.md` |
 | AWS CDK | AWS Cloud Development Kit assistance | `AWSSkills/aws-cdk-development/SKILL.md` |
 | AWS Cost Ops | AWS cost optimization and analysis | `AWSSkills/aws-cost-operations/SKILL.md` |
@@ -22,6 +23,7 @@ To use a skill:
 | Claude Project Docs | Generate CLAUDE.md documentation | `ClaudeProjectDocs/claude-project-docs/SKILL.md` |
 | Codebase Navigator | Semantic code search with osgrep | `CodebaseNavigator/codebase-navigator/SKILL.md` |
 | Codex Peer Review | AI peer review via Codex CLI | `CodexPeerReview/codex-peer-review/SKILL.md` |
+| Coding Tutor | Personalized tutorials with spaced repetition | `CodingTutor/coding-tutor/SKILL.md` |
 | Concept Forge | Ideation and concept refinement | `ConceptForge/concept-forge/SKILL.md` |
 | Context Continuity | Session context preservation | `ContextContinuity/context-continuity/SKILL.md` |
 | Context Continuity Code | Code context for Claude Code | `ContextContinuityCode/context-continuity-code/SKILL.md` |
@@ -34,12 +36,22 @@ To use a skill:
 | Nano Banana | AI image generation via Gemini | `NanoBananaSkill/nano-banana/SKILL.md` |
 | NotebookLM | NotebookLM integration helper | `NotebookLMSkill/notebooklm/SKILL.md` |
 | Playwright | Browser automation and testing | `PlaywrightSkill/playwright/SKILL.md` |
+| PR Review Loop | Manage PR feedback cycles with Gemini/Claude | `PRReviewLoop/pr-review-loop/SKILL.md` |
 | Process Mapper | Map and document business processes | `ProcessMapper/process-mapper/SKILL.md` |
+| Prompt Engineer | Create effective AI prompts and instructions | `PromptEngineer/prompt-engineer/SKILL.md` |
 | Prose Polish | Writing style analysis and improvement | `ProsePolish/prose-polish/SKILL.md` |
 | Research to Essay | Convert research notes to essays | `ResearchToEssay/research-to-essay/SKILL.md` |
-| Writing Skills | General writing assistance | `WritingSkills/writing-skills/SKILL.md` |
-| PR Review Loop | Manage PR feedback cycles with Gemini/Claude | `PRReviewLoop/pr-review-loop/SKILL.md` |
 | Veo3 Prompter | Craft cinematic prompts for Veo 3.1 video | `Veo3Prompter/veo3-prompter/SKILL.md` |
+| Writing Skills | General writing assistance | `WritingSkills/writing-skills/SKILL.md` |
+
+## Commands (2 total)
+
+Slash commands for Claude Code - reusable prompts triggered by `/command-name`.
+
+| Command | Purpose | Path |
+|---------|---------|------|
+| `/pinpoint` | Root-cause analysis before fixing bugs | `Commands/pinpoint.md` |
+| `/review` | Structured code review with severity ratings | `Commands/review.md` |
 
 ## Infrastructure
 
@@ -47,14 +59,15 @@ To use a skill:
 |-----------|---------|------|
 | Skill Template | Template for creating new skills | `SkillTemplate/example-skill/` |
 | Skill Packager | Packaging and distribution tools | `SkillPackager/` |
+| Commands | Slash command collection | `Commands/` |
 
 ## Categories
 
 **Development & Code**
-- Codex Peer Review, Gemini Peer Review, Codebase Navigator, MCP Builder, Playwright, PR Review Loop
+- Codex Peer Review, Gemini Peer Review, Codebase Navigator, MCP Builder, Playwright, PR Review Loop, AI Tool Designer
 
 **Writing & Content**
-- Prose Polish, Research to Essay, Writing Skills, Claimify
+- Prose Polish, Research to Essay, Writing Skills, Claimify, Prompt Engineer
 
 **AWS & Cloud**
 - AWS CDK, AWS Cost Ops, AWS Serverless
@@ -63,7 +76,7 @@ To use a skill:
 - CSV Summarizer, Excel Auditor, Process Mapper
 
 **AI & Automation**
-- Inevitability Engine, Context Continuity, Context Continuity Code, Agent Mail
+- Inevitability Engine, Context Continuity, Context Continuity Code, Agent Mail, Coding Tutor
 
 **Creative & Media**
 - Artifacts Builder, Nano Banana, NotebookLM, Concept Forge, Veo3 Prompter
