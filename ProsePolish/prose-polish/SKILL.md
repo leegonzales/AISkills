@@ -1,325 +1,387 @@
 ---
 name: prose-polish
-description: Polish writing to professional excellence through systematic craft analysis with multi-layer assessment of rhythm, voice, and commitment. Use when refining drafts, analyzing text for AI patterns or craft weaknesses, generating quality content, or teaching writing principles. Handles all writing types including long-form, business, technical, academic, and creative content.
+description: Evaluate and elevate writing effectiveness through multi-dimensional quality assessment. Analyzes craft, coherence, authority, purpose, and voice with genre-calibrated thresholds. Use for refining drafts, diagnosing quality issues, generating quality content, or teaching writing principles.
 ---
 
-# Prose Polish
+# Prose Polish v2
 
-Elevate writing to professional excellence through systematic craft analysis. Multi-layer assessment of rhythm, voice, and commitment with targeted remediation using proven frameworks.
+Evaluate and elevate writing effectiveness through multi-dimensional quality assessment. Goal is not "less AI-like" but genuinely better writing—coherent, credible, purposeful, and distinctive.
+
+## Philosophy
+
+**Writing Effectiveness = f(Text, Author, Audience, Context, Genre)**
+
+We optimize for quality, not undetectability. These often correlate, but the distinction matters:
+- Bad goal: "Make this not sound like AI"
+- Good goal: "Make this effective writing"
 
 ## Quick Start
 
-**Detection:** Analyze text → Load `detection-patterns.md` → Generate scored report with specific issues
+**Analysis:** Detect genre → Load `detection-patterns.md` → Apply 6-dimension evaluation → Generate quality profile
 
-**Elevation:** Improve text → Load `detection-patterns.md` + `remediation-strategies.md` → Apply fixes → Provide rewritten version with explanations
+**Elevation:** Analyze → Load `remediation-strategies.md` → Phase 1 (Structure) → Phase 2 (Style) → Explain changes
 
-**Prevention:** Generate content → Load `prevention-prompts.md` → Build anti-cliché prompt → Create quality text from start
+**Prevention:** Load `prevention-prompts.md` → Build genre-calibrated constraints → Generate → Self-verify
 
 ## Core Capabilities
 
 ### 1. Detection & Analysis
-**When:** User asks to "analyze," "detect," "check," or "score" text for AI patterns
+
+**When:** User asks to "analyze," "evaluate," "check," or "score" text
 
 **Process:**
-1. Load `references/detection-patterns.md`
-2. Perform multi-layer analysis:
-   - **Lexical:** Banned word density, hedge phrases, transitions
-   - **Structural:** Sentence variance, paragraph uniformity, templates
-   - **Rhetorical:** Commitment level, specificity, authority claims
-   - **Voice:** Embodiment, vernacular, risk-taking
-3. Generate diagnostic report
+1. **Detect Genre** (before scoring)
+   - Technical | Business | Academic | Creative | Personal | Journalistic
+   - Apply genre-appropriate thresholds
+
+2. **Load** `references/detection-patterns.md`
+
+3. **Perform 6-Dimension Analysis:**
+   - **Craft (0-100):** Lexical patterns, structural variance, rhetorical execution
+   - **Coherence (0-100):** Logical flow, functional specificity, earned transitions
+   - **Authority (0-100):** Earned vs delegated vs false expertise signals
+   - **Purpose (0-100):** Clear intent, stakes, audience calibration
+   - **Voice (0-100):** Distinctiveness, embodiment, appropriate register
+   - **Effectiveness (0-100):** Genre-weighted synthesis
+
+4. **Generate Quality Profile**
 
 **Report Format:**
 ```
-AI WRITING ANALYSIS
-Overall Score: [X/100] - [Interpretation]
+WRITING EFFECTIVENESS ANALYSIS
 
-LEXICAL ISSUES (Score: X/40)
-- [Issue]: [Count] instances - Lines [X, Y, Z]
-- Severity: [High/Medium/Low]
+Genre: [Detected] | Calibration: [Applied]
 
-STRUCTURAL ISSUES (Score: X/30)
-- Sentence length variance: [StdDev] words (need >8)
-- [Other issues]
+QUALITY PROFILE:
+           Craft: ████████░░ 80 - [Brief interpretation]
+       Coherence: ██████░░░░ 60 - [Brief interpretation]
+       Authority: █████░░░░░ 50 - [Brief interpretation]
+         Purpose: ███████░░░ 70 - [Brief interpretation]
+           Voice: █████████░ 90 - [Brief interpretation]
+   Effectiveness: ███████░░░ 70 - [Genre-weighted average]
 
-RHETORICAL ISSUES (Score: X/30)
-- [Issues with examples]
+KEY INSIGHT: [Diagnostic based on dimension gaps]
+Example: "High craft but low authority = generic specificity problem"
+
+DETAILED ANALYSIS:
+
+CRAFT ISSUES:
+- Lexical: [specific patterns, with genre context]
+- Structural: [sentence variance, paragraph patterns]
+- Rhetorical: [commitment level, specificity quality]
+
+COHERENCE ISSUES:
+- Logical flow: [do ideas connect across paragraphs?]
+- Specificity function: [relevant vs decorative details]
+- Transition authenticity: [earned vs mechanical]
+
+AUTHORITY ISSUES:
+- Type: [Earned / Delegated / False / Mixed]
+- Expertise signals: [insider knowledge present/absent]
+- Stakes: [skin in the game visible?]
+
+PURPOSE ISSUES:
+- Intent clarity: [what is this FOR?]
+- Audience calibration: [appropriate for reader?]
+- Stakes: [why should reader care?]
 
 VOICE ASSESSMENT:
-- [Observations]
+- Distinctiveness: [recognizable author?]
+- Embodiment: [feels like a person?]
+- Register: [appropriate for genre?]
 
-TOP 5 PRIORITY FIXES:
-1. [Specific, actionable]
+TOP 5 PRIORITY IMPROVEMENTS:
+1. [Most impactful, actionable fix]
 2. [...]
+3. [...]
+4. [...]
+5. [...]
 ```
 
-**Score Interpretation:**
-- 0-20: Likely human
-- 21-40: Possibly AI-assisted
-- 41-60: Probably AI-generated
-- 61-80: Very likely AI
-- 81-100: Almost certainly unedited AI
-
-**Real-World Context:** Content marketing and business copy frequently scores 60-80+. Technical and creative writing with specific details typically scores lower. High scores indicate pattern density, not necessarily deception—sometimes AI patterns reflect genre conventions in corporate communication.
+**Scoring Philosophy:**
+- Be ruthless in scoring. Avoid grade inflation.
+- Dimension gaps are diagnostic (high craft + low coherence = decorative writing)
+- Genre calibration prevents false positives on appropriate conventions
 
 ### 2. Elevation & Remediation
+
 **When:** User asks to "improve," "fix," "elevate," or "rewrite" text
 
 **Process:**
-1. Detect issues (brief analysis)
+1. Perform quick 6-dimension analysis
 2. Load `references/remediation-strategies.md`
-3. Choose approach by severity:
-   - Light (20-40): Surgical fixes only
-   - Moderate (41-60): Surgical + structural
-   - Aggressive (61+): Comprehensive rewrite
-4. Apply Three-Pass Remediation:
-   - **Round 1 - Rhythm:** Sentence variance, structure breaks
-   - **Round 2 - Commitment:** Remove hedges, add specificity
-   - **Round 3 - Voice:** Add embodiment, personality, risk
+3. Apply **Two-Phase Remediation:**
+
+**Phase 1: Structural (The Editor)**
+Focus on logic and authority before touching style.
+
+- **Coherence Pass:**
+  - Check: Does logic flow across paragraphs?
+  - Check: Is every detail doing work?
+  - Fix: Remove decorative specificity
+  - Fix: Repair logical gaps
+  - Fix: Ensure transitions are earned
+
+- **Authority Pass:**
+  - Check: Is authority earned or delegated?
+  - Fix: Replace institutional voice with speaker
+  - Fix: Add demonstrated expertise signals
+  - Fix: Introduce appropriate stakes/vulnerability
+
+**Phase 2: Stylistic (The Writer)**
+Now refine rhythm, commitment, and voice.
+
+- **Rhythm Pass:**
+  - Sentence variance per genre threshold
+  - Structural breaks appropriate to genre
+  - Information density variance (avoid uniform medium-density)
+
+- **Commitment Pass:**
+  - Remove cowardly hedges (opinion avoidance)
+  - Preserve protective hedges (epistemic honesty)
+  - Add functional specificity
+  - Make claims with stakes
+
+- **Voice Pass:**
+  - Add embodiment markers
+  - Inject appropriate personality (avoid "LinkedIn Influencer" overcorrection)
+  - Risk-taking calibrated to genre
 
 **Output:**
 ```
 ELEVATED VERSION:
 [Rewritten text]
 
-KEY CHANGES:
-1. Rhythm: [Sentence variation details]
-2. Commitment: [Hedge removal, specificity additions]
-3. Voice: [Personality injections]
+PHASE 1 CHANGES (Structure):
+- Coherence: [What logical issues were fixed]
+- Authority: [How expertise was demonstrated]
+
+PHASE 2 CHANGES (Style):
+- Rhythm: [Sentence variation details]
+- Commitment: [Hedge removal, specificity additions]
+- Voice: [Personality calibration]
 
 BEFORE/AFTER EXAMPLES:
-Before: "[Original]"
-After: "[Rewritten]"
-Why: [Principle violated → principle applied]
-
-[3-5 examples of key transformations]
+[3-5 transformations with principles explained]
 ```
 
-**Aggressiveness Levels:**
-- **Conservative:** Suggest alternatives, user decides
-- **Moderate (DEFAULT):** Rewrite with explanations
-- **Aggressive:** Complete rewrite, brief explanation
-
 ### 3. Prevention & Generation
+
 **When:** User asks to "write" or "generate" with quality emphasis
 
 **Process:**
-1. Load `references/prevention-prompts.md`
-2. Construct anti-cliché prompt based on:
-   - Content type (technical/business/academic/creative)
-   - Audience and register
-   - Specific requirements
-3. Generate with constraints:
-   - Banned words avoided
-   - Sentence variance required
-   - Specificity mandated
-   - Commitment required
-   - Voice specified
-4. Self-verify against standards
-5. Refine if needed
-
-**Prompt Template (from prevention-prompts.md):**
-```
-Write [TYPE] about [TOPIC] for [AUDIENCE].
-
-AVOID: [banned patterns]
-REQUIRE: [structural + content requirements]
-VOICE: [register specification]
-SUCCESS CRITERIA: [quality checks]
-```
+1. Identify genre and audience
+2. Load `references/prevention-prompts.md`
+3. Construct genre-calibrated constraints
+4. Generate with quality dimensions in mind
+5. Self-verify against 6-dimension framework
+6. Refine if any dimension scores below threshold
 
 ### 4. Training & Teaching
-**When:** User wants to learn pattern recognition
+
+**When:** User wants to learn quality evaluation
 
 **Process:**
 1. Load appropriate reference files
-2. Provide annotated examples
-3. Explain WHY patterns fail (not just THAT they fail)
-4. Give comparative analysis
-5. Offer practice exercises
+2. Explain the 6 dimensions and why they matter
+3. Show examples of dimension gaps (high X, low Y)
+4. Demonstrate genre calibration effects
+5. Practice exercises with real text
 
-**Focus:** Build judgment, not just pattern matching
+## Genre Calibration
 
-## Register-Specific Guidelines
+**Detect genre before scoring. Apply appropriate thresholds:**
 
-### Technical Documentation
-- **Allow:** "robust," "optimize," "architecture" (contextually)
-- **Ban:** "delve," "comprehensive," unnecessary adjectives
-- **Require:** Code examples, version numbers, concrete steps
-- **Voice:** Clear, direct, assume intelligent reader
+| Genre | Sentence Variance | Hedge Tolerance | Passive Voice | Template OK | Voice Expectation |
+|-------|-------------------|-----------------|---------------|-------------|-------------------|
+| Technical | 5+ StdDev | Higher (precision) | Higher | Expected | Neutral authority |
+| Business | 6+ StdDev | Standard | Lower | Structure OK | Professional human |
+| Academic | 6+ StdDev | Higher (epistemic) | Moderate | If fresh content | Measured expertise |
+| Creative | 8+ StdDev | Low | Low | = Failure | Distinctive required |
+| Personal | 8+ StdDev | Low | Low | Must be organic | Strongly embodied |
+| Journalistic | 7+ StdDev | Standard | Low | Lead structure OK | Clear but present |
 
-### Business Writing
-- **Ban:** Synergy, leverage, value-add, thought leadership, paradigm shift
-- **Require:** Numbers, names, dates, specific owners, action items
-- **Voice:** Professional but human (use "we/you", contractions OK)
-- **Target:** 8th grade reading level
+### Genre-Specific Signals
 
-### Academic Writing
-- **Allow:** "Moreover," "furthermore" (max 1 per 200 words)
-- **Ban:** Vague citations, overgeneralization
-- **Require:** Specific citations with years, concrete examples, clear thesis
-- **Voice:** Formal but readable, active voice in results
+**Technical Documentation:**
+- Allow: "certain," "particular," "specific" (precision, not hedging)
+- Allow: Consistent sentence length (clarity, not robotic)
+- Require: Explains WHY not just HOW
+- Authority: Demonstrated through insider terminology and tradeoff awareness
 
-### Creative/Narrative
-- **Ban:** Adjective stacking, cliché metaphors, telling vs showing
-- **Require:** Sensory details, specific objects/places/times, natural dialogue
-- **Voice:** Match genre while maintaining personality
-- **Allow:** Grammar breaks for effect
+**Business Writing:**
+- Require: Friction acknowledgment (what challenges exist?)
+- Require: Clear ownership and next steps
+- Watch: Institutional hiding ("it is recommended" vs "I recommend")
+- Authority: Numbers with interpretation, not just data dumps
+
+**Academic Writing:**
+- Require: Synthesis over summarization
+- Require: Clear contribution statement
+- Allow: "It appears that" as epistemic honesty
+- Authority: Citation genealogy, not just name-dropping
+
+**Creative/Narrative:**
+- Require: Surprise, sensory embodiment
+- Require: Specificity that reveals character, not decorates
+- Watch: Generic emotional beats ("hollow ache" without texture)
+- Authority: Earned through embodied experience
+
+## Dimension Deep Dives
+
+### Coherence (NEW in v2)
+
+**What it catches:** Decorative specificity, logic gaps, non-sequiturs
+
+**Red Flags:**
+- Details that don't advance understanding
+- Causal claims that don't hold ("teaching calculus → cracked hands")
+- Transitions that connect syntactically but not semantically
+- Specificity that signals "human-ness" rather than builds meaning
+
+**Questions to Ask:**
+1. If I remove transitions, do ideas still connect?
+2. Could I swap paragraphs without changing meaning? (Bad if yes)
+3. Is every specific detail doing work?
+4. Would a hostile reader find logical gaps?
+
+### Authority (NEW in v2)
+
+**What it catches:** Performed expertise vs demonstrated expertise
+
+**Authority Types:**
+- **Earned:** Insider details, vulnerability, consequences for being wrong
+- **Delegated:** Citations without synthesis, institutional voice, numbers without interpretation
+- **False:** Stereotypes as expertise, generic specificity, authority cosplay
+
+**Note:** We measure *signaling*, not *truth*. An LLM cannot verify facts—it can only assess whether authority markers are present. Be honest about this limitation.
+
+### Hedge Classification (NEW in v2)
+
+**Not all hedges are bad. Classify before penalizing:**
+
+**Cowardly Hedges (PENALIZE):**
+- Avoiding opinion: "Some might say," "It could be argued"
+- Diluting claims: "somewhat," "fairly," "rather"
+- Escape hatches: "in a sense," "in many ways"
+
+**Protective Hedges (PRESERVE):**
+- Epistemic honesty: "The evidence suggests," "Current research indicates"
+- Appropriate uncertainty: "appears to," "likely"
+- Precision: "certain," "particular," "specific"
 
 ## Quality Standards
 
-Every output must pass:
+Every output should pass:
 
-**Read-Aloud Test:** Sounds like human breath and thinking?
-**Surprise Test:** Contains ≥1 unexpected sentence?
-**Specificity Test:** Includes concrete details (names/numbers/dates)?
-**Risk Test:** Makes ≥1 contestable claim?
-**Embodiment Test:** Feels like it came from someone with body and experiences?
+**Coherence Test:** Do ideas connect logically across the piece?
+**Authority Test:** Is expertise demonstrated, not just claimed?
+**Purpose Test:** Is it clear what this writing is FOR?
+**Voice Test:** Would you recognize this author again?
+**Embodiment Test:** Does it feel like a person with experiences?
+**Surprise Test:** Is there at least one unexpected element?
 
-## Workflow Decision Tree
+## Effectiveness Calculation
 
-```
-User Request
-├─ "Analyze this" → Mode 1: Detection
-│   └─ Load detection-patterns.md → Generate report
-│
-├─ "Fix/improve this" → Mode 2: Elevation
-│   └─ Load detection + remediation → Diagnose → Fix → Explain
-│
-├─ "Write X" (quality focus) → Mode 3: Prevention
-│   └─ Load prevention-prompts → Build constraints → Generate → Verify
-│
-└─ "Teach me about patterns" → Mode 4: Training
-    └─ Load relevant references → Examples → Explanations → Practice
-```
+**Genre-weighted average:**
+
+| Genre | Craft | Coherence | Authority | Purpose | Voice |
+|-------|-------|-----------|-----------|---------|-------|
+| Technical | 25% | 30% | 20% | 15% | 10% |
+| Business | 20% | 25% | 25% | 20% | 10% |
+| Academic | 20% | 30% | 20% | 15% | 15% |
+| Creative | 15% | 20% | 10% | 15% | 40% |
+| Personal | 15% | 20% | 20% | 15% | 30% |
 
 ## Reference Files
 
 **When to Load:**
-- **ai-vocabulary.md:** Detecting lexical patterns, need banned word lists
-- **detection-patterns.md:** Analyzing text, performing diagnosis (ALWAYS for detection/remediation)
-- **remediation-strategies.md:** Fixing issues, improving text (ALWAYS for remediation)
-- **prevention-prompts.md:** Generating new content, building prompts (ALWAYS for prevention)
-
-**Loading Strategy:**
-- Detection: detection-patterns.md
-- Remediation: detection-patterns.md + remediation-strategies.md
-- Prevention: prevention-prompts.md
-- Teaching: Whichever relevant to lesson
+- **detection-patterns.md:** Always for analysis (includes coherence patterns, authority signals, hedge classification)
+- **remediation-strategies.md:** Always for elevation (two-phase framework)
+- **prevention-prompts.md:** Always for generation (genre-calibrated constraints)
+- **ai-vocabulary.md:** When checking specific banned words
 
 ## Critical Principles
 
-1. **Quality Over Undetectability:** Goal is excellent writing, not bypassing detectors. Optimize for craft: voice, commitment, specificity, rhythm.
+1. **Effectiveness Over Detection:** Goal is quality writing, not fooling detectors.
 
-2. **Context Matters:** Different registers have different rules. Technical ≠ creative ≠ business.
+2. **Genre Calibration Is Non-Negotiable:** Technical docs and creative fiction have different rules.
 
-3. **Taste Over Rules:** Rules guide but don't dictate. Sometimes "delve" is fine (rarely). Sometimes hedging is appropriate (genuine uncertainty).
+3. **Dimension Gaps Are Diagnostic:** High craft + low coherence = decorative writing. High voice + low authority = personality without substance.
 
-4. **Pedagogy Matters:** When teaching, explain WHY not just WHAT. Build judgment, not pattern matching.
+4. **Coherence Before Surface:** Fix logic before fixing rhythm. A polished fallacy is still a fallacy.
 
-5. **Embodiment Is Key:** Best writing feels like a human thinking, breathing, risking. That's the target.
+5. **Authority Is Signaling:** We measure expertise markers, not truth. Be honest about this.
+
+6. **Hedges Need Classification:** Epistemic honesty is not weakness. Only penalize opinion-avoidance.
+
+7. **Avoid Overcorrection:** "LinkedIn Influencer" mode is not the goal. Calibrate voice to genre.
+
+8. **Radical Simplicity Has Value:** Sometimes effectiveness means removing signals, not adding them.
 
 ## Examples
 
-### Detection Example
+### Analysis Example
 
-**Input:** "In today's rapidly evolving digital landscape, organizations must leverage robust solutions to achieve comprehensive transformation. This underscores the pivotal importance of strategic alignment."
-
-**Output:**
-```
-AI WRITING ANALYSIS
-Overall Score: 78/100 - Very Likely AI-Generated
-
-LEXICAL ISSUES (35/40):
-- "leverage" (line 1) - AI overuse
-- "robust solutions" (line 1) - Generic phrase
-- "comprehensive" (line 1) - Modifier inflation
-- "underscores" (line 2) - False precision (18x)
-- "pivotal" (line 2) - AI overuse marker
-Severity: HIGH
-
-STRUCTURAL (25/30):
-- Sentence length: 14, 12 words - Low variance (need >8 StdDev)
-- Corporate template detected
-Severity: MEDIUM
-
-RHETORICAL (18/30):
-- Zero specificity (no names/numbers/dates)
-- "This underscores" - Meta-commentary
-- No concrete claims
-Severity: HIGH
-
-TOP 5 FIXES:
-1. Replace "leverage robust solutions" with specific action + tool
-2. Add concrete example with actual numbers
-3. Remove "underscores the pivotal importance"
-4. State actual claim directly
-5. Add sentence variance (5-word punch + 30+ word exploration)
-```
-
-### Elevation Example
-
-**Same input as above**
+**Input:** Business quarterly report with strong metrics but institutional voice
 
 **Output:**
 ```
-ELEVATED VERSION:
-Digital transformation fails when companies buy expensive software and hope for magic. Here's what actually works: Pick one process—customer onboarding, for example. Map every step. Identify the three biggest bottlenecks. Fix those first with the simplest tool that addresses the actual problem. Salesforce used this approach to cut onboarding time from 6 weeks to 8 days.
+WRITING EFFECTIVENESS ANALYSIS
 
-KEY CHANGES:
-1. Rhythm: Added 5-word punch ("Here's what actually works"), varied length (5-25 words), StdDev jumped from 1 to 8
-2. Commitment: Direct position ("fails when"), removed all hedges, added specific example (Salesforce, 6 weeks → 8 days, named process)
-3. Voice: Conversational, direct address, specific advice, slight informality ("hope for magic")
+Genre: Business | Calibration: Applied
 
-BEFORE/AFTER:
-Before: "In today's rapidly evolving digital landscape, organizations must leverage robust solutions"
-After: "Digital transformation fails when companies buy expensive software and hope for magic"
-Why: Removed temporal vagueness + corporate jargon + hedge ("must") → Added direct position + specificity + voice
+QUALITY PROFILE:
+           Craft: ████████░░ 78 - Clean structure, precise numbers
+       Coherence: ████████░░ 85 - Logical flow, functional data
+       Authority: █████████░ 88 - Genuine SaaS expertise visible
+         Purpose: ███████░░░ 75 - Clear reporting, muted stakes
+           Voice: ██████░░░░ 62 - Institutional, could be any company
+   Effectiveness: ████████░░ 82 - Strong business communication
+
+KEY INSIGHT: High authority through insider metrics (NRR, churn analysis)
+compensates for institutional voice. Genre-appropriate execution.
+
+DETAILED ANALYSIS:
+...
 ```
 
-### Prevention Example
+### Elevation Example (Two-Phase)
 
-**User Request:** "Write about API design for backend engineers"
-
-**Anti-Cliché Prompt Constructed:**
+**Phase 1 Output:**
 ```
-Write 300 words about REST API design for backend engineers.
-
-BANNED: robust, seamless, powerful, flexible, scalable, comprehensive
-REQUIRED:
-- Specific HTTP methods and status codes
-- At least one code example
-- At least one concrete antipattern with explanation
-- Sentence variance: 5-35 word range
-- At least one specific number or stat
-
-VOICE: Technical, direct, assume smart reader
-- No meta-commentary
-- Active voice
-- Contractions acceptable
-- Aim for 10th grade reading level despite technical content
+STRUCTURAL FIXES:
+- Coherence: Moved security section before feature description (foundations first)
+- Authority: Replaced "best practices recommend" with specific tradeoff analysis
 ```
 
-**Generated Output:**
-[Would then generate API design content following these constraints]
+**Phase 2 Output:**
+```
+STYLISTIC FIXES:
+- Rhythm: Added 5-word punch after long explanation
+- Commitment: Removed "somewhat" and "fairly" (cowardly hedges)
+- Voice: Added one moment of personality without overdoing it
+```
 
 ## Success Metrics
 
 **Objective:**
-- AI likelihood score ↓ by 40+ points
-- Sentence length std dev ↑ by 5+ words
-- Hedge phrase density ↓ by 70%
-- Specific examples added (≥1 per 200 words)
+- Coherence score improvement when logic is fixed
+- Authority score reflects genuine expertise presence
+- No false positives on genre-appropriate conventions
+- Dimension gaps correctly diagnose quality issues
 
 **Subjective:**
-- Reads naturally when spoken aloud
-- User recognizes improvement immediately
-- Text feels distinctly non-AI
+- Text reads as effective for its purpose
 - Domain experts recognize authentic expertise
+- Genre conventions respected, not penalized
+- User understands WHY changes improve quality
 
 ## Notes
 
-- This skill scaffolds judgment, doesn't replace it
-- Rules are guidelines, not laws
-- Best results from understanding principles, not memorizing lists
-- Goal: Writing that matters—specific, committed, embodied
+- This skill evaluates effectiveness, not truth
+- Genre detection happens BEFORE scoring
+- Two-phase remediation: structure first, style second
+- Hedge classification: epistemic honesty is not weakness
+- Avoid overcorrection: "more voice" can become cringe
+- Radical simplicity sometimes wins over complexity

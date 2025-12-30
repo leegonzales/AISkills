@@ -1,31 +1,188 @@
-# Remediation Strategies
+# Remediation Strategies (v2)
 
-Systematic approaches to fixing AI-cliché writing and elevating it to human-quality or better.
+Systematic approaches to elevating writing effectiveness using two-phase remediation.
 
-## The Three Pillars of Remediation
+## Philosophy Shift (v2)
 
-### 1. Rhythm (Structural)
-Fix the mechanical patterns that make writing feel robotic.
+**Old approach:** Three Pillars (Rhythm → Commitment → Voice) in one pass
+**New approach:** Two Phases (Structure → Style) with separate concerns
 
-### 2. Commitment (Rhetorical)
-Add stakes, specificity, and perspective.
-
-### 3. Voice (Textural)
-Inject personality, embodiment, and risk.
+**Why the change:** Per Gemini critique, attention decay in single-pass remediation means later fixes forget earlier constraints. Splitting into phases improves quality.
 
 ---
 
-## RHYTHM Remediation
+## Two-Phase Remediation Framework
 
-### Problem: Uniform Sentence Length
+### Phase 1: Structural (The Editor)
+Fix **logic and authority** before touching style.
+
+Focus: Coherence and Authority dimensions
+Goal: Sound argument, demonstrated expertise
+Order: Coherence Pass → Authority Pass
+
+### Phase 2: Stylistic (The Writer)
+Now refine **rhythm, commitment, and voice**.
+
+Focus: Craft and Voice dimensions
+Goal: Engaging, distinctive prose
+Order: Rhythm Pass → Commitment Pass → Voice Pass
+
+**Why this order:** A polished logical fallacy is still a fallacy. Fix the bones before fixing the skin.
+
+---
+
+## PHASE 1: STRUCTURAL REMEDIATION
+
+### Coherence Pass
+
+Fix logical flow, remove decorative elements, ensure transitions are earned.
+
+#### Problem: Decorative Specificity
+**Symptom:** Details that look specific but don't advance understanding
+
+**Detection:** Ask "What depends on this detail?"
+
+**Fix - Functional Test:**
+1. Find every specific detail (date, name, number, place)
+2. Ask: "Does anything else in the text depend on this?"
+3. If NO: Remove or replace with functional detail
+4. If YES: Keep
+
+**Example Before:**
+"Margaret, who'd lived at 2847 Oleander Drive for thirty-seven years, noticed the okra hadn't bloomed since March 14th."
+
+**Example After:**
+"Margaret had gardened here long enough to know when something was wrong. The okra should have bloomed weeks ago."
+
+**Why better:** Duration and wrongness are functional; exact address and date were decoration.
+
+#### Problem: Causal Incoherence
+**Symptom:** Claimed cause-effect that doesn't hold
+
+**Detection:** For every "because/due to/from/since," ask "Does Y actually follow from X?"
+
+**Fix - Verify or Remove:**
+1. Find causal claims
+2. Test logic: Is this causation or correlation? Does it actually follow?
+3. If invalid: Remove claim or provide actual mechanism
+
+**Example Before:**
+"Her hands were cracked from decades of teaching calculus."
+
+**Example After:**
+"Her hands were cracked—the garden soil, the endless dishes, the dry winters."
+
+#### Problem: Floating Claims
+**Symptom:** Bold assertions without grounding
+
+**Detection:** For each strong claim, ask "What earned this?"
+
+**Fix - Ground or Qualify:**
+1. Find unearned claims
+2. Option A: Add grounding (evidence, experience, logic)
+3. Option B: Reduce claim strength to match evidence
+
+**Example Before (floating):**
+"Digital transformation fails when companies buy expensive software and hope for magic."
+
+**Example After (grounded):**
+"I've seen digital transformation fail at four companies now. Each time, same pattern: expensive software, vague goals, no change to workflows. The software wasn't the problem."
+
+#### Problem: Mechanical Transitions
+**Symptom:** "Moreover," "Furthermore," "Additionally" connecting unrelated ideas
+
+**Detection:** Remove the transition word. Does the connection still make sense?
+
+**Fix - Earn or Remove:**
+1. Find formal transitions
+2. Remove the transition word
+3. If ideas no longer connect: rewrite for actual logical flow
+4. If they still connect: leave transition out
+
+**Example Before:**
+"The system improved efficiency. Moreover, it reduced errors."
+
+**Example After:**
+"The system improved efficiency by catching errors before they compounded."
+
+### Authority Pass
+
+Demonstrate expertise rather than claiming it.
+
+#### Problem: Delegated Authority
+**Symptom:** "Research shows," "Best practices," institutional voice
+
+**Fix - Earn or Cite:**
+1. Have a specific source? Cite it properly
+2. Don't have a source? Demonstrate knowledge instead
+
+**Example Before:**
+"Research shows that exercise improves mood."
+
+**Example After (cited):**
+"A 2019 meta-analysis (Schuch et al.) found exercise as effective as antidepressants for mild depression."
+
+**Example After (demonstrated):**
+"Exercise improves mood. Run for thirty minutes and notice how the mental fog lifts. There's a reason every therapist recommends it."
+
+#### Problem: Institutional Hiding
+**Symptom:** "It is recommended," "It should be noted," passive authority
+
+**Fix - Own the Voice:**
+Replace institutional passive with active speaker.
+
+**Example Before:**
+"It is recommended that users update their passwords regularly."
+
+**Example After:**
+"Update your password every 90 days. Here's why that matters..."
+
+#### Problem: Generic Expertise
+**Symptom:** Stereotypes as insider knowledge
+
+**Detection:** Could anyone write this, or only someone with real experience?
+
+**Fix - Add Insider Details:**
+1. Find generic expertise claims
+2. Add specific details only someone experienced would know
+3. Include tradeoffs, limitations, edge cases
+
+**Example Before:**
+"The cubicle smelled like old coffee and desperation."
+
+**Example After:**
+"The cubicle still had the same laminate desk from 2008—the one with the keyboard tray that stuck, that everyone learned to jiggle just so."
+
+#### Problem: Missing Stakes
+**Symptom:** No skin in the game, no consequences
+
+**Fix - Add Vulnerability:**
+1. Show what you risked to know this
+2. Acknowledge what you got wrong
+3. Explain what you're uncertain about and why
+
+**Example Before:**
+"Leaders should listen to their teams."
+
+**Example After:**
+"I learned to listen after losing my best engineer. She left because I'd overridden her technical judgment three times. She was right each time. That's on me."
+
+---
+
+## PHASE 2: STYLISTIC REMEDIATION
+
+### Rhythm Pass
+
+Fix mechanical patterns while serving meaning.
+
+#### Problem: Uniform Sentence Length
 **Symptom:** All sentences 20-25 words, robotic cadence
 
 **Fix - Aggressive Variation:**
-1. Identify average sentence length
-2. Deliberately create extremes:
-   - Short punches (3-7 words)
-   - Long explorations (35+ words)
-   - Varied middle range (10-25 words)
+Create extremes that serve meaning:
+- Short punches (3-7 words) for emphasis
+- Long explorations (35+ words) for complexity
+- Varied middle for flow
 
 **Example Before:**
 "The implementation of the new system requires careful planning. This planning must account for multiple stakeholders. The stakeholders have different needs and priorities."
@@ -33,61 +190,37 @@ Inject personality, embodiment, and risk.
 **Example After:**
 "The new system needs planning. Careful planning—the kind that accounts for stakeholders with wildly different needs, priorities, and levels of technical literacy—not the kind you sketch on a napkin."
 
-**Technique:** Read aloud, mark where breath feels mechanical, break the pattern.
+#### Problem: Uniform Information Density
+**Symptom:** Every paragraph equally packed (Gemini critique)
 
-### Problem: Parallel Construction Compulsion
-**Symptom:** "Not only X, but also Y" everywhere, forced parallelism
+**Fix - Strategic Density:**
+1. Dense sections for important concepts
+2. Sparse sections for emphasis or rest
+3. Vary the ratio paragraph by paragraph
 
-**Fix - Asymmetry Introduction:**
-1. Find every parallel structure
-2. Keep ONE if it serves purpose
-3. Rewrite others with natural flow
+**Example:** After dense technical explanation, add: "That's the core of it." Then continue.
 
-**Example Before:**
-"The system is not only efficient but also reliable. It's both fast and accurate. It handles large datasets as well as complex queries."
+### Commitment Pass
 
-**Example After:**
-"The system runs fast. More importantly, it doesn't break when you throw edge cases at it. Complex queries that would choke other databases? This one just processes them."
+Add stakes while classifying hedges correctly.
 
-### Problem: Bullet Point Escape
-**Symptom:** Lists everywhere, avoiding prose
+#### Problem: Cowardly Hedges
+**Symptom:** "Some might say," "It could be argued," "somewhat"
 
-**Fix - Prose Integration:**
-1. Convert bullets to sentences
-2. Use natural language connectors
-3. Save bullets for actual lists (not descriptions)
+**Detection:** Is this avoiding opinion or expressing genuine uncertainty?
 
-**Example Before:**
-**Benefits:**
-- **Efficiency**: Saves time on processing
-- **Reliability**: Reduces errors
-- **Scalability**: Handles growth
+**Fix - Commit or Explain:**
+1. Find hedges
+2. Classify: Cowardly (opinion avoidance) or Protective (epistemic honesty)
+3. Remove cowardly hedges; keep protective ones
 
-**Example After:**
-"Three reasons this works: it saves time (we're talking hours, not minutes), it catches errors before they compound, and it scales without breaking. That last part matters more than you'd think."
+**Cowardly (remove):**
+"It could be argued that the approach has merit." → "The approach works."
 
----
+**Protective (keep):**
+"Early data suggests effectiveness." (genuinely uncertain)
 
-## COMMITMENT Remediation
-
-### Problem: Hedge Stacking
-**Symptom:** "May," "might," "could potentially" in every sentence
-
-**Fix - Commitment Injection:**
-1. Find every hedge
-2. Ask: Is uncertainty necessary?
-3. If NO: State directly
-4. If YES: Hedge ONCE, explain why uncertain
-
-**Example Before:**
-"This approach may potentially offer some benefits. It might help improve outcomes. Users could possibly see better results."
-
-**Example After:**
-"This approach works. Not always—no approach does—but in 73% of cases we tested, outcomes improved by a measurable margin."
-
-**Technique:** If hedging, cite reason (limited data, context dependency, genuine uncertainty) not habit.
-
-### Problem: False Precision
+#### Problem: False Precision
 **Symptom:** "This speaks to," "This underscores," "This highlights"
 
 **Fix - Direct Statement:**
@@ -97,26 +230,9 @@ Replace meta-commentary with the actual claim.
 "This data underscores the importance of early intervention."
 
 **Example After:**
-"Early intervention matters. The data shows mortality drops by 40% when treatment starts within 6 hours."
+"Early intervention matters. Mortality drops 40% when treatment starts within 6 hours."
 
-### Problem: Authority Cosplay
-**Symptom:** "Research shows," "Experts agree" without sources
-
-**Fix - Name It or Cut It:**
-1. Have a specific source? Name it.
-2. Don't have a source? Rewrite without false authority.
-
-**Example Before:**
-"Research shows that exercise improves mood."
-
-**Example After:**
-"A 2019 meta-analysis of 23 studies (Schuch et al.) found exercise as effective as antidepressants for mild-to-moderate depression."
-
-OR
-
-"Exercise improves mood. You probably already know this from experience."
-
-### Problem: Both-Sides Theater
+#### Problem: Both-Sides Theater
 **Symptom:** False balance on settled questions
 
 **Fix - Proportional Treatment:**
@@ -126,179 +242,122 @@ State consensus, acknowledge dissent proportionally, move on.
 "While some experts believe climate change is occurring, others dispute this claim."
 
 **Example After:**
-"Climate change is happening. The scientific consensus (97% of climate scientists) is unambiguous. A small minority disputes this, mostly funded by fossil fuel interests."
+"Climate change is happening. 97% of climate scientists agree. A small minority disputes this, mostly funded by fossil fuel interests."
 
----
+### Voice Pass
 
-## VOICE Remediation
+Add personality without overcorrection.
 
-### Problem: Missing Vernacular
-**Symptom:** Perfect standardized English, no personality
+#### Problem: Missing Personality
+**Symptom:** Perfect standardized English, no author visible
 
 **Fix - Controlled Informality:**
-1. Add ONE colloquialism per 200 words
-2. Use contractions where natural
-3. Include occasional fragment for emphasis
-4. Let one sentence risk being "wrong"
+Add personality markers calibrated to genre.
 
-**Example Before:**
-"The approach is simple. It requires minimal effort. It produces good results."
+- ONE colloquialism per 200 words
+- Contractions where natural
+- Occasional fragment for emphasis
+- One sentence that risks being "wrong"
 
-**Example After:**
-"The approach? Dead simple. Barely any effort required, and the results are better than you'd expect. Not perfect—nothing is—but good enough to ship."
+**Avoid:** "LinkedIn Influencer" overcorrection—too aggressive, too personal, cringe
 
-### Problem: Olympian Neutrality
+#### Problem: Olympian Neutrality
 **Symptom:** No perspective, pure observation
 
 **Fix - Perspective Injection:**
-1. Take a position (even mild)
-2. Use first person occasionally ("I've seen," "In my experience")
-3. Make a claim that could be disputed
+Take a position, use first person occasionally, make disputable claims.
 
 **Example Before:**
 "Different organizations use different approaches. Each has advantages and disadvantages."
 
 **Example After:**
-"Most organizations get this wrong. They choose the approach that looks impressive on slides rather than the one that actually works in production."
+"Most organizations get this wrong. They choose what looks impressive on slides rather than what works in production."
 
-### Problem: Temporal Vagueness
-**Symptom:** "In recent years," "increasingly"
+#### Problem: Missing Embodiment
+**Symptom:** Could be written by anything, no sense of lived experience
 
-**Fix - Specific Timeframes:**
-Name dates, or explain why you can't.
-
-**Example Before:**
-"Remote work has increased significantly in recent years."
-
-**Example After:**
-"Remote work jumped from 7% of full-time workers in 2019 to 44% in 2020 (Gallup), then stabilized around 25% by 2024."
-
-### Problem: Absence of Detail
-**Symptom:** Generic examples, no named instances
-
-**Fix - Radical Specificity:**
-Name names, cite numbers, give concrete examples.
+**Fix - Sensory Grounding:**
+Add ONE moment of physical or experiential reality.
 
 **Example Before:**
-"Many companies have successfully implemented this approach."
+"The meeting was unproductive."
 
 **Example After:**
-"Stripe cut deployment time from 4 hours to 8 minutes using this approach. Shopify saw similar gains. Your mileage will vary, but the pattern holds."
-
-### Problem: Metaphor Mixing
-**Symptom:** "Navigate the landscape of challenges"
-
-**Fix - Pick ONE Metaphor or None:**
-Either commit to a metaphor system or use literal language.
-
-**Example Before:**
-"We need to navigate the landscape of challenges while delving into the ecosystem of solutions."
-
-**Example After:**
-"We need to solve these problems: X, Y, and Z. Here's how."
+"Three hours of my life I'll never get back. My coffee went cold twice."
 
 ---
 
-## Surgical Fixes (Quick Wins)
+## Quick Reference: Two-Phase Checklist
 
-### 1. Cliché Hunt-and-Replace
-- Search for: delve, robust, showcase, leverage, comprehensive
-- Replace with specific alternatives:
-  - delve → examine, investigate, analyze
-  - robust → durable, strong, resilient (or specify HOW it's strong)
-  - showcase → show, demonstrate, reveal
-  - leverage → use, employ, apply
-  - comprehensive → complete, thorough (or just remove)
+### Phase 1: Structural
+- [ ] Decorative specificity removed?
+- [ ] Causal claims verified?
+- [ ] Bold claims grounded?
+- [ ] Transitions earned?
+- [ ] Authority demonstrated (not claimed)?
+- [ ] Institutional voice replaced with speaker?
+- [ ] Stakes visible?
 
-### 2. Transition Audit
-- Count "moreover," "furthermore," "additionally" per 100 words
-- If >1, cut half and restructure for natural flow
-- Replace formal transitions with structural clarity
-
-### 3. Sentence Surgery
-- Find longest sentence
-- Find shortest sentence
-- Calculate gap
-- If gap <20 words, create more extremes
-
-### 4. Commitment Pass
-- Search for "may," "might," "could"
-- For each: Replace with direct statement OR explain uncertainty
-- Remove "potentially," "possibly" unless essential
-
-### 5. Specificity Injection
-- Find every generic claim
-- Ask: Can I name a specific example?
-- Add ONE concrete detail per paragraph minimum
-
-### 6. Voice Graft
-- Add ONE personal marker per 300 words:
-  - Direct address ("You probably...")
-  - Personal experience ("I've seen...")
-  - Colloquialism ("Dead simple")
-  - Fragment for emphasis ("Not anymore.")
+### Phase 2: Stylistic
+- [ ] Sentence variance serves meaning?
+- [ ] Density varies strategically?
+- [ ] Cowardly hedges removed?
+- [ ] Protective hedges preserved?
+- [ ] False precision eliminated?
+- [ ] Voice appropriate for genre?
+- [ ] Embodiment present?
+- [ ] NOT overcorrected to cringe?
 
 ---
 
-## Iterative Refinement Process
+## Genre-Calibrated Remediation
 
-### Round 1: Structure (5 minutes)
-- Sentence rhythm variance
-- Paragraph asymmetry
-- List reduction
-- Transition audit
+### Technical Documentation
+**Phase 1:** Focus on coherence—does explanation flow logically?
+**Phase 2:** Light touch on voice—neutral authority is appropriate
 
-### Round 2: Commitment (5 minutes)
-- Hedge removal
-- Specificity injection
-- False precision elimination
-- Authority verification
+### Business Writing
+**Phase 1:** Focus on authority—demonstrate expertise, acknowledge friction
+**Phase 2:** Moderate voice—professional but human
 
-### Round 3: Voice (5 minutes)
-- Read aloud
-- Add personality markers
-- Inject one risky sentence
-- Check for embodiment
+### Creative/Personal
+**Phase 1:** Focus on coherence—does narrative hold together?
+**Phase 2:** Heavy focus on voice—distinctive, embodied, risk-taking
 
-### Round 4: Polish (2 minutes)
-- Final cliché sweep
-- Consistency check
-- Flow verification
+---
+
+## Pitfalls to Avoid
+
+**Overcorrection:**
+- Too much personality → "LinkedIn Influencer" cringe
+- Too much specificity → data overload
+- Too much informality → unprofessional
+
+**Undercorrection:**
+- Fixed rhythm but not coherence → polished nonsense
+- Fixed hedges but not authority → confident emptiness
+- Fixed voice but not logic → personality without substance
+
+**Phase Mixing:**
+- Don't add voice markers before fixing logic
+- Don't polish sentences that shouldn't exist
 
 ---
 
 ## Quality Checks
 
-**Read Aloud Test:**
-Does it sound like a human breathing and thinking?
+**After Phase 1:**
+- Read for logic only. Does the argument hold?
+- Are all claims grounded?
+- Would a hostile reader find gaps?
 
-**Surprise Test:**
-Is there ONE sentence you didn't see coming?
+**After Phase 2:**
+- Read aloud. Does it breathe?
+- Is there surprise?
+- Would you recognize this author again?
 
-**Specificity Test:**
-Could this only be written by someone who knows the specific domain?
-
-**Risk Test:**
-Is there ONE claim that could be wrong in an interesting way?
-
-**Embodiment Test:**
-Could this have been written by someone who [walks/eats/doubts]?
-
----
-
-## Common Pitfalls
-
-**Over-Correction:**
-Don't make everything informal—match register to context.
-
-**Forced Personality:**
-Voice should feel natural, not performed.
-
-**Specificity Overload:**
-Not every sentence needs three statistics.
-
-**Premature Weirdness:**
-Earn the right to be strange; clarity first.
-
-**Voice Inconsistency:**
-Pick a register and maintain it (mostly).
+**Final Check:**
+- Dimension gap diagnosis:
+  - High craft + low coherence = decorative writing (Phase 1 incomplete)
+  - High voice + low authority = personality without substance (authority not earned)
+  - High authority + low voice = institutional but effective (maybe fine for genre)
