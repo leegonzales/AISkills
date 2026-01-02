@@ -271,4 +271,16 @@ Works well with:
 
 - `references/prompting-guide.md` - Detailed prompting techniques
 - `references/examples.md` - Sample prompts by category
-- `references/whiteboard-photo-prompt.md` - Photorealistic professor whiteboard photos for explainers
+- `references/json-prompting.md` - Precision mode with JSON schemas
+- `references/translator-prompt.md` - JSON prompt translator system
+
+### Explainer Graphics (Photorealistic)
+
+- `references/whiteboard-photo-prompt.md` - Professor whiteboard photos for educational content
+- `references/chalkboard-prompt.md` - Academic chalkboard with vintage gravitas
+- `references/napkin-sketch-prompt.md` - Back-of-napkin startup/pitch sketches
+
+### Explainer Graphics (Illustrated)
+
+- `references/sketchnote-prompt.md` - Visual note summaries for books, talks, concepts
+- `references/mind-map-prompt.md` - Radial brainstorming and topic organization
