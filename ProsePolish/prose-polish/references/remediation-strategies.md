@@ -31,6 +31,47 @@ Order: Rhythm Pass → Commitment Pass → Voice Pass
 
 ---
 
+## Surgical Fixes (Quick Wins)
+
+For users who want targeted improvements without the full two-phase process:
+
+### 5-Minute Fixes (Immediate Impact)
+
+| Fix | Find | Replace With |
+|-----|------|--------------|
+| **Kill "delve"** | "delve into," "delve deeper" | "explore," "examine," or just cut |
+| **Kill "robust"** | "robust solution/system" | "reliable," "proven," or specific benefit |
+| **Kill "leverage"** | "leverage this/that" | "use," "apply," or specific action |
+| **Kill landscape** | "in today's X landscape" | Specific context or just cut opening |
+| **Remove hedge stacks** | "might potentially somewhat" | Single hedge or commit to claim |
+| **Fix "It is"** | "It is important to note" | State the important thing directly |
+
+### 10-Minute Fixes (Structural Quick Hits)
+
+1. **Sentence Variance Injection:**
+   - Find your longest sentence → add a 4-word sentence after it
+   - Find three same-length sentences in a row → vary one dramatically
+
+2. **Transition Audit:**
+   - Search: "Moreover," "Furthermore," "Additionally"
+   - For each: delete and see if paragraph still flows
+   - If yes: leave deleted. If no: rewrite for actual connection
+
+3. **Authority Spot-Check:**
+   - Find "Research shows" or "Studies indicate"
+   - Either: add specific citation, OR demonstrate the knowledge instead
+
+4. **Opening Surgery:**
+   - If opening matches "In today's [X] landscape/environment/world" → rewrite with specific hook
+   - First sentence should earn attention, not announce topic
+
+### When to Use Quick Wins vs Full Process
+
+- **Quick Wins:** Polishing drafts, tight deadlines, minor cleanup
+- **Full Two-Phase:** Significant rewrites, quality-critical content, learning the craft
+
+---
+
 ## PHASE 1: STRUCTURAL REMEDIATION
 
 ### Coherence Pass

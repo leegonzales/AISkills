@@ -503,14 +503,14 @@ Genre-weighted average of above dimensions.
 
 ## Genre-Calibrated Thresholds
 
-| Pattern | Technical | Business | Academic | Creative | Personal |
-|---------|-----------|----------|----------|----------|----------|
-| Sentence StdDev minimum | 5 | 6 | 6 | 8 | 8 |
-| Hedge tolerance | Higher | Standard | Higher | Low | Low |
-| Passive voice tolerance | Higher | Lower | Moderate | Low | Low |
-| Template structure | Expected | OK | OK if fresh | Failure | Failure |
-| "Certain/particular" | Precision | Standard | Precision | Vague | Vague |
-| Formal transitions | OK | Limit | OK | Limit | Limit |
+| Genre | Sentence Variance | Hedge Tolerance | Passive Voice | Template OK | Voice Expectation |
+|-------|-------------------|-----------------|---------------|-------------|-------------------|
+| Technical | 5+ StdDev | Higher (precision) | Higher | Expected | Neutral authority |
+| Business | 6+ StdDev | Standard | Lower | Structure OK | Professional human |
+| Academic | 6+ StdDev | Higher (epistemic) | Moderate | If fresh content | Measured expertise |
+| Creative | 8+ StdDev | Low | Low | = Failure | Distinctive required |
+| Personal | 8+ StdDev | Low | Low | Must be organic | Strongly embodied |
+| Journalistic | 7+ StdDev | Standard | Low | Lead structure OK | Clear but present |
 
 ---
 

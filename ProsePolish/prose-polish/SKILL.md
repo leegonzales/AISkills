@@ -165,6 +165,23 @@ BEFORE/AFTER EXAMPLES:
 [3-5 transformations with principles explained]
 ```
 
+**Depth Control (Aggressiveness Levels):**
+
+Users can control the extent of remediation:
+
+| Level | What It Does | When to Use |
+|-------|--------------|-------------|
+| **Conservative** | Phase 1 only (Coherence + Authority) | Preserve voice, fix logic only |
+| **Moderate** | Both phases, light Phase 2 | Balance improvement with original tone |
+| **Aggressive** | Both phases, full transformation | Complete rewrite for maximum quality |
+
+**How to request:**
+- "Fix the logic but keep my voice" → Conservative
+- "Improve this while keeping the general tone" → Moderate
+- "Rewrite this for maximum effectiveness" → Aggressive
+
+**Default:** Moderate (both phases, respects original intent)
+
 ### 3. Prevention & Generation
 
 **When:** User asks to "write" or "generate" with quality emphasis
