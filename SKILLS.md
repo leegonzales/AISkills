@@ -9,7 +9,7 @@ To use a skill:
 2. Read the corresponding `SKILL.md` file
 3. Follow the persona, constraints, and output formats defined
 
-## Skills (27 total)
+## Skills (29 total)
 
 | Skill | Description | Path |
 |-------|-------------|------|
@@ -40,6 +40,8 @@ To use a skill:
 | Writing Skills | General writing assistance | `WritingSkills/writing-skills/SKILL.md` |
 | PR Review Loop | Manage PR feedback cycles with Gemini/Claude | `PRReviewLoop/pr-review-loop/SKILL.md` |
 | Veo3 Prompter | Craft cinematic prompts for Veo 3.1 video | `Veo3Prompter/veo3-prompter/SKILL.md` |
+| Silicon Doppelganger | Create Digital Twins for team simulation | `SiliconDoppelganger/silicon-doppelganger/SKILL.md` |
+| Writing Partner | Collaborative fiction writing assistant | `WritingPartner/writing-partner/SKILL.md` |
 
 ## Infrastructure
 
@@ -54,7 +56,7 @@ To use a skill:
 - Codex Peer Review, Gemini Peer Review, Codebase Navigator, MCP Builder, Playwright, PR Review Loop
 
 **Writing & Content**
-- Prose Polish, Research to Essay, Writing Skills, Claimify
+- Prose Polish, Research to Essay, Writing Skills, Claimify, Writing Partner
 
 **AWS & Cloud**
 - AWS CDK, AWS Cost Ops, AWS Serverless
@@ -63,7 +65,7 @@ To use a skill:
 - CSV Summarizer, Excel Auditor, Process Mapper
 
 **AI & Automation**
-- Inevitability Engine, Context Continuity, Context Continuity Code, Agent Mail
+- Inevitability Engine, Context Continuity, Context Continuity Code, Agent Mail, Silicon Doppelganger
 
 **Creative & Media**
 - Artifacts Builder, Nano Banana, NotebookLM, Concept Forge, Veo3 Prompter
