@@ -1,6 +1,22 @@
-# Detection Patterns for AI Writing
+# Detection Patterns for Writing Quality
 
-Comprehensive patterns for identifying AI-generated or AI-influenced text.
+Comprehensive patterns for evaluating writing effectiveness across six dimensions: Craft, Coherence, Authority, Purpose, Voice, and Genre Fitness.
+
+**Philosophy Shift (v2):** We evaluate *effectiveness*, not just "AI-ness." Good writing can use transitions; bad writing can avoid them. Context matters. Genre matters.
+
+---
+
+## Genre Detection (Do This First)
+
+Before scoring, identify the genre:
+- **Technical:** API docs, tutorials, guides, specs
+- **Business:** Reports, proposals, memos, executive summaries
+- **Academic:** Papers, essays, literature reviews
+- **Creative:** Fiction, narrative nonfiction, personal essays
+- **Personal:** Reflections, memoirs, opinion pieces
+- **Journalistic:** News, profiles, analysis
+
+**Why First:** A technical doc using consistent sentence length is appropriate; a personal essay doing the same is suspicious.
 
 ## Structural Tells
 
@@ -244,3 +260,292 @@ Count transitions:
 - Academic writing legitimately uses formal transitions
 - Business writing may need certain corporate terms
 - ESL writers may use different patterns than native speakers
+
+---
+
+## Coherence Patterns (NEW in v2)
+
+Coherence measures whether ideas connect logically, not just syntactically.
+
+### Decorative Specificity
+
+**Pattern:** Precise details that don't advance understanding
+
+**Red Flags:**
+- Dates/numbers with no significance ("March 14th" when any date would work)
+- Names dropped for texture, not meaning
+- Statistics that decorate rather than prove
+- Sensory details unconnected to theme
+
+**Example:**
+"Margaret, who'd lived at 2847 Oleander Drive for thirty-seven years, noticed the okra hadn't bloomed since March 14th."
+
+**Why it fails:** The address and exact date create specificity *signaling* without specificity *function*. Nothing depends on these details.
+
+**Contrast with functional specificity:**
+"The Tesla Model Y delivers 330 miles of range—enough for a Denver-to-Albuquerque trip without charging."
+Here, 330 miles *means* something concrete.
+
+### Causal Incoherence
+
+**Pattern:** Claimed cause-effect relationships that don't hold
+
+**Examples:**
+- "Her hands were cracked from decades of teaching calculus" (teaching ≠ manual labor)
+- "The window was cold, despite the Austin heat reaching 94 degrees" (interior/exterior mismatch)
+- "He became CEO because he worked hard" (correlation presented as causation)
+
+**Detection:** Ask "does Y actually follow from X?" for every because/due to/from/since claim.
+
+### Thematic Non-Sequitur
+
+**Pattern:** Conclusions disconnected from preceding content
+
+**Example:**
+[Paragraph about garden stagnation] → [Philosophical aside about weeds and poetry]
+
+**Why it fails:** The observation about weeds isn't *earned* by the preceding emotional content. It's a writerly flex, not a character thought.
+
+### Mechanical Variance
+
+**Pattern:** Sentence length varied for its own sake
+
+**What it looks like:**
+- Short. Then a longer sentence that adds detail. Short again. Then another deliberately lengthened sentence with additional clauses.
+
+**Why it fails:** Variance should serve rhythm and emphasis, not just meet a metric. The *pattern* of variance matters, not just the StdDev.
+
+### Floating Claims
+
+**Pattern:** Assertions without anchoring
+
+**Example:**
+"Digital transformation fails when companies buy expensive software and hope for magic."
+
+**If this is the opening:** Where does this claim come from? What grounds it?
+**If preceded by evidence:** Earned and powerful.
+
+**Detection:** For each bold claim, ask "what earned this?"
+
+---
+
+## Authority Patterns (NEW in v2)
+
+Authority measures whether expertise is demonstrated or performed.
+
+### Earned Authority Signals
+
+**Pattern:** Expertise visible through specific knowledge
+
+**Indicators:**
+- Insider terminology used correctly (NRR, churn, not just "revenue")
+- Tradeoff awareness ("X gives you Y but costs Z")
+- Acknowledging limitations without undermining point
+- Specific failures/lessons learned
+- Consequential details (things only experts would know matter)
+
+**Example:**
+"Net revenue retention at 118% means existing customers are spending more—growth without sales costs."
+
+**Why it works:** Interpretation demonstrates understanding, not just data.
+
+### Delegated Authority
+
+**Pattern:** Authority borrowed from external sources
+
+**Indicators:**
+- "Research shows..." (no specific research)
+- "Best practices recommend..." (which practices? why?)
+- Heavy citation without synthesis
+- Institutional voice ("it is recommended that...")
+- Numbers without interpretation
+
+**Not always bad:** Academic writing legitimately cites. But citation ≠ synthesis.
+
+### False Authority
+
+**Pattern:** Expertise performed without substance
+
+**Indicators:**
+- Stereotypes as insider knowledge
+- Generic specificity (sounds precise but isn't domain-specific)
+- "Experts agree..." (no experts named)
+- Confident tone with empty content
+- Authority cosplay ("As someone who understands X...")
+
+**Example (fiction):**
+"The cubicle smelled like old coffee and desperation."
+
+**Why it fails:** This is *cultural shorthand* for corporate malaise, not authentic observed detail. Anyone could write it; it reveals no insider perspective.
+
+---
+
+## Hedge Classification (NEW in v2)
+
+Not all hedges are bad. Classify before penalizing.
+
+### Cowardly Hedges (PENALIZE)
+
+**Purpose:** Avoid taking a position
+
+**Patterns:**
+- "Some might say..." "It could be argued..."
+- "In a sense..." "In many ways..."
+- "Somewhat," "fairly," "rather," "quite"
+- "Perhaps," "maybe" for opinion avoidance
+- Multiple hedges stacked: "might potentially somewhat"
+
+### Protective Hedges (PRESERVE)
+
+**Purpose:** Epistemic honesty or precision
+
+**Patterns:**
+- "The evidence suggests..." (genuine uncertainty)
+- "Current research indicates..." (temporal qualification)
+- "Appears to," "likely" (probabilistic accuracy)
+- "Certain," "particular," "specific" (precision, not vagueness)
+- "In this context..." (scope limitation)
+
+### Classification Rule
+
+Ask: "Is this hedge avoiding opinion or expressing genuine uncertainty?"
+
+- "It could be argued that climate change is real" → COWARDLY (settled question)
+- "Early data suggests the treatment is effective" → PROTECTIVE (genuinely uncertain)
+- "Some people prefer chocolate" → COWARDLY (why not just say it?)
+- "Approximately 40% of participants..." → PROTECTIVE (precision)
+
+---
+
+## Purpose Patterns (NEW in v2)
+
+Purpose measures whether writing has clear intent and stakes.
+
+### Clear Purpose Indicators
+
+- Stakes are explicit (what happens if reader doesn't act/understand?)
+- Audience is clear (writing calibrated to specific reader)
+- "Why now?" is answered
+- Action is implicit or explicit
+
+### Unclear Purpose Indicators
+
+- Could apply to anyone, anytime
+- No implicit or explicit action
+- No stakes visible
+- Reads as performative
+- Describes without implying "so what?"
+
+### Purpose Assessment Questions
+
+1. What does the writer want the reader to DO or BELIEVE after reading?
+2. Why should the reader care about this NOW?
+3. What's at stake if the message fails?
+4. Who specifically is this for?
+
+---
+
+## Information Density Patterns (NEW in v2)
+
+Per Gemini critique: AI writing often has uniform medium-density.
+
+### Density Variance
+
+**Quality writing:** Varies density strategically
+- Dense sections for important concepts
+- Sparse sections for emphasis or rest
+- Density serves communication, not fills space
+
+**AI Pattern:** Uniform medium-density
+- Every paragraph roughly equally packed
+- No sparse moments
+- No dense-then-explanation rhythm
+
+### Detection
+
+Read three consecutive paragraphs. Do they vary in density? Or does each have roughly the same information-per-sentence ratio?
+
+---
+
+## Updated Scoring System (v2)
+
+**6-Dimension Framework:**
+
+### Craft Score (0-100)
+- Lexical patterns: 0-40 pts (banned words, hedge density, transitions)
+- Structural patterns: 0-30 pts (sentence variance, paragraph uniformity)
+- Rhetorical patterns: 0-30 pts (commitment, specificity quality)
+
+### Coherence Score (0-100)
+- Logical flow: 0-40 pts (ideas connect?)
+- Specificity function: 0-30 pts (relevant vs decorative?)
+- Transition authenticity: 0-30 pts (earned vs mechanical?)
+
+### Authority Score (0-100)
+- Earned signals: 0-40 pts (insider knowledge, tradeoff awareness)
+- Delegated handling: 0-30 pts (citation with synthesis?)
+- False authority absence: 0-30 pts (no stereotypes as expertise?)
+
+### Purpose Score (0-100)
+- Intent clarity: 0-40 pts (what is this FOR?)
+- Audience calibration: 0-30 pts (appropriate for reader?)
+- Stakes: 0-30 pts (why should reader care?)
+
+### Voice Score (0-100)
+- Distinctiveness: 0-40 pts (recognizable author?)
+- Embodiment: 0-30 pts (feels like a person?)
+- Register appropriateness: 0-30 pts (matches genre?)
+
+### Effectiveness Score
+Genre-weighted average of above dimensions.
+
+---
+
+## Genre-Calibrated Thresholds
+
+| Genre | Sentence Variance | Hedge Tolerance | Passive Voice | Template OK | Voice Expectation |
+|-------|-------------------|-----------------|---------------|-------------|-------------------|
+| Technical | 5+ StdDev | Higher (precision) | Higher | Expected | Neutral authority |
+| Business | 6+ StdDev | Standard | Lower | Structure OK | Professional human |
+| Academic | 6+ StdDev | Higher (epistemic) | Moderate | If fresh content | Measured expertise |
+| Creative | 8+ StdDev | Low | Low | = Failure | Distinctive required |
+| Personal | 8+ StdDev | Low | Low | Must be organic | Strongly embodied |
+| Journalistic | 7+ StdDev | Standard | Low | Lead structure OK | Clear but present |
+
+---
+
+## Detection Workflow (v2)
+
+1. **Genre Detection** (30 seconds):
+   - Identify: Technical / Business / Academic / Creative / Personal / Journalistic
+   - Load appropriate thresholds
+
+2. **Quick Scan** (1 minute):
+   - Obvious lexical tells (delve, robust, showcase)
+   - Uniform sentence length
+   - Template structure
+
+3. **Coherence Analysis** (3 minutes):
+   - Do ideas connect logically?
+   - Is specificity functional or decorative?
+   - Are transitions earned?
+
+4. **Authority Analysis** (3 minutes):
+   - Is expertise demonstrated or claimed?
+   - Are claims grounded?
+   - Any false authority patterns?
+
+5. **Craft Analysis** (3 minutes):
+   - Lexical density issues
+   - Structural patterns
+   - Rhetorical execution
+
+6. **Voice/Purpose Analysis** (2 minutes):
+   - Distinctive author present?
+   - Clear intent?
+   - Appropriate register?
+
+7. **Dimension Gap Diagnosis** (1 minute):
+   - High craft + low coherence = decorative writing
+   - High voice + low authority = personality without substance
+   - High authority + low voice = institutional but competent
