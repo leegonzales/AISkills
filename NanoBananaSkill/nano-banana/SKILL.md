@@ -271,3 +271,4 @@ Works well with:
 
 - `references/prompting-guide.md` - Detailed prompting techniques
 - `references/examples.md` - Sample prompts by category
+- `references/whiteboard-photo-prompt.md` - Photorealistic professor whiteboard photos for explainers
