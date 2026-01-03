@@ -287,4 +287,5 @@ Works well with:
 
 ### Branded Templates
 
-- `references/branded-infographic-catalyst.md` - Catalyst AI Services brand system (Sage & Sand)
+- `references/branded-infographic-catalyst.md` - Catalyst AI Services infographics (Sage & Sand)
+- `references/branded-slides-catalyst.md` - Catalyst AI Services presentation slides
