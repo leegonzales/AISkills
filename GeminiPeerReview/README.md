@@ -152,8 +152,8 @@ gemini "Hello, Gemini!"
 **Free Tier Benefits:**
 - 60 requests per minute
 - 1,000 requests per day
-- Access to Gemini 2.5 Pro (1M context window)
-- Access to Gemini 2.5 Flash
+- Access to Gemini 3.0 Pro (1M context window)
+- Access to Gemini 3.0 Flash
 - No credit card required
 
 **Official Documentation:** [Gemini CLI](https://github.com/google-gemini/gemini-cli)
@@ -575,7 +575,7 @@ Set default model and parameters:
 
 ```bash
 # Set default model
-gemini config set defaultModel gemini-2.5-pro
+gemini config set defaultModel gemini-3.0-pro
 
 # Set temperature for more focused responses
 gemini config set temperature 0.3
@@ -588,7 +588,7 @@ gemini config list
 ```
 
 **Recommended peer review settings:**
-- `defaultModel`: `gemini-2.5-pro` (best for complex reasoning)
+- `defaultModel`: `gemini-3.0-pro` (best for complex reasoning)
 - `temperature`: 0.3-0.5 (more focused, less creative)
 - `maxOutputTokens`: 8192 (allow detailed analysis)
 
@@ -759,11 +759,11 @@ gemini "Hello, Gemini!"
 - Free tier: 60 requests/minute, 1,000/day
 - Wait for rate limit reset
 - Upgrade to paid tier for higher limits
-- Switch to `gemini-2.5-flash` for faster, lower-cost requests
+- Switch to `gemini-3.0-flash` for faster, lower-cost requests
 
 ```bash
 # Switch to Flash model
-gemini config set defaultModel gemini-2.5-flash
+gemini config set defaultModel gemini-3.0-flash
 ```
 
 ---
@@ -804,13 +804,13 @@ Code review shouldn't trigger safety filters with adjusted settings.
 
 **Solution:**
 Use correct model names:
-- `gemini-2.5-pro` (best for complex reasoning, 1M context)
-- `gemini-2.5-flash` (faster, still excellent, 1M context)
-- `gemini-2.5-flash-lite` (fastest, most cost-efficient)
+- `gemini-3.0-pro` (best for complex reasoning, 1M context)
+- `gemini-3.0-flash` (faster, still excellent, 1M context)
+- `gemini-3.0-flash-lite` (fastest, most cost-efficient)
 
 ```bash
 # Set correct model
-gemini config set defaultModel gemini-2.5-pro
+gemini config set defaultModel gemini-3.0-pro
 
 # Verify
 gemini config list
@@ -932,7 +932,7 @@ A: No, the skill requires Gemini CLI. Claude will inform you if it's not availab
 A: Yes, when using Gemini CLI, code is sent to Google servers for processing. Consider this for sensitive/proprietary code. Use Claude alone if code cannot be sent externally.
 
 **Q: When should I use Pro vs Flash model?**
-A: Use `gemini-2.5-pro` for complex architectural decisions, security-critical reviews, and deep trade-off analysis. Use `gemini-2.5-flash` for faster turnaround, straightforward analysis, and cost optimization. Both have 1M token context.
+A: Use `gemini-3.0-pro` for complex architectural decisions, security-critical reviews, and deep trade-off analysis. Use `gemini-3.0-flash` for faster turnaround, straightforward analysis, and cost optimization. Both have 1M token context.
 
 **Q: Can I use this offline?**
 A: No, Gemini CLI requires internet connectivity. Code is processed in Google's Cloud.

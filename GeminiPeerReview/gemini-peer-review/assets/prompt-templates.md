@@ -10,15 +10,15 @@ This guide provides battle-tested prompt templates for conducting thorough peer 
 
 **Template Benefits:**
 - Copy-paste ready for immediate use
-- Optimized for Gemini 2.5 Pro and Flash models
+- Optimized for Gemini 3.0 Pro and Flash models
 - Structured for comprehensive analysis
 - CLI-focused with heredoc patterns
 - Target specific review scenarios
 
 **Model Selection Guide:**
-- **Gemini 2.5 Pro:** Complex reasoning, architecture reviews, security analysis
-- **Gemini 2.5 Flash:** Quick reviews, code quality checks, documentation review
-- **Gemini 2.5 Flash-Lite:** Simple pattern checks, style validation
+- **Gemini 3.0 Pro:** Complex reasoning, architecture reviews, security analysis
+- **Gemini 3.0 Flash:** Quick reviews, code quality checks, documentation review
+- **Gemini 3.0 Flash-Lite:** Simple pattern checks, style validation
 
 ---
 
@@ -88,7 +88,7 @@ Expected Output: Risk assessment with severity levels, improvement recommendatio
 
 **Usage:**
 ```bash
-gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
+gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
 [paste filled template]
 EOF
 )"
@@ -152,7 +152,7 @@ Expected Output: Performance and scalability assessment, optimization recommenda
 
 **Usage:**
 ```bash
-gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
+gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
 [paste filled template]
 EOF
 )"
@@ -223,7 +223,7 @@ Expected Output: Comparative analysis against criteria, recommendation with rati
 
 **Usage:**
 ```bash
-gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
+gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
 [paste filled template]
 EOF
 )"
@@ -281,7 +281,7 @@ Expected Output: Recommendation with rationale, trade-off analysis, risk mitigat
 
 **Usage:**
 ```bash
-gemini --model gemini-2.5-flash -p "$(cat <<'EOF'
+gemini --model gemini-3.0-flash -p "$(cat <<'EOF'
 [paste filled template]
 EOF
 )"
@@ -344,7 +344,7 @@ Expected Output: Prioritized vulnerabilities with severity (Critical/High/Medium
 
 **Usage:**
 ```bash
-gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
+gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
 [paste filled template]
 EOF
 )"
@@ -406,7 +406,7 @@ Expected Output: Vulnerability assessment with severity, attack scenarios, and p
 
 **Usage:**
 ```bash
-gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
+gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
 [paste filled template]
 EOF
 )"
@@ -472,7 +472,7 @@ Expected Output: Prioritized optimization recommendations with estimated impact 
 
 **Usage:**
 ```bash
-gemini --model gemini-2.5-flash -p "$(cat <<'EOF'
+gemini --model gemini-3.0-flash -p "$(cat <<'EOF'
 [paste filled template]
 EOF
 )"
@@ -528,7 +528,7 @@ Expected Output: Query optimization recommendations with estimated performance i
 
 **Usage:**
 ```bash
-gemini --model gemini-2.5-flash -p "$(cat <<'EOF'
+gemini --model gemini-3.0-flash -p "$(cat <<'EOF'
 [paste filled template]
 EOF
 )"
@@ -587,7 +587,7 @@ Expected Output: Prioritized list of test cases to add, testing strategy recomme
 
 **Usage:**
 ```bash
-gemini --model gemini-2.5-flash -p "$(cat <<'EOF'
+gemini --model gemini-3.0-flash -p "$(cat <<'EOF'
 [paste filled template]
 EOF
 )"
@@ -604,7 +604,7 @@ EOF
 # 2. Fill in with your specific context
 # 3. Execute with Gemini CLI
 
-gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
+gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
 [ARCHITECTURE REVIEW: E-Commerce Microservices]
 
 System Purpose: E-commerce platform for B2C retail
@@ -662,7 +662,7 @@ EOF
 ### Example 2: Using Security Review Template
 
 ```bash
-gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
+gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
 [SECURITY REVIEW: JWT Authentication]
 
 System Purpose: SaaS project management platform

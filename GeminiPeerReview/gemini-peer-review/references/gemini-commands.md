@@ -59,7 +59,7 @@ gemini
 
 **Benefits:**
 - Free tier: 60 requests/min, 1,000 requests/day
-- Access to Gemini 2.5 Pro (1M context)
+- Access to Gemini 3.0 Pro (1M context)
 - No credit card required
 
 ---
@@ -257,20 +257,23 @@ Execute shell commands directly:
 ### Model Selection
 
 ```bash
+# ALWAYS use --model to ensure latest version
 # Use Pro model (best reasoning, complex tasks)
-gemini --model gemini-2.5-pro -p "prompt"
+gemini --model gemini-3.0-pro -p "prompt"
 
 # Use Flash model (fast, efficient, recommended)
-gemini --model gemini-2.5-flash -p "prompt"
+gemini --model gemini-3.0-flash -p "prompt"
 
-# Use Flash-Lite (fastest, most cost-efficient)
-gemini --model gemini-2.5-flash-lite -p "prompt"
+# Use Deep Think (multi-step reasoning, research-grade)
+gemini --model gemini-3.0-deep-think -p "prompt"
 ```
 
 **Model Selection Guide:**
-- **Pro:** Deep architectural analysis, complex security reviews
-- **Flash:** Standard code reviews, performance analysis (recommended)
-- **Flash-Lite:** Simple checks, high-volume processing
+- **Pro (gemini-3.0-pro):** Deep architectural analysis, complex security reviews
+- **Flash (gemini-3.0-flash):** Standard code reviews, performance analysis (recommended)
+- **Deep Think (gemini-3.0-deep-think):** Multi-step reasoning, research-grade analysis
+
+**IMPORTANT:** Always explicitly specify `--model gemini-3.0-*` to avoid falling back to older 2.5 models.
 
 ---
 
@@ -361,7 +364,7 @@ gemini --config config.json -p "prompt"
 
 ## Available Models
 
-### Gemini 2.5 Pro (`gemini-2.5-pro`)
+### Gemini 3.0 Pro (`gemini-3.0-pro`)
 
 **Context:** 1,048,576 input tokens / 65,536 output tokens
 **Inputs:** Audio, images, video, text, PDF
@@ -373,6 +376,7 @@ gemini --config config.json -p "prompt"
 - Structured outputs
 - Search grounding
 - Context caching
+- SWE-bench Verified: 78%+
 
 **Best For:**
 - Complex architectural analysis
@@ -382,7 +386,7 @@ gemini --config config.json -p "prompt"
 
 **Usage:**
 ```bash
-gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
+gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
 Perform deep architectural analysis of this microservices system.
 Consider:
 - Service boundaries and coupling
@@ -399,7 +403,7 @@ EOF
 
 ---
 
-### Gemini 2.5 Flash (`gemini-2.5-flash`)
+### Gemini 3.0 Flash (`gemini-3.0-flash`)
 
 **Context:** 1,048,576 input tokens / 65,536 output tokens
 **Inputs:** Text, images, video, audio
@@ -410,6 +414,7 @@ EOF
 - Code execution
 - File search
 - Structured outputs
+- Optimized for high-frequency terminal workflows
 
 **Best For:**
 - Standard code reviews
@@ -419,7 +424,7 @@ EOF
 
 **Usage:**
 ```bash
-gemini --model gemini-2.5-flash -p "$(cat <<'EOF'
+gemini --model gemini-3.0-flash -p "$(cat <<'EOF'
 Review this code for:
 - Security vulnerabilities
 - Performance issues
@@ -433,25 +438,28 @@ EOF
 
 ---
 
-### Gemini 2.5 Flash-Lite (`gemini-2.5-flash-lite`)
+### Gemini 3.0 Deep Think (`gemini-3.0-deep-think`)
 
 **Context:** 1,048,576 input tokens / 65,536 output tokens
 **Inputs:** Text, image, video, audio, PDF
 
 **Capabilities:**
+- Multi-step reasoning
+- Research-grade analysis
 - Function calling
 - Code execution
 - Structured outputs
 - Search grounding
 
 **Best For:**
-- Simple code quality checks
-- High-volume batch processing
-- Cost-sensitive applications
+- Novel or unfamiliar patterns
+- Research-grade analysis
+- Complex trade-off evaluation
+- Deep security analysis
 
 **Usage:**
 ```bash
-gemini --model gemini-2.5-flash-lite -p "Check for common bugs in @./src/utils/"
+gemini --model gemini-3.0-deep-think -p "Analyze architectural trade-offs in @./src/"
 ```
 
 ---
@@ -461,7 +469,7 @@ gemini --model gemini-2.5-flash-lite -p "Check for common bugs in @./src/utils/"
 ### Pattern 1: Architecture Review
 
 ```bash
-gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
+gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
 [ARCHITECTURE REVIEW]
 
 System: Multi-tenant SaaS Platform
@@ -501,7 +509,7 @@ EOF
 ### Pattern 2: Architecture Review with Diagram
 
 ```bash
-gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
+gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
 Analyze the attached architecture diagram.
 
 Context:
@@ -534,7 +542,7 @@ EOF
 ### Pattern 3: Security Review
 
 ```bash
-gemini --model gemini-2.5-flash -p "$(cat <<'EOF'
+gemini --model gemini-3.0-flash -p "$(cat <<'EOF'
 [SECURITY REVIEW]
 
 Threat Model:
@@ -576,7 +584,7 @@ EOF
 ### Pattern 4: Performance Analysis
 
 ```bash
-gemini --model gemini-2.5-flash -p "$(cat <<'EOF'
+gemini --model gemini-3.0-flash -p "$(cat <<'EOF'
 [PERFORMANCE ANALYSIS]
 
 Current Performance:
@@ -625,7 +633,7 @@ EOF
 ### Pattern 5: Design Decision Evaluation
 
 ```bash
-gemini --model gemini-2.5-pro -p "$(cat <<'EOF'
+gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
 [DESIGN DECISION EVALUATION]
 
 Decision: Caching strategy for product catalog
@@ -679,7 +687,7 @@ EOF
 ### Pattern 6: Testing Strategy Review
 
 ```bash
-gemini --model gemini-2.5-flash -p "$(cat <<'EOF'
+gemini --model gemini-3.0-flash -p "$(cat <<'EOF'
 [TESTING STRATEGY REVIEW]
 
 Module: User authentication service
@@ -721,7 +729,7 @@ EOF
 ### Pattern 7: Code Review
 
 ```bash
-gemini --model gemini-2.5-flash -p "$(cat <<'EOF'
+gemini --model gemini-3.0-flash -p "$(cat <<'EOF'
 [CODE REVIEW - JavaScript]
 
 Focus Areas:
@@ -820,7 +828,7 @@ gemini
 gemini> /settings
 
 # Switch to available model
-gemini --model gemini-2.5-flash -p "prompt"
+gemini --model gemini-3.0-flash -p "prompt"
 ```
 
 ---
@@ -890,7 +898,7 @@ EOF
 
 **Recommended:**
 ```bash
-gemini --model gemini-2.5-flash -p "standard review prompt"
+gemini --model gemini-3.0-flash -p "standard review prompt"
 ```
 
 **Why:** Same 1M context, faster, more cost-efficient than Pro
@@ -1078,7 +1086,7 @@ SERVICES=(
 for service in "${SERVICES[@]}"; do
   echo "Reviewing $service..."
 
-  gemini --model gemini-2.5-flash -p "$(cat <<EOF
+  gemini --model gemini-3.0-flash -p "$(cat <<EOF
 Review service: $service
 
 Code: @./services/$service/
@@ -1126,7 +1134,7 @@ echo "All reviews complete."
       "command": "gemini",
       "args": [
         "--model",
-        "gemini-2.5-pro",
+        "gemini-3.0-pro",
         "-p",
         "Comprehensive architecture review of entire project. Focus on scalability, security, maintainability."
       ],
@@ -1148,13 +1156,13 @@ echo "All reviews complete."
 
 | Use Case | Command | Key Flags |
 |----------|---------|-----------|
-| Architecture review | `gemini -p "[context]"` | `--model gemini-2.5-pro` |
+| Architecture review | `gemini -p "[context]"` | `--model gemini-3.0-pro` |
 | Review with diagram | `gemini -p "analyze: @diagram.png"` | None (multimodal) |
-| Security review | `gemini -p "[threat model + code]"` | `--model gemini-2.5-flash` |
-| Performance analysis | `gemini -p "[metrics + code]"` | `--model gemini-2.5-flash` |
-| Design comparison | `gemini -p "[options + criteria]"` | `--model gemini-2.5-pro` |
-| Testing strategy | `gemini -p "[coverage + concerns]"` | `--model gemini-2.5-flash` |
-| Code review | `gemini -p "[focus areas + code]"` | `--model gemini-2.5-flash` |
+| Security review | `gemini -p "[threat model + code]"` | `--model gemini-3.0-flash` |
+| Performance analysis | `gemini -p "[metrics + code]"` | `--model gemini-3.0-flash` |
+| Design comparison | `gemini -p "[options + criteria]"` | `--model gemini-3.0-pro` |
+| Testing strategy | `gemini -p "[coverage + concerns]"` | `--model gemini-3.0-flash` |
+| Code review | `gemini -p "[focus areas + code]"` | `--model gemini-3.0-flash` |
 | Interactive exploration | `gemini` | None (interactive) |
 | JSON output | `gemini --output-format json -p "[prompt]"` | `--output-format json` |
 | Sandbox execution | `gemini --sandbox -p "[prompt]"` | `--sandbox` or `-s` |
