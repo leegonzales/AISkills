@@ -412,7 +412,7 @@ Ask: "Is this hedge avoiding opinion or expressing genuine uncertainty?"
 
 - "It could be argued that climate change is real" → COWARDLY (settled question)
 - "Early data suggests the treatment is effective" → PROTECTIVE (genuinely uncertain)
-- "Some people prefer chocolate" → COWARDLY (why not just say it?)
+- "It could be said that our strategy is flawed" → COWARDLY (just say "Our strategy is flawed")
 - "Approximately 40% of participants..." → PROTECTIVE (precision)
 
 ---
