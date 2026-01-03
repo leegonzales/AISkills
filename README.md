@@ -1,6 +1,6 @@
 # AISkills
 
-A curated collection of **28 professional skills** for Claude Code and Claude web chat. Skills extend Claude's capabilities for development, analysis, writing, and specialized workflows.
+A curated collection of **29 professional skills** for Claude Code and Claude web chat. Skills extend Claude's capabilities for development, analysis, writing, and specialized workflows.
 
 ## What Are Claude Skills?
 
@@ -33,7 +33,7 @@ Skills are modular capabilities that Claude automatically discovers and uses bas
 | [Writing Skills](WritingSkills/) | META-SKILL: TDD methodology for documentation ("Iron Law") | All |
 | [Claimify](Claimify/) | Transform discourse into structured argument maps | All |
 
-### Analysis & Reasoning (5 skills)
+### Analysis & Reasoning (6 skills)
 
 | Skill | Description | Platform |
 |-------|-------------|----------|
@@ -42,6 +42,7 @@ Skills are modular capabilities that Claude automatically discovers and uses bas
 | [Excel Auditor](ExcelAuditor/) | Audit Excel files, analyze formulas, assess risk 🧪 | All |
 | [Inevitability Engine](InevitabilityEngine/) | AI business opportunity discovery with inevitability scoring | All |
 | [CSV Data Summarizer](CSVDataSummarizer/) | Proactive CSV analysis (exemplary "DO NOT ASK" design pattern) | All |
+| [Silicon Doppelganger](SiliconDoppelganger/) | Digital Twin personas for team dynamics and decision forecasting | All |
 
 ### AI & Automation (4 skills)
 
@@ -211,6 +212,6 @@ MIT License. Individual skills may have their own licenses - check skill directo
 
 ---
 
-**27 skills** | **MIT License** | **Last Updated:** 2025-12-17
+**29 skills** | **MIT License** | **Last Updated:** 2026-01-02
 
 Built with Claude Code | [Learn More](https://docs.claude.com/en/docs/claude-code)
