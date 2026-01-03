@@ -284,3 +284,7 @@ Works well with:
 
 - `references/sketchnote-prompt.md` - Visual note summaries for books, talks, concepts
 - `references/mind-map-prompt.md` - Radial brainstorming and topic organization
+
+### Branded Templates
+
+- `references/branded-infographic-catalyst.md` - Catalyst AI Services brand system (Sage & Sand)
