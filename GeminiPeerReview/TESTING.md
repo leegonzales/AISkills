@@ -1,7 +1,7 @@
 # Gemini Peer Review - Testing Report
 
 **Skill Name:** GeminiPeerReview
-**Purpose:** Code review and analysis using Google's Gemini 2.5 with 1M token context and multimodal capabilities
+**Purpose:** Code review and analysis using Google's Gemini 3.0 with 1M token context and multimodal capabilities
 **Testing Period:** November 2025 - January 2025
 **Production Status:** READY FOR DEPLOYMENT
 
@@ -9,10 +9,10 @@
 
 ## 1. Overview
 
-The Gemini Peer Review skill leverages Google's Gemini 2.5 model with its groundbreaking 1M token context window and multimodal capabilities to provide comprehensive, system-level code analysis with research-grounded insights. Comprehensive testing across 27 test cases validates this skill as production-ready with exceptional performance in large codebase analysis, architectural review, and cross-module pattern detection.
+The Gemini Peer Review skill leverages Google's Gemini 3.0 model with its groundbreaking 1M token context window and multimodal capabilities to provide comprehensive, system-level code analysis with research-grounded insights. Comprehensive testing across 27 test cases validates this skill as production-ready with exceptional performance in large codebase analysis, architectural review, and cross-module pattern detection.
 
 **Key Characteristics:**
-- Model: gemini-2.5-flash (Google)
+- Model: gemini-3.0-flash (Google)
 - Context: 1M tokens (massive advantage for large codebases)
 - Capabilities: Multimodal (code + diagrams + PDFs), Search grounding, ReAct reasoning
 - Focus: Holistic, system-level analysis

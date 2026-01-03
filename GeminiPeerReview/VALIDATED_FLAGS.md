@@ -29,7 +29,7 @@
 |------|-------|--------|---------|-------------|
 | `--prompt` | `-p` | String | N/A | Run in headless mode with direct query input |
 | `--output-format` | N/A | `text`, `json`, `stream-json` | `text` | Specify output format |
-| `--model` | `-m` | Model name | `gemini-2.5-pro` | Specify which Gemini model to use |
+| `--model` | `-m` | Model name | `gemini-3.0-pro` | Specify which Gemini model to use |
 | `--debug` | `-d` | N/A | N/A | Enable debug mode for troubleshooting |
 | `--include-directories` | N/A | Comma-separated paths | N/A | Include additional directories for context |
 | `--yolo` | `-y` | N/A | N/A | Auto-approve all actions without prompts |
@@ -70,7 +70,7 @@ gemini -p "prompt" --output-format json
 gemini -p "prompt" --output-format stream-json
 
 # With specific model
-gemini -m gemini-2.5-flash -p "prompt"
+gemini -m gemini-3.0-flash -p "prompt"
 
 # Full automation (auto-approve)
 gemini -y -p "prompt"
@@ -84,13 +84,13 @@ gemini -y -p "prompt"
 
 | Flag | Alias | Values | Description |
 |------|-------|--------|-------------|
-| `--model` | `-m` | `gemini-2.5-pro`, `gemini-2.5-flash`, `gemini-2.5-flash-thinking`, `gemini-2.0-flash` | Specify which Gemini model to use |
+| `--model` | `-m` | `gemini-3.0-pro`, `gemini-3.0-flash`, `gemini-3.0-flash-thinking`, `gemini-3.0-deep-think` | Specify which Gemini model to use |
 
 **Model Characteristics:**
-- **gemini-2.5-pro**: 1M token context, best reasoning, slower
-- **gemini-2.5-flash**: 1M token context, fast, balanced
-- **gemini-2.5-flash-thinking**: Extended reasoning mode
-- **gemini-2.0-flash**: Latest ultra-fast model
+- **gemini-3.0-pro**: 1M token context, best reasoning, slower
+- **gemini-3.0-flash**: 1M token context, fast, balanced
+- **gemini-3.0-flash-thinking**: Extended reasoning mode
+- **gemini-3.0-deep-think**: Latest ultra-fast model
 
 ### Output Formats
 
@@ -156,7 +156,7 @@ When running `gemini` without `-p` (interactive mode):
 | **Auto-approve** | `--yolo` / `-y` | `--full-auto` |
 | **Model Selection** | `-m` / `--model` | `--model` / `-m` |
 | **Debug Mode** | `-d` / `--debug` | N/A documented |
-| **Context Window** | 1M tokens (2.5 models) | Varies by model |
+| **Context Window** | 1M tokens (3.0 models) | Varies by model |
 | **Multimodal** | Via file references | `--image` flag |
 
 ---
@@ -228,7 +228,7 @@ gemini -p "Identify all security vulnerabilities in @./src/auth.ts" --output-for
 ### With Specific Model
 
 ```bash
-gemini -m gemini-2.5-pro -p "Deep architectural analysis of @./docs/architecture.md"
+gemini -m gemini-3.0-pro -p "Deep architectural analysis of @./docs/architecture.md"
 ```
 
 ### With Auto-Approval (Use Carefully)
