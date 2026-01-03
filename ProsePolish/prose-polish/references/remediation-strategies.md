@@ -44,7 +44,7 @@ For users who want targeted improvements without the full two-phase process:
 | **Kill "leverage"** | "leverage this/that" | "use," "apply," or specific action |
 | **Kill landscape** | "in today's X landscape" | Specific context or just cut opening |
 | **Remove hedge stacks** | "might potentially somewhat" | Single hedge or commit to claim |
-| **Fix "It is"** | "It is important to note" | State the important thing directly |
+| **Fix impersonal openings** | "It is important to note," "It should be noted," "It is worth noting" | State the important thing directly |
 
 ### 10-Minute Fixes (Structural Quick Hits)
 

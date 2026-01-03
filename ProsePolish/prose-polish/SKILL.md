@@ -85,7 +85,7 @@ PURPOSE ISSUES:
 - Audience calibration: [appropriate for reader?]
 - Stakes: [why should reader care?]
 
-VOICE ASSESSMENT:
+VOICE ISSUES:
 - Distinctiveness: [recognizable author?]
 - Embodiment: [feels like a person?]
 - Register: [appropriate for genre?]
