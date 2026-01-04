@@ -1,0 +1,19 @@
+# Claude Code local settings
+.claude/settings.local.json
+
+# OS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Local/scratch files
+*.local.md
+scratchpad.txt
+*.log
+
+# Environment
+.env
+.env.*
