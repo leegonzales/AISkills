@@ -2,7 +2,7 @@
 
 System prompt for generating branded presentation slides with consistent visual identity for Catalyst AI Services decks, pitches, and workshops.
 
-## Brand Identity: Sage & Sand
+## Brand Identity: Calm Luxury
 
 **Positioning:** Calm authority, approachable expertise
 **Voice:** Purposeful, strategic, transformation-focused, precision-minded
@@ -20,7 +20,19 @@ Use this prompt when creating:
 
 ## Brand Color System
 
-### Primary Palette
+**Ask which palette to use when generating slides.**
+
+### Option 1: Calm Luxury (Default)
+
+| Role | Color | Hex | Usage |
+|------|-------|-----|-------|
+| **Primary** | Teal | `#557373` | Headers, key visuals, accent shapes |
+| **Secondary** | Soft Blue Gray | `#DFE5F3` | Content panels, subtle backgrounds |
+| **Dark Accent** | Deep Olive | `#272401` | Key callouts, emphasis, dark sections |
+| **Neutral Dark** | Near Black | `#0D0D0D` | Body text, labels |
+| **Neutral Light** | Warm Cream | `#F2EFEA` | Slide background |
+
+### Option 2: Sage & Sand
 
 | Role | Color | Hex | Usage |
 |------|-------|-----|-------|
@@ -30,14 +42,14 @@ Use this prompt when creating:
 | **Neutral Dark** | Charcoal | `#3D3D3D` | Body text, labels |
 | **Neutral Light** | Warm White | `#FAF8F5` | Slide background |
 
-### Slide-Specific Colors
+### Slide-Specific Colors (adapt to chosen palette)
 
-| Purpose | Color | Hex | Usage |
-|---------|-------|-----|-------|
-| Section divider bg | Sage Green | `#6B8E6B` | Full-bleed section breaks |
-| Content panel | Warm Sand | `#D4C4A8` | 30-50% opacity for content areas |
-| Emphasis block | Terracotta Light | `#D99A7A` | Quote backgrounds, key stats |
-| Dark slide bg | Charcoal | `#3D3D3D` | Dramatic/title slides (inverted) |
+| Purpose | Calm Luxury | Sage & Sand |
+|---------|-------------|-------------|
+| Section divider bg | Teal `#557373` | Sage Green `#6B8E6B` |
+| Content panel | Soft Blue Gray `#DFE5F3` | Warm Sand `#D4C4A8` |
+| Emphasis block | Deep Olive `#272401` | Terracotta `#C4785A` |
+| Dark slide bg | Near Black `#0D0D0D` | Charcoal `#3D3D3D` |
 
 ## System Prompt
 
@@ -59,20 +71,29 @@ Slide design philosophy
 - White space is strategic
 - Every element earns its place
 
-Color system (strict)
-Primary colors:
-- Sage Green (#6B8E6B): Headers, key visuals, accent shapes, section dividers
-- Warm Sand (#D4C4A8): Content panels (30-50% opacity), subtle backgrounds
-- Terracotta (#C4785A): Key callouts, stats, emphasis (1-2 elements per slide max)
-- Charcoal (#3D3D3D): Body text, labels, secondary elements
-- Warm White (#FAF8F5): Primary slide background
+Color system (strict) - Use the specified palette
+Two palette options available - user specifies which:
 
-Color application by slide type:
-- Title slides: Sage Green header, Warm White background, optional Sand accent shape
-- Content slides: Charcoal text, Sand panels for grouping, Sage icons
-- Section dividers: Full Sage Green background, white text
-- Quote/stat slides: Terracotta accent, large typography
-- Dark dramatic slides: Charcoal background, white/Sand text (use sparingly)
+CALM LUXURY (default):
+- Primary: Teal (#557373) - headers, key visuals, section dividers
+- Secondary: Soft Blue Gray (#DFE5F3) - content panels, backgrounds
+- Dark Accent: Deep Olive (#272401) - emphasis, key callouts (sparingly)
+- Text: Near Black (#0D0D0D) - body text, labels
+- Background: Warm Cream (#F2EFEA) - slide background
+
+SAGE & SAND:
+- Primary: Sage Green (#6B8E6B) - headers, key visuals, section dividers
+- Secondary: Warm Sand (#D4C4A8) - content panels, backgrounds
+- Accent: Terracotta (#C4785A) - key callouts, emphasis (sparingly)
+- Text: Charcoal (#3D3D3D) - body text, labels
+- Background: Warm White (#FAF8F5) - slide background
+
+Color application (adapt colors to chosen palette):
+- Title slides: Primary color header, light background, optional secondary accent shape
+- Content slides: Dark text, secondary panels for grouping, primary icons
+- Section dividers: Full primary color background, white text
+- Quote/stat slides: Accent/dark accent, large typography
+- Dark dramatic slides: Dark background, white/light text (use sparingly)
 
 Typography hierarchy
 Slide title (H1):
@@ -397,6 +418,8 @@ Placeholders
 
 ## Integration with Nano Banana Pro
 
+### Step 1: Generate the slide
+
 ```
 gemini_generate_image(
   prompt="[System prompt above] + Content: 'Title slide for AI Strategy Workshop - Executive Leadership Team - March 2026' + Slide type: title + Context: workshop",
@@ -405,6 +428,28 @@ gemini_generate_image(
   imageSize="4K"
 )
 ```
+
+### Step 2: Add Catalyst AI branding (Post-Processing)
+
+After generating the slide, add the Catalyst AI watermark using ImageMagick:
+
+```bash
+# Recommended: ImageMagick for pixel-perfect logo
+magick /path/to/generated-slide.png \
+  \( /path/to/assets/catalyst-watermark-logo.png -resize 5% -alpha set -channel A -evaluate multiply 0.85 +channel \) \
+  -gravity SouthEast -geometry +25+25 -composite \
+  /path/to/output-branded.png
+```
+
+**Fallback (if ImageMagick unavailable):**
+```
+gemini_edit_image(
+  imagePath="[path to generated slide]",
+  instructions="Add Catalyst AI Services branding in the bottom right corner: a tiny circular badge (4-5% of slide width) with '© CATALYST AI' curved at top, 'SERVICES' curved at bottom, and a cute robot waving in the center (black line art). Subtle, 85% opacity, small margin from edge."
+)
+```
+
+**Logo asset:** `assets/catalyst-watermark-logo.png` - circular badge with © symbol incorporated.
 
 ## Deck Flow Template
 

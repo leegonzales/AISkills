@@ -2,7 +2,7 @@
 
 System prompt for generating branded infographics with consistent visual identity for Catalyst AI Services content (Substack, presentations, social media).
 
-## Brand Identity: Sage & Sand
+## Brand Identity: Calm Luxury
 
 **Positioning:** Calm authority, approachable expertise
 **Voice:** Purposeful, strategic, transformation-focused, precision-minded
@@ -20,50 +20,51 @@ Use this prompt when creating:
 
 ## Brand Color System
 
-### Primary Palette
+**Ask which palette to use when generating infographics.**
 
-| Role | Color | Hex | RGB | Usage |
-|------|-------|-----|-----|-------|
-| **Primary** | Sage Green | `#6B8E6B` | 107, 142, 107 | Headers, key elements, primary icons, section dividers |
-| **Secondary** | Warm Sand | `#D4C4A8` | 212, 196, 168 | Container backgrounds, panel fills, subtle highlights |
-| **Accent** | Terracotta | `#C4785A` | 196, 120, 90 | CTAs, emphasis points, key callouts, data highlights |
-| **Neutral Dark** | Charcoal | `#3D3D3D` | 61, 61, 61 | Body text, labels, secondary elements |
-| **Neutral Light** | Warm White | `#FAF8F5` | 250, 248, 245 | Page background, open space |
+### Option 1: Calm Luxury (Default)
 
-### Extended Palette (for data visualization)
+| Role | Color | Hex | Usage |
+|------|-------|-----|-------|
+| **Primary** | Teal | `#557373` | Headers, key elements, primary icons |
+| **Secondary** | Soft Blue Gray | `#DFE5F3` | Container backgrounds, panel fills |
+| **Dark Accent** | Deep Olive | `#272401` | Emphasis, key callouts (sparingly) |
+| **Neutral Dark** | Near Black | `#0D0D0D` | Body text, labels |
+| **Neutral Light** | Warm Cream | `#F2EFEA` | Page background, open space |
 
-| Purpose | Color | Hex | Usage |
-|---------|-------|-----|-------|
-| Sage Light | `#8FB08F` | Charts, secondary data series |
-| Sage Dark | `#4A6B4A` | Emphasis in data, dark mode elements |
-| Sand Light | `#E8DCC8` | Subtle backgrounds, hover states |
-| Sand Dark | `#B8A888` | Borders, divider lines |
-| Terracotta Light | `#D99A7A` | Secondary highlights |
-| Terracotta Dark | `#A45A3A` | Strong emphasis, warnings |
+### Option 2: Sage & Sand
 
-### Color Usage Rules
+| Role | Color | Hex | Usage |
+|------|-------|-----|-------|
+| **Primary** | Sage Green | `#6B8E6B` | Headers, key elements, primary icons |
+| **Secondary** | Warm Sand | `#D4C4A8` | Container backgrounds, panel fills |
+| **Accent** | Terracotta | `#C4785A` | CTAs, emphasis, key callouts |
+| **Neutral Dark** | Charcoal | `#3D3D3D` | Body text, labels |
+| **Neutral Light** | Warm White | `#FAF8F5` | Page background, open space |
 
-1. **Sage Green dominates key elements** (40% of color usage)
+### Color Usage Rules (adapt to chosen palette)
+
+1. **Primary color dominates key elements** (40% of color usage)
    - All primary headers and section titles
    - Primary icons and visual anchors
    - Key data points and highlights
 
-2. **Warm Sand supports structure** (35% of color usage)
+2. **Secondary color supports structure** (35% of color usage)
    - Container and card backgrounds
    - Panel fills and content areas
    - Subtle dividers and spacing elements
 
-3. **Terracotta accents sparingly** (15% of color usage)
-   - Maximum 2-3 terracotta elements per graphic
+3. **Accent/dark accent sparingly** (15% of color usage)
+   - Maximum 2-3 accent elements per graphic
    - Reserved for: CTAs, key insights, "aha" moments
    - Never used for body text or large areas
 
-4. **Charcoal for readability** (10% of color usage)
+4. **Dark neutral for readability** (10% of color usage)
    - All body text and labels
    - Secondary icons and details
    - Fine lines and subtle elements
 
-5. **Warm White as breathing room**
+5. **Light neutral as breathing room**
    - Background and negative space
    - Never fill entire background with color
    - Minimum 25% white space in any composition
@@ -81,20 +82,29 @@ Brand context
 - Tone: Purposeful, strategic, transformative, precise yet approachable
 - Aesthetic: Clean modern with warm organic accents
 
-Color system (strict)
-Primary colors:
-- Sage Green (#6B8E6B): Headers, key elements, primary icons
-- Warm Sand (#D4C4A8): Container backgrounds, panels, fills
-- Terracotta (#C4785A): Accent only - CTAs, emphasis, key callouts (use sparingly)
-- Charcoal (#3D3D3D): Body text, labels
-- Warm White (#FAF8F5): Background, negative space
+Color system (strict) - Use the specified palette
+Two palette options available - user specifies which:
 
-Color rules:
-- Sage Green is the dominant brand color (headers, icons, key visuals)
-- Warm Sand for containers and structural backgrounds
-- Terracotta maximum 2-3 elements per graphic (emphasis only)
-- Never use pure black or pure white
-- Maintain warm undertone throughout
+CALM LUXURY (default):
+- Primary: Teal (#557373) - headers, key elements, icons
+- Secondary: Soft Blue Gray (#DFE5F3) - containers, panels, backgrounds
+- Dark Accent: Deep Olive (#272401) - emphasis, key callouts (sparingly)
+- Text: Near Black (#0D0D0D) - body text, labels
+- Background: Warm Cream (#F2EFEA) - page background, negative space
+
+SAGE & SAND:
+- Primary: Sage Green (#6B8E6B) - headers, key elements, icons
+- Secondary: Warm Sand (#D4C4A8) - containers, panels, backgrounds
+- Accent: Terracotta (#C4785A) - emphasis, key callouts (sparingly)
+- Text: Charcoal (#3D3D3D) - body text, labels
+- Background: Warm White (#FAF8F5) - page background, negative space
+
+Color rules (apply to chosen palette):
+- Primary color is dominant (headers, icons, key visuals)
+- Secondary for containers and structural backgrounds
+- Accent maximum 2-3 elements per graphic (emphasis only)
+- Never use pure black (#000000) or pure white (#FFFFFF)
+- Maintain consistent undertone throughout
 - Ensure sufficient contrast for accessibility (4.5:1 minimum for text)
 
 Typography system
@@ -273,6 +283,37 @@ Placeholders
 - Aspect ratio: {{ASPECT_RATIO}} (16:9, 1:1, 4:5, 2:3)
 ```
 
+## Prompting Philosophy: Let the Model Compose
+
+**Key insight:** Generative image models perform better when given conceptual direction rather than pixel-level prescriptions.
+
+### What to Specify
+- **Content:** The information/concept to visualize
+- **Palette:** Which color option (Calm Luxury or Sage & Sand)
+- **Tone:** The feeling (professional, approachable, bold)
+- **Format:** Aspect ratio and intended use
+- **Relationships:** How elements relate (X synthesizes Y, A leads to B)
+
+### What to Leave to the Model
+- Layout and element placement
+- Exact proportions and spacing
+- Decorative elements and visual flourishes
+- Typography choices within the brand aesthetic
+- How to create visual hierarchy
+
+### Example Contrast
+
+❌ **Over-prescribed (worse results):**
+> "Create a 16:9 infographic with title centered at top in 48pt Teal text, 6 boxes arranged in 2 rows of 3 columns, each box 200px wide with 8px rounded corners, icons 40px inside each box..."
+
+✅ **Conceptual + constrained (better results):**
+> "Infographic: '6 Dimensions of Writing Quality' - Craft, Coherence, Authority, Purpose, Voice, and Effectiveness (which synthesizes the other five). Calm Luxury palette. Professional, clean, generous white space. The relationship between dimensions should be visually clear."
+
+### Why This Works
+The model has internalized millions of well-designed compositions. Over-specifying fights its natural instincts. Your job is to provide the *what* and *why*; let the model figure out the *how*.
+
+---
+
 ## Usage Examples
 
 ### Substack Article Header
@@ -309,6 +350,8 @@ Placeholders
 
 ## Integration with Nano Banana Pro
 
+### Step 1: Generate the infographic
+
 ```
 gemini_generate_image(
   prompt="[System prompt above] + Content: '3 Pillars of AI Readiness: People, Process, Technology - with brief descriptions for each' + Format: linkedin + Aspect ratio: 1:1",
@@ -317,6 +360,28 @@ gemini_generate_image(
   imageSize="4K"
 )
 ```
+
+### Step 2: Add Catalyst AI branding (Post-Processing)
+
+After generating the infographic, add the Catalyst AI watermark using ImageMagick:
+
+```bash
+# Recommended: ImageMagick for pixel-perfect logo
+magick /path/to/generated-infographic.png \
+  \( /path/to/assets/catalyst-watermark-logo.png -resize 5% -alpha set -channel A -evaluate multiply 0.85 +channel \) \
+  -gravity SouthEast -geometry +25+25 -composite \
+  /path/to/output-branded.png
+```
+
+**Fallback (if ImageMagick unavailable):**
+```
+gemini_edit_image(
+  imagePath="[path to generated infographic]",
+  instructions="Add Catalyst AI Services branding in the bottom right corner: a tiny circular badge (4-5% of image width) with '© CATALYST AI' curved at top, 'SERVICES' curved at bottom, and a cute robot waving in the center (black line art). Subtle, 85% opacity, small margin from edge."
+)
+```
+
+**Logo asset:** `assets/catalyst-watermark-logo.png` - circular badge with © symbol incorporated.
 
 ## Brand Consistency Checklist
 

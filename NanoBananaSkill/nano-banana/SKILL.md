@@ -105,6 +105,21 @@ Once MCP is configured, these tools become available:
 | **Character Consistency** | Maintain same character across 5+ images |
 | **Google Search Grounding** | Real-world accurate imagery |
 
+## Critical Limitations
+
+### Logos and Text Cannot Be Generated Reliably
+
+Generative models **cannot** reliably render specific logos, watermarks, or legible text. Attempting to do so will produce distorted, incorrect, or garbled results.
+
+**Correct Workflow for Branded Content:**
+1. **Designate Space:** In your prompt, specify a location for the logo (e.g., "...with clean empty space in the bottom-right corner")
+2. **Generate Image:** Generate the image without any logo or text
+3. **Overlay Manually:** Use an image editor (PowerPoint, Keynote, Canva, Figma) to place the official logo file onto the generated image
+
+This is the only way to ensure brand consistency. The watermark workflow documented below attempts to have Gemini recreate the logo from description—results will vary and may require manual correction.
+
+---
+
 ## Prompting Best Practices
 
 ### Structure Your Prompts
@@ -122,6 +137,34 @@ Once MCP is configured, these tools become available:
 2. **Specify Style** - "photorealistic", "oil painting", "3D render", "anime"
 3. **Add Context** - Time of day, weather, setting
 4. **Request Resolution** - "4K", "high resolution", "detailed"
+
+### Use Negative Prompts
+
+Tell the model what to **exclude** for better results. Add to your prompt:
+
+> "...Avoid: [unwanted elements]"
+
+**Common negative prompts:**
+- **For cleaner images:** "Avoid: text, words, logos, watermarks, signatures"
+- **For better quality:** "Avoid: blurry, low resolution, pixelated, grainy"
+- **For realistic people:** "Avoid: deformed hands, extra fingers, distorted faces"
+- **For professional look:** "Avoid: cartoonish, amateur, clipart style"
+
+**Example with negative prompt:**
+> "A professional headshot of a business executive in a modern office, natural lighting, shallow depth of field. Avoid: text, logos, deformed features, overly stylized"
+
+### Specify Aspect Ratio
+
+Match aspect ratio to your use case:
+
+| Ratio | Use Case |
+|-------|----------|
+| `16:9` | Slides, presentations, widescreen |
+| `1:1` | Social media, profile images |
+| `9:16` | Stories, mobile-first, vertical video |
+| `4:3` | Traditional presentations |
+| `3:2` | Photography, print |
+| `2:3` | Vertical infographics, posters |
 
 ## Precision Mode (JSON Prompting)
 
@@ -251,6 +294,140 @@ Naming format: `generated-[timestamp]-[id].png`
 | `gemini-3-pro-image-preview` | Slower | Highest (4K) | Higher | Final assets, print, marketing |
 | `gemini-2.0-flash-exp` | Fast | Good | Lower | Prototyping, iteration, drafts |
 
+## Prompting Philosophy: Conceptual Over Prescriptive
+
+**Core insight:** Image models perform better with conceptual guidance than pixel-level prescriptions.
+
+### What to Specify
+- **Subject:** What/who is in the image
+- **Concept:** The idea or feeling to convey
+- **Style:** Aesthetic direction (photographic, illustration, etc.)
+- **Mood:** The emotional tone
+- **Constraints:** Color palette, format, what to avoid
+
+### What to Let the Model Decide
+- Exact composition and framing
+- Element placement and proportions
+- Decorative details
+- How to achieve visual hierarchy
+
+### Example
+
+❌ **Over-prescribed (fights the model):**
+> "Create an image with a woman in the exact center, standing at a 15-degree angle, with a window to her left taking up 30% of the frame, warm light at 45 degrees from upper right..."
+
+✅ **Conceptual (lets the model compose):**
+> "Professional woman in a modern office at golden hour. Contemplative mood, success and ambition. Natural warmth, depth through foreground/background blur."
+
+### Why This Works
+The model has internalized millions of well-composed images. Over-specifying fights its compositional instincts. Provide the *what* and *why*; let it figure out the *how*.
+
+---
+
+## Advanced Techniques
+
+### Shot Types (Photographic Control)
+
+Use photography terms for precise framing:
+
+| Shot Type | Effect |
+|-----------|--------|
+| `macro shot` | Extreme close-up, fine details |
+| `wide angle shot` | Expansive view, dramatic perspective |
+| `aerial view` / `drone shot` | Top-down perspective |
+| `low-angle shot` | Looking up, imposing feel |
+| `portrait framing` | Head/shoulders, subject focus |
+| `dutch angle` | Tilted, dynamic tension |
+
+### Reference Artistic Styles
+
+Guide the model with style references:
+
+> "...in the style of Ansel Adams" (dramatic B&W landscapes)
+> "...as a ukiyo-e woodblock print" (Japanese art)
+> "...bauhaus design aesthetic" (geometric, modernist)
+> "...vaporwave aesthetic" (80s retrowave)
+> "...Studio Ghibli animation style" (anime, painterly)
+
+### Lighting Control
+
+Specify lighting for mood and dimension:
+
+| Lighting | Effect |
+|----------|--------|
+| `golden hour` | Warm, soft, magical |
+| `harsh midday sun` | High contrast, strong shadows |
+| `overcast / diffused` | Soft, even, no harsh shadows |
+| `rim lighting` | Edge glow, dramatic separation |
+| `studio lighting` | Professional, controlled |
+| `neon lighting` | Cyberpunk, vibrant colors |
+
+### Iteration Strategy
+
+1. **Start simple** - Subject + style only
+2. **Generate 2-3 versions** - Assess what works
+3. **Add one element at a time** - Lighting, then props, then environment
+4. **Use continue_editing** - Refine incrementally
+5. **Save good seeds** - If model provides seed, reuse for variations
+
+---
+
+## Common Pitfalls
+
+### The Uncanny Valley
+
+**Problem:** Photorealistic people with strange faces or deformed hands
+
+**Solutions:**
+- Use illustration styles instead: `vector art`, `3D render`, `anime style`
+- Add to negative prompt: "Avoid: deformed hands, extra fingers, distorted faces"
+- Crop or frame to avoid hands when possible
+
+### Starting Too Complex
+
+**Problem:** Long, detailed prompts produce confused results
+
+**Solution:** Build iteratively:
+```
+❌ Bad: "A professional woman with red hair in a blue suit standing in a modern office
+with glass walls and city views at sunset with warm lighting and bokeh..."
+
+✅ Better:
+1. First: "Professional woman, business portrait, studio lighting"
+2. Then add: "...in modern office environment"
+3. Then add: "...warm sunset lighting through windows"
+```
+
+### Expecting Readable Text
+
+**Problem:** Generated text is gibberish or distorted
+
+**Solution:** Never rely on generated text. Either:
+- Design the image without text
+- Leave space and add text in an editor afterward
+- Use the image as a background and overlay text
+
+### Color Drift in Branded Content
+
+**Problem:** Brand colors come out slightly different
+
+**Solutions:**
+- Include hex codes in prompt: "using teal (#557373) as the primary color"
+- Accept minor drift and correct in post-processing
+- For exact colors, use solid color backgrounds and composite
+
+### Inconsistent Characters
+
+**Problem:** Same character looks different across images
+
+**Solutions:**
+- Use `history:0` reference in subsequent prompts
+- Be extremely detailed in first character description
+- Include distinctive features: hair color, eye color, clothing, accessories
+- Consider illustration styles which are more consistent
+
+---
+
 ## Troubleshooting
 
 | Issue | Solution |
@@ -289,3 +466,122 @@ Works well with:
 
 - `references/branded-infographic-catalyst.md` - Catalyst AI Services infographics (Sage & Sand)
 - `references/branded-slides-catalyst.md` - Catalyst AI Services presentation slides
+
+## Catalyst AI Branding (Post-Processing)
+
+Add Catalyst AI branding to ANY generated image.
+
+### When to Use
+
+**Only apply branding when explicitly requested.** Trigger phrases:
+- "Add Catalyst branding"
+- "Brand this image"
+- "Add the logo"
+- "Make this a Catalyst image"
+
+**Do NOT** automatically add branding to every generated image. Wait for user to request it.
+
+### Logo Assets
+
+Located in `assets/`:
+- `catalyst-watermark-logo.png` - **Primary watermark** - circular badge with "CATALYST AI / SERVICES" and waving robot
+- `catalyst-logo-transparent.png` - Full wordmark logo with tagline (for headers)
+- `catalyst-logo-compact.png` - Wordmark only, no tagline (alternate)
+
+### Workflow Options
+
+#### Option A: ImageMagick Composite (Recommended - Exact Logo)
+
+Use command-line tools to overlay the actual logo file. This produces pixel-perfect results.
+
+**Step 1: Generate the base image**
+```
+gemini_generate_image(prompt="Your image description...")
+```
+
+**Step 2: Composite logo with ImageMagick**
+```bash
+# Add branded logo to lower-right corner
+magick /path/to/generated-image.png \
+  \( /path/to/assets/catalyst-watermark-logo.png -resize 5% -alpha set -channel A -evaluate multiply 0.85 +channel \) \
+  -gravity SouthEast -geometry +25+25 -composite \
+  /path/to/output-branded.png
+```
+
+**Parameters explained:**
+- `-resize 5%`: Logo at 5% of image width (subtle but visible)
+- `-evaluate multiply 0.85`: 85% opacity for subtlety
+- `-gravity SouthEast`: Logo in bottom-right corner
+- `-geometry +25+25`: Margin from edge
+
+#### Option B: Gemini Recreation (Fallback - Approximate)
+
+If ImageMagick is unavailable, Gemini can attempt to recreate the logo. **Results will vary** - the logo may be distorted or incorrect.
+
+```
+gemini_edit_image(
+  imagePath="[path to generated image]",
+  instructions="Add Catalyst AI Services branding in the BOTTOM RIGHT corner: a tiny circular badge (about 4-5% of image width) with '© CATALYST AI' curved at top (including copyright symbol), 'SERVICES' curved at bottom, and a cute robot waving in the center (black line art). The badge should be subtle, semi-transparent (85% opacity), positioned in the lower right with a small margin. Do not obscure important content."
+)
+```
+
+> **Warning:** Option B is unreliable. AI models cannot consistently render specific logos or text. Use Option A for professional results.
+
+### Branding Layout
+
+| Element | Position | Size/Style |
+|---------|----------|------------|
+| **Logo badge** | Bottom-right corner | 5% of image width, 85% opacity |
+
+The logo includes the © symbol, so no separate copyright text is needed.
+
+### Example
+
+```
+# 1. Generate an infographic
+gemini_generate_image(
+  prompt="A clean infographic showing 5 steps of AI implementation...",
+  aspectRatio="4:3",
+  imageSize="4K"
+)
+
+# 2. Add Catalyst branding
+gemini_edit_image(
+  imagePath="/Users/.../generated-xyz.png",
+  instructions="Add a small Catalyst AI Services watermark in the lower right corner: 1) Tiny circular badge (3-4% width) with 'CATALYST AI' at top, 'SERVICES' at bottom, robot waving in center. 2) '© Catalyst AI Services' in small text below. Subtle, 80% opacity, bottom right with margin."
+)
+```
+
+### Brand Color Palettes
+
+**When generating branded Catalyst content, ask which palette to use:**
+
+#### Option 1: Calm Luxury (Default)
+
+**Use for:** Corporate messaging, financial topics, technology showcases, premium/sophisticated concepts
+**Vibe:** Professional, elegant, authoritative, clean
+
+| Role | Color | Hex |
+|------|-------|-----|
+| **Primary** | Teal | `#557373` |
+| **Light Background** | Soft Blue Gray | `#DFE5F3` |
+| **Dark Accent** | Deep Olive | `#272401` |
+| **Page Background** | Warm Cream | `#F2EFEA` |
+| **Text/Dark** | Near Black | `#0D0D0D` |
+
+#### Option 2: Sage & Sand
+
+**Use for:** Wellness, sustainability, human-centric stories, growth, organic concepts
+**Vibe:** Grounded, calming, natural, approachable
+
+| Role | Color | Hex |
+|------|-------|-----|
+| **Primary** | Sage Green | `#6B8E6B` |
+| **Secondary** | Warm Sand | `#D4C4A8` |
+| **Accent** | Terracotta | `#C4785A` |
+| **Neutral Dark** | Charcoal | `#3D3D3D` |
+| **Neutral Light** | Warm White | `#FAF8F5` |
+
+**Note on Color Accuracy:** The model may generate shades that are close but not exact. For 100% brand-perfect colors, minor correction in a photo editor may be required.
+
+For dark backgrounds: Use white/light version of watermark for visibility
