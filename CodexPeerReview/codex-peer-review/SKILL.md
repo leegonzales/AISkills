@@ -409,8 +409,8 @@ Load `references/codex-commands.md` for complete command documentation.
 
 | Use Case | Command Pattern | Notes |
 |----------|----------------|-------|
-| Architecture review | `codex exec "[context]"` | Non-interactive mode |
-| Security analysis | `codex exec "Security: [code]"` | Non-interactive mode |
+| Architecture review | `codex exec "[context]"` | For complex, non-interactive analysis |
+| Security analysis | `codex exec "Security: [code]"` | Use `Security:` prefix for focused review |
 | Review with diagram | `codex --image diagram.png "[question]"` | `--image` for visual context |
 | Implementation suggestions | `codex --full-auto "[context]"` | `--full-auto` for unattended |
 | Quick validation | `codex "[question]"` | Interactive mode |
@@ -610,22 +610,23 @@ brew upgrade codex
 # Edit ~/.codex/config.toml and set model = "[latest-model]"
 ```
 
-### Current Latest Models (as of December 2025)
+### Current Latest Models (as of January 2026)
 
 | Model | Use Case | Model ID |
 |-------|----------|----------|
-| **GPT-5.1-Codex-Max** | Complex reasoning, architecture, multi-window context (default) | `gpt-5.1-codex-max` |
+| **GPT-5.2-Codex** | Latest model with improved reasoning (current default) | `gpt-5.2-codex` |
+| **GPT-5.1-Codex-Max** | Complex reasoning, architecture, multi-window context | `gpt-5.1-codex-max` |
 | **GPT-5.1-Codex** | Standard analysis, faster response | `gpt-5.1-codex` |
 
 ### Model Selection
 
-Codex automatically uses the best available model for your account. You can verify your current model with:
+Codex uses the best available model for your account by default. You can verify your current model with:
 
 ```bash
 codex /status
 ```
 
-The model is configured in `~/.codex/config.toml` and is automatically updated as new models become available.
+You can optionally override the model in `~/.codex/config.toml`. As new models become available, you may need to update this setting to use them.
 
 ### New Features (CLI v0.65.0+)
 
@@ -668,7 +669,7 @@ If using an older model (e.g., `codex-1` or `gpt-4-*`), update before proceeding
 **Optional configuration in `~/.codex/config.toml`:**
 
 ```toml
-# Model (Codex auto-selects best available for your account)
+# Model (optional - Codex auto-selects best available by default)
 # Check current model with: codex /status
 model = "gpt-5.2-codex"
 
