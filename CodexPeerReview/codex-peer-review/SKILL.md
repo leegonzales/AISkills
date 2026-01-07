@@ -414,7 +414,7 @@ Load `references/codex-commands.md` for complete command documentation.
 | Review with diagram | `codex --image diagram.png "[question]"` | `--image` for visual context |
 | Implementation suggestions | `codex --full-auto "[context]"` | `--full-auto` for unattended |
 | Quick validation | `codex "[question]"` | Interactive mode |
-| Resume analysis | `codex /resume` | Continue previous session |
+| Resume analysis | `codex resume --last` | Continue previous session |
 
 **Non-interactive review (recommended for automation):**
 ```bash
@@ -574,7 +574,7 @@ codex auth api-key [your-api-key]
 codex --version
 
 # Check authentication
-codex /status
+codex login status
 ```
 
 ---
@@ -590,8 +590,8 @@ codex /status
 # Check CLI version
 codex --version
 
-# Check current model in config
-codex /status
+# Check current model (launch codex and type /status, or check ~/.codex/config.toml)
+cat ~/.codex/config.toml | grep model
 ```
 
 **Step 2: Web search for latest available models**
@@ -620,17 +620,15 @@ brew upgrade codex
 
 ### Model Selection
 
-Codex uses the best available model for your account by default. You can verify your current model with:
-
-```bash
-codex /status
-```
+Codex uses the best available model for your account by default. You can verify your current model by:
+- Launching `codex` and typing `/status` in the interactive session
+- Checking your config: `cat ~/.codex/config.toml | grep model`
 
 You can optionally override the model in `~/.codex/config.toml`. As new models become available, you may need to update this setting to use them.
 
 ### New Features (CLI v0.65.0+)
 
-- **`/resume` command**: Resume previous analysis sessions for continuity
+- **`codex resume` command**: Resume previous analysis sessions for continuity
 - **Codex Max as default**: Best model now default for signed-in users
 - **Extended context**: Process millions of tokens in single task via compaction
 - **Enhanced markdown tooltips**: Better formatted output
@@ -648,8 +646,8 @@ You can optionally override the model in `~/.codex/config.toml`. As new models b
 Add this check to the beginning of any peer review workflow:
 
 ```bash
-# Check Codex version and model
-codex --version && codex /status
+# Check Codex version and auth
+codex --version && codex login status
 ```
 
 If using an older model (e.g., `codex-1` or `gpt-4-*`), update before proceeding.
@@ -670,7 +668,7 @@ If using an older model (e.g., `codex-1` or `gpt-4-*`), update before proceeding
 
 ```toml
 # Model (optional - Codex auto-selects best available by default)
-# Check current model with: codex /status
+# Check current model with: /status in interactive mode
 model = "gpt-5.2-codex"
 
 # Approval mode (suggest|auto|on-failure)
