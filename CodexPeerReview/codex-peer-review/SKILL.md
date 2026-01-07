@@ -407,22 +407,22 @@ Load `references/codex-commands.md` for complete command documentation.
 
 **Quick reference:**
 
-| Use Case | Command Pattern | Flags |
+| Use Case | Command Pattern | Notes |
 |----------|----------------|-------|
-| Architecture review | `codex --reasoning high exec "[context]"` | `--reasoning high` for complex analysis |
-| Security analysis | `codex --reasoning xhigh exec "Security: [code]"` | `--reasoning xhigh` for critical security |
+| Architecture review | `codex exec "[context]"` | Non-interactive mode |
+| Security analysis | `codex exec "Security: [code]"` | Non-interactive mode |
 | Review with diagram | `codex --image diagram.png "[question]"` | `--image` for visual context |
 | Implementation suggestions | `codex --full-auto "[context]"` | `--full-auto` for unattended |
 | Quick validation | `codex "[question]"` | Interactive mode |
 | Resume analysis | `codex /resume` | Continue previous session |
 
-**Reasoning effort flags for peer review:**
+**Non-interactive review (recommended for automation):**
 ```bash
-# For architectural decisions (recommended)
-codex --reasoning high exec "[context]"
+# For architectural decisions
+codex exec "[context]"
 
-# For security-critical code (maximum reasoning)
-codex --reasoning xhigh exec "[context]"
+# For security-critical code
+codex exec "Security: [context and code]"
 ```
 
 ---
@@ -617,18 +617,15 @@ brew upgrade codex
 | **GPT-5.1-Codex-Max** | Complex reasoning, architecture, multi-window context (default) | `gpt-5.1-codex-max` |
 | **GPT-5.1-Codex** | Standard analysis, faster response | `gpt-5.1-codex` |
 
-### Reasoning Effort Levels
+### Model Selection
 
-Codex supports different reasoning effort levels for different task complexity:
+Codex automatically uses the best available model for your account. You can verify your current model with:
 
-| Level | Use Case | Flag |
-|-------|----------|------|
-| `low` | Simple queries, quick checks | `--reasoning low` |
-| `medium` | Daily driver, most tasks | `--reasoning medium` |
-| `high` | Complex architecture, security review | `--reasoning high` |
-| `xhigh` | Maximum reasoning, critical decisions | `--reasoning xhigh` |
+```bash
+codex /status
+```
 
-**For peer review, use `high` or `xhigh` for best results.**
+The model is configured in `~/.codex/config.toml` and is automatically updated as new models become available.
 
 ### New Features (CLI v0.65.0+)
 
@@ -671,23 +668,18 @@ If using an older model (e.g., `codex-1` or `gpt-4-*`), update before proceeding
 **Optional configuration in `~/.codex/config.toml`:**
 
 ```toml
-# Default model (always use latest - gpt-5.1-codex-max as of Dec 2025)
-model = "gpt-5.1-codex-max"
+# Model (Codex auto-selects best available for your account)
+# Check current model with: codex /status
+model = "gpt-5.2-codex"
 
 # Approval mode (suggest|auto|on-failure)
 ask_for_approval = "suggest"
 
 # Sandbox mode (none|workspace-read|workspace-write)
 sandbox = "workspace-read"
-
-# Reasoning effort (low|medium|high|xhigh)
-# Use xhigh for complex analysis, medium for daily tasks
-reasoning_effort = "high"
 ```
 
 **For peer review, recommended settings:**
-- `model = "gpt-5.1-codex-max"` for best reasoning
-- `reasoning_effort = "high"` or `"xhigh"` for complex architecture
 - `sandbox = "workspace-read"` for read-only safety
 - `ask_for_approval = "suggest"` for transparency
 
@@ -737,7 +729,7 @@ reasoning_effort = "high"
 
 **Invoke peer review:**
 ```bash
-codex --reasoning xhigh exec "Review multi-tenant SaaS architecture decision:
+codex exec "Review multi-tenant SaaS architecture decision:
 
 CONTEXT:
 - B2B SaaS with 100-500 tenants expected
@@ -753,8 +745,6 @@ B) Shared database with row-level security (RLS)
 QUESTION:
 Analyze trade-offs for scalability, operational complexity, data isolation, and cost. Which approach is recommended for this context?"
 ```
-
-*Note: Using `--reasoning xhigh` for maximum analysis on this high-stakes architectural decision.*
 
 **Synthesis:**
 Compare Claude's and Codex's trade-off analysis, extract key insights, present balanced recommendation.
