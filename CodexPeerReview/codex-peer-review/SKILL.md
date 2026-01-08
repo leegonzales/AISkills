@@ -170,28 +170,25 @@ Load `references/codex-commands.md` for complete command reference.
 
 **Non-interactive review (recommended):**
 ```bash
-codex exec "[prepared context and question]"
+cat <<'EOF' | codex exec
+[prepared context and question here]
+EOF
+```
+
+**Simple one-line review:**
+```bash
+codex exec "Review this code for security issues"
 ```
 
 **Architecture review with diagram:**
 ```bash
-codex --image architecture-diagram.png "Analyze this architecture: [question]"
-```
-
-**Security-focused review:**
-```bash
-codex exec "Security review focus: [context and code]"
-```
-
-**Full auto for implementation suggestions:**
-```bash
-codex --full-auto "Suggest improvements to: [context]"
+codex --image architecture-diagram.png "Analyze this architecture"
 ```
 
 **Key flags:**
-- `--full-auto`: Unattended mode with minimal prompts
-- `--image` / `-i`: Attach architecture diagrams or screenshots
 - `exec`: Non-interactive execution streaming to stdout
+- `--image` / `-i`: Attach architecture diagrams or screenshots
+- `--full-auto`: Unattended mode (use with caution)
 
 **Error handling:**
 - If Codex CLI not installed, inform user and provide installation instructions
@@ -407,22 +404,19 @@ Load `references/codex-commands.md` for complete command documentation.
 
 **Quick reference:**
 
-| Use Case | Command Pattern | Notes |
-|----------|----------------|-------|
-| Architecture review | `codex exec "[context]"` | For complex, non-interactive analysis |
-| Security analysis | `codex exec "Security: [code]"` | Use `Security:` prefix for focused review |
-| Review with diagram | `codex --image diagram.png "[question]"` | `--image` for visual context |
-| Implementation suggestions | `codex --full-auto "[context]"` | `--full-auto` for unattended |
-| Quick validation | `codex "[question]"` | Interactive mode |
-| Resume analysis | `codex resume --last` | Continue previous session |
+| Use Case | Command Pattern |
+|----------|----------------|
+| Simple review | `codex exec "Review this code"` |
+| Multi-line prompt | `cat <<'EOF' \| codex exec` ... `EOF` |
+| Review with diagram | `codex --image diagram.png "Analyze this"` |
+| Interactive mode | `codex "What do you think about..."` |
+| Resume session | `codex resume --last` |
 
 **Non-interactive review (recommended for automation):**
 ```bash
-# For architectural decisions
-codex exec "[context]"
-
-# For security-critical code
-codex exec "Security: [context and code]"
+cat <<'EOF' | codex exec
+[Your structured prompt here]
+EOF
 ```
 
 ---
@@ -579,75 +573,6 @@ codex login status
 
 ---
 
-## CRITICAL: Always Use Latest Model
-
-**Before invoking peer review, ALWAYS verify you're using the latest Codex model.**
-
-### Version Check Protocol
-
-**Step 1: Check current Codex CLI and model version**
-```bash
-# Check CLI version
-codex --version
-
-# Check current model (launch codex and type /status, or check ~/.codex/config.toml)
-cat ~/.codex/config.toml | grep model
-```
-
-**Step 2: Web search for latest available models**
-```
-WebSearch: "OpenAI Codex CLI latest model [current month year]"
-```
-
-**Step 3: Update if outdated**
-```bash
-# Update CLI to latest version
-npm update -g @openai/codex
-# or
-brew upgrade codex
-
-# Update model in config if needed
-# Edit ~/.codex/config.toml and set model = "[latest-model]"
-```
-
-### Model Selection
-
-**The Codex CLI automatically uses the latest and best available model for your account.** You don't need to specify a model - the CLI handles this for you.
-
-To verify your current model:
-- Launch `codex` and type `/status` in the interactive session
-- Or check: `cat ~/.codex/config.toml | grep model`
-
-**Do not hardcode model names in documentation or scripts** - they change frequently. Let the CLI default handle model selection.
-
-### New Features (CLI v0.65.0+)
-
-- **`codex resume` command**: Resume previous analysis sessions for continuity
-- **Codex Max as default**: Best model now default for signed-in users
-- **Extended context**: Process millions of tokens in single task via compaction
-- **Enhanced markdown tooltips**: Better formatted output
-
-### Why This Matters
-
-- Newer models have dramatically improved reasoning
-- GPT-5.1-Codex-Max can work across multiple context windows
-- Security analysis accuracy improves significantly
-- Outdated models may miss critical issues
-- **This skill is only as good as the model powering it**
-
-### Automated Version Check (Recommended)
-
-Add this check to the beginning of any peer review workflow:
-
-```bash
-# Check Codex version and auth
-codex --version && codex login status
-```
-
-If using an older model (e.g., `codex-1` or `gpt-4-*`), update before proceeding.
-
----
-
 **If Codex CLI is not available:**
 1. Inform user that peer review requires Codex CLI
 2. Provide installation instructions
@@ -661,10 +586,6 @@ If using an older model (e.g., `codex-1` or `gpt-4-*`), update before proceeding
 **Optional configuration in `~/.codex/config.toml`:**
 
 ```toml
-# Model (optional - Codex auto-selects best available by default)
-# Check current model with: /status in interactive mode
-model = "gpt-5.2-codex"
-
 # Approval mode (suggest|auto|on-failure)
 ask_for_approval = "suggest"
 
@@ -675,6 +596,8 @@ sandbox = "read-only"
 **For peer review, recommended settings:**
 - `sandbox = "read-only"` for read-only safety
 - `ask_for_approval = "suggest"` for transparency
+
+**Note:** Don't hardcode model names in config. Let Codex CLI use its default (latest) model.
 
 ---
 
@@ -722,7 +645,8 @@ sandbox = "read-only"
 
 **Invoke peer review:**
 ```bash
-codex exec "Review multi-tenant SaaS architecture decision:
+cat <<'EOF' | codex exec
+Review multi-tenant SaaS architecture decision:
 
 CONTEXT:
 - B2B SaaS with 100-500 tenants expected
@@ -736,7 +660,8 @@ A) Separate database per tenant
 B) Shared database with row-level security (RLS)
 
 QUESTION:
-Analyze trade-offs for scalability, operational complexity, data isolation, and cost. Which approach is recommended for this context?"
+Analyze trade-offs for scalability, operational complexity, data isolation, and cost. Which approach is recommended for this context?
+EOF
 ```
 
 **Synthesis:**

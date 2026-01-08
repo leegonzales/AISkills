@@ -261,34 +261,6 @@ Execute shell commands directly:
 
 ## Key Flags & Options
 
-### Model Selection
-
-```bash
-# ALWAYS use --model to ensure latest version
-# Use Pro model (best reasoning, complex tasks)
-gemini --model gemini-3.0-pro "prompt"
-
-# Use Flash model (fast, efficient, recommended)
-gemini --model gemini-3.0-flash "prompt"
-
-# Use Deep Think (multi-step reasoning, research-grade)
-gemini --model gemini-3.0-deep-think "prompt"
-
-# With piped heredoc
-cat <<'EOF' | gemini --model gemini-3.0-pro
-Your multi-line prompt here
-EOF
-```
-
-**Model Selection Guide:**
-- **Pro (gemini-3.0-pro):** Deep architectural analysis, complex security reviews
-- **Flash (gemini-3.0-flash):** Standard code reviews, performance analysis (recommended)
-- **Deep Think (gemini-3.0-deep-think):** Multi-step reasoning, research-grade analysis
-
-**IMPORTANT:** Always explicitly specify `--model gemini-3.0-*` to avoid falling back to older 2.5 models.
-
----
-
 ### Output Formats
 
 ```bash
@@ -378,102 +350,20 @@ gemini --config config.json "prompt"
 
 ---
 
-## Available Models
+## Model Selection
 
-### Gemini 3.0 Pro (`gemini-3.0-pro`)
+**Don't hardcode model names.** Let the Gemini CLI use its default (latest) model.
 
-**Context:** 1,048,576 input tokens / 65,536 output tokens
-**Inputs:** Audio, images, video, text, PDF
+The CLI automatically selects the best available model. Model names change frequently, so avoid specifying them in scripts or documentation.
 
-**Capabilities:**
-- Advanced reasoning and thinking
-- Code execution
-- Function calling
-- Structured outputs
-- Search grounding
-- Context caching
-- SWE-bench Verified: 78%+
-
-**Best For:**
-- Complex architectural analysis
-- Deep security reviews
-- Multi-step problem solving
-- Large codebase comprehension
-
-**Usage:**
 ```bash
-cat <<'EOF' | gemini --model gemini-3.0-pro
-Perform deep architectural analysis of this microservices system.
-Consider:
-- Service boundaries and coupling
-- Data consistency patterns
-- Scalability bottlenecks
-- Security boundaries
-- Operational complexity
+# Recommended: Let CLI use default
+gemini "your prompt"
 
-Architecture: @./architecture.md
-Services: @./services/
+# Or with heredoc for multi-line
+cat <<'EOF' | gemini
+Your multi-line prompt here
 EOF
-```
-
----
-
-### Gemini 3.0 Flash (`gemini-3.0-flash`)
-
-**Context:** 1,048,576 input tokens / 65,536 output tokens
-**Inputs:** Text, images, video, audio
-
-**Capabilities:**
-- Thinking mode
-- Function calling
-- Code execution
-- File search
-- Structured outputs
-- Optimized for high-frequency terminal workflows
-
-**Best For:**
-- Standard code reviews
-- Performance analysis
-- Testing strategy review
-- Quick architectural assessments
-
-**Usage:**
-```bash
-cat <<'EOF' | gemini --model gemini-3.0-flash
-Review this code for:
-- Security vulnerabilities
-- Performance issues
-- Best practice violations
-- Missing error handling
-
-Code: @./src/payment-processor.js
-EOF
-```
-
----
-
-### Gemini 3.0 Deep Think (`gemini-3.0-deep-think`)
-
-**Context:** 1,048,576 input tokens / 65,536 output tokens
-**Inputs:** Text, image, video, audio, PDF
-
-**Capabilities:**
-- Multi-step reasoning
-- Research-grade analysis
-- Function calling
-- Code execution
-- Structured outputs
-- Search grounding
-
-**Best For:**
-- Novel or unfamiliar patterns
-- Research-grade analysis
-- Complex trade-off evaluation
-- Deep security analysis
-
-**Usage:**
-```bash
-gemini --model gemini-3.0-deep-think "Analyze architectural trade-offs in @./src/"
 ```
 
 ---
@@ -483,7 +373,7 @@ gemini --model gemini-3.0-deep-think "Analyze architectural trade-offs in @./src
 ### Pattern 1: Architecture Review
 
 ```bash
-cat <<'EOF' | gemini --model gemini-3.0-pro
+cat <<'EOF' | gemini
 [ARCHITECTURE REVIEW]
 
 System: Multi-tenant SaaS Platform
@@ -512,7 +402,6 @@ EOF
 ```
 
 **Why this pattern:**
-- Pro model for complex reasoning
 - Structured prompt with context
 - Clear focus areas
 - Expected output format
@@ -522,7 +411,7 @@ EOF
 ### Pattern 2: Architecture Review with Diagram
 
 ```bash
-cat <<'EOF' | gemini --model gemini-3.0-pro
+cat <<'EOF' | gemini
 Analyze the attached architecture diagram.
 
 Context:
@@ -554,7 +443,7 @@ EOF
 ### Pattern 3: Security Review
 
 ```bash
-cat <<'EOF' | gemini --model gemini-3.0-flash
+cat <<'EOF' | gemini
 [SECURITY REVIEW]
 
 Threat Model:
@@ -585,8 +474,7 @@ EOF
 ```
 
 **Why this pattern:**
-- Flash model (sufficient for security analysis)
-- Explicit threat model
+- Explicit threat model for focus
 - OWASP framework for structure
 - Code examples requested
 
@@ -595,7 +483,7 @@ EOF
 ### Pattern 4: Performance Analysis
 
 ```bash
-cat <<'EOF' | gemini --model gemini-3.0-flash
+cat <<'EOF' | gemini
 [PERFORMANCE ANALYSIS]
 
 Current Performance:
@@ -643,7 +531,7 @@ EOF
 ### Pattern 5: Design Decision Evaluation
 
 ```bash
-cat <<'EOF' | gemini --model gemini-3.0-pro
+cat <<'EOF' | gemini
 [DESIGN DECISION EVALUATION]
 
 Decision: Caching strategy for product catalog
@@ -686,7 +574,6 @@ EOF
 ```
 
 **Why this pattern:**
-- Pro model for comparative reasoning
 - Structured options with pros/cons
 - Prioritized criteria
 - Business context and constraints
@@ -696,7 +583,7 @@ EOF
 ### Pattern 6: Testing Strategy Review
 
 ```bash
-cat <<'EOF' | gemini --model gemini-3.0-flash
+cat <<'EOF' | gemini
 [TESTING STRATEGY REVIEW]
 
 Module: User authentication service
@@ -727,7 +614,6 @@ EOF
 ```
 
 **Why this pattern:**
-- Flash model (sufficient for testing review)
 - Current state assessment
 - Specific concerns identified
 - Prioritization by risk
@@ -737,7 +623,7 @@ EOF
 ### Pattern 7: Code Review
 
 ```bash
-cat <<'EOF' | gemini --model gemini-3.0-flash
+cat <<'EOF' | gemini
 [CODE REVIEW - JavaScript]
 
 Focus Areas:
@@ -774,7 +660,6 @@ EOF
 ```
 
 **Why this pattern:**
-- Flash model (efficient for code review)
 - Clear focus areas
 - Style guide for consistency
 - Balanced feedback (positive + negative)
@@ -901,19 +786,14 @@ EOF
 
 ---
 
-### 4. Use Flash for Most Peer Reviews
+### 4. Let CLI Use Default Model
 
 **Recommended:**
 ```bash
-gemini --model gemini-3.0-flash "standard review prompt"
+gemini "standard review prompt"
 ```
 
-**Why:** Same 1M context, faster, more cost-efficient than Pro
-
-**Use Pro for:**
-- Complex architectural analysis
-- Multi-step reasoning
-- Deep security reviews
+**Why:** CLI automatically selects the latest/best model. Model names change frequently.
 
 ---
 
@@ -1158,38 +1038,32 @@ echo "All reviews complete."
 
 ### Command Quick Reference
 
-| Use Case | Command | Key Flags |
-|----------|---------|-----------|
-| Architecture review | `gemini "[context]"` | `--model gemini-3.0-pro` |
-| Review with diagram | `gemini "analyze: @diagram.png"` | None (multimodal) |
-| Security review | `gemini "[threat model + code]"` | `--model gemini-3.0-flash` |
-| Performance analysis | `gemini "[metrics + code]"` | `--model gemini-3.0-flash` |
-| Design comparison | `gemini "[options + criteria]"` | `--model gemini-3.0-pro` |
-| Testing strategy | `gemini "[coverage + concerns]"` | `--model gemini-3.0-flash` |
-| Code review | `gemini "[focus areas + code]"` | `--model gemini-3.0-flash` |
-| Interactive exploration | `gemini` | None (interactive) |
-| JSON output | `gemini --output-format json "[prompt]"` | `--output-format json` |
-| Sandbox execution | `gemini --sandbox "[prompt]"` | `--sandbox` or `-s` |
-| Multi-line prompt | `cat <<'EOF' \| gemini` | Pipe stdin |
+| Use Case | Command |
+|----------|---------|
+| Simple review | `gemini "Review this code"` |
+| Multi-line prompt | `cat <<'EOF' \| gemini` |
+| Review with diagram | `gemini "analyze: @diagram.png"` |
+| Include files | `gemini "Review @./src/auth/"` |
+| Interactive mode | `gemini` |
+| JSON output | `gemini --output-format json "prompt"` |
+| Sandbox execution | `gemini --sandbox "prompt"` |
 
 ---
 
 ### Flag Quick Reference
 
-| Flag | Short | Description | Recommended Use |
-|------|-------|-------------|----------------|
-| (positional) | - | Non-interactive prompt | Automation, CI/CD |
-| `--prompt-interactive` | `-i` | Start interactive with context | Conversational review |
-| `--model` | `-m` | Select model | Pro for complex, Flash for standard |
-| `--output-format` | `-o` | json, stream-json, text | JSON for automation |
-| `--sandbox` | `-s` | Safe execution mode | Untrusted code |
-| `--yolo` | `-y` | Auto-approve tools | Implementation (not review) |
-| `--debug` | `-d` | Debug mode | Troubleshooting |
-| `--resume` | `-r` | Resume previous session | Continue work |
-| `--style` | `-t` | Markdown style | Visual preference |
-| `--wrap` | `-w` | Line wrapping | Readability |
+| Flag | Short | Description |
+|------|-------|-------------|
+| (positional) | - | Non-interactive prompt |
+| `--prompt-interactive` | `-i` | Start interactive with context |
+| `--output-format` | `-o` | json, stream-json, text |
+| `--sandbox` | `-s` | Safe execution mode |
+| `--yolo` | `-y` | Auto-approve tools |
+| `--debug` | `-d` | Debug mode |
+| `--resume` | `-r` | Resume previous session |
 
 **Note:** The `-p`/`--prompt` flag is deprecated. Use positional prompts or stdin pipe instead.
+**Note:** Don't use `--model` - let CLI use its default (latest) model.
 
 ---
 
