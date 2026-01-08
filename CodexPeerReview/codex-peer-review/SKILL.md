@@ -610,21 +610,15 @@ brew upgrade codex
 # Edit ~/.codex/config.toml and set model = "[latest-model]"
 ```
 
-### Current Latest Models (as of January 2026)
-
-| Model | Use Case | Model ID |
-|-------|----------|----------|
-| **GPT-5.2-Codex** | Latest model with improved reasoning (current default) | `gpt-5.2-codex` |
-| **GPT-5.1-Codex-Max** | Complex reasoning, architecture, multi-window context | `gpt-5.1-codex-max` |
-| **GPT-5.1-Codex** | Standard analysis, faster response | `gpt-5.1-codex` |
-
 ### Model Selection
 
-Codex uses the best available model for your account by default. You can verify your current model by:
-- Launching `codex` and typing `/status` in the interactive session
-- Checking your config: `cat ~/.codex/config.toml | grep model`
+**The Codex CLI automatically uses the latest and best available model for your account.** You don't need to specify a model - the CLI handles this for you.
 
-You can optionally override the model in `~/.codex/config.toml`. As new models become available, you may need to update this setting to use them.
+To verify your current model:
+- Launch `codex` and type `/status` in the interactive session
+- Or check: `cat ~/.codex/config.toml | grep model`
+
+**Do not hardcode model names in documentation or scripts** - they change frequently. Let the CLI default handle model selection.
 
 ### New Features (CLI v0.65.0+)
 
@@ -674,12 +668,12 @@ model = "gpt-5.2-codex"
 # Approval mode (suggest|auto|on-failure)
 ask_for_approval = "suggest"
 
-# Sandbox mode (none|workspace-read|workspace-write)
-sandbox = "workspace-read"
+# Sandbox mode (read-only|workspace-write|danger-full-access)
+sandbox = "read-only"
 ```
 
 **For peer review, recommended settings:**
-- `sandbox = "workspace-read"` for read-only safety
+- `sandbox = "read-only"` for read-only safety
 - `ask_for_approval = "suggest"` for transparency
 
 ---
