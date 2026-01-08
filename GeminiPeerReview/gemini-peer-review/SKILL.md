@@ -728,19 +728,6 @@ gemini config set apiKey YOUR_API_KEY
 - Access to Gemini 3.0 Pro (1M context)
 - No credit card required
 
-### Configuration
-
-```bash
-# Set default model (always use latest)
-gemini config set defaultModel gemini-2.5-pro
-
-# For fastest response
-gemini config set defaultModel gemini-3.0-flash
-
-# View current config
-gemini config list
-```
-
 ### Verification
 
 ```bash
