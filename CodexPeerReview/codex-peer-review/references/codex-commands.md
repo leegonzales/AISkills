@@ -225,21 +225,11 @@ Available within interactive Codex sessions (not applicable to `codex exec`).
 
 ### `/model`
 
-**Description:** Switch between available models
+**Description:** View current model (don't change it - let CLI use default)
 
-**Usage:** Type `/model` in interactive session
+**Usage:** Type `/model` in interactive session to see what's active
 
-**Navigation:**
-- Arrow keys to navigate models
-- Tab to switch providers (OpenAI, Anthropic, etc.)
-- Enter to select
-
-**Models:**
-- `codex-1` (default): Optimized for software engineering
-- `o3`: Latest reasoning model
-- Others as available
-
-**Use case:** Switch models for different perspectives or capabilities
+**Note:** Don't hardcode model names. Let Codex CLI use its default (latest) model.
 
 ---
 
@@ -252,9 +242,6 @@ Available within interactive Codex sessions (not applicable to `codex exec`).
 **Common settings:**
 
 ```toml
-# Default model
-model = "codex-1"
-
 # Approval mode (suggest|auto|on-failure)
 ask_for_approval = "suggest"
 
@@ -267,16 +254,12 @@ output_format = "text"
 
 **Recommended peer review config:**
 ```toml
-model = "codex-1"
 ask_for_approval = "suggest"
 sandbox = "workspace-read"
 output_format = "text"
 ```
 
-**Override at command line:**
-```bash
-codex -c model=o3 -c sandbox=workspace-write "Review with o3 model"
-```
+**Note:** Don't set model in config. Let Codex CLI use its default (latest) model.
 
 ---
 
@@ -363,7 +346,7 @@ Focus: Clean code, test coverage
 
 **Command:**
 ```bash
-codex exec --sandbox workspace-read "$(cat <<'EOF'
+cat <<'EOF' | codex exec --sandbox workspace-read
 [ARCHITECTURE REVIEW]
 
 System: Multi-tenant SaaS platform
@@ -382,13 +365,11 @@ Focus:
 
 Expected Output: Risk assessment with improvement recommendations
 EOF
-)"
 ```
 
 **Why this pattern:**
-- `exec`: Non-interactive execution
+- Heredoc pipes cleanly to `codex exec`
 - `--sandbox workspace-read`: Safe read-only access
-- `$(cat <<'EOF' ... EOF)`: Clean multi-line prompt
 
 ---
 
@@ -396,7 +377,7 @@ EOF
 
 **Command:**
 ```bash
-codex --image architecture-diagram.png --sandbox workspace-read "$(cat <<'EOF'
+cat <<'EOF' | codex exec --image architecture-diagram.png --sandbox workspace-read
 Analyze the attached architecture diagram.
 
 Context:
@@ -411,12 +392,11 @@ Questions:
 
 Expected Output: Risk assessment and recommendations
 EOF
-)"
 ```
 
 **Why this pattern:**
 - `--image`: Visual architecture analysis
-- Structured prompt for clarity
+- Structured prompt demonstrates best practices for quality output
 
 ---
 
@@ -424,7 +404,7 @@ EOF
 
 **Command:**
 ```bash
-codex exec --sandbox none "$(cat <<'EOF'
+cat <<'EOF' | codex exec --sandbox none
 [SECURITY REVIEW]
 
 Code:
@@ -440,10 +420,10 @@ Question: Identify vulnerabilities and prioritize by severity.
 
 Expected Output: Vulnerability list with remediation steps
 EOF
-)"
 ```
 
 **Why this pattern:**
+- Heredoc for multi-line prompt
 - `--sandbox none`: No file access for isolated code review
 - Explicit threat model for focused analysis
 
@@ -453,7 +433,7 @@ EOF
 
 **Command:**
 ```bash
-codex exec "$(cat <<'EOF'
+cat <<'EOF' | codex exec
 [DESIGN DECISION]
 
 Decision: Caching strategy for product catalog
@@ -486,7 +466,6 @@ Question: Which option is recommended? What are critical trade-offs?
 
 Expected Output: Comparative analysis with recommendation and rationale
 EOF
-)"
 ```
 
 **Why this pattern:**
@@ -500,7 +479,7 @@ EOF
 
 **Command:**
 ```bash
-codex exec --sandbox workspace-read "$(cat <<'EOF'
+cat <<'EOF' | codex exec --sandbox workspace-read
 [PERFORMANCE ANALYSIS]
 
 File: src/api/order-handler.ts
@@ -520,7 +499,6 @@ Question: Identify bottlenecks and prioritized optimization recommendations.
 
 Expected Output: Optimization plan with complexity/impact assessment
 EOF
-)"
 ```
 
 **Why this pattern:**
@@ -534,7 +512,7 @@ EOF
 
 **Command:**
 ```bash
-codex exec --sandbox workspace-read "$(cat <<'EOF'
+cat <<'EOF' | codex exec --sandbox workspace-read
 [TESTING STRATEGY REVIEW]
 
 Module: User authentication service
@@ -552,7 +530,6 @@ Question: What testing improvements are most valuable?
 
 Expected Output: Prioritized testing improvements with examples
 EOF
-)"
 ```
 
 **Why this pattern:**
@@ -804,16 +781,15 @@ fi
 
 ## Command Quick Reference
 
-| Use Case | Command | Key Flags |
-|----------|---------|-----------|
-| Architecture review | `codex exec "[context]"` | `exec`, `--sandbox workspace-read` |
-| Review with diagram | `codex --image arch.png "[q]"` | `--image` |
-| Security review | `codex exec "[code review]"` | `exec`, `--sandbox none` |
-| Performance analysis | `codex exec "[context]"` | `exec`, `--sandbox workspace-read` |
-| Design comparison | `codex exec "[options]"` | `exec` |
-| Interactive exploration | `codex "[question]"` | None (interactive) |
-| JSON output | `codex exec -o json "[prompt]"` | `--output json` |
-| Resume session | `codex exec --resume [id]` | `--resume` |
+| Use Case | Command |
+|----------|---------|
+| Simple review | `codex exec "Review this code"` |
+| Multi-line prompt | `cat <<'EOF' \| codex exec` |
+| Review with diagram | `codex --image arch.png "Analyze"` |
+| Interactive mode | `codex "question"` |
+| JSON output | `codex exec -o json "prompt"` |
+| Resume session | `codex exec --resume [id]` |
+| Read-only mode | `codex exec --sandbox workspace-read` |
 
 ---
 
