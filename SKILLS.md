@@ -9,7 +9,7 @@ To use a skill:
 2. Read the corresponding `SKILL.md` file
 3. Follow the persona, constraints, and output formats defined
 
-## Skills (29 total)
+## Skills (30 total)
 
 | Skill | Description | Path |
 |-------|-------------|------|
@@ -19,6 +19,7 @@ To use a skill:
 | AWS Cost Ops | AWS cost optimization and analysis | `AWSSkills/aws-cost-operations/SKILL.md` |
 | AWS Serverless | Serverless and event-driven architecture | `AWSSkills/aws-serverless-eda/SKILL.md` |
 | Claimify | Fact-checking and claim verification | `Claimify/claimify/SKILL.md` |
+| Claude Speaks | Text-to-speech with AI voice synthesis | `ClaudeSpeak/claude-speak/SKILL.md` |
 | Claude Project Docs | Generate CLAUDE.md documentation | `ClaudeProjectDocs/claude-project-docs/SKILL.md` |
 | Codebase Navigator | Semantic code search with osgrep | `CodebaseNavigator/codebase-navigator/SKILL.md` |
 | Codex Peer Review | AI peer review via Codex CLI | `CodexPeerReview/codex-peer-review/SKILL.md` |
@@ -65,7 +66,7 @@ To use a skill:
 - CSV Summarizer, Excel Auditor, Process Mapper
 
 **AI & Automation**
-- Inevitability Engine, Context Continuity, Context Continuity Code, Agent Mail, Silicon Doppelganger
+- Inevitability Engine, Context Continuity, Context Continuity Code, Agent Mail, Silicon Doppelganger, Claude Speaks
 
 **Creative & Media**
 - Artifacts Builder, Nano Banana, NotebookLM, Concept Forge, Veo3 Prompter
