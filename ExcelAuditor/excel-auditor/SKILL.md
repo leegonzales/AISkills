@@ -5,8 +5,6 @@ description: "Analyze unknown or inherited Excel files to understand what they d
 
 # Excel Auditor
 
-> **🧪 Status: IN TESTING** - Core functionality complete, validation in progress.
-
 Analyze unknown Excel files to understand purpose, audit formulas, detect errors, and generate documentation.
 
 ## Core Workflow
@@ -29,6 +27,13 @@ python scripts/extract_formulas.py /mnt/user-data/uploads/<filename>.xlsx
 
 This produces JSON with: all formulas, cell dependencies, calculation chains, and formula complexity metrics.
 
+### 2b. Validate Extraction Output
+Before proceeding, verify JSON output contains expected keys:
+- Structure: `sheets`, `named_ranges`, `tables`, `external_links`, `data_validation`, `conditional_formatting`, `vba_present`
+- Formulas: `formulas`, `dependencies`, `calculation_chain`, `complexity_metrics`
+
+If keys are missing or malformed, note limitations in final report.
+
 ### 3. Semantic Analysis
 With structure and formula data, perform semantic analysis:
 
@@ -47,75 +52,14 @@ With structure and formula data, perform semantic analysis:
 ### 4. Error Detection
 Identify issues in order of severity:
 
-**Hard Errors** (file is broken):
-- #REF!, #DIV/0!, #VALUE!, #N/A, #NAME?, #NULL!, #NUM!
-- Circular references (unless intentional iteration)
-- Broken external links
-
-**Soft Errors** (file works but fragile):
-- Hardcoded values in formulas that should be inputs
-- Inconsistent formula patterns across rows/columns
-- Volatile functions overuse (NOW, TODAY, RAND, INDIRECT, OFFSET)
-- Missing error handling (no IFERROR wrappers on lookups)
-- Implicit intersection risks
-
-**Smells** (maintainability concerns):
-- Magic numbers without documentation
-- Excessive nesting depth (>3 levels)
-- Very long formulas (>200 chars)
-- Mixed units without labels
-- Color-coded logic without legend
-- Hidden sheets with active dependencies
+| Category | Issues | Severity |
+|----------|--------|----------|
+| **Hard Errors** | #REF!, #DIV/0!, #VALUE!, #N/A, #NAME?, #NULL!, #NUM!; Circular references (unless intentional); Broken external links | Critical - file is broken |
+| **Soft Errors** | Hardcoded values that should be inputs; Inconsistent formula patterns; Volatile function overuse (NOW, TODAY, RAND, INDIRECT, OFFSET); Missing IFERROR on lookups; Implicit intersection risks | Warning - file works but fragile |
+| **Smells** | Magic numbers; Excessive nesting (>3 levels); Very long formulas (>200 chars); Mixed units without labels; Color-coded logic without legend; Hidden sheets with active dependencies | Info - maintainability concerns |
 
 ### 5. Generate Report
-Produce structured output:
-
-```markdown
-# Excel Audit Report: [filename]
-
-## Executive Summary
-[2-3 sentence plain-English description of what the file does]
-
-## Purpose Classification
-- **Primary Function**: [e.g., "Financial forecasting model"]
-- **Domain**: [e.g., Finance, Operations, HR, Sales]
-- **Complexity**: [Simple | Moderate | Complex | Labyrinthine]
-- **Bus Factor Risk**: [Low | Medium | High | Critical]
-
-## Structure Overview
-- Sheets: [count] ([list key sheets])
-- Named Ranges: [count]
-- Tables: [count]
-- External Links: [count] ⚠️ if any
-- VBA/Macros: [Yes/No] ⚠️ if yes
-
-## Formula Analysis
-- Total Formulas: [count]
-- Unique Formula Patterns: [count]
-- Max Dependency Depth: [number]
-- Calculation Hotspots: [cells with most dependents]
-
-## Issues Found
-### Critical [count]
-[list with cell locations]
-
-### Warnings [count]
-[list with cell locations]
-
-### Suggestions [count]
-[list with recommendations]
-
-## Key Assumptions
-[List hardcoded values that appear to be model inputs]
-
-## Dependency Map
-[Describe which sheets feed into which, key formula chains]
-
-## Recommendations
-1. [Immediate fixes]
-2. [Documentation needs]
-3. [Refactoring suggestions]
-```
+Produce structured output using the template in `references/report_template.md`.
 
 ## Output Formats
 
