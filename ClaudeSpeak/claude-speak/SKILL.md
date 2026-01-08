@@ -23,6 +23,8 @@ Invoke when user:
 
 **That's it.** The daemon runs in background via launchd - instant response.
 
+**IMPORTANT:** When using the Bash tool, set `timeout: 300000` (5 min) to avoid Claude Code's default 2-minute timeout on longer text.
+
 ## Options
 
 ```bash
@@ -34,7 +36,24 @@ Invoke when user:
 
 # Quiet mode (suppress errors)
 ~/Projects/claude-speak/.venv/bin/claude-speak-client -q "Silent on success"
+
+# Custom timeout (default: 300s / 5 min)
+~/Projects/claude-speak/.venv/bin/claude-speak-client -t 600 "Very long text..."
 ```
+
+## Long Text (3+ sentences)
+
+For longer content, either:
+
+1. **Set longer timeout:** Use `timeout: 300000` in Bash tool call
+2. **Run in background:** Use `run_in_background: true` to avoid blocking
+
+```bash
+# Background mode - Claude continues while audio plays
+~/Projects/claude-speak/.venv/bin/claude-speak-client "Your longer text here..."
+```
+
+Background mode is cleaner for paragraphs and avoids timeout issues entirely.
 
 ## Available Voices
 
