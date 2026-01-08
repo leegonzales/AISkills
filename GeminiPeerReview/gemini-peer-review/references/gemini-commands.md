@@ -137,20 +137,20 @@ gemini> /quit     # Exit
 
 ### Non-Interactive Mode
 
-**Usage:** `gemini -p "prompt"`
-**Alias:** `--prompt`
+**Usage:** `gemini "prompt"` (positional argument)
+**Alternative:** `cat prompt.txt | gemini` (stdin pipe)
 
 **Description:** One-shot execution with output to stdout
 
 ```bash
-# Simple query
-gemini -p "Review this code for security issues"
+# Simple query (positional prompt)
+gemini "Review this code for security issues"
 
 # With file reference
-gemini -p "Analyze architecture in @./architecture.md"
+gemini "Analyze architecture in @./architecture.md"
 
-# Multi-line prompt with heredoc
-gemini -p "$(cat <<'EOF'
+# Multi-line prompt with heredoc (pipe to stdin)
+cat <<'EOF' | gemini
 Review this authentication flow for:
 - Security vulnerabilities
 - Performance issues
@@ -158,7 +158,9 @@ Review this authentication flow for:
 
 Code: @./src/auth/handler.js
 EOF
-)"
+
+# Or combine positional prompt with file references
+gemini "Review for security issues" @./src/auth/handler.js
 ```
 
 **Use for peer review (recommended):**
@@ -166,6 +168,8 @@ EOF
 - CI/CD integration
 - Scriptable analysis
 - Predictable, repeatable reviews
+
+**Note:** The `-p`/`--prompt` flag is deprecated. Use positional prompts or stdin pipe instead.
 
 ---
 
@@ -196,8 +200,11 @@ gemini> Recommend improvements
 # Interactive mode
 gemini
 
-# Non-interactive (one-shot)
-gemini -p "your prompt here"
+# Non-interactive (one-shot) - positional prompt
+gemini "your prompt here"
+
+# Non-interactive with stdin
+cat prompt.txt | gemini
 
 # Interactive with initial prompt
 gemini -i "initial context prompt"
@@ -259,13 +266,18 @@ Execute shell commands directly:
 ```bash
 # ALWAYS use --model to ensure latest version
 # Use Pro model (best reasoning, complex tasks)
-gemini --model gemini-3.0-pro -p "prompt"
+gemini --model gemini-3.0-pro "prompt"
 
 # Use Flash model (fast, efficient, recommended)
-gemini --model gemini-3.0-flash -p "prompt"
+gemini --model gemini-3.0-flash "prompt"
 
 # Use Deep Think (multi-step reasoning, research-grade)
-gemini --model gemini-3.0-deep-think -p "prompt"
+gemini --model gemini-3.0-deep-think "prompt"
+
+# With piped heredoc
+cat <<'EOF' | gemini --model gemini-3.0-pro
+Your multi-line prompt here
+EOF
 ```
 
 **Model Selection Guide:**
@@ -281,13 +293,13 @@ gemini --model gemini-3.0-deep-think -p "prompt"
 
 ```bash
 # Default text output (human-readable)
-gemini -p "analyze architecture"
+gemini "analyze architecture"
 
 # JSON output (programmatic parsing)
-gemini --output-format json -p "analyze and return structured data"
+gemini --output-format json "analyze and return structured data"
 
 # Stream JSON (newline-delimited events)
-gemini --output-format stream-json -p "process large files"
+gemini --output-format stream-json "process large files"
 ```
 
 **Recommended for peer review:**
@@ -300,19 +312,19 @@ gemini --output-format stream-json -p "process large files"
 
 ```bash
 # YOLO mode (auto-approve all tool calls)
-gemini --yolo -p "fix bugs and run tests"
+gemini --yolo "fix bugs and run tests"
 
 # Sandbox mode (safe execution)
-gemini --sandbox -p "execute untrusted code"
-gemini -s -p "prompt"
+gemini --sandbox "execute untrusted code"
+gemini -s "prompt"
 
 # Debug mode
-gemini --debug -p "troubleshoot issue"
-gemini -d -p "prompt"
+gemini --debug "troubleshoot issue"
+gemini -d "prompt"
 
 # Clean JSON output (for scripting)
-gemini -p "prompt" --output-format json
-gemini -p "prompt" --output-format stream-json
+gemini --output-format json "prompt"
+gemini --output-format stream-json "prompt"
 ```
 
 **Recommended for peer review:**
@@ -326,13 +338,13 @@ gemini -p "prompt" --output-format stream-json
 
 ```bash
 # Markdown style
-gemini --style dark -p "prompt"
-gemini -t light -p "prompt"
+gemini --style dark "prompt"
+gemini -t light "prompt"
 # Options: ascii, dark, light, pink
 
 # Line wrapping
-gemini --wrap 100 -p "prompt"
-gemini -w 80 -p "prompt"
+gemini --wrap 100 "prompt"
+gemini -w 80 "prompt"
 
 # Multi-line input
 gemini --multiline
@@ -343,11 +355,15 @@ gemini --multiline
 ### Session Management
 
 ```bash
-# Persist session summary
-gemini --session-summary -p "prompt"
+# Resume a previous session
+gemini --resume latest
+gemini -r 5  # Resume session #5
 
-# Enable checkpointing
-gemini --checkpointing -p "prompt"
+# List available sessions
+gemini --list-sessions
+
+# Delete a session
+gemini --delete-session 3
 ```
 
 ---
@@ -356,8 +372,8 @@ gemini --checkpointing -p "prompt"
 
 ```bash
 # Custom config file
-gemini -c /path/to/config.json -p "prompt"
-gemini --config config.json -p "prompt"
+gemini -c /path/to/config.json "prompt"
+gemini --config config.json "prompt"
 ```
 
 ---
@@ -386,7 +402,7 @@ gemini --config config.json -p "prompt"
 
 **Usage:**
 ```bash
-gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
+cat <<'EOF' | gemini --model gemini-3.0-pro
 Perform deep architectural analysis of this microservices system.
 Consider:
 - Service boundaries and coupling
@@ -398,7 +414,6 @@ Consider:
 Architecture: @./architecture.md
 Services: @./services/
 EOF
-)"
 ```
 
 ---
@@ -424,7 +439,7 @@ EOF
 
 **Usage:**
 ```bash
-gemini --model gemini-3.0-flash -p "$(cat <<'EOF'
+cat <<'EOF' | gemini --model gemini-3.0-flash
 Review this code for:
 - Security vulnerabilities
 - Performance issues
@@ -433,7 +448,6 @@ Review this code for:
 
 Code: @./src/payment-processor.js
 EOF
-)"
 ```
 
 ---
@@ -459,7 +473,7 @@ EOF
 
 **Usage:**
 ```bash
-gemini --model gemini-3.0-deep-think -p "Analyze architectural trade-offs in @./src/"
+gemini --model gemini-3.0-deep-think "Analyze architectural trade-offs in @./src/"
 ```
 
 ---
@@ -469,7 +483,7 @@ gemini --model gemini-3.0-deep-think -p "Analyze architectural trade-offs in @./
 ### Pattern 1: Architecture Review
 
 ```bash
-gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
+cat <<'EOF' | gemini --model gemini-3.0-pro
 [ARCHITECTURE REVIEW]
 
 System: Multi-tenant SaaS Platform
@@ -495,7 +509,6 @@ Expected Output:
 3. Recommendations (prioritized by impact)
 4. Trade-offs to consider
 EOF
-)"
 ```
 
 **Why this pattern:**
@@ -509,7 +522,7 @@ EOF
 ### Pattern 2: Architecture Review with Diagram
 
 ```bash
-gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
+cat <<'EOF' | gemini --model gemini-3.0-pro
 Analyze the attached architecture diagram.
 
 Context:
@@ -529,7 +542,6 @@ Questions:
 
 Expected Output: Risk assessment with specific recommendations
 EOF
-)"
 ```
 
 **Why this pattern:**
@@ -542,7 +554,7 @@ EOF
 ### Pattern 3: Security Review
 
 ```bash
-gemini --model gemini-3.0-flash -p "$(cat <<'EOF'
+cat <<'EOF' | gemini --model gemini-3.0-flash
 [SECURITY REVIEW]
 
 Threat Model:
@@ -570,7 +582,6 @@ Expected Output:
 
 Prioritize by severity and exploitability.
 EOF
-)"
 ```
 
 **Why this pattern:**
@@ -584,7 +595,7 @@ EOF
 ### Pattern 4: Performance Analysis
 
 ```bash
-gemini --model gemini-3.0-flash -p "$(cat <<'EOF'
+cat <<'EOF' | gemini --model gemini-3.0-flash
 [PERFORMANCE ANALYSIS]
 
 Current Performance:
@@ -619,7 +630,6 @@ For each optimization:
 
 Prioritize by impact/effort ratio.
 EOF
-)"
 ```
 
 **Why this pattern:**
@@ -633,7 +643,7 @@ EOF
 ### Pattern 5: Design Decision Evaluation
 
 ```bash
-gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
+cat <<'EOF' | gemini --model gemini-3.0-pro
 [DESIGN DECISION EVALUATION]
 
 Decision: Caching strategy for product catalog
@@ -673,7 +683,6 @@ Expected Output:
 4. Implementation Considerations
 5. Decision Risks (what could go wrong)
 EOF
-)"
 ```
 
 **Why this pattern:**
@@ -687,7 +696,7 @@ EOF
 ### Pattern 6: Testing Strategy Review
 
 ```bash
-gemini --model gemini-3.0-flash -p "$(cat <<'EOF'
+cat <<'EOF' | gemini --model gemini-3.0-flash
 [TESTING STRATEGY REVIEW]
 
 Module: User authentication service
@@ -715,7 +724,6 @@ Expected Output:
 
 Provide specific test examples for top 3 improvements.
 EOF
-)"
 ```
 
 **Why this pattern:**
@@ -729,7 +737,7 @@ EOF
 ### Pattern 7: Code Review
 
 ```bash
-gemini --model gemini-3.0-flash -p "$(cat <<'EOF'
+cat <<'EOF' | gemini --model gemini-3.0-flash
 [CODE REVIEW - JavaScript]
 
 Focus Areas:
@@ -763,7 +771,6 @@ Expected Output:
 
 Highlight what the code does well.
 EOF
-)"
 ```
 
 **Why this pattern:**
@@ -814,7 +821,7 @@ gemini
 gemini> /compress
 
 # Or be more specific
-gemini -p "Review only @./src/auth/login.js (not entire directory)"
+gemini "Review only @./src/auth/login.js (not entire directory)"
 ```
 
 ---
@@ -828,7 +835,7 @@ gemini
 gemini> /settings
 
 # Switch to available model
-gemini --model gemini-3.0-flash -p "prompt"
+gemini --model gemini-3.0-flash "prompt"
 ```
 
 ---
@@ -837,7 +844,7 @@ gemini --model gemini-3.0-flash -p "prompt"
 
 ```bash
 # For transient errors (network, timeouts)
-gemini -p "prompt" || sleep 2 && gemini -p "prompt"
+gemini "prompt" || sleep 2 && gemini "prompt"
 
 # For rate limits
 # Check status first
@@ -847,10 +854,9 @@ gemini> /stats
 
 # For unclear responses
 # Reformulate with more specific question
-gemini -p "$(cat <<'EOF'
+cat <<'EOF' | gemini
 [More specific prompt with additional context]
 EOF
-)"
 ```
 
 ---
@@ -861,7 +867,9 @@ EOF
 
 **Recommended:**
 ```bash
-gemini -p "prompt"
+gemini "your prompt here"
+# Or with stdin for multi-line
+cat prompt.txt | gemini
 ```
 
 **Why:** Predictable, scriptable, suitable for CI/CD
@@ -872,11 +880,10 @@ gemini -p "prompt"
 
 **Recommended:**
 ```bash
-gemini -p "$(cat <<'EOF'
+cat <<'EOF' | gemini
 [Structured multi-line prompt]
 ...
 EOF
-)"
 ```
 
 **Why:** Clean multi-line prompts, easy to maintain, proper escaping
@@ -898,7 +905,7 @@ EOF
 
 **Recommended:**
 ```bash
-gemini --model gemini-3.0-flash -p "standard review prompt"
+gemini --model gemini-3.0-flash "standard review prompt"
 ```
 
 **Why:** Same 1M context, faster, more cost-efficient than Pro
@@ -914,7 +921,7 @@ gemini --model gemini-3.0-flash -p "standard review prompt"
 
 **Recommended:**
 ```bash
-gemini -p "Analyze architecture: @./diagram.png @./architecture.md"
+gemini "Analyze architecture: @./diagram.png @./architecture.md"
 ```
 
 **Why:** Visual context often clearer than text descriptions
@@ -947,8 +954,8 @@ EOF
 
 ```bash
 # Safe execution
-gemini --sandbox -p "execute and test this code"
-gemini -s -p "prompt"
+gemini --sandbox "execute and test this code"
+gemini -s "prompt"
 ```
 
 **Why:** Prevents unintended system modifications
@@ -1006,7 +1013,7 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          REVIEW=$(gemini -p "$(cat <<'EOF'
+          REVIEW=$(cat <<'EOF' | gemini
           Review architecture changes in this PR.
 
           Changed files: $(git diff origin/main --name-only)
@@ -1018,7 +1025,7 @@ jobs:
 
           Expected Output: Risk level (HIGH/MEDIUM/LOW) with justification
           EOF
-          )")
+          )
 
           echo "$REVIEW"
 
@@ -1043,7 +1050,7 @@ STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(js|
 if [ -n "$STAGED_FILES" ]; then
   echo "Running security review..."
 
-  REVIEW=$(gemini -p "$(cat <<EOF
+  REVIEW=$(cat <<EOF | gemini
 Security review of staged files:
 
 $(for file in $STAGED_FILES; do
@@ -1053,7 +1060,7 @@ done)
 Focus on CRITICAL and HIGH severity issues only.
 Expected Output: List of security issues or "No issues found"
 EOF
-)")
+)
 
   echo "$REVIEW"
 
@@ -1086,7 +1093,7 @@ SERVICES=(
 for service in "${SERVICES[@]}"; do
   echo "Reviewing $service..."
 
-  gemini --model gemini-3.0-flash -p "$(cat <<EOF
+  cat <<EOF | gemini --model gemini-3.0-flash > "reviews/$service-review.txt"
 Review service: $service
 
 Code: @./services/$service/
@@ -1098,7 +1105,6 @@ Focus:
 
 Expected Output: Summary with risk level
 EOF
-)" > "reviews/$service-review.txt"
 
   echo "Review saved to reviews/$service-review.txt"
 done
@@ -1119,7 +1125,6 @@ echo "All reviews complete."
       "type": "shell",
       "command": "gemini",
       "args": [
-        "-p",
         "Review ${file} for security and performance issues. Expected Output: List of issues with severity levels."
       ],
       "problemMatcher": [],
@@ -1135,7 +1140,6 @@ echo "All reviews complete."
       "args": [
         "--model",
         "gemini-3.0-pro",
-        "-p",
         "Comprehensive architecture review of entire project. Focus on scalability, security, maintainability."
       ],
       "problemMatcher": [],
@@ -1156,16 +1160,17 @@ echo "All reviews complete."
 
 | Use Case | Command | Key Flags |
 |----------|---------|-----------|
-| Architecture review | `gemini -p "[context]"` | `--model gemini-3.0-pro` |
-| Review with diagram | `gemini -p "analyze: @diagram.png"` | None (multimodal) |
-| Security review | `gemini -p "[threat model + code]"` | `--model gemini-3.0-flash` |
-| Performance analysis | `gemini -p "[metrics + code]"` | `--model gemini-3.0-flash` |
-| Design comparison | `gemini -p "[options + criteria]"` | `--model gemini-3.0-pro` |
-| Testing strategy | `gemini -p "[coverage + concerns]"` | `--model gemini-3.0-flash` |
-| Code review | `gemini -p "[focus areas + code]"` | `--model gemini-3.0-flash` |
+| Architecture review | `gemini "[context]"` | `--model gemini-3.0-pro` |
+| Review with diagram | `gemini "analyze: @diagram.png"` | None (multimodal) |
+| Security review | `gemini "[threat model + code]"` | `--model gemini-3.0-flash` |
+| Performance analysis | `gemini "[metrics + code]"` | `--model gemini-3.0-flash` |
+| Design comparison | `gemini "[options + criteria]"` | `--model gemini-3.0-pro` |
+| Testing strategy | `gemini "[coverage + concerns]"` | `--model gemini-3.0-flash` |
+| Code review | `gemini "[focus areas + code]"` | `--model gemini-3.0-flash` |
 | Interactive exploration | `gemini` | None (interactive) |
-| JSON output | `gemini --output-format json -p "[prompt]"` | `--output-format json` |
-| Sandbox execution | `gemini --sandbox -p "[prompt]"` | `--sandbox` or `-s` |
+| JSON output | `gemini --output-format json "[prompt]"` | `--output-format json` |
+| Sandbox execution | `gemini --sandbox "[prompt]"` | `--sandbox` or `-s` |
+| Multi-line prompt | `cat <<'EOF' \| gemini` | Pipe stdin |
 
 ---
 
@@ -1173,16 +1178,18 @@ echo "All reviews complete."
 
 | Flag | Short | Description | Recommended Use |
 |------|-------|-------------|----------------|
-| `--prompt` | `-p` | Non-interactive mode | Automation, CI/CD |
+| (positional) | - | Non-interactive prompt | Automation, CI/CD |
 | `--prompt-interactive` | `-i` | Start interactive with context | Conversational review |
-| `--model` | None | Select model | Pro for complex, Flash for standard |
-| `--output-format` | None | json, stream-json, text | JSON for automation |
+| `--model` | `-m` | Select model | Pro for complex, Flash for standard |
+| `--output-format` | `-o` | json, stream-json, text | JSON for automation |
 | `--sandbox` | `-s` | Safe execution mode | Untrusted code |
-| `--yolo` | None | Auto-approve tools | Implementation (not review) |
+| `--yolo` | `-y` | Auto-approve tools | Implementation (not review) |
 | `--debug` | `-d` | Debug mode | Troubleshooting |
-| `--output-format` | None | Control output (text/json/stream-json) | Scripts, parsing |
+| `--resume` | `-r` | Resume previous session | Continue work |
 | `--style` | `-t` | Markdown style | Visual preference |
 | `--wrap` | `-w` | Line wrapping | Readability |
+
+**Note:** The `-p`/`--prompt` flag is deprecated. Use positional prompts or stdin pipe instead.
 
 ---
 

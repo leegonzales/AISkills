@@ -189,32 +189,29 @@ Load `references/gemini-commands.md` for complete reference.
 
 **Non-interactive review (recommended):**
 ```bash
-gemini -p "$(cat <<'EOF'
+cat <<'EOF' | gemini
 [prepared context and question here]
 EOF
-)"
 ```
 
 **With model selection:**
 ```bash
-gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
+cat <<'EOF' | gemini --model gemini-3.0-pro
 [context for complex reasoning]
 EOF
-)"
 ```
 
 **With multimodal (image/diagram):**
 ```bash
-gemini --image architecture.png -p "Analyze this architecture diagram: [question]"
+gemini "Analyze this architecture diagram: [question]" @architecture.png
 ```
 
 **Security-focused review:**
 ```bash
-gemini -p "$(cat <<'EOF'
+cat <<'EOF' | gemini
 Security review focus:
 [context and code]
 EOF
-)"
 ```
 
 **Model selection guidelines:**
@@ -234,17 +231,20 @@ EOF
 - Default choice for most cases
 
 **Key flags:**
-- `-p` / `--prompt`: Run in headless mode (non-interactive)
+- Positional prompt: `gemini "your prompt"` (non-interactive)
+- Stdin pipe: `cat prompt.txt | gemini` (multi-line prompts)
 - `--model` / `-m`: Select specific model (pro vs flash)
 - `--output-format`: Control output format (text/json/stream-json)
 - `--yolo` / `-y`: Auto-approve all actions
 - File references: Use `@file_path` or `@directory/` to include context
 
+**Note:** The `-p`/`--prompt` flag is deprecated. Use positional prompts or stdin pipe instead.
+
 **Common patterns:**
 
 **Architecture review:**
 ```bash
-gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
+cat <<'EOF' | gemini --model gemini-3.0-pro
 Review this microservices architecture:
 
 [Service definitions, API contracts, data flow]
@@ -252,12 +252,11 @@ Review this microservices architecture:
 Concerns: scalability, data consistency, deployment complexity
 Question: Are the service boundaries appropriate? Any architectural risks?
 EOF
-)"
 ```
 
 **Security-focused review:**
 ```bash
-gemini -p "$(cat <<'EOF'
+cat <<'EOF' | gemini
 Security review of authentication system:
 
 [Auth code, session management, token handling]
@@ -265,12 +264,11 @@ Security review of authentication system:
 Threat model: [attack vectors]
 Question: Identify vulnerabilities, attack vectors, and hardening opportunities.
 EOF
-)"
 ```
 
 **Design decision with alternatives:**
 ```bash
-gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
+cat <<'EOF' | gemini --model gemini-3.0-pro
 Design decision: Event sourcing vs traditional CRUD
 
 [Domain model, use cases, team context]
@@ -282,7 +280,6 @@ C) Hybrid approach
 
 Question: Analyze trade-offs for our context and recommend approach.
 EOF
-)"
 ```
 
 **Error handling:**
@@ -574,12 +571,12 @@ Load `references/gemini-commands.md` for complete command documentation.
 
 | Use Case | Command Pattern | Flags |
 |----------|----------------|-------|
-| Architecture review | `gemini --model gemini-3.0-pro -p "[context]"` | `--model` for complex reasoning |
-| Review with diagram | `gemini --image diagram.png -p "[question]"` | `--image` for visual context |
-| Security analysis | `gemini -p "Security: [code]"` | `-p` for prompt text |
-| Fast code review | `gemini -p "[code review]"` | Default flash model |
-| Large codebase analysis | `gemini --model gemini-3.0-pro -p "[full context]"` | Pro model for 1M token context |
-| Quick validation | `gemini "[question]"` | Interactive mode |
+| Architecture review | `gemini --model gemini-3.0-pro "[context]"` | `--model` for complex reasoning |
+| Review with diagram | `gemini "[question]" @diagram.png` | `@file` for visual context |
+| Security analysis | `gemini "Security: [code]"` | Positional prompt |
+| Fast code review | `gemini "[code review]"` | Default flash model |
+| Large codebase analysis | `gemini --model gemini-3.0-pro "[full context]"` | Pro model for 1M token context |
+| Quick validation | `gemini "[question]"` | Positional prompt |
 
 ---
 
@@ -782,7 +779,7 @@ gemini "Hello, Gemini!"
 **Step 1: Check current model version**
 ```bash
 # Ask Gemini what model it is
-gemini -p "What is your exact model ID? Reply with just the model name."
+gemini "What is your exact model ID? Reply with just the model name."
 ```
 
 **Step 2: Web search for latest available models**
@@ -827,7 +824,7 @@ Add this check to the beginning of any peer review workflow:
 ```bash
 # Get current model and check if update needed
 echo "Checking Gemini version..." && \
-gemini -p "State your model ID in one line" 2>&1 | head -5
+gemini "State your model ID in one line" 2>&1 | head -5
 ```
 
 If the response shows an older model (e.g., `gemini-2.5-*` or `gemini-2.0-*`), update before proceeding.
@@ -983,7 +980,7 @@ Compare Claude's and Gemini's trade-off analysis, extract key insights, present 
 
 **Invoke peer review:**
 ```bash
-gemini -p "$(cat <<'EOF'
+cat <<'EOF' | gemini
 Security review of authentication system:
 
 THREAT MODEL:
@@ -1012,7 +1009,6 @@ EXPECTED OUTPUT:
 - Specific remediation recommendations
 - Best practice gaps
 EOF
-)"
 ```
 
 **Synthesis:**
