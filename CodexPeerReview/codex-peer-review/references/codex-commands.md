@@ -377,12 +377,26 @@ EOF
 
 **Command:**
 ```bash
-codex --image architecture-diagram.png --sandbox workspace-read "Analyze this architecture for single points of failure, scalability bottlenecks, and data consistency issues"
+cat <<'EOF' | codex exec --image architecture-diagram.png --sandbox workspace-read
+Analyze the attached architecture diagram.
+
+Context:
+- E-commerce platform
+- 100K daily active users
+- High availability requirements
+
+Questions:
+- Single points of failure?
+- Scalability bottlenecks?
+- Data consistency issues?
+
+Expected Output: Risk assessment and recommendations
+EOF
 ```
 
 **Why this pattern:**
 - `--image`: Visual architecture analysis
-- Simple prompt for diagram-based review
+- Structured prompt demonstrates best practices for quality output
 
 ---
 
