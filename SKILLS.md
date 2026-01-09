@@ -41,7 +41,7 @@ To use a skill:
 | Writing Skills | General writing assistance | `WritingSkills/writing-skills/SKILL.md` |
 | PR Review Loop | Manage PR feedback cycles with Gemini/Claude | `PRReviewLoop/pr-review-loop/SKILL.md` |
 | Veo3 Prompter | Craft cinematic prompts for Veo 3.1 video | `Veo3Prompter/veo3-prompter/SKILL.md` |
-| Silicon Doppelganger | Create Digital Twins for team simulation | `SiliconDoppelganger/silicon-doppelganger/SKILL.md` |
+| Silicon Doppelganger | Build personal proxy agents for PAIRL Conductor | `SiliconDoppelganger/silicon-doppelganger/SKILL.md` |
 | Writing Partner | Collaborative fiction writing assistant | `WritingPartner/writing-partner/SKILL.md` |
 
 ## Infrastructure

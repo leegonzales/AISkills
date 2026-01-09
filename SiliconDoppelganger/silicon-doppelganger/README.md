@@ -1,37 +1,43 @@
 # Silicon Doppelganger
 
-Create psychometrically accurate "Digital Twins" of business principals to forecast outcomes, team dynamics, and strategic alignment.
+Build psychometrically accurate personal proxy agents ("Digital Twins") for the PAIRL Conductor system. Extract personality, decision heuristics, and values into portable schemas that enable AI agents to negotiate, filter, and act on a principal's behalf.
 
 ## Overview
 
-The Silicon Doppelganger Protocol transforms subjective personality assessment into structured, portable persona data that AI can use to simulate realistic team interactions and predict business outcomes.
+The Silicon Doppelganger Protocol transforms subjective personality assessment into structured, portable persona data. These "Digital Twins" serve as **spokes** in the PAIRL Conductor hub-and-spoke architecture, negotiating and filtering on behalf of their principals.
 
-**Key Innovation:** Token-efficient XML persona encoding creates a "save file" for each personality that prevents AI drift during extended simulations.
+**Key Innovation:** Token-efficient XML persona encoding creates a "save file" that maintains fidelity across sessions, models, and deployment contexts (simulation vs. live agent proxy).
 
 ## Features
 
-- **Structured Extraction** - Systematic 30-45 minute interview protocol covering psychometrics, heuristics, and narrative identity
+- **Structured Extraction** - Systematic 45-60 minute interview protocol covering psychometrics, heuristics, and narrative identity
 - **Portable Persona Schema** - XML format that captures personality in a way AI can reliably reproduce
-- **Multi-Persona Simulation** - Run realistic team discussions with algorithmic fidelity to each persona
-- **Scenario Testing** - Pre-built event cards for common business decisions
-- **Drift Prevention** - Persona encoding maintains character consistency across sessions
+- **Agent Rules Block** - Define must_reject, must_protect, should_prefer for automated decision-making
+- **PAIRL Integration** - Deploy as spoke agents in the Conductor hub-and-spoke architecture
+- **Behavioral Validation** - Question battery testing with 80%+ accuracy target
+- **Multi-Persona Simulation** - Run realistic team discussions with algorithmic fidelity
+- **Drift Prevention** - Persona encoding maintains character consistency across sessions and systems
 
 ## Use Cases
 
-### Team Formation Analysis
+### Primary: Personal Proxy Agent
+Build a spoke for PAIRL Conductor that represents you in automated workflows:
+- Task acceptance/rejection based on encoded values and ethical filters
+- Calendar negotiation with other agents
+- Filtering incoming requests before they reach you
+- Protecting time, energy, and boundaries automatically
+
+### Secondary: Team Simulation
+Load multiple proxies to forecast team dynamics:
 - Predict friction points before partnerships form
-- Identify missing skills/temperaments in founding teams
-- Test compatibility of potential co-founders
+- Test strategic decisions against personality profiles
+- Surface unspoken tensions and misalignments
 
-### Decision Forecasting
-- Simulate how a team will respond to strategic pivots
-- Test product decisions against stakeholder personalities
-- Predict resistance to organizational changes
-
-### Hiring Strategy
-- Define psychometric profiles for ideal candidates
-- Test how new hires will interact with existing team
-- Identify gaps that need filling
+### Tertiary: Self-Knowledge Tool
+The extraction process itself is valuable:
+- Articulate your own decision patterns
+- Surface blind spots and shadow behaviors
+- Create documentation of "how I work" for collaborators
 
 ## Workflow
 
@@ -164,6 +170,7 @@ The skill will be available via `skill: "silicon-doppelganger"` in your Claude C
 - **[SKILL.md](SKILL.md)** - Core skill definition (read by Claude)
 - **[references/extraction-protocol.md](references/extraction-protocol.md)** - Full interview script
 - **[references/persona-schema.md](references/persona-schema.md)** - Schema format and fields
+- **[references/agent-integration.md](references/agent-integration.md)** - PAIRL Conductor deployment guide
 - **[references/simulation-guide.md](references/simulation-guide.md)** - How to run simulations
 - **[references/scenarios.md](references/scenarios.md)** - Event card library
 

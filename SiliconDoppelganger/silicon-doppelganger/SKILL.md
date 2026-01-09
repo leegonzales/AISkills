@@ -1,78 +1,189 @@
 ---
 name: silicon-doppelganger
-description: Create psychometrically accurate Digital Twins of business principals to forecast outcomes, team dynamics, and strategic alignment. Use when building team simulations, predicting partnership friction, or testing decisions against personality profiles.
+description: Build psychometrically accurate personal proxy agents for the PAIRL Conductor system. Extracts personality, decision heuristics, and values into portable schemas that enable AI agents to negotiate, filter, and act on a principal's behalf.
 ---
 
 # Silicon Doppelganger
 
-Create high-fidelity "Digital Twins" of business principals using structured personality extraction and persona simulation for forecasting team dynamics and business decisions.
+Build high-fidelity personal proxy agents ("Digital Twins") using structured personality extraction and psychometric encoding. These proxies serve as "spokes" in the PAIRL Conductor hub-and-spoke architecture, negotiating and filtering on behalf of their principals.
 
 ## When to Use
 
 Invoke when user:
-- Wants to simulate team decision-making dynamics
-- Needs to predict partnership friction or alignment
-- Is building personality profiles for business forecasting
-- Asks to create a "digital twin" or persona model
-- Wants to test business scenarios against team personalities
+- Wants to create a personal proxy agent for automated task negotiation
+- Needs to build a Digital Twin for PAIRL Conductor integration
+- Is extracting personality/decision patterns for AI representation
+- Wants to validate a proxy agent against real behavior
+- Asks to create a "digital twin," "proxy agent," or "personal AI representative"
+
+## Core Concept
+
+A Silicon Doppelganger is NOT just a simulation for entertainment — it's a **functional proxy** that can:
+- Accept or reject tasks based on encoded values
+- Negotiate with other agents on scheduling and resource allocation
+- Protect the principal's time, energy, and boundaries
+- Make low-stakes decisions autonomously within defined guardrails
+
+The persona schema acts as a "save file" that maintains fidelity across sessions and systems.
 
 ## Core Workflow
 
 ### Phase 1: Extraction (Data Collection)
 
-Interview each principal individually (30-45 min per person):
-1. **Hardware** - Collect psychometrics (CliftonStrengths, VIA Character Strengths, communication samples)
-2. **Operating System** - Map decision heuristics (good work definition, friction triggers, risk tolerance, information preferences)
-3. **Narrative Identity** - Capture origin stories, shadow behaviors, and unpopular opinions
+Interview the principal individually (45-60 min):
+
+1. **Hardware** — Collect psychometrics
+   - CliftonStrengths (Top 5-10)
+   - VIA Character Strengths (Top 5-10)
+   - Communication samples (emails, Slack) for linguistic fingerprint
+
+2. **Operating System** — Map decision heuristics
+   - "Good work" definition (profit vs. meaning)
+   - Friction triggers (instant respect-loss behaviors)
+   - Risk tolerance (guaranteed vs. volatile)
+   - Information preferences (data vs. prototype vs. trusted expert)
+
+3. **Narrative Identity** — Capture the soul
+   - Origin story (formative failure/crisis → lesson enforced)
+   - Shadow self (behavior under extreme stress)
+   - Unpopular opinions (beliefs held against consensus)
 
 See `references/extraction-protocol.md` for full interview script.
 
 ### Phase 2: Encoding (Persona Schema)
 
 Compile interview data into structured XML persona profile:
-- Psychometrics and linguistic fingerprint
-- Core drivers (motivation/fear)
-- Decision logic (risk, data preference, blind spots)
-- Conflict style and narrative anchors
 
-See `references/persona-schema.md` for full schema.
-
-### Phase 3: Simulation Engine
-
-Load multiple personas into simulation:
-1. **Algorithmic Fidelity** - Strictly adhere to each persona's decision logic
-2. **Internal Monologue** - Think through how values align before speaking
-3. **Dynamic Interaction** - Allow natural interruption, agreement, argument
-
-See `references/simulation-guide.md` for setup instructions.
-
-### Phase 4: Scenario Testing
-
-Run event cards to forecast outcomes:
-- **Soul of the Company** - Research vs. consulting decisions
-- **Team Implosion** - Gap analysis and friction prediction
-- **Project Fit** - Competence and joy ratings per persona
-
-See `references/scenarios.md` for event card library.
-
-## Output Format
-
-**Persona Schema (XML):**
 ```xml
 <persona_profile>
     <name>Principal Name</name>
-    <psychometrics>...</psychometrics>
-    <linguistic_fingerprint>...</linguistic_fingerprint>
-    <core_drivers>...</core_drivers>
-    <decision_logic>...</decision_logic>
-    <conflict_style>...</conflict_style>
-    <narrative_anchors>...</narrative_anchors>
+    <psychometrics>
+        <clifton>Top 5 CliftonStrengths</clifton>
+        <via>Top 5 VIA Character Strengths</via>
+    </psychometrics>
+    <linguistic_fingerprint>Syntax, tone, vocabulary patterns</linguistic_fingerprint>
+    <core_drivers>
+        <primary_motivation>Impact | Security | Novelty | Money</primary_motivation>
+        <primary_fear>Irrelevance | Boredom | Conflict | Poverty</primary_fear>
+    </core_drivers>
+    <decision_logic>
+        <risk_tolerance>Low | Medium | High + context</risk_tolerance>
+        <data_preference>Ranked: Data | Prototype | Trusted Expert</data_preference>
+        <ethical_filter>Hard constraints (Kantian test, etc.)</ethical_filter>
+        <decision_sequencing>Pattern: OBSERVE → TRY → ESCALATE → EXIT</decision_sequencing>
+        <blind_spots>Known biases and limitations</blind_spots>
+    </decision_logic>
+    <conflict_style>Debater | Diplomat | Passive | Controller + stress behavior</conflict_style>
+    <narrative_anchors>
+        <origin_story>Formative event and lesson</origin_story>
+        <shadow_self>Behavior under extreme stress</shadow_self>
+    </narrative_anchors>
+    <agent_rules>
+        <must_reject>Hard no categories</must_reject>
+        <must_protect>Non-negotiable boundaries</must_protect>
+        <should_prefer>Weighted preferences</should_prefer>
+    </agent_rules>
 </persona_profile>
 ```
 
-**Simulation Output:**
-Each persona speaks in character with internal reasoning, following their decision logic strictly.
+See `references/persona-schema.md` for full schema specification.
+
+### Phase 3: Validation (Behavioral Testing)
+
+Test the proxy against real principal behavior:
+
+1. **Question Battery** — Present scenarios with multiple-choice responses
+2. **Simulant Prediction** — Proxy predicts principal's choice with reasoning
+3. **Ground Truth** — Principal answers independently
+4. **Refinement** — Mismatches reveal schema gaps → update schema
+
+Target: 80%+ accuracy on lenient match (correct answer OR acceptable alternative).
+
+See `references/simulation-guide.md` for validation methodology.
+
+### Phase 4: Agent Integration (PAIRL Deployment)
+
+Deploy the Digital Twin as a spoke in the PAIRL Conductor system:
+
+1. **Agent Rules Block** — Define must_reject, must_protect, should_prefer
+2. **Conductor Registration** — Register proxy with central Conductor
+3. **Integration Points** — Connect to calendar, email, task systems
+4. **Negotiation Protocol** — Define how proxy communicates with Conductor
+
+```xml
+<agent_rules>
+    <must_reject>
+        - Work that fails Kantian universalizability test
+        - Commitments to untrustworthy parties
+        - Tasks that compromise craft for speed
+    </must_reject>
+    <must_protect>
+        - Deep work blocks for strategic thinking
+        - Time for learning and skill-building
+        - Energy reserves (watch for exhaustion patterns)
+    </must_protect>
+    <should_prefer>
+        - Projects with learning value and future leverage
+        - Work with high-trust collaborators
+        - Novel challenges over routine optimization
+    </should_prefer>
+    <negotiation_notes>
+        - Weight trusted expert recommendations heavily
+        - Values conscious renegotiation over silent commitment-breaking
+    </negotiation_notes>
+</agent_rules>
+```
+
+See `references/agent-integration.md` for deployment guide.
+
+## Use Cases
+
+### Primary: Personal Proxy Agent
+Build a spoke for PAIRL Conductor that represents you in automated workflows:
+- Task acceptance/rejection based on values and bandwidth
+- Calendar negotiation with other agents
+- Filtering incoming requests before they reach you
+
+### Secondary: Team Simulation
+Load multiple proxies to forecast team dynamics:
+- Predict partnership friction before it happens
+- Test strategic decisions against personality profiles
+- Surface unspoken tensions and misalignments
+
+### Tertiary: Self-Knowledge Tool
+The extraction process itself is valuable:
+- Articulate your own decision patterns
+- Surface blind spots and shadow behaviors
+- Create documentation of "how I work" for collaborators
 
 ## Key Principle
 
-Token-efficient persona encoding prevents AI drift. The XML schema acts as a "save file" that maintains character consistency across sessions.
+**Token-efficient persona encoding prevents AI drift.** The XML schema is a portable "save file" that maintains character consistency across:
+- Different chat sessions
+- Different AI models
+- Different deployment contexts (simulation vs. agent proxy)
+
+The schema is the source of truth. All behaviors derive from it.
+
+## Output Artifacts
+
+| Artifact | Purpose |
+|----------|---------|
+| `{name}-persona-schema.xml` | Core Digital Twin (Conductor-ready) |
+| `{name}-origin-story.md` | Full narrative identity |
+| `{name}-extraction-checkpoint.md` | Heuristics and status |
+| `evals/questions/*.md` | Validation question sets |
+| `evals/simulant-responses/*.md` | Proxy predictions with reasoning |
+
+## Quality Checklist
+
+Before deploying a proxy:
+
+- [ ] **Specificity** — No generic traits; all based on interview data
+- [ ] **Quotes Used** — Actual phrases from the principal included
+- [ ] **Contradictions Noted** — Observed conflicts documented
+- [ ] **Stress Behavior** — Shadow self clearly described
+- [ ] **Linguistic Detail** — Enough to generate realistic dialogue
+- [ ] **Decision Rules** — Clear enough to predict choices
+- [ ] **Agent Rules** — Must_reject, must_protect, should_prefer defined
+- [ ] **Validation** — 80%+ lenient match on question battery
