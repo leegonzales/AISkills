@@ -406,7 +406,7 @@ Assistant: [Generates digest]
 - Wikilinks enable navigation
 - Daily notes include digest
 
-**With LeeAgent:**
+**With SiliconDoppelgangerActual:**
 - Deep queries via agent conversation
 - Complex graph traversals
 - Multi-step reasoning about priorities
