@@ -9,7 +9,7 @@ To use a skill:
 2. Read the corresponding `SKILL.md` file
 3. Follow the persona, constraints, and output formats defined
 
-## Skills (30 total)
+## Skills (31 total)
 
 | Skill | Description | Path |
 |-------|-------------|------|
@@ -38,6 +38,7 @@ To use a skill:
 | Process Mapper | Map and document business processes | `ProcessMapper/process-mapper/SKILL.md` |
 | Prose Polish | Writing style analysis and improvement | `ProsePolish/prose-polish/SKILL.md` |
 | Research to Essay | Convert research notes to essays | `ResearchToEssay/research-to-essay/SKILL.md` |
+| Second Brain | Personal knowledge capture and management | `SecondBrain/second-brain/SKILL.md` |
 | Writing Skills | General writing assistance | `WritingSkills/writing-skills/SKILL.md` |
 | PR Review Loop | Manage PR feedback cycles with Gemini/Claude | `PRReviewLoop/pr-review-loop/SKILL.md` |
 | Veo3 Prompter | Craft cinematic prompts for Veo 3.1 video | `Veo3Prompter/veo3-prompter/SKILL.md` |
@@ -66,7 +67,7 @@ To use a skill:
 - CSV Summarizer, Excel Auditor, Process Mapper
 
 **AI & Automation**
-- Inevitability Engine, Context Continuity, Context Continuity Code, Agent Mail, Silicon Doppelganger, Claude Speaks
+- Inevitability Engine, Context Continuity, Context Continuity Code, Agent Mail, Silicon Doppelganger, Claude Speaks, Second Brain
 
 **Creative & Media**
 - Artifacts Builder, Nano Banana, NotebookLM, Concept Forge, Veo3 Prompter
