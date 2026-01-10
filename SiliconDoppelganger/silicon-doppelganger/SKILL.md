@@ -204,11 +204,13 @@ Before deploying a proxy:
 | **WritingPartner** | Uses persona schema for voice calibration in collaborative writing |
 | **prose-polish** | Can validate that generated text matches linguistic fingerprint |
 
-## Example: LeeAgent
+## Example: SiliconDoppelgangerActual
 
-For a complete implementation, see the **LeeAgent** project—a fully-built Digital Twin with:
+For a complete implementation, see the **SiliconDoppelgangerActual** project—the authoritative instantiation of this methodology:
 - 58KB persona schema (XML)
 - 95 validation questions with 40 schema refinements
 - Integration ready for PAIRL Conductor
 
-LeeAgent demonstrates the full extraction → encoding → validation → deployment workflow.
+> **"Actual"** — The validated, deployed Digital Twin. Your own instantiation would be your "Actual."
+
+SiliconDoppelgangerActual demonstrates the full extraction → encoding → validation → deployment workflow.

@@ -102,7 +102,7 @@ your-project/
 
 **Option 2: Reference external location**
 ```
-Tell WritingPartner: "Load persona from ~/Projects/LeeAgent/lee-agent/data/lee-gonzales-persona-schema.xml"
+Tell WritingPartner: "Load persona from ~/Projects/SiliconDoppelgangerActual/silicon-doppelganger-actual/data/lee-gonzales-persona-schema.xml"
 ```
 
 ### If You Don't Have a Persona Schema

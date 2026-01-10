@@ -252,7 +252,7 @@ See `references/blocklist.md` for full list. Key patterns:
 
 ### With Persona Schema (SiliconDoppelganger Integration)
 
-**When:** User has a Digital Twin persona schema (from SiliconDoppelganger skill or LeeAgent-style project)
+**When:** User has a Digital Twin persona schema (from SiliconDoppelganger skill or SiliconDoppelgangerActual-style project)
 
 **What it provides:**
 - Linguistic fingerprint (tone, vocabulary, sentence structure patterns)
