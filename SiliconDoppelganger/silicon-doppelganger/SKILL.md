@@ -156,6 +156,15 @@ The extraction process itself is valuable:
 - Surface blind spots and shadow behaviors
 - Create documentation of "how I work" for collaborators
 
+### Quaternary: Voice Calibration for Writing
+The persona schema enhances **WritingPartner** skill:
+- Linguistic fingerprint guides prose generation
+- Core drivers inform topic framing and argument structure
+- Decision logic shapes how claims are stated
+- Psychometrics provide authenticity markers
+
+See WritingPartner skill for collaborative essay writing with voice calibration.
+
 ## Key Principle
 
 **Token-efficient persona encoding prevents AI drift.** The XML schema is a portable "save file" that maintains character consistency across:
@@ -187,3 +196,19 @@ Before deploying a proxy:
 - [ ] **Decision Rules** — Clear enough to predict choices
 - [ ] **Agent Rules** — Must_reject, must_protect, should_prefer defined
 - [ ] **Validation** — 80%+ lenient match on question battery
+
+## Related Skills
+
+| Skill | Integration |
+|-------|-------------|
+| **WritingPartner** | Uses persona schema for voice calibration in collaborative writing |
+| **prose-polish** | Can validate that generated text matches linguistic fingerprint |
+
+## Example: LeeAgent
+
+For a complete implementation, see the **LeeAgent** project—a fully-built Digital Twin with:
+- 58KB persona schema (XML)
+- 95 validation questions with 40 schema refinements
+- Integration ready for PAIRL Conductor
+
+LeeAgent demonstrates the full extraction → encoding → validation → deployment workflow.

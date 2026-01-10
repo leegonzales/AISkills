@@ -250,6 +250,32 @@ See `references/blocklist.md` for full list. Key patterns:
 
 **See:** `integrations/writing-samples.md`
 
+### With Persona Schema (SiliconDoppelganger Integration)
+
+**When:** User has a Digital Twin persona schema (from SiliconDoppelganger skill or LeeAgent-style project)
+
+**What it provides:**
+- Linguistic fingerprint (tone, vocabulary, sentence structure patterns)
+- Core drivers (primary motivations, fears)
+- Decision logic (how the user thinks and reasons)
+- Conflict style and communication preferences
+
+**How (when available):**
+1. Load `{name}-persona-schema.xml` from persona project
+2. Extract linguistic fingerprint for voice matching
+3. Use core drivers to inform topic framing
+4. Reference decision logic for argument structure
+5. Apply during both drafting and calibration
+
+**Integration with WritingSamples:**
+- Persona schema provides the "why" (motivations, values, thinking patterns)
+- WritingSamples provide the "how" (actual prose rhythm, openings, examples)
+- Together: fuller voice calibration than either alone
+
+**Without persona:** Works fine—WritingSamples and blocklist handle voice calibration.
+
+**See:** `integrations/persona-schema.md`
+
 ### With beads (Future - Phase 2)
 
 **When:** Session end, for persistence
