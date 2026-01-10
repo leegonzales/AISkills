@@ -64,3 +64,6 @@ test-results/
 *-test-plan.md
 *-execution-plan.md
 *-substack-draft.md
+
+# Private development workspaces (personal samples, test cases)
+/writing-partner/
