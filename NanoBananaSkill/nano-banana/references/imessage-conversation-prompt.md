@@ -44,6 +44,27 @@ Standard iOS message bubble styling. Gray bubbles left-aligned, blue bubbles rig
 Fill the screen with messages.
 ```
 
+**Filled-out example:**
+
+```
+Add iMessage conversation bubbles filling the white message area.
+Keep the phone frame, header, and input bar exactly the same.
+
+Add these messages in order from top to bottom:
+
+GRAY BUBBLE (left): "hey can I pick your brain"
+GRAY BUBBLE (left): "our AI rollout is fine? people are using the tools"
+GRAY BUBBLE (left): "but nothing's really changing. leadership wants ROI and I got nothing"
+BLUE BUBBLE (right): "are people actually changing how they work or just using AI for the same stuff"
+GRAY BUBBLE (left): "the second one 😬"
+BLUE BUBBLE (right): "yeah that's the gap. you got adoption, not transformation."
+GRAY BUBBLE (left): "what's the difference"
+BLUE BUBBLE (right): "adoption is using ChatGPT to summarize a meeting. transformation is redesigning how your team works because AI makes new things possible."
+
+Standard iOS message bubble styling. Gray bubbles (Light Gray #E9E9EB) left-aligned,
+blue bubbles (iMessage Blue #007AFF) right-aligned. Fill the screen with messages.
+```
+
 ## Best Practices
 
 ### Text Accuracy
@@ -63,9 +84,15 @@ Fill the screen with messages.
 - End with "Delivered" or "Read [time]" for realism
 
 ### Screen Density
-- Aim for 8-12 message bubbles per screen
+- Aim for 5-8 message bubbles per screen for readable text
 - Don't overcrowd - leave breathing room
 - Split into multiple screens for longer conversations
+
+### Manual Fallback
+If AI text generation remains inconsistent after editing:
+- Use the blank template from Step 1
+- Overlay text using a design tool (Figma, Canva)
+- Or use ImageMagick `magick` command for text compositing
 
 ## Use Cases
 
