@@ -467,6 +467,10 @@ Works well with:
 - `references/branded-infographic-catalyst.md` - Catalyst AI Services infographics (Sage & Sand)
 - `references/branded-slides-catalyst.md` - Catalyst AI Services presentation slides
 
+### Social Media Templates
+
+- `references/imessage-conversation-prompt.md` - iPhone text message screenshots (two-step method for accurate text)
+
 ## Catalyst AI Branding (Post-Processing)
 
 Add Catalyst AI branding to ANY generated image.
