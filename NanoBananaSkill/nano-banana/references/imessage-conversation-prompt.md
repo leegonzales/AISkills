@@ -84,7 +84,7 @@ blue bubbles (iMessage Blue #007AFF) right-aligned. Fill the screen with message
 - End with "Delivered" or "Read [time]" for realism
 
 ### Screen Density
-- Aim for 5-8 message bubbles per screen for readable text
+- Aim for 8-12 message bubbles per screen
 - Don't overcrowd - leave breathing room
 - Split into multiple screens for longer conversations
 
