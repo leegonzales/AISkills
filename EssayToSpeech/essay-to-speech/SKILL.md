@@ -221,10 +221,10 @@ When user requests annotated output, add:
 >
 > [TRANSITION] And if you're still thinking about "return to office" as your strategy? You're solving yesterday's problem.
 
-**Images** (if essay had an image):
+### Images
 - `remote-work-timeline.png`: ADAPT - Good timeline concept but years are hard to read, enlarge date labels
 
-**Slide Ideas**:
+### Slide Ideas
 - Title slide: "The Expectation Shift" - use adapted `remote-work-timeline.png`
 - Single stat callout: "Flexibility is now table stakes"
 - Optional: Icon grid showing changed expectations (location, hours, autonomy)
