@@ -9,7 +9,7 @@ To use a skill:
 2. Read the corresponding `SKILL.md` file
 3. Follow the persona, constraints, and output formats defined
 
-## Skills (32 total)
+## Skills (33 total)
 
 | Skill | Description | Path |
 |-------|-------------|------|
@@ -44,6 +44,7 @@ To use a skill:
 | PR Review Loop | Manage PR feedback cycles with Gemini/Claude | `PRReviewLoop/pr-review-loop/SKILL.md` |
 | Veo3 Prompter | Craft cinematic prompts for Veo 3.1 video | `Veo3Prompter/veo3-prompter/SKILL.md` |
 | Silicon Doppelganger | Build personal proxy agents for PAIRL Conductor | `SiliconDoppelganger/silicon-doppelganger/SKILL.md` |
+| Slide Builder | Transform essay-to-speech output into presentations | `SlideBuilder/slide-builder/SKILL.md` |
 | Writing Partner | Collaborative fiction writing assistant | `WritingPartner/writing-partner/SKILL.md` |
 
 ## Infrastructure
@@ -71,7 +72,7 @@ To use a skill:
 - Inevitability Engine, Context Continuity, Context Continuity Code, Agent Mail, Silicon Doppelganger, Claude Speaks, Second Brain
 
 **Creative & Media**
-- Artifacts Builder, Nano Banana, NotebookLM, Concept Forge, Veo3 Prompter
+- Artifacts Builder, Nano Banana, NotebookLM, Concept Forge, Slide Builder, Veo3 Prompter
 
 **Meta & Documentation**
 - Claude Project Docs, Dad Joke Validator
