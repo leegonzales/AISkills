@@ -104,8 +104,8 @@ Generate a logical filename from the essay title:
 [TRANSITION] Bridge to the next section.
 
 ### Images
-[If chunk contains images from the original essay]
-- `image-filename.png`: [USE|ADAPT|RECREATE|SKIP] - [Brief assessment and guidance]
+- `figure1.png`: USE - Clear diagram, good resolution
+- `chart2.png`: ADAPT - Needs larger labels for projection
 
 ### Slide Ideas
 - [Suggested visual, chart type, or slide concept]
