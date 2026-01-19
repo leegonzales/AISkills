@@ -76,7 +76,8 @@ For essays containing images:
 
 Generate a logical filename from the essay title:
 - `{slugified-title}-presentation.md`
-- Example: "The Future of Remote Work" → `the-future-of-remote-work-presentation.md`
+- Drop common stop words (the, a, an, in, of, and, or) for concise filenames
+- Example: "The Future of Remote Work" → `future-remote-work-presentation.md`
 
 ### Document Structure
 
