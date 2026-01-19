@@ -9,7 +9,7 @@ To use a skill:
 2. Read the corresponding `SKILL.md` file
 3. Follow the persona, constraints, and output formats defined
 
-## Skills (31 total)
+## Skills (32 total)
 
 | Skill | Description | Path |
 |-------|-------------|------|
@@ -28,6 +28,7 @@ To use a skill:
 | Context Continuity Code | Code context for Claude Code | `ContextContinuityCode/context-continuity-code/SKILL.md` |
 | CSV Summarizer | Analyze and summarize CSV data | `CSVDataSummarizer/csv-data-summarizer/SKILL.md` |
 | Dad Joke Validator | Rate and generate dad jokes | `DadJokeValidator/dad-joke-validator/SKILL.md` |
+| Essay to Speech | Transform essays into spoken presentations | `EssayToSpeech/essay-to-speech/SKILL.md` |
 | Excel Auditor | Analyze Excel files, audit formulas | `ExcelAuditor/excel-auditor/SKILL.md` |
 | Gemini Peer Review | AI peer review via Gemini CLI | `GeminiPeerReview/gemini-peer-review/SKILL.md` |
 | Inevitability Engine | AI business opportunity discovery | `InevitabilityEngine/inevitability-engine/SKILL.md` |
@@ -58,7 +59,7 @@ To use a skill:
 - Codex Peer Review, Gemini Peer Review, Codebase Navigator, MCP Builder, Playwright, PR Review Loop
 
 **Writing & Content**
-- Prose Polish, Research to Essay, Writing Skills, Claimify, Writing Partner
+- Prose Polish, Research to Essay, Essay to Speech, Writing Skills, Claimify, Writing Partner
 
 **AWS & Cloud**
 - AWS CDK, AWS Cost Ops, AWS Serverless
