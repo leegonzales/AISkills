@@ -95,13 +95,13 @@ Generate a logical filename from the essay title:
 [Verbatim essay text for this section - unchanged]
 
 ### Talk Track
-[HOOK] Opening attention-grabber for this section.
+[HOOK] Let me start with a question: what if everything you thought you knew was wrong?
 
-[KEY_POINT] The core insight or argument, spoken naturally.
+[KEY_POINT] The real issue isn't what people say—it's what they actually do.
 
-[EVIDENCE] Supporting data or examples that back up the key point.
+[EVIDENCE] A recent study found a 50% gap between reported intentions and actual behavior.
 
-[TRANSITION] Bridge to the next section.
+[TRANSITION] Now that we understand the problem, let's look at what we can do about it.
 
 ### Images
 - `figure1.png`: USE - Clear diagram, good resolution
