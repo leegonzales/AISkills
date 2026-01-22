@@ -23,7 +23,7 @@ Invoke when user:
 
 **That's it.** The daemon runs in background via launchd - instant response.
 
-**IMPORTANT:** When using the Bash tool, set `timeout: 300000` (5 min) to avoid Claude Code's default 2-minute timeout on longer text.
+**TIP:** For longer text, append `&` to run fire-and-forget (see "Long Text" section below).
 
 ## Options
 
@@ -43,17 +43,15 @@ Invoke when user:
 
 ## Long Text (3+ sentences)
 
-For longer content, either:
-
-1. **Set longer timeout:** Use `timeout: 300000` in Bash tool call
-2. **Run in background:** Use `run_in_background: true` to avoid blocking
+For longer content, use **fire-and-forget mode** with shell backgrounding:
 
 ```bash
-# Background mode - Claude continues while audio plays
-~/Projects/claude-speak/.venv/bin/claude-speak-client "Your longer text here..."
+~/Projects/claude-speak/.venv/bin/claude-speak-client "Your longer text here..." &
 ```
 
-Background mode is cleaner for paragraphs and avoids timeout issues entirely.
+The trailing `&` runs the command in the background at the shell level, so Claude Code doesn't track it as a task. The audio plays while the conversation continues—no timeout errors or false "failed" notifications.
+
+**Why this works:** Claude Code's `run_in_background` still monitors the task and may report timeout failures even when audio completes successfully. Shell backgrounding (`&`) avoids this entirely.
 
 ## Available Voices
 
@@ -73,6 +71,6 @@ If "Daemon not running" error:
 
 ## Best Practices
 
-- Keep utterances concise (1-2 sentences)
-- Use for key points, not entire responses
+- For short text (1-2 sentences): run normally
+- For longer text (paragraphs): use `&` fire-and-forget
 - Check daemon status if issues arise
