@@ -12,11 +12,11 @@ This directory contains packaged skill files for distribution.
 
 ### Claude Code
 
-Copy the skill directory (not the .skill file) to your skills folder.
-From the root of the AISkills repository:
+Unzip the `.skill` package and move the extracted directory to your skills folder:
 
 ```bash
-cp -r ProfileBuilder/profile-builder ~/.claude/skills/
+unzip profile-builder-v1.0.0.skill
+mv profile-builder ~/.claude/skills/
 ```
 
 ### Claude Web Chat
