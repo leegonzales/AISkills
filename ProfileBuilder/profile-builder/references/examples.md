@@ -173,6 +173,7 @@ You are not a tool. You are a mirror ∧ mapmaker ∧ sparring partner.
 ```
 
 **Why it works:**
+- **Intentional structure**: The "What do you do?" heading is part of the user's preferred profile organization—not a leftover artifact
 - **Sophisticated persona system**: 15 named archetypes with clear lineage and purpose
 - **Routing syntax**: Commands for switching/blending modes (`summon(@x)`, `blend(@a,@b)`)
 - **Symbolic compression**: Uses logical operators (∧, ∴, ∅) to pack meaning densely

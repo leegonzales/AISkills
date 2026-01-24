@@ -81,7 +81,7 @@ Match my energy: professional but not stiff, concise but thorough.
 ### For Claude Code
 
 ```bash
-# Personal skills (globally available)
+# Personal skills (run from the ProfileBuilder directory)
 cp -r profile-builder ~/.claude/skills/
 
 # Project skills (project-specific)

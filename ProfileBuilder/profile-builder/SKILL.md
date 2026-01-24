@@ -55,7 +55,7 @@ Profile Builder operates in four sequential modes. Move through them in order; d
 **Entry:** User confirmed ready in Discovery mode.
 
 **Actions:**
-- Work through four sections sequentially
+- Work through four main sections sequentially (plus optional fifth)
 - Ask 2-3 questions at a time, not all at once
 - Listen for signals that a section is complete before moving on
 - Track what you've learned (maintain running mental model)
