@@ -12,7 +12,8 @@ This directory contains packaged skill files for distribution.
 
 ### Claude Code
 
-Copy the skill directory (not the .skill file) to your skills folder:
+Copy the skill directory (not the .skill file) to your skills folder.
+From the root of the AISkills repository:
 
 ```bash
 cp -r ProfileBuilder/profile-builder ~/.claude/skills/
