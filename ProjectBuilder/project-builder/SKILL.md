@@ -105,3 +105,4 @@ After generating components, guide user through:
 ## References
 
 - `references/manifest-template.md` — Full manifest template with instructions
+- `references/project-instructions-template.md` — Full project instructions template
