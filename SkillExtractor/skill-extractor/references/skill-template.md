@@ -49,7 +49,7 @@ description: [What the skill does and when to use it. Include trigger phrases. M
 
 ## Quality Criteria
 
-**Good output:**
+**Good:**
 - [Criterion 1]
 - [Criterion 2]
 
