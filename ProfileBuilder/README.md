@@ -122,6 +122,7 @@ See [`profile-builder/references/examples.md`](profile-builder/references/exampl
 - Customer Success Leader profile
 - Facilitator/Consultant profile
 - Minimal profile (valid choice!)
+- Power User profile with archetypes
 
 ## Limitations
 

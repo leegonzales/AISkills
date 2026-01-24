@@ -15,7 +15,7 @@ This directory contains packaged skill files for distribution.
 Copy the skill directory (not the .skill file) to your skills folder:
 
 ```bash
-cp -r ../profile-builder ~/.claude/skills/
+cp -r ProfileBuilder/profile-builder ~/.claude/skills/
 ```
 
 ### Claude Web Chat

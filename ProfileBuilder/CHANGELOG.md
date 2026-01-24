@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Initial release of Profile Builder skill
 - Four-section structured interview process (Communication, Identity, Frameworks, Boundaries)
-- Example profiles for 5 professional archetypes
+- Example profiles for 6 professional roles and archetypes
 - Anti-pattern guidance for common mistakes
 - Voice calibration to reflect authentic user voice
 - Ready-to-paste output format for Claude Personal Preferences
