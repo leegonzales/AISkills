@@ -9,7 +9,7 @@ To use a skill:
 2. Read the corresponding `SKILL.md` file
 3. Follow the persona, constraints, and output formats defined
 
-## Skills (33 total)
+## Skills (35 total)
 
 | Skill | Description | Path |
 |-------|-------------|------|
@@ -37,6 +37,7 @@ To use a skill:
 | NotebookLM | NotebookLM integration helper | `NotebookLMSkill/notebooklm/SKILL.md` |
 | Playwright | Browser automation and testing | `PlaywrightSkill/playwright/SKILL.md` |
 | Process Mapper | Map and document business processes | `ProcessMapper/process-mapper/SKILL.md` |
+| Project Builder | Create Claude Projects with instructions and manifests | `ProjectBuilder/project-builder/SKILL.md` |
 | Prose Polish | Writing style analysis and improvement | `ProsePolish/prose-polish/SKILL.md` |
 | Research to Essay | Convert research notes to essays | `ResearchToEssay/research-to-essay/SKILL.md` |
 | Second Brain | Personal knowledge capture and management | `SecondBrain/second-brain/SKILL.md` |
@@ -44,6 +45,7 @@ To use a skill:
 | PR Review Loop | Manage PR feedback cycles with Gemini/Claude | `PRReviewLoop/pr-review-loop/SKILL.md` |
 | Veo3 Prompter | Craft cinematic prompts for Veo 3.1 video | `Veo3Prompter/veo3-prompter/SKILL.md` |
 | Silicon Doppelganger | Build personal proxy agents for PAIRL Conductor | `SiliconDoppelganger/silicon-doppelganger/SKILL.md` |
+| Skill Extractor | Extract reusable skills from conversation patterns | `SkillExtractor/skill-extractor/SKILL.md` |
 | Slide Builder | Transform essay-to-speech output into presentations | `SlideBuilder/slide-builder/SKILL.md` |
 | Writing Partner | Collaborative fiction writing assistant | `WritingPartner/writing-partner/SKILL.md` |
 
@@ -75,4 +77,4 @@ To use a skill:
 - Artifacts Builder, Nano Banana, NotebookLM, Concept Forge, Slide Builder, Veo3 Prompter
 
 **Meta & Documentation**
-- Claude Project Docs, Dad Joke Validator
+- Claude Project Docs, Dad Joke Validator, Project Builder, Skill Extractor
