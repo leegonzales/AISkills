@@ -90,4 +90,3 @@ When I ask you to [trigger phrase], follow these steps:
 **Connect to sources:**
 - Reference the manifest for dynamic data
 - Reference uploaded files for static reference
-```

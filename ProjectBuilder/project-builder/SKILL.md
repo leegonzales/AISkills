@@ -48,31 +48,14 @@ Guide users through creating effective Claude Projects with custom instructions 
 
 ## Output: Project Instructions
 
-```markdown
-# [Project Name] — Project Instructions
+Generate using template in `references/project-instructions-template.md`.
 
-## Context
-You are helping [User Role] with [Primary Task].
-[1-2 sentences about domain and why it matters]
-
-## Primary Workflow
-When I ask you to [trigger phrase], you should:
-1. [Step 1]
-2. [Step 2]
-3. [Step 3]
-
-## Key Information Sources
-- **[Source Name]**: [What it contains and when to reference]
-
-## Output Requirements
-- Format: [Specific requirements]
-- Tone: [Professional/casual/technical]
-- Length: [Guidelines]
-
-## Quality Criteria
-- [What makes outputs excellent]
-- [Common mistakes to avoid]
-```
+Key sections to include:
+- Context (role, task, domain)
+- Primary Workflow (trigger phrase, steps)
+- Key Information Sources (dynamic and static)
+- Output Requirements (format, tone, length)
+- Quality Criteria (good outputs, mistakes to avoid)
 
 ## Output: Context Manifest
 

@@ -67,7 +67,8 @@ ProjectBuilder/
     ├── SKILL.md                     # Core skill definition
     ├── README.md                    # This file
     └── references/
-        └── manifest-template.md     # Full manifest template
+        ├── manifest-template.md             # Full manifest template
+        └── project-instructions-template.md # Full instructions template
 ```
 
 ## Related Skills
