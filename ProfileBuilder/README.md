@@ -84,9 +84,9 @@ Match my energy: professional but not stiff, concise but thorough.
 # Personal skills (run from the ProfileBuilder directory)
 cp -r profile-builder ~/.claude/skills/
 
-# Project skills (project-specific)
+# Project skills (run from your project's root, adjust source path as needed)
 mkdir -p .claude/skills
-cp -r profile-builder .claude/skills/
+cp -r /path/to/ProfileBuilder/profile-builder .claude/skills/
 ```
 
 ### For Claude Web Chat
