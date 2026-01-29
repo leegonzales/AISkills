@@ -39,7 +39,7 @@ A collection of Claude Skills - specialized system prompts that extend AI capabi
 
 ## Skill Registry
 
-See `SKILLS.md` for the complete skill manifest (32 skills).
+See `SKILLS.md` for the complete skill manifest (37 skills).
 
 ## Reference Documentation
 

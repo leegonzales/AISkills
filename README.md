@@ -1,6 +1,6 @@
 # AISkills
 
-A curated collection of **29 professional skills** for Claude Code and Claude web chat. Skills extend Claude's capabilities for development, analysis, writing, and specialized workflows.
+A curated collection of **37 professional skills** for Claude Code and Claude web chat. Skills extend Claude's capabilities for development, analysis, writing, and specialized workflows.
 
 ## What Are Claude Skills?
 
@@ -23,15 +23,17 @@ Skills are modular capabilities that Claude automatically discovers and uses bas
 | [Codebase Navigator](CodebaseNavigator/) | Semantic code search with osgrep integration | 🖥️ Code |
 | [Artifacts Builder](ArtifactsBuilder/) | React artifacts with 43 shadcn/ui components | All |
 
-### Writing & Content (5 skills)
+### Writing & Content (7 skills)
 
 | Skill | Description | Platform |
 |-------|-------------|----------|
 | [Prose Polish](ProsePolish/) | Writing analysis across 4 layers (lexical, structural, rhetorical, voice) | All |
 | [Research-to-Essay](ResearchToEssay/) | 6-phase workflow for research-driven publication-grade writing | All |
+| [Essay to Speech](EssayToSpeech/) | Transform essays into spoken word presentations | All |
 | [Writing Partner](WritingPartner/) | Collaborative essay writing with interview, thread tracking, voice calibration | All |
 | [Writing Skills](WritingSkills/) | META-SKILL: TDD methodology for documentation ("Iron Law") | All |
 | [Claimify](Claimify/) | Transform discourse into structured argument maps | All |
+| [Presentation Partner](PresentationPartner/) | Collaborative presentation authoring with Talk Track v5 format | All |
 
 ### Analysis & Reasoning (6 skills)
 
@@ -44,13 +46,16 @@ Skills are modular capabilities that Claude automatically discovers and uses bas
 | [CSV Data Summarizer](CSVDataSummarizer/) | Proactive CSV analysis (exemplary "DO NOT ASK" design pattern) | All |
 | [Silicon Doppelganger](SiliconDoppelganger/) | Digital Twin personas for team dynamics and decision forecasting | All |
 
-### AI & Automation (4 skills)
+### AI & Automation (7 skills)
 
 | Skill | Description | Platform |
 |-------|-------------|----------|
 | [NotebookLM](NotebookLMSkill/) | Source-grounded Q&A with browser automation | 🖥️ Code |
 | [Agent Mail](AgentMail/) | Email automation and management for AI agents | All |
+| [Claude Speak](ClaudeSpeak/) | High-quality text-to-speech with Kokoro TTS on Apple Silicon | 🖥️ Code |
 | [Nano Banana](NanoBananaSkill/) | AI image generation via Google Gemini 3 Pro | All |
+| [Second Brain](SecondBrain/) | Personal knowledge capture and management | All |
+| [Slide Builder](SlideBuilder/) | Transform essay-to-speech output into slide presentations | All |
 | [Veo3 Prompter](Veo3Prompter/) | Craft cinematic prompts for Veo 3.1 video generation | All |
 
 ### Context & Workflow (3 skills)
@@ -61,10 +66,13 @@ Skills are modular capabilities that Claude automatically discovers and uses bas
 | [Context Continuity Code](ContextContinuityCode/) | Dev-optimized context transfer for Claude Code | 🖥️ Code |
 | [Claude Project Docs](ClaudeProjectDocs/) | Generate CLAUDE.md files with progressive disclosure | All |
 
-### Fun (1 skill)
+### Meta & Tools (4 skills)
 
 | Skill | Description | Platform |
 |-------|-------------|----------|
+| [Profile Builder](ProfileBuilder/) | Build Claude personalization profiles through guided Q&A | All |
+| [Project Builder](ProjectBuilder/) | Create Claude Projects with instructions and manifests | All |
+| [Skill Extractor](SkillExtractor/) | Extract reusable skills from conversation patterns | All |
 | [Dad Joke Validator](DadJokeValidator/) | Rate and generate dad jokes with scientific precision | All |
 
 **Legend:** 🖥️ Code = Claude Code only (requires terminal) | 🧪 = In testing
@@ -212,6 +220,6 @@ MIT License. Individual skills may have their own licenses - check skill directo
 
 ---
 
-**29 skills** | **MIT License** | **Last Updated:** 2026-01-02
+**37 skills** | **MIT License** | **Last Updated:** 2026-01-28
 
 Built with Claude Code | [Learn More](https://docs.claude.com/en/docs/claude-code)

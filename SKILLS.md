@@ -19,7 +19,7 @@ To use a skill:
 | AWS Cost Ops | AWS cost optimization and analysis | `AWSSkills/aws-cost-operations/SKILL.md` |
 | AWS Serverless | Serverless and event-driven architecture | `AWSSkills/aws-serverless-eda/SKILL.md` |
 | Claimify | Fact-checking and claim verification | `Claimify/claimify/SKILL.md` |
-| Claude Speaks | Text-to-speech with AI voice synthesis | `ClaudeSpeak/claude-speak/SKILL.md` |
+| Claude Speak | Text-to-speech with AI voice synthesis | `ClaudeSpeak/claude-speak/SKILL.md` |
 | Claude Project Docs | Generate CLAUDE.md documentation | `ClaudeProjectDocs/claude-project-docs/SKILL.md` |
 | Codebase Navigator | Semantic code search with osgrep | `CodebaseNavigator/codebase-navigator/SKILL.md` |
 | Codex Peer Review | AI peer review via Codex CLI | `CodexPeerReview/codex-peer-review/SKILL.md` |
@@ -73,7 +73,7 @@ To use a skill:
 - CSV Summarizer, Excel Auditor, Process Mapper
 
 **AI & Automation**
-- Inevitability Engine, Context Continuity, Context Continuity Code, Agent Mail, Silicon Doppelganger, Claude Speaks, Second Brain
+- Inevitability Engine, Context Continuity, Context Continuity Code, Agent Mail, Silicon Doppelganger, Claude Speak, Second Brain
 
 **Creative & Media**
 - Artifacts Builder, Nano Banana, NotebookLM, Concept Forge, Slide Builder, Veo3 Prompter

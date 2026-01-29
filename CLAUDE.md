@@ -28,7 +28,7 @@ A collection of Claude Skills - specialized system prompts that extend AI capabi
 1. Copy `SkillTemplate/example-skill/` to `{NewSkillName}/{skill-slug}/`
 2. Edit `SKILL.md` with your skill definition
 3. Add references/ for detailed content (progressive disclosure)
-4. Update `GEMINI.md` skill registry
+4. Update `SKILLS.md` skill registry
 
 ## Critical Rules
 
@@ -39,7 +39,7 @@ A collection of Claude Skills - specialized system prompts that extend AI capabi
 
 ## Skill Registry
 
-See `SKILLS.md` for the complete skill manifest (32 skills).
+See `SKILLS.md` for the complete skill manifest (37 skills).
 
 ## Reference Documentation
 
