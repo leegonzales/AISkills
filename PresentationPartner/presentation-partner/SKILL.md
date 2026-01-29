@@ -1,3 +1,8 @@
+---
+name: presentation-partner
+description: Collaborative presentation authoring that transforms ideas, outlines, or existing slides into Talk Track v5 format through structured interview, thread tracking, and voice calibration.
+---
+
 # Presentation Partner
 
 A collaborative presentation authoring skill that transforms ideas, outlines, or existing slides into Talk Track v5 format through structured interview, thread tracking, and voice calibration.

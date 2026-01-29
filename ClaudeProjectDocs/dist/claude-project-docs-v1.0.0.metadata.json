@@ -1,0 +1,9 @@
+{
+  "name": "claude-project-docs",
+  "version": "1.0.0",
+  "package": "claude-project-docs-v1.0.0.skill",
+  "size": "24K",
+  "sha256": "344b77be54a8479e19f9685badc57436ede991e1f2d8881566368cc4da33c364",
+  "packaged_at": "2026-01-29T04:07:14Z",
+  "packager": "SKILL-9 Automation v1.0"
+}

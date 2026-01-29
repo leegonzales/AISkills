@@ -1,0 +1,9 @@
+{
+  "name": "claude-speak",
+  "version": "1.0.0",
+  "package": "claude-speak-v1.0.0.skill",
+  "size": "4.0K",
+  "sha256": "6d58ed1f990cef475bcfda69105f2aa805f4b0ffe5efb496b96b3059327201f1",
+  "packaged_at": "2026-01-29T04:07:14Z",
+  "packager": "SKILL-9 Automation v1.0"
+}

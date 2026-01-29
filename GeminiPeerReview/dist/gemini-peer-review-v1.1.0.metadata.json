@@ -1,0 +1,9 @@
+{
+  "name": "gemini-peer-review",
+  "version": "1.1.0",
+  "package": "gemini-peer-review-v1.1.0.skill",
+  "size": "64K",
+  "sha256": "0c38dfe01999e15727a774e8183faf919df2155aace2e0aeb0dc82bf9e5c2abc",
+  "packaged_at": "2026-01-29T04:07:14Z",
+  "packager": "SKILL-9 Automation v1.0"
+}

@@ -106,7 +106,7 @@ The primary output format for presentations.
 ### Structure
 
 ```yaml
----
+# Talk Track v5 frontmatter
 version: 5
 title: "Presentation Title"
 subtitle: "Optional Subtitle"

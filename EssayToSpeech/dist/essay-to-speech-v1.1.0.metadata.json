@@ -1,0 +1,9 @@
+{
+  "name": "essay-to-speech",
+  "version": "1.1.0",
+  "package": "essay-to-speech-v1.1.0.skill",
+  "size": "20K",
+  "sha256": "4b179945e7dcdcc38acf22cca0ff2bd63e84f874746a644e0f38081db9541d9a",
+  "packaged_at": "2026-01-29T04:07:14Z",
+  "packager": "SKILL-9 Automation v1.0"
+}
