@@ -1,31 +1,16 @@
-# AISkills Documentation & Research
+# AISkills Documentation
 
-This directory contains research reports, test plans, and documentation artifacts from the development of the AISkills collection.
+Active specifications and references for the AISkills collection.
 
-## Contents
+## Current Documents
 
-### Research Reports
-- `gemini-cli-research-report.md` - Gemini CLI investigation for peer review integration
-- `SKILL_DISCOVERY_REPORT.md` - Analysis of 100+ skills from GitHub
-- `skill-catalog.md` - Comprehensive skill catalog with scoring
-- `skill-evaluation-rubric.md` - Rubric for evaluating skill quality
-
-### Planning Documents
-- `INTEGRATION_PLAN.md` - Moved to root (active planning doc)
-- `priority-skills-list.md` - Prioritized integration queue
+- `SKILL-8-SPEC.md` - Skill template and integration runbook specification
+- `SKILL-9-SPEC.md` - Skill packaging automation specification
+- `skill-evaluation-rubric.md` - Quality evaluation rubric (4 categories, 100-point scale)
 - `SUBAGENT_SPEC_TEMPLATE.md` - Template for creating autonomous subagent specifications
 
-### Test Documentation
-- `PEER_REVIEW_TEST_PLAN.md` - Testing strategy for peer review skills
-- `PEER_REVIEW_TEST_EXECUTION_PLAN.md` - Execution details
-- `FINAL_TEST_REPORT.md` - Results from peer review testing
-- `EXECUTIVE_SUMMARY.md` - Project summary and findings
+## Archive
 
-### Drafts
-- `peer-review-skills-substack-draft.md` - Article draft about peer review skills
-
-## Note
-
-These documents represent the research and planning phase of the AISkills collection. They are kept for historical reference and to document decision-making processes.
+Historical research reports, test plans, and drafts are in `archive/`. These document the research and planning phase of the AISkills collection and are kept for reference.
 
 For active project documentation, see the main README.md in the repository root.
