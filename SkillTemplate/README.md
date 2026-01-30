@@ -13,6 +13,8 @@ Built from Dad Joke Validator reference implementation. Includes complete templa
 
 ## What's Included
 
+> **Two directories, two purposes:** `skill-template/` has `.template` files you copy and fill in. `example-skill/` shows a completed skill for reference.
+
 ### 1. skill-template/
 Complete template directory with:
 - SKILL.md.template (YAML frontmatter + markdown)
@@ -100,13 +102,7 @@ See [CUSTOMIZATION_GUIDE.md](CUSTOMIZATION_GUIDE.md) for detailed patterns.
 
 ## Integration with AISkills
 
-This template enables rapid integration of:
-- **SKILL-10**: Research to Essay (workflow)
-- **SKILL-13**: Code Explainer (analysis)
-- **SKILL-19**: Meeting BS Detector (analysis)
-- Future skill discoveries (10+ planned)
-
-Target: 10x velocity on skill integrations using this standardized pattern.
+This template is the starting point for all new skills in the AISkills collection (37 skills and growing). See the main [SKILLS.md](../SKILLS.md) for the full registry.
 
 ## Reference Implementation
 
