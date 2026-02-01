@@ -1,6 +1,6 @@
 # Goals Graph Schema Reference
 
-> Quick-ref for `goals_query.py` in `~/Projects/leegonzales/SiliconDoppelgangerActual/`
+> Quick-ref for `~/Projects/leegonzales/SiliconDoppelgangerActual/silicon-doppelganger-actual/tools/goals_query.py`
 
 ## Sections & Required Fields
 

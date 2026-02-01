@@ -47,7 +47,7 @@ See `references/graph-schema.md` in this skill directory for sections, required 
 | "What are my open threads?" | `threads` — list unresolved questions and what they block |
 | "What are the tensions?" / "Where are the tradeoffs?" | `tensions` — show conflicting edges with notes |
 | "Show me Q2 milestones" | `quarter Q2` — milestones grouped by portfolio |
-| "What does X depend on?" | `node <id>` — look at incoming `requires`/`enables` edges |
+| "What does X depend on?" | `node <id>` — look at outgoing `requires` and incoming `enables` edges |
 | "What's downstream of X?" / "What does X unlock?" | `impact <id>` — forward propagation |
 | "How does X connect to Y?" | `path <from> <to>` — shortest dependency path |
 | "Show me everything in consulting" | `portfolio consulting` or `node stream-consulting` |
@@ -66,7 +66,7 @@ Don't just paste command output. When answering queries:
 
 | Lee says | You do |
 |----------|--------|
-| "Add task: draft Lexsavvy proposal" | `add actions action-lexsavvy-proposal "Draft Lexsavvy proposal" --fields priority=immediate energy=medium status=not_started` then `add-edge action-lexsavvy-proposal stream-consulting enables` |
+| "Add task: draft Lexsavvy proposal" | `add actions action-lexsavvy-proposal "Draft Lexsavvy proposal" --fields priority=immediate energy=medium status=not_started` then `add-edge action-lexsavvy-proposal stream-consulting enables` then `log stream-consulting "Lexsavvy interest"` |
 | "I hit 200 Substack subs" | `update met-substack-subs current 200` |
 | "The speaking gig is confirmed" | `log` on relevant node + possibly `update` status |
 | "Clarify differential revenue is done" | `update action-clarify-differential status done` |
