@@ -1,6 +1,6 @@
 # AISkills
 
-A curated collection of **37 professional skills** for Claude Code and Claude web chat. Skills extend Claude's capabilities for development, analysis, writing, and specialized workflows.
+A curated collection of **38 professional skills** for Claude Code and Claude web chat. Skills extend Claude's capabilities for development, analysis, writing, and specialized workflows.
 
 ## What Are Claude Skills?
 
@@ -46,7 +46,7 @@ Skills are modular capabilities that Claude automatically discovers and uses bas
 | [CSV Data Summarizer](CSVDataSummarizer/) | Proactive CSV analysis (exemplary "DO NOT ASK" design pattern) | All |
 | [Silicon Doppelganger](SiliconDoppelganger/) | Digital Twin personas for team dynamics and decision forecasting | All |
 
-### AI & Automation (7 skills)
+### AI & Automation (8 skills)
 
 | Skill | Description | Platform |
 |-------|-------------|----------|
@@ -57,6 +57,7 @@ Skills are modular capabilities that Claude automatically discovers and uses bas
 | [Second Brain](SecondBrain/) | Personal knowledge capture and management | All |
 | [Slide Builder](SlideBuilder/) | Transform essay-to-speech output into slide presentations | All |
 | [Veo3 Prompter](Veo3Prompter/) | Craft cinematic prompts for Veo 3.1 video generation | All |
+| [Fabric Patterns](FabricPatterns/) | Run danielmiessler/fabric CLI patterns (240+ AI prompts) | 🖥️ Code |
 
 ### Context & Workflow (3 skills)
 
@@ -220,6 +221,6 @@ MIT License. Individual skills may have their own licenses - check skill directo
 
 ---
 
-**37 skills** | **MIT License** | **Last Updated:** 2026-01-28
+**38 skills** | **MIT License** | **Last Updated:** 2026-01-31
 
 Built with Claude Code | [Learn More](https://docs.claude.com/en/docs/claude-code)

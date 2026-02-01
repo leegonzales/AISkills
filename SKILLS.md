@@ -9,7 +9,7 @@ To use a skill:
 2. Read the corresponding `SKILL.md` file
 3. Follow the persona, constraints, and output formats defined
 
-## Skills (37 total)
+## Skills (38 total)
 
 | Skill | Description | Path |
 |-------|-------------|------|
@@ -30,6 +30,7 @@ To use a skill:
 | Dad Joke Validator | Rate and generate dad jokes | `DadJokeValidator/dad-joke-validator/SKILL.md` |
 | Essay to Speech | Transform essays into spoken presentations | `EssayToSpeech/essay-to-speech/SKILL.md` |
 | Excel Auditor | Analyze Excel files, audit formulas | `ExcelAuditor/excel-auditor/SKILL.md` |
+| Fabric Patterns | Run danielmiessler/fabric CLI patterns for analysis, extraction, summarization | `FabricPatterns/fabric-patterns/SKILL.md` |
 | Gemini Peer Review | AI peer review via Gemini CLI | `GeminiPeerReview/gemini-peer-review/SKILL.md` |
 | Inevitability Engine | AI business opportunity discovery | `InevitabilityEngine/inevitability-engine/SKILL.md` |
 | MCP Builder | Build Model Context Protocol servers | `MCPBuilder/mcp-builder/SKILL.md` |
@@ -73,7 +74,7 @@ To use a skill:
 - CSV Summarizer, Excel Auditor, Process Mapper
 
 **AI & Automation**
-- Inevitability Engine, Context Continuity, Context Continuity Code, Agent Mail, Silicon Doppelganger, Claude Speak, Second Brain
+- Inevitability Engine, Context Continuity, Context Continuity Code, Agent Mail, Silicon Doppelganger, Claude Speak, Second Brain, Fabric Patterns
 
 **Creative & Media**
 - Artifacts Builder, Nano Banana, NotebookLM, Concept Forge, Slide Builder, Veo3 Prompter
