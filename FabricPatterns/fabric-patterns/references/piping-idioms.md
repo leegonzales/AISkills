@@ -232,13 +232,13 @@ fabric -y "URL" -p extract_wisdom | fabric -p to_flashcards -o flashcards.md
 cat system_description.md | fabric -p create_stride_threat_model -o threat_model.md
 
 # Code review pipeline
-git diff main..HEAD | fabric -p review_code -s
+git diff main..HEAD | fabric -p explain_code -s
 
 # Meeting notes processing
 cat meeting_transcript.txt | fabric -p summarize_meeting -o meeting_notes.md
 
 # Research paper analysis
-cat paper.pdf | fabric -p analyze_paper -s
+pdftotext paper.pdf - | fabric -p analyze_paper -s
 
 # Content quality rating
 cat blog_post.md | fabric -p rate_content

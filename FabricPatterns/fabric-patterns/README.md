@@ -15,7 +15,8 @@ A Claude Code skill for running [danielmiessler/fabric](https://github.com/danie
 
 ```bash
 # Symlink into Claude Code skills directory
-ln -sf /path/to/FabricPatterns/fabric-patterns ~/.claude/skills/fabric-patterns
+# From within this directory, run:
+ln -sf "$(pwd)" ~/.claude/skills/fabric-patterns
 ```
 
 ## What It Does

@@ -230,6 +230,7 @@ Complete reference of all available fabric patterns, organized by category.
 | `rate_ai_response` | Grade AI quality against benchmarks |
 | `rate_ai_result` | Assess AI/ML work across dimensions |
 | `rate_content` | Tag and rate content with scores |
+| `review_code` | Performs comprehensive code reviews |
 | `suggest_pattern` | Recommends appropriate fabric patterns |
 | `to_flashcards` | Convert text into Anki flashcards |
 | `transcribe_minutes` | Extract actionables from transcripts |

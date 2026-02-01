@@ -253,5 +253,5 @@ Full catalog in `references/pattern-catalog.md`. High-value patterns by use case
 2. **Stream long output** — Use `-s` for patterns that produce substantial output
 3. **Respect the pattern's format** — Don't reformat fabric output unless the user asks
 4. **Chain thoughtfully** — `extract_wisdom | summarize` is a common power combo
-5. **Temp files for large content** — Write content to `/tmp/fabric_input.md` rather than huge echo statements
+5. **Temp files for large content** — Write content to a temporary file using `mktemp` rather than huge echo statements
 6. **Update periodically** — If a pattern seems missing, run `fabric -U`
