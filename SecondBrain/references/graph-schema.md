@@ -10,7 +10,7 @@
 | `streams` | `parent` | |
 | `metrics` | `current`, `target`, `measures` | `as_of` auto-set on update |
 | `risks` | `severity`, `likelihood` | Optional: `mitigation`, `mitigates` |
-| `open_threads` | `priority` | Optional: `questions` (list), `blocks` (list) |
+| `open_threads` | `priority` | Optional: `questions` (list of strings), `blocks` (list of node IDs) |
 | `milestones` | `quarter`, `portfolio`, `parent` | |
 | `actions` | `priority`, `energy` | Optional: `requires`, `resolves` |
 | `assets` | *(none)* | |

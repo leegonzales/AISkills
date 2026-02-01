@@ -50,7 +50,7 @@ See `references/graph-schema.md` in this skill directory for sections, required 
 | "What does X depend on?" | `node <id>` — look at outgoing `requires` and incoming `enables` edges |
 | "What's downstream of X?" / "What does X unlock?" | `impact <id>` — forward propagation |
 | "How does X connect to Y?" | `path <from> <to>` — shortest dependency path |
-| "Show me everything in consulting" | `portfolio consulting` or `node stream-consulting` |
+| "Show me everything in consulting" | `portfolio consulting` |
 | "Is the graph healthy?" | `validate` — run integrity checks |
 
 ### Synthesizing Query Results
