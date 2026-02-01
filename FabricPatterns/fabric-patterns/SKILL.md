@@ -76,7 +76,7 @@ echo "content here" | fabric -p <pattern>
 # Pipe from file
 cat /path/to/file.md | fabric -p <pattern>
 
-# Pipe from clipboard
+# Pipe from clipboard (macOS)
 pbpaste | fabric -p <pattern>
 
 # Scrape URL and process
