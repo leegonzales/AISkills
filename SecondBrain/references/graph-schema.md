@@ -47,6 +47,7 @@
 | open_threads | `thread-{slug}` | `thread-framework-priority` |
 | streams | `stream-{slug}` | `stream-consulting` |
 | constraints | `con-{slug}` | `con-time` |
+| assets | `asset-{slug}` | `asset-framework-deck` |
 | objectives | `obj-{slug}` | `obj-revenue-growth` |
 
 ## Write Commands
