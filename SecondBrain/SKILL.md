@@ -83,7 +83,7 @@ Generate IDs following these patterns:
 - Metrics: `met-{slug}`
 - Milestones: `ms-{quarter}-{slug}`
 - Risks: `risk-{slug}`
-- Threads: `thread-{slug}`
+- Threads: `thread-{slug}` (section name: `open_threads`)
 - Streams: `stream-{slug}`
 - Constraints: `con-{slug}`
 - Assets: `asset-{slug}`
@@ -110,7 +110,9 @@ When adding nodes, infer likely edges:
 - New metric → connect to what it `measures`
 - New milestone → connect to its stream/objective
 
-If the right edge target isn't obvious, ask Lee.
+When adding streams or milestones, set the required `parent` field via `--fields parent=<parent-id>`.
+
+If the right edge target or parent isn't obvious, ask Lee.
 
 ## Example Sessions
 
