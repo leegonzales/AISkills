@@ -150,6 +150,23 @@ fabric -p <pattern> --thinking=off     # Disable thinking
 fabric -p <pattern> --suppress-think   # Run thinking but hide it from output
 ```
 
+### Reasoning Strategies
+```bash
+# Layer a reasoning strategy on top of any pattern
+fabric -p <pattern> --strategy=cot            # Chain-of-Thought
+fabric -p <pattern> --strategy=tot            # Tree-of-Thought
+fabric -p <pattern> --strategy=cod            # Chain-of-Density
+fabric -p <pattern> --strategy=reflexion      # Reflect and improve
+fabric -p <pattern> --strategy=self-refine    # Iterative self-improvement
+fabric -p <pattern> --strategy=self-consistent # Multiple paths, pick best
+fabric -p <pattern> --strategy=aot            # Agent-over-Tree
+fabric -p <pattern> --strategy=ltm            # Long-Term Memory
+fabric -p <pattern> --strategy=standard       # No special prompting (default)
+
+# Combine with thinking for maximum reasoning depth
+fabric -p analyze_paper --strategy=tot --thinking=high
+```
+
 ### Web Search
 ```bash
 fabric -p <pattern> --search                              # Enable web search

@@ -133,6 +133,11 @@ fabric -p <pattern> --search
 # Enable thinking/reasoning
 fabric -p <pattern> --thinking=high
 
+# Use a reasoning strategy (layered on top of pattern)
+fabric -p <pattern> --strategy=cot        # Chain-of-Thought
+fabric -p <pattern> --strategy=tot        # Tree-of-Thought
+fabric -p <pattern> --strategy=reflexion  # Reflect and improve
+
 # Dry run (show what would be sent)
 fabric -p <pattern> --dry-run
 ```
@@ -223,6 +228,21 @@ Full catalog in `references/pattern-catalog.md`. High-value patterns by use case
 | `analyze_mistakes` | Cognitive error mapping |
 | `create_better_frame` | Reframing perspectives |
 | `solve_with_cot` | Chain-of-thought problem solving |
+
+### Reasoning Strategies
+Strategies are meta-prompts layered on top of any pattern via `--strategy=<name>`:
+
+| Strategy | Effect |
+|----------|--------|
+| `cot` | Chain-of-Thought — step-by-step reasoning |
+| `tot` | Tree-of-Thought — multiple reasoning paths |
+| `cod` | Chain-of-Density — iterative compression |
+| `reflexion` | Reflect on and improve reasoning |
+| `self-refine` | Iterative self-improvement |
+| `self-consistent` | Multiple resolution paths, pick best |
+| `aot` | Agent-over-Tree — multi-agent collaboration |
+| `ltm` | Long-Term Memory — build and reference memory |
+| `standard` | No special prompting (default) |
 
 ---
 
