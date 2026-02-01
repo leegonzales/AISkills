@@ -13,6 +13,7 @@
 | `open_threads` | `priority` | Optional: `questions` (list), `blocks` (list) |
 | `milestones` | `quarter`, `portfolio`, `parent` | |
 | `actions` | `priority`, `energy` | Optional: `requires`, `resolves` |
+| `assets` | *(none)* | |
 | `objectives` | *(none)* | |
 
 ## Valid Statuses

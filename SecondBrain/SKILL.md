@@ -1,5 +1,5 @@
 ---
-name: second-brain
+name: goals-graph
 description: Query and update Lee's goals graph through natural language. Translates conversational questions and updates into goals_query.py commands.
 ---
 
