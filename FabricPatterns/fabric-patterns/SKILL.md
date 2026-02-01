@@ -22,6 +22,7 @@ Fabric is a CLI tool with 240+ curated AI patterns for analysis, extraction, sum
 - Processing long-form content (articles, transcripts, papers) through structured extraction
 - User explicitly requests a fabric pattern
 - YouTube video summarization or transcript analysis
+- Spotify podcast summarization
 - URL scraping + pattern processing
 - Security analysis (threat models, incident reports, malware analysis)
 - Content needs structured output that a specific pattern produces better than freeform
@@ -90,6 +91,9 @@ fabric -y "URL" --transcript-with-timestamps -p <pattern>
 
 # YouTube comments instead of transcript
 fabric -y "URL" --comments -p <pattern>
+
+# Spotify podcast
+fabric --spotify="https://open.spotify.com/episode/..." -p <pattern>
 ```
 
 ### Output Methods
