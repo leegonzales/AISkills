@@ -98,6 +98,11 @@ Complete reference of all available fabric patterns, organized by category.
 | `create_user_story` | Writes technical user stories for complex software |
 | `create_video_chapters` | Extracts topics and timestamps from transcripts |
 | `create_visualization` | Transforms concepts into ASCII art |
+| `explain_code` | Explains code, tool output, and configurations |
+| `explain_docs` | Restructures tool documentation clearly |
+| `explain_math` | Clarifies mathematical concepts engagingly |
+| `explain_project` | Summarizes project documentation concisely |
+| `explain_terms` | Produces glossaries with definitions and analogies |
 
 ## Extraction Patterns
 
@@ -230,7 +235,7 @@ Complete reference of all available fabric patterns, organized by category.
 | `rate_ai_response` | Grade AI quality against benchmarks |
 | `rate_ai_result` | Assess AI/ML work across dimensions |
 | `rate_content` | Tag and rate content with scores |
-| `review_code` | Performs comprehensive code reviews |
+| `review_design` | Analyzes architecture for clarity and security |
 | `suggest_pattern` | Recommends appropriate fabric patterns |
 | `to_flashcards` | Convert text into Anki flashcards |
 | `transcribe_minutes` | Extract actionables from transcripts |

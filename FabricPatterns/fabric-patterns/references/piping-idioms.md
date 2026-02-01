@@ -231,8 +231,8 @@ fabric -y "URL" -p extract_wisdom | fabric -p to_flashcards -o flashcards.md
 # Security threat modeling
 cat system_description.md | fabric -p create_stride_threat_model -o threat_model.md
 
-# Code review pipeline
-git diff main..HEAD | fabric -p explain_code -s
+# Code change summary
+git diff main..HEAD | fabric -p summarize_git_diff -s
 
 # Meeting notes processing
 cat meeting_transcript.txt | fabric -p summarize_meeting -o meeting_notes.md
