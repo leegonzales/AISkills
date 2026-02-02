@@ -152,6 +152,8 @@ Certain dimension combinations reveal specific architectural problems:
 | High Extensibility + Low Modularity | Plugin systems bolted onto monoliths—extension points but no seams |
 | High Simplicity + Low Robustness | Happy-path code that breaks on edge cases |
 | Low AI-Readiness + High Clarity | Human-readable but agent-hostile—implicit conventions, no scriptable interfaces |
+| High Data-Drivenness + Low Clarity | Magic configuration—config is powerful but opaque |
+| High Clarity + Low Data-Drivenness | Logic hard-coded in control flow instead of being data-driven |
 
 ## Output Format
 
