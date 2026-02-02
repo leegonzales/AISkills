@@ -115,16 +115,16 @@ Score each dimension 0-100. Load `references/scoring-rubric.md` for calibration.
 
 Different architectures emphasize different dimensions:
 
-| Dimension | CLI | Library | Web App | Microservice | AI/ML |
-|-----------|-----|---------|---------|--------------|-------|
-| Modularity | 15% | 20% | 15% | 15% | 10% |
-| Composability | 15% | 20% | 10% | 20% | 10% |
-| Clarity | 15% | 15% | 10% | 10% | 15% |
-| Simplicity | 15% | 10% | 10% | 10% | 10% |
-| Robustness | 10% | 10% | 15% | 15% | 15% |
-| Data-Drivenness | 10% | 5% | 10% | 10% | 20% |
-| Extensibility | 10% | 15% | 15% | 10% | 10% |
-| AI-Readiness | 10% | 5% | 15% | 10% | 10% |
+| Dimension | CLI | Library | Web App | Microservice | AI/ML | Monorepo |
+|-----------|-----|---------|---------|--------------|-------|----------|
+| Modularity | 15% | 20% | 15% | 15% | 10% | 20% |
+| Composability | 15% | 20% | 10% | 20% | 10% | 15% |
+| Clarity | 15% | 15% | 10% | 10% | 15% | 10% |
+| Simplicity | 15% | 10% | 10% | 10% | 10% | 10% |
+| Robustness | 10% | 10% | 15% | 15% | 15% | 10% |
+| Data-Drivenness | 10% | 5% | 10% | 10% | 20% | 10% |
+| Extensibility | 10% | 15% | 15% | 10% | 10% | 15% |
+| AI-Readiness | 10% | 5% | 15% | 10% | 10% | 10% |
 
 ## AI-Readiness Sub-Scores
 

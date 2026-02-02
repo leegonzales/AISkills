@@ -86,6 +86,20 @@ Calibration guide for the 8 dimensions. Includes score bands, architecture-type 
 | Extensibility | 10% | Model swapping, new features |
 | AI-Readiness | 10% | Standard importance |
 
+### Monorepo/Multi-Package
+| Dimension | Weight | Rationale |
+|-----------|--------|-----------|
+| Modularity | 20% | Package boundaries are the architecture |
+| Composability | 15% | Packages must interop cleanly |
+| Clarity | 10% | Cross-package conventions matter |
+| Simplicity | 10% | Build complexity is a real cost |
+| Robustness | 10% | Standard importance |
+| Data-Drivenness | 10% | Shared schemas and configs |
+| Extensibility | 15% | Adding packages should be easy |
+| AI-Readiness | 10% | Navigating multi-package is hard for agents |
+
+**Note:** For monorepos, consider also scoring individual sub-packages against their own architecture type for a more granular view.
+
 ---
 
 ## Dimension Gap Diagnostics
