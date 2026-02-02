@@ -93,9 +93,9 @@ Score each dimension 0-100. Load `references/scoring-rubric.md` for calibration.
 | **Composability** | Composition, Separation | ISP, DIP | Can parts be recombined? Are concerns separated? |
 | **Clarity** | Clarity, Transparency, Least Surprise | — | Can you understand what code does without tracing? |
 | **Simplicity** | Simplicity, Economy, Optimization | — | Is complexity justified? Is premature optimization absent? |
-| **Robustness** | Robustness, Repair, Silence | — | Does it handle failure gracefully? Is error reporting clear? |
+| **Robustness** | Robustness, Repair, Silence | LSP (secondary) | Does it handle failure gracefully? Is error reporting clear? |
 | **Data-Drivenness** | Representation, Generation | — | Is complexity in data structures, not code? Is code generated where possible? |
-| **Extensibility** | Extensibility, Diversity | OCP, LSP | Can behavior be extended without modifying internals? |
+| **Extensibility** | Extensibility, Diversity | OCP, LSP, DIP (secondary) | Can behavior be extended without modifying internals? |
 | **AI-Readiness** | (cross-cutting) | (cross-cutting) | Can AI agents navigate, understand, and safely modify this code? |
 
 **For each dimension, identify:**

@@ -61,11 +61,11 @@ The 5 SOLID principles complement the Unix philosophy at the module/class level.
 
 ---
 
-## Liskov Substitution Principle (LSP) → Extensibility
+## Liskov Substitution Principle (LSP) → Extensibility, Robustness
 
 **Principle:** Objects of a supertype should be replaceable with objects of a subtype without altering program correctness.
 
-**Dimension Mapping:** Extensibility (secondary)
+**Dimension Mapping:** Extensibility (primary), Robustness (secondary)
 
 **What to Look For:**
 - Subclasses that throw `NotImplementedError` for inherited methods
