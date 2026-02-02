@@ -9,7 +9,7 @@ To use a skill:
 2. Read the corresponding `SKILL.md` file
 3. Follow the persona, constraints, and output formats defined
 
-## Skills (38 total)
+## Skills (39 total)
 
 | Skill | Description | Path |
 |-------|-------------|------|
@@ -50,6 +50,7 @@ To use a skill:
 | Silicon Doppelganger | Build personal proxy agents for PAIRL Conductor | `SiliconDoppelganger/silicon-doppelganger/SKILL.md` |
 | Skill Extractor | Extract reusable skills from conversation patterns | `SkillExtractor/skill-extractor/SKILL.md` |
 | Slide Builder | Transform essay-to-speech output into presentations | `SlideBuilder/slide-builder/SKILL.md` |
+| Unix Review | Codebase evaluation against Unix philosophy, SOLID, and AI-Readiness | `UnixReview/unix-review/SKILL.md` |
 | Writing Partner | Collaborative fiction writing assistant | `WritingPartner/writing-partner/SKILL.md` |
 
 ## Infrastructure
@@ -62,7 +63,7 @@ To use a skill:
 ## Categories
 
 **Development & Code**
-- Codex Peer Review, Gemini Peer Review, Codebase Navigator, MCP Builder, Playwright, PR Review Loop
+- Codex Peer Review, Gemini Peer Review, Codebase Navigator, MCP Builder, Playwright, PR Review Loop, Unix Review
 
 **Writing & Content**
 - Prose Polish, Research to Essay, Essay to Speech, Writing Skills, Claimify, Writing Partner, Presentation Partner
