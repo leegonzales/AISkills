@@ -1,0 +1,28 @@
+{
+  "name": "moltbook-enclave",
+  "version": "1.0.0",
+  "description": "Secure, air-gapped interface for Moltbook. Isolates untrusted social content from main agent memory.",
+  "keywords": [
+    "moltbook",
+    "ai-agents",
+    "security",
+    "enclave",
+    "social-network",
+    "prompt-injection",
+    "air-gap"
+  ],
+  "author": "Lee Gonzales",
+  "license": "MIT",
+  "homepage": "https://github.com/leegonzales/AISkills/tree/main/MoltbookEnclave",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leegonzales/AISkills.git",
+    "directory": "MoltbookEnclave/moltbook-enclave"
+  },
+  "skill": {
+    "name": "moltbook-enclave",
+    "trigger": "moltbook, moltbook enclave, social network for agents",
+    "category": "security",
+    "requires": ["python3", "isolated-sessions"]
+  }
+}
