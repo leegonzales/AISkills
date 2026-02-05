@@ -78,6 +78,8 @@ Once MCP is configured, these tools become available:
 | `gemini_edit_image` | Modify existing images with instructions | `imagePath`, `instructions`, `model` |
 | `continue_editing` | Refine the last generated image | `instructions` |
 | `get_image_history` | List all generated images in session | - |
+| `search_history` | Search all images (persistent) by prompt, date, model | `query`, `id`, `model`, `startDate`, `endDate`, `type`, `limit` |
+| `get_image_by_id` | Get full details for a specific image | `imageId` |
 
 ### Model Options
 
@@ -104,6 +106,55 @@ Once MCP is configured, these tools become available:
 | **Multi-Image Composition** | Combine up to 14 reference images |
 | **Character Consistency** | Maintain same character across 5+ images |
 | **Google Search Grounding** | Real-world accurate imagery |
+| **Persistent History** | All prompts and metadata saved to manifest.json |
+| **Edit Lineage Tracking** | Track parent-child relationships across edits |
+
+## Persistent History & Search
+
+All generated images are tracked in `~/Documents/nanobanana_generated/manifest.json` with full metadata including:
+- Original prompt used
+- Model and settings (aspectRatio, imageSize)
+- Timestamp
+- Edit lineage (which image was this edited from)
+
+### Searching Past Images
+
+Find images from previous sessions using `search_history`:
+
+```
+# Search by prompt text
+search_history(query="sunset")
+
+# Search by date range
+search_history(startDate="2024-12-01", endDate="2024-12-31")
+
+# Search by model
+search_history(model="gemini-3")
+
+# Combined filters
+search_history(query="portrait", model="gemini-3-pro", limit=10)
+```
+
+### Getting Image Details
+
+Retrieve full metadata for any image by ID:
+
+```
+get_image_by_id(imageId="generated-2024-12-13T20-12-45")
+```
+
+Returns:
+- Full prompt used
+- All generation settings
+- Edit lineage (ancestors and children)
+- File existence check
+
+### Regenerating Images
+
+To recreate or iterate on an old image:
+1. Use `search_history` or `get_image_by_id` to find the original prompt
+2. Copy the prompt and adjust as needed
+3. Generate a new image with the same or modified prompt
 
 ## Critical Limitations
 
