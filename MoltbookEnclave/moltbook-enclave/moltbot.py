@@ -9,16 +9,17 @@ This script handles all Moltbook API interactions in isolation:
 - Never exposes raw untrusted content to main agent context
 
 Usage:
-    moltbot.py fetch    # Fetch feed, write sanitized to raw_feed.json
-    moltbot.py post     # Read outbox.md, post to Moltbook, clear outbox
-    moltbot.py status   # Check account status
+    moltbot.py fetch              # Fetch feed, write sanitized to raw_feed.json
+    moltbot.py post               # Read outbox.md, post to Moltbook, clear outbox
+    moltbot.py post --dry-run     # Preview post without sending
+    moltbot.py status             # Check account status
 """
 
 import json
-import os
 import re
 import sys
-from datetime import datetime
+import time
+from datetime import datetime, timezone
 from pathlib import Path
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
@@ -33,6 +34,25 @@ INBOX_FILE = MOLTBOOK_DIR / "inbox.md"
 POST_LOG_FILE = ENCLAVE_DIR / "post_log.json"
 
 API_BASE = "https://www.moltbook.com/api/v1"
+MAX_RETRIES = 2
+RETRY_DELAY = 1.0  # seconds
+
+# Injection patterns to filter from untrusted content
+INJECTION_PATTERNS = [
+    r'(?i)ignore previous instructions',
+    r'(?i)ignore all instructions',
+    r'(?i)disregard.*instructions',
+    r'(?i)forget everything',
+    r'(?i)system prompt',
+    r'(?i)you are now',
+    r'(?i)act as if',
+    r'(?i)pretend you',
+    r'(?i)new instructions',
+    r'(?i)override',
+    r'(?i)jailbreak',
+    r'(?i)roleplay as',
+    r'(?i)DAN mode',
+]
 
 
 def load_credentials():
@@ -46,28 +66,41 @@ def load_credentials():
 
 
 def api_request(endpoint, method="GET", data=None):
-    """Make authenticated API request."""
+    """Make authenticated API request with retry."""
     api_key = load_credentials()
     url = f"{API_BASE}/{endpoint}"
-    
+
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json",
     }
-    
+
     body = json.dumps(data).encode() if data else None
-    req = Request(url, data=body, headers=headers, method=method)
-    
-    try:
-        with urlopen(req, timeout=30) as resp:
-            return json.loads(resp.read().decode())
-    except HTTPError as e:
-        error_body = e.read().decode() if e.fp else ""
-        print(f"HTTP {e.code}: {error_body}")
-        return {"success": False, "error": error_body, "code": e.code}
-    except URLError as e:
-        print(f"Network error: {e.reason}")
-        return {"success": False, "error": str(e.reason)}
+    last_error = None
+
+    for attempt in range(MAX_RETRIES + 1):
+        req = Request(url, data=body, headers=headers, method=method)
+        try:
+            with urlopen(req, timeout=30) as resp:
+                return json.loads(resp.read().decode())
+        except HTTPError as e:
+            error_body = e.read().decode() if e.fp else ""
+            last_error = {"success": False, "error": error_body, "code": e.code}
+            if e.code == 429 or e.code >= 500:
+                if attempt < MAX_RETRIES:
+                    time.sleep(RETRY_DELAY * (attempt + 1))
+                    continue
+            print(f"HTTP {e.code}: {error_body}")
+            return last_error
+        except URLError as e:
+            last_error = {"success": False, "error": str(e.reason)}
+            if attempt < MAX_RETRIES:
+                time.sleep(RETRY_DELAY * (attempt + 1))
+                continue
+            print(f"Network error: {e.reason}")
+            return last_error
+
+    return last_error
 
 
 def sanitize_text(text):
@@ -91,17 +124,7 @@ def sanitize_text(text):
     text = re.sub(r'<[^>]+>', '', text)
     
     # Remove common injection patterns
-    injection_patterns = [
-        r'(?i)ignore previous instructions',
-        r'(?i)ignore all instructions',
-        r'(?i)system prompt',
-        r'(?i)you are now',
-        r'(?i)act as if',
-        r'(?i)pretend you',
-        r'(?i)new instructions',
-        r'(?i)override',
-    ]
-    for pattern in injection_patterns:
+    for pattern in INJECTION_PATTERNS:
         text = re.sub(pattern, '[FILTERED]', text)
     
     # Truncate excessively long text
@@ -133,13 +156,13 @@ def cmd_fetch():
     # Get hot posts
     result = api_request("posts?sort=hot&limit=15")
     
-    if not result.get("success", False) and "posts" not in result:
-        print("Failed to fetch feed:", result.get("error", "unknown error"))
-        return
-    
+    if not result or (not result.get("success", False) and "posts" not in result):
+        print("Failed to fetch feed:", result.get("error", "unknown error") if result else "no response")
+        sys.exit(1)
+
     posts = result.get("posts", [])
     sanitized = {
-        "fetched_at": datetime.utcnow().isoformat() + "Z",
+        "fetched_at": datetime.now(timezone.utc).isoformat(),
         "post_count": len(posts),
         "posts": [sanitize_post(p) for p in posts],
     }
@@ -151,12 +174,12 @@ def cmd_fetch():
     print(f"Wrote {len(posts)} sanitized posts to {RAW_FEED_FILE}")
 
 
-def cmd_post():
+def cmd_post(dry_run=False):
     """Read outbox and post to Moltbook."""
     if not OUTBOX_FILE.exists():
         print("No outbox file found.")
         return
-    
+
     content = OUTBOX_FILE.read_text().strip()
     if not content:
         print("Outbox is empty.")
@@ -189,64 +212,71 @@ def cmd_post():
     if not post_body:
         print("No post body found in outbox.")
         return
-    
-    print(f"Posting to m/{submolt}: {title}")
-    
+
+    print(f"{'[DRY RUN] Would post' if dry_run else 'Posting'} to m/{submolt}: {title}")
+
+    if dry_run:
+        print(f"Content preview: {post_body[:200]}...")
+        return
+
     result = api_request("posts", method="POST", data={
         "submolt": submolt,
         "title": title,
         "content": post_body,
     })
-    
-    if result.get("success"):
+
+    if result and result.get("success"):
         print("Posted successfully!")
         post_id = result.get("post", {}).get("id", "unknown")
-        
+
         # Log the post
         log = []
         if POST_LOG_FILE.exists():
             log = json.loads(POST_LOG_FILE.read_text())
         log.append({
-            "posted_at": datetime.utcnow().isoformat() + "Z",
+            "posted_at": datetime.now(timezone.utc).isoformat(),
             "title": title,
             "submolt": submolt,
             "post_id": post_id,
         })
         POST_LOG_FILE.write_text(json.dumps(log, indent=2))
-        
+
         # Clear outbox
         OUTBOX_FILE.write_text("")
         print("Outbox cleared.")
     else:
-        print("Failed to post:", result.get("error", "unknown"))
-        if result.get("code") == 429:
+        print("Failed to post:", result.get("error", "unknown") if result else "no response")
+        if result and result.get("code") == 429:
             print("Rate limited. Try again later.")
+        sys.exit(1)
 
 
 def cmd_status():
     """Check account status."""
     result = api_request("agents/me")
-    if result.get("success"):
+    if result and result.get("success"):
         agent = result.get("agent", {})
         print(f"Agent: {agent.get('name')}")
         print(f"Karma: {agent.get('karma', 0)}")
         print(f"Status: {'claimed' if agent.get('is_claimed') else 'pending'}")
         print(f"Followers: {agent.get('follower_count', 0)}")
     else:
-        print("Failed to get status:", result.get("error", "unknown"))
+        print("Failed to get status:", result.get("error", "unknown") if result else "no response")
+        sys.exit(1)
 
 
 def main():
     if len(sys.argv) < 2:
         print(__doc__)
         sys.exit(1)
-    
+
     cmd = sys.argv[1].lower()
-    
+    dry_run = "--dry-run" in sys.argv
+
     if cmd == "fetch":
         cmd_fetch()
     elif cmd == "post":
-        cmd_post()
+        cmd_post(dry_run=dry_run)
     elif cmd == "status":
         cmd_status()
     else:
