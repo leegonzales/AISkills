@@ -517,6 +517,7 @@ Works well with:
 
 - `references/branded-infographic-catalyst.md` - Catalyst AI Services infographics (Sage & Sand)
 - `references/branded-slides-catalyst.md` - Catalyst AI Services presentation slides
+- `references/lego-presentation-prompt.md` - Lego minifigure presentation slides (photorealistic toy photography)
 
 ### Social Media Templates
 
