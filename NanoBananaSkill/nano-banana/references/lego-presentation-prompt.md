@@ -116,7 +116,7 @@ Ensure visual diversity in every group scene:
 Mix: ponytails, buns, short cuts, long hair, no hair, hats/helmets
 
 ### Skin Tones
-Use Lego's expanded palette: classic yellow, warm brown, dark brown, light
+Use Lego's expanded palette: classic yellow, warm brown, dark brown, light peach
 
 ### Rule of Thirds
 In any group of 6+ minifigures, aim for approximately:
@@ -186,7 +186,7 @@ Layout zones:
 
 Minifigure diversity:
 - Mix hair styles: ponytails, buns, short hair, long hair, bald, hats
-- Mix skin tones: yellow, brown, dark brown
+- Mix skin tones: classic yellow, warm brown, dark brown, light peach
 - Mix accessories: hard hats, glasses, lab coats, headphones
 - In groups of 6+, aim for visual diversity across gender presentation and skin tone
 
@@ -221,7 +221,7 @@ Hard constraints:
 **User input:**
 > "Show that 86% of engineers use AI tools hourly"
 
-**Prompt:** "Lego minifigure scene, photorealistic toy photography with shallow depth of field. On dark charcoal baseplate, a giant scoreboard made of Lego tiles showing '86%' in large white numbers. Below it, a row of 10 minifigures -- 8.6 of them have small Lego laptops, the rest stand idle. A label tile reads 'Using AI Tools Hourly'. White title text at bottom: 'Survey Results'. 16:9."
+**Prompt:** "Lego minifigure scene, photorealistic toy photography with shallow depth of field. On dark charcoal baseplate, a giant scoreboard made of Lego tiles showing '86%' in large white numbers. Below it, a row of 10 minifigures -- nine of them have small Lego laptops, while one stands idle. A label tile reads 'Using AI Tools Hourly'. White title text at bottom: 'Survey Results'. 16:9."
 
 ### Comparison Slide
 **User input:**
@@ -262,11 +262,10 @@ magick /path/to/lego-slide.png \
 
 ## Best Practices
 
-1. **Consistency first**: Use the dark charcoal baseplate and white title text on EVERY slide
+1. **Consistency first**: Use the dark charcoal baseplate and white title text at the bottom on EVERY slide
 2. **Real Lego pieces**: Everything in the scene should look like it could be built from actual Lego
 3. **One concept per slide**: Don't overcrowd scenes -- each slide conveys one idea
-4. **Title at bottom**: Always include the slide title as white text at the bottom
-5. **Iterate for diversity**: First generation often lacks minifigure variety -- refine in Gen 2
-6. **Use the metaphor dictionary**: Convert abstract concepts to their Lego equivalents before prompting
-7. **Shallow depth of field**: This creates the signature "toy photography" look
-8. **Warm lighting**: Studio lighting with soft shadows creates approachability
+4. **Iterate for diversity**: First generation often lacks minifigure variety -- refine in Gen 2
+5. **Use the metaphor dictionary**: Convert abstract concepts to their Lego equivalents before prompting
+6. **Shallow depth of field**: This creates the signature "toy photography" look
+7. **Warm lighting**: Studio lighting with soft shadows creates approachability
