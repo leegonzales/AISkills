@@ -317,6 +317,7 @@ Every output should pass:
 - **remediation-strategies.md:** Always for elevation (two-phase framework)
 - **prevention-prompts.md:** Always for generation (genre-calibrated constraints)
 - **ai-vocabulary.md:** When checking specific banned words
+- **creative-fiction-patterns.md:** When analyzing fiction/narrative (voice drift, echo repetition, embodiment)
 
 ## Critical Principles
 
@@ -378,6 +379,56 @@ STYLISTIC FIXES:
 - Rhythm: Added 5-word punch after long explanation
 - Commitment: Removed "somewhat" and "fairly" (cowardly hedges)
 - Voice: Added one moment of personality without overdoing it
+```
+
+### Creative Fiction Example
+
+**Input:** Fantasy novel chapter with AI-assisted drafting
+
+**Output:**
+```
+WRITING EFFECTIVENESS ANALYSIS
+
+Genre: Creative | Calibration: Applied (Voice-dominant)
+
+QUALITY PROFILE:
+           Craft: ███████░░░ 72 - Solid structure, some rhythm issues
+       Coherence: ████████░░ 78 - Story logic holds, some decorative details
+       Authority: ████████░░ 80 - N/A for fiction (earned through embodiment)
+         Purpose: ████████░░ 82 - Clear story goals, tension present
+           Voice: █████░░░░░ 48 - Protagonist sounds generic, voice drift
+   Effectiveness: ██████░░░░ 62 - Voice issues undermine otherwise solid work
+
+KEY INSIGHT: High coherence + low voice = competent but forgettable prose.
+The story works logically but the protagonist doesn't have a distinctive voice.
+
+FICTION-SPECIFIC ISSUES:
+
+VOICE DRIFT:
+- Lines 45-67: Protagonist shifts from sharp/sarcastic to neutral register
+- Line 89: Dialogue uses formal transitions ("However") instead of natural speech
+- Scene 3: Character-specific speech patterns absent
+
+ECHO REPETITION (Critical AI Tell):
+- Line 112: "Together." / Together. (manufactured profundity)
+- Line 203: "Everything." standalone after dialogue
+
+"WAS ENOUGH" FALSE COMPLETION:
+- Line 156: "His touch was enough." (unearned emotional closure)
+
+PARTICIPIAL PHRASE OVERLOAD:
+- 7 instances of ", [verb]ing" in paragraphs 12-18 (threshold: 2-3)
+
+SHOW VS TELL REGRESSION:
+- Line 34: "I felt nervous" → Show through body/action
+- Line 78: "She seemed angry" → Show through behavior
+
+TOP 5 PRIORITY FIXES:
+1. Restore protagonist's distinctive voice markers (sarcasm, self-awareness)
+2. Remove echo repetition patterns (lines 112, 203)
+3. Replace "was enough" with earned emotional beat
+4. Vary participial phrase constructions
+5. Convert "felt/seemed" to embodied descriptions
 ```
 
 ## Success Metrics

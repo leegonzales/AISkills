@@ -549,3 +549,36 @@ Genre-weighted average of above dimensions.
    - High craft + low coherence = decorative writing
    - High voice + low authority = personality without substance
    - High authority + low voice = institutional but competent
+
+---
+
+## Creative Fiction Patterns
+
+For fiction-specific detection patterns, see `creative-fiction-patterns.md`. Key additions include:
+
+### Echo Repetition for False Profundity
+Repeating dialogue word as standalone paragraph: `"Together." / Together.`
+**Threshold:** Zero tolerance. Almost certain AI tell.
+
+### "Was Enough" False Completion
+`"His touch was enough."` - Declaring emotional resolution without earning it.
+**Threshold:** Zero, or once per book maximum.
+
+### Participial Phrase Overload
+`"She crossed the room, her heart pounding."` - Multiple ", [verb]ing" in same paragraph.
+**Threshold:** 2-3 per scene maximum.
+
+### Voice Drift Detection
+Character suddenly sounds unlike themselves (sharp character becomes formal, sparse speaker becomes verbose).
+
+### Staccato Drama Clusters
+5+ consecutive short sentences attempting manufactured intensity.
+**Threshold:** Maximum 3-4 short sentences before breaking pattern.
+
+### Show vs Tell Regression
+AI tells emotions: `"I felt nervous"` instead of showing through body/action.
+
+### Formulaic Chapter Endings
+AI tends toward "upbeat rosy glow" endings. Fiction needs varied emotional registers—some hopeful, some anxious, some unresolved.
+
+See `creative-fiction-patterns.md` for complete patterns, thresholds, and fix strategies.

@@ -365,6 +365,36 @@ Add ONE moment of physical or experiential reality.
 **Phase 1:** Focus on coherence—does narrative hold together?
 **Phase 2:** Heavy focus on voice—distinctive, embodied, risk-taking
 
+**Fiction-Specific Remediation (see creative-fiction-patterns.md):**
+
+#### Voice Restoration Pass
+1. Identify character voice markers (speech patterns, signature phrases, thought patterns)
+2. Find sections where character sounds generic/neutral
+3. Restore distinctive voice elements
+4. Check: Would reader recognize this character from voice alone?
+
+#### Echo Repetition Removal
+Find: Short paragraphs (1-3 words) after dialogue repeating dialogue words
+Fix: Delete entirely OR expand into full thought with meaning
+
+#### "Was Enough" Elimination
+Find: "[X] was enough" declarations
+Fix: Delete OR show what character experiences instead of declaring resolution
+
+#### Show vs Tell Conversion
+Find: "felt [emotion]," "was [emotion]," "seemed [emotion]"
+Fix: Replace with physical sensation, body language, or action that reveals emotion
+
+#### Embodiment Injection
+Add ONE moment per scene of:
+- Physical grounding (where is character in space?)
+- Bodily sensation (not just emotion—how it manifests physically)
+- Sensory detail specific to this moment
+
+#### Staccato Repair
+Find: 5+ consecutive short sentences
+Fix: Keep best short punch, expand at least one into fuller thought
+
 ---
 
 ## Pitfalls to Avoid
