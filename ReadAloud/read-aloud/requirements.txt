@@ -1,0 +1,7 @@
+mlx-audio
+faster-whisper
+soundfile
+misaki
+num2words
+spacy
+phonemizer
