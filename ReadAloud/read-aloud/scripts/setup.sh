@@ -136,7 +136,7 @@ else
             "$BEST_PYTHON" -m venv "$VENV_DIR"
             echo "  Installing packages (this takes 1-2 minutes)..."
             "$VENV_DIR/bin/pip" install --quiet --upgrade pip
-            "$VENV_DIR/bin/pip" install --quiet mlx-audio faster-whisper soundfile misaki num2words spacy phonemizer
+            "$VENV_DIR/bin/pip" install --quiet -r "$SCRIPT_DIR/../requirements.txt"
             echo "  ✓ Venv created with all packages"
         fi
     fi

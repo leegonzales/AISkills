@@ -91,33 +91,22 @@ def wrap_words_in_html(html, start_idx):
     """Wrap each visible word with <span class="word" data-idx="N">.
     Returns (wrapped_html, next_idx)."""
     word_idx = start_idx
+    output = []
+    tokens = re.split(r'(<[^>]+>)', html)
+    for token in tokens:
+        if token.startswith('<') or not token.strip():
+            output.append(token)
+            continue
 
-    def replace_text(match):
-        nonlocal word_idx
-        text = match.group(0)
-        parts = re.split(r'(\s+)', text)
-        result = []
+        parts = re.split(r'(\s+)', token)
         for part in parts:
-            if re.match(r'^\s+$', part):
-                result.append(part)
-            elif part:
-                result.append(
+            if part.strip():
+                output.append(
                     f'<span class="word" data-idx="{word_idx}">{part}</span>'
                 )
                 word_idx += 1
-        return ''.join(result)
-
-    tokens = re.split(r'(<[^>]+>)', html)
-    output = []
-    for token in tokens:
-        if token.startswith('<'):
-            output.append(token)
-        elif token.strip():
-            output.append(
-                re.sub(r'[^\s]+(?:\s+[^\s]+)*', replace_text, token)
-            )
-        else:
-            output.append(token)
+            else:
+                output.append(part)
 
     return ''.join(output), word_idx
 
