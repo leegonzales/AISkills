@@ -55,9 +55,7 @@ if [[ ! -f "$INPUT_FILE" ]]; then
 fi
 
 # ── Derive slug and output dir ──
-BASENAME="$(basename "$INPUT_FILE" .md)"
-# Also handle .txt extension
-BASENAME="$(echo "$BASENAME" | sed 's/\.txt$//')"
+BASENAME="$(basename "$INPUT_FILE" | sed -e 's/\.md$//' -e 's/\.txt$//')"
 SLUG="$(echo "$BASENAME" | sed 's/^[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}-//')"
 
 if [[ -z "$OUTPUT_DIR" ]]; then

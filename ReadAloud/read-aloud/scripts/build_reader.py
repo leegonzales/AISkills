@@ -172,15 +172,16 @@ def embed_audio(audio_path):
         with tempfile.NamedTemporaryFile(suffix='.mp3', delete=False) as tmp:
             mp3_path = tmp.name
 
-        subprocess.run(
-            ['ffmpeg', '-y', '-i', str(audio_path),
-             '-codec:a', 'libmp3lame', '-b:a', '128k',
-             '-loglevel', 'error', mp3_path],
-            check=True,
-        )
-
-        mp3_data = Path(mp3_path).read_bytes()
-        Path(mp3_path).unlink()
+        try:
+            subprocess.run(
+                ['ffmpeg', '-y', '-i', str(audio_path),
+                 '-codec:a', 'libmp3lame', '-b:a', '128k',
+                 '-loglevel', 'error', mp3_path],
+                check=True,
+            )
+            mp3_data = Path(mp3_path).read_bytes()
+        finally:
+            Path(mp3_path).unlink(missing_ok=True)
 
         b64 = base64.b64encode(mp3_data).decode('ascii')
         size_mb = len(mp3_data) / (1024 * 1024)

@@ -18,7 +18,7 @@
 **Output:**
 ```
 ~/.read-aloud/output/on-complexity/
-  reader.html       # 45 MB standalone HTML (12 min audio)
+  reader.html       # 9.1 MB standalone HTML (12 min audio)
   audio.wav         # 120 MB raw audio
   body.md           # Extracted body (no frontmatter)
   text.txt          # Plain text for TTS

@@ -79,8 +79,11 @@ if ! command -v ffmpeg &>/dev/null; then
     echo "  ⚠ ffmpeg not found (optional but recommended)"
     echo "    Without ffmpeg, audio is embedded as WAV (5-10x larger files)."
     if ! $CHECK_ONLY; then
-        read -p "    Install ffmpeg via Homebrew? [Y/n] " -n 1 -r
-        echo
+        REPLY=""
+        if [[ -t 0 ]]; then
+            read -p "    Install ffmpeg via Homebrew? [Y/n] " -n 1 -r
+            echo
+        fi
         if [[ ! $REPLY =~ ^[Nn]$ ]]; then
             echo "    Installing ffmpeg..."
             brew install ffmpeg
