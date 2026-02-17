@@ -99,20 +99,15 @@ fi
 # ── Check 4: Venv ──
 echo "Checking Python environment..."
 if [[ -d "$VENV_DIR" ]] && [[ -f "$PYTHON_CMD" ]]; then
-    # Verify key packages are installed
+    # Verify all required packages are installed
     MISSING_PKGS=()
-    if ! "$PYTHON_CMD" -c "import mlx_audio" &>/dev/null; then
-        MISSING_PKGS+=("mlx-audio")
-    fi
-    if ! "$PYTHON_CMD" -c "import faster_whisper" &>/dev/null; then
-        MISSING_PKGS+=("faster-whisper")
-    fi
-    if ! "$PYTHON_CMD" -c "import soundfile" &>/dev/null; then
-        MISSING_PKGS+=("soundfile")
-    fi
-    if ! "$PYTHON_CMD" -c "import misaki" &>/dev/null; then
-        MISSING_PKGS+=("misaki")
-    fi
+    PACKAGES_TO_CHECK=("mlx-audio" "faster-whisper" "soundfile" "misaki" "num2words" "spacy" "phonemizer")
+    for pkg in "${PACKAGES_TO_CHECK[@]}"; do
+        import_name="${pkg//-/_}"
+        if ! "$PYTHON_CMD" -c "import $import_name" &>/dev/null; then
+            MISSING_PKGS+=("$pkg")
+        fi
+    done
 
     if [[ ${#MISSING_PKGS[@]} -eq 0 ]]; then
         echo "  ✓ Venv exists with all packages at $VENV_DIR"

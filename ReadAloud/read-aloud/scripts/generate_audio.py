@@ -33,18 +33,24 @@ def strip_sections(md_text, section_names):
 
     for name in section_names:
         name = name.strip()
-        # Match ## Section Name (any heading level)
         escaped_name = re.escape(name)
-        heading_re = r'#{1,6}'
-        pattern = re.compile(
-            r'^(' + heading_re + r')\s+' + escaped_name + r'\s*\n'
-            r'(.*?)'
-            r'(?=^' + heading_re + r'\s|\Z)',
-            re.MULTILINE | re.DOTALL,
+
+        # Find the heading that starts this section
+        start_pattern = re.compile(
+            r'^(?P<heading>#{1,6})\s+' + escaped_name + r'\s*(\n|$)',
+            re.MULTILINE,
         )
-        match = pattern.search(md_text)
+        match = start_pattern.search(md_text)
         if match:
-            md_text = md_text[:match.start()] + md_text[match.end():]
+            level = len(match.group('heading'))
+            # Find next heading of same or higher level (fewer or equal #'s)
+            end_pattern = re.compile(r'^#{1,' + str(level) + r'}\s', re.MULTILINE)
+            end_match = end_pattern.search(md_text, match.end())
+
+            if end_match:
+                md_text = md_text[:match.start()] + md_text[end_match.start():]
+            else:
+                md_text = md_text[:match.start()]
 
     return md_text.strip()
 
