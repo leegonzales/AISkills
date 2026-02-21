@@ -22,7 +22,7 @@ Generate standalone HTML audio readers with word-synced highlighting from any ma
 
 ```bash
 # Clone or copy the skill
-git clone <repo> && cd ReadAloud/read-aloud
+git clone https://github.com/leegonzales/AISkills.git && cd AISkills/ReadAloud/read-aloud
 
 # Option 1: Auto-setup on first run
 ./scripts/read-aloud.sh my-file.md
