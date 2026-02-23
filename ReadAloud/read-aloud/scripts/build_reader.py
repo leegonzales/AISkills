@@ -402,7 +402,7 @@ function highlightWord(idx) {{
     const viewH = window.innerHeight;
     const controlsH = document.querySelector('.controls').offsetHeight;
     if (rect.top < controlsH + 40 || rect.bottom > viewH - 80) {{
-      words[idx].scrollIntoView({{ behavior: 'smooth', block: 'center' }});
+      words[idx].scrollIntoView({{ behavior: 'smooth', block: 'nearest' }});
     }}
   }}
 }}
