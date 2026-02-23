@@ -67,42 +67,37 @@ def md_paragraph_to_html(para_lines):
     return f'<p>{text}</p>'
 
 
-def split_md_paragraphs(md_text):
-    """Split markdown into paragraph blocks (matching generate_audio.py's logic).
+def split_md_paragraphs(md_text, n_chunks):
+    """Split markdown into paragraph blocks aligned to audio chunk count.
 
-    Must match the chunk boundaries that generate_audio.py's md_to_plain()
-    produces. That function converts headers (## Title) into standalone
-    paragraphs by adding newlines around them, so a block like:
-
-        ## Header
-        Body text here.
-
-    becomes two audio chunks. We must split the same way here so that
-    HTML paragraph count matches audio chunk count.
+    Splits on \\n\\n, skips HRs, then expands blocks where a header is
+    followed by content (since md_to_plain creates separate paragraphs
+    for headers). Validated against n_chunks from the audio pipeline.
     """
-    blocks = md_text.split('\n\n')
-    result = []
-    for block in blocks:
+    raw_blocks = md_text.split('\n\n')
+    md_blocks = []
+    for block in raw_blocks:
         stripped = block.strip()
         if not stripped:
             continue
-        if re.match(r'^---+\s*$', stripped):
-            continue
+        # Keep HR lines (---) — generate_audio.py's md_to_plain keeps them
+        # as paragraphs, so we must too for chunk alignment
         lines = stripped.split('\n')
-        # If first line is a header and there's more content after it,
-        # split the header into its own block (matching md_to_plain behavior)
-        if len(lines) > 1 and re.match(r'^#{1,6}\s+', lines[0].strip()):
-            result.append([lines[0]])
-            rest = '\n'.join(lines[1:]).strip()
-            if rest:
-                # Recursively split the remainder in case it has sub-blocks
-                for sub in rest.split('\n\n'):
-                    sub = sub.strip()
-                    if sub and not re.match(r'^---+\s*$', sub):
-                        result.append(sub.split('\n'))
+        first = lines[0].strip()
+
+        # Header followed by content = 2 audio paragraphs
+        if len(lines) > 1 and re.match(r'^#{1,6}\s+', first):
+            md_blocks.append([lines[0]])
+            rest_lines = [l for l in lines[1:] if l.strip()]
+            if rest_lines:
+                md_blocks.append(rest_lines)
         else:
-            result.append(lines)
-    return result
+            md_blocks.append(lines)
+
+    if len(md_blocks) != n_chunks:
+        print(f"WARNING: {len(md_blocks)} MD paragraphs vs {n_chunks} audio chunks")
+
+    return md_blocks
 
 
 def extract_words_from_html(html):
@@ -344,7 +339,7 @@ def build_html(body_html, word_count, timestamps_json, audio_data_uri):
   }}
   .word.spoken {{ color: var(--muted); }}
   .word:hover {{ background-color: #e8e8e0; }}
-  html {{ scroll-behavior: smooth; }}
+  /* No scroll-behavior: smooth on html — we control scroll manually */
 </style>
 </head>
 <body>
@@ -425,13 +420,15 @@ function highlightWord(idx) {{
   if (idx >= 0 && idx < words.length) {{
     words[idx].classList.add('current');
     words[idx].classList.remove('spoken');
-    // Only auto-scroll if audio is actually playing (prevents initial scroll)
+    // Only auto-scroll forward (down) during playback — never bounce
     if (!audio.paused) {{
       const rect = words[idx].getBoundingClientRect();
       const viewH = window.innerHeight;
-      const controlsH = document.querySelector('.controls').offsetHeight;
-      if (rect.top < controlsH + 40 || rect.bottom > viewH - 80) {{
-        words[idx].scrollIntoView({{ behavior: 'smooth', block: 'nearest' }});
+      // Scroll when word nears bottom 25% of viewport
+      if (rect.bottom > viewH * 0.75) {{
+        // Place word at ~30% from top
+        const targetY = window.scrollY + rect.top - viewH * 0.3;
+        window.scrollTo({{ top: targetY, behavior: 'smooth' }});
       }}
     }}
   }}
@@ -548,11 +545,11 @@ def main():
 
     chunks = ts_data['chunks']
 
-    # Split markdown into paragraphs (same logic as generate_audio.py)
-    md_paragraphs = split_md_paragraphs(md_text)
+    # Split markdown into paragraphs, using chunk count as alignment target
+    md_paragraphs = split_md_paragraphs(md_text, len(chunks))
 
+    # Truncate to shorter of the two if still mismatched
     if len(md_paragraphs) != len(chunks):
-        print(f"WARNING: {len(md_paragraphs)} MD paragraphs vs {len(chunks)} audio chunks")
         n = min(len(md_paragraphs), len(chunks))
         md_paragraphs = md_paragraphs[:n]
         chunks = chunks[:n]
