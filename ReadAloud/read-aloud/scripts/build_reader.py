@@ -382,6 +382,7 @@ const timeDisplay = document.getElementById('timeDisplay');
 const words = document.querySelectorAll('.word');
 let currentWordIdx = -1;
 let animFrame = null;
+let lastScrollTime = 0;
 
 function formatTime(secs) {{
   const m = Math.floor(secs / 60);
@@ -420,15 +421,17 @@ function highlightWord(idx) {{
   if (idx >= 0 && idx < words.length) {{
     words[idx].classList.add('current');
     words[idx].classList.remove('spoken');
-    // Only auto-scroll forward (down) during playback — never bounce
+    // Forward-only scroll with cooldown — no smooth animation to prevent fighting
     if (!audio.paused) {{
-      const rect = words[idx].getBoundingClientRect();
-      const viewH = window.innerHeight;
-      // Scroll when word nears bottom 25% of viewport
-      if (rect.bottom > viewH * 0.75) {{
-        // Place word at ~30% from top
-        const targetY = window.scrollY + rect.top - viewH * 0.3;
-        window.scrollTo({{ top: targetY, behavior: 'smooth' }});
+      const now = Date.now();
+      if (now - lastScrollTime > 1500) {{
+        const rect = words[idx].getBoundingClientRect();
+        const viewH = window.innerHeight;
+        if (rect.bottom > viewH * 0.75) {{
+          const targetY = window.scrollY + rect.top - viewH * 0.3;
+          window.scrollTo({{ top: Math.max(0, targetY), behavior: 'instant' }});
+          lastScrollTime = now;
+        }}
       }}
     }}
   }}
