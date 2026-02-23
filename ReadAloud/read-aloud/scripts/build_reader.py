@@ -33,6 +33,10 @@ def md_paragraph_to_html(para_lines):
     lines = para_lines if isinstance(para_lines, list) else [para_lines]
     first = lines[0].strip()
 
+    # Horizontal rule — render as <hr> with no text (audio chunk plays through silently)
+    if re.match(r'^---+\s*$', first) and len(lines) == 1:
+        return '<hr>'
+
     # Header
     header_match = re.match(r'^(#{1,6})\s+(.+)$', first)
     if header_match and len(lines) == 1:
@@ -314,6 +318,11 @@ def build_html(body_html, word_count, timestamps_json, audio_data_uri):
   }}
   .content ul, .content ol {{ margin: 16px 0; padding-left: 28px; }}
   .content li {{ margin-bottom: 8px; }}
+  .content hr {{
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 32px 0;
+  }}
   .content a {{
     color: var(--accent);
     text-decoration: underline;
