@@ -357,6 +357,9 @@ def build_html(body_html, word_count, timestamps_json, audio_data_uri):
   <button id="playBtn">&#9654; Play</button>
   <button id="stopBtn">&#9632; Stop</button>
   <label>
+    <input type="checkbox" id="autoScroll"> Auto-scroll
+  </label>
+  <label>
     Speed
     <input type="range" id="speedRange" min="0.5" max="2.0" step="0.1" value="1.0">
     <span class="speed-display" id="speedDisplay">1.0x</span>
@@ -430,15 +433,15 @@ function highlightWord(idx) {{
   if (idx >= 0 && idx < words.length) {{
     words[idx].classList.add('current');
     words[idx].classList.remove('spoken');
-    // Forward-only scroll with cooldown — no smooth animation to prevent fighting
-    if (!audio.paused) {{
+    // Auto-scroll only when checkbox is on
+    if (!audio.paused && document.getElementById('autoScroll').checked) {{
       const now = Date.now();
-      if (now - lastScrollTime > 1500) {{
+      if (now - lastScrollTime > 2000) {{
         const rect = words[idx].getBoundingClientRect();
         const viewH = window.innerHeight;
-        if (rect.bottom > viewH * 0.75) {{
+        if (rect.bottom > viewH * 0.8) {{
           const targetY = window.scrollY + rect.top - viewH * 0.3;
-          window.scrollTo({{ top: Math.max(0, targetY), behavior: 'instant' }});
+          window.scrollTo({{ top: Math.max(0, targetY) }});
           lastScrollTime = now;
         }}
       }}
