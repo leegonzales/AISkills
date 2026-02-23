@@ -68,7 +68,18 @@ def md_paragraph_to_html(para_lines):
 
 
 def split_md_paragraphs(md_text):
-    """Split markdown into paragraph blocks (matching generate_audio.py's logic)."""
+    """Split markdown into paragraph blocks (matching generate_audio.py's logic).
+
+    Must match the chunk boundaries that generate_audio.py's md_to_plain()
+    produces. That function converts headers (## Title) into standalone
+    paragraphs by adding newlines around them, so a block like:
+
+        ## Header
+        Body text here.
+
+    becomes two audio chunks. We must split the same way here so that
+    HTML paragraph count matches audio chunk count.
+    """
     blocks = md_text.split('\n\n')
     result = []
     for block in blocks:
@@ -77,7 +88,20 @@ def split_md_paragraphs(md_text):
             continue
         if re.match(r'^---+\s*$', stripped):
             continue
-        result.append(stripped.split('\n'))
+        lines = stripped.split('\n')
+        # If first line is a header and there's more content after it,
+        # split the header into its own block (matching md_to_plain behavior)
+        if len(lines) > 1 and re.match(r'^#{1,6}\s+', lines[0].strip()):
+            result.append([lines[0]])
+            rest = '\n'.join(lines[1:]).strip()
+            if rest:
+                # Recursively split the remainder in case it has sub-blocks
+                for sub in rest.split('\n\n'):
+                    sub = sub.strip()
+                    if sub and not re.match(r'^---+\s*$', sub):
+                        result.append(sub.split('\n'))
+        else:
+            result.append(lines)
     return result
 
 
@@ -386,11 +410,14 @@ function findWordAtTime(t) {{
 
 function highlightWord(idx) {{
   if (idx === currentWordIdx) return;
+  // Un-highlight previous current word
   if (currentWordIdx >= 0 && currentWordIdx < words.length) {{
     words[currentWordIdx].classList.remove('current');
     words[currentWordIdx].classList.add('spoken');
   }}
-  for (let i = 0; i < idx && i < words.length; i++) {{
+  // Mark skipped words as spoken (batch update, no scrolling)
+  const start = Math.max(0, currentWordIdx + 1);
+  for (let i = start; i < idx && i < words.length; i++) {{
     words[i].classList.add('spoken');
     words[i].classList.remove('current');
   }}
@@ -398,11 +425,14 @@ function highlightWord(idx) {{
   if (idx >= 0 && idx < words.length) {{
     words[idx].classList.add('current');
     words[idx].classList.remove('spoken');
-    const rect = words[idx].getBoundingClientRect();
-    const viewH = window.innerHeight;
-    const controlsH = document.querySelector('.controls').offsetHeight;
-    if (rect.top < controlsH + 40 || rect.bottom > viewH - 80) {{
-      words[idx].scrollIntoView({{ behavior: 'smooth', block: 'nearest' }});
+    // Only auto-scroll if audio is actually playing (prevents initial scroll)
+    if (!audio.paused) {{
+      const rect = words[idx].getBoundingClientRect();
+      const viewH = window.innerHeight;
+      const controlsH = document.querySelector('.controls').offsetHeight;
+      if (rect.top < controlsH + 40 || rect.bottom > viewH - 80) {{
+        words[idx].scrollIntoView({{ behavior: 'smooth', block: 'nearest' }});
+      }}
     }}
   }}
 }}
