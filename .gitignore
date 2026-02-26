@@ -67,3 +67,25 @@ test-results/
 
 # Private development workspaces (personal samples, test cases)
 /writing-partner/
+
+# Local convenience symlinks to skill directories
+/artifacts-builder
+/claude-project-docs
+/codebase-navigator
+/codex-peer-review
+/context-continuity-code
+/csv-data-summarizer
+/dad-joke-validator
+/excel-auditor
+/gemini-peer-review
+/inevitability-engine
+/mcp-builder
+/nano-banana
+/notebooklm
+/playwright
+/pr-review-loop
+/process-mapper
+/prose-polish
+/silicon-doppelganger
+/veo3-prompter
+/writing-skills
