@@ -517,6 +517,7 @@ Works well with:
 
 - `references/branded-infographic-catalyst.md` - Catalyst AI Services infographics (Sage & Sand)
 - `references/branded-slides-catalyst.md` - Catalyst AI Services presentation slides
+- `references/branded-slides-afs.md` - BetterUp AI Flight School presentation slides (dark atmospheric + light content modes)
 - `references/lego-presentation-prompt.md` - Lego minifigure presentation slides (photorealistic toy photography)
 
 ### Social Media Templates
@@ -641,3 +642,57 @@ gemini_edit_image(
 **Note on Color Accuracy:** The model may generate shades that are close but not exact. For 100% brand-perfect colors, minor correction in a photo editor may be required.
 
 For dark backgrounds: Use white/light version of watermark for visibility
+
+## BetterUp AI Flight School Branding (Post-Processing)
+
+Add AFS branding to generated slides for BetterUp's AI Flight School program.
+
+### When to Use
+
+Apply when generating AFS-branded slides. Trigger phrases:
+- "AI Flight School slide"
+- "AFS branded"
+- "BetterUp slide"
+- "Flight School branding"
+
+**For full AFS slide design system**, see `references/branded-slides-afs.md`.
+
+### Logo Assets
+
+Located in `assets/`:
+- `afs-watermark-logo.png` - **Dark logo** (348x33px, transparent) — for light/cream backgrounds
+- `afs-watermark-logo-white.png` - **White logo** (348x33px, transparent) — for dark/atmospheric backgrounds
+
+Both contain: ✦ AI Flight School **BetterUp** lockup.
+
+### Branding Command
+
+**For light/cream background slides:**
+```bash
+magick "input.png" \
+  \( /path/to/assets/afs-watermark-logo.png \
+     -resize 300x -alpha set -channel A -evaluate multiply 0.85 +channel \) \
+  -gravity SouthEast -geometry +25+20 -composite \
+  "output-branded.png"
+```
+
+**For dark/atmospheric background slides:**
+```bash
+magick "input.png" \
+  \( /path/to/assets/afs-watermark-logo-white.png \
+     -resize 300x -alpha set -channel A -evaluate multiply 0.85 +channel \) \
+  -gravity SouthEast -geometry +25+20 -composite \
+  "output-branded.png"
+```
+
+**Parameters:**
+- `-resize 300x`: Logo at 300px wide (15% of standard 2000px slide width)
+- `-evaluate multiply 0.85`: 85% opacity
+- `-gravity SouthEast -geometry +25+20`: Bottom-right corner with margin
+
+### AFS Slide Workflow
+
+1. Generate slide using prompt template from `references/branded-slides-afs.md`
+2. Choose dark or light logo based on slide mode
+3. Apply branding with ImageMagick composite
+4. Save to project `images/` folder
