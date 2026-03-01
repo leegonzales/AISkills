@@ -1,11 +1,11 @@
 ---
 name: claude-speak
-description: Speak text aloud using high-quality AI voice synthesis (Kokoro TTS on Apple Silicon). Use when user asks to vocalize, narrate, or speak text out loud.
+description: Speak text aloud using high-quality AI voice synthesis (Kokoro TTS on Apple Silicon). Use when user asks to vocalize, narrate, or speak text out loud. Supports concurrent audio generation for multiple callers.
 ---
 
 # Claude Speak
 
-Vocalize text using high-quality text-to-speech. British male voice (bm_george) by default.
+Vocalize text using high-quality text-to-speech. British male voice (bm_george) by default. Supports concurrent audio generation via a process pool.
 
 ## When to Use
 
@@ -41,6 +41,36 @@ Invoke when user:
 ~/Projects/claude-speak/.venv/bin/claude-speak-client -t 600 "Very long text..."
 ```
 
+## Concurrency
+
+The daemon supports concurrent audio generation via a `ProcessPoolExecutor`. Multiple callers can generate audio simultaneously.
+
+**Two request paths:**
+- `speak` (play aloud) — serialized through a single playback queue to prevent audio overlap
+- `generate_file` (return WAV bytes) — parallelized across worker processes, each with its own model copy
+
+**Daemon pool configuration:**
+```bash
+# Start with custom worker count (default: auto based on CPU count)
+~/Projects/claude-speak/.venv/bin/claude-speak-daemon start --workers 3
+
+# Check pool status
+python3 -c "from claude_speak_daemon import send_command; print(send_command({'command': 'ping'}))"
+# Returns: {"success": true, "status": "ready", "num_workers": 3, "playback_queue_depth": 0}
+```
+
+**Programmatic file generation (for concurrent use):**
+```python
+from claude_speak_daemon import send_command
+result = send_command({
+    "command": "generate_file",
+    "text": "Generate audio without playing",
+    "voice": "bm_george",
+    "speed": 1.0
+}, timeout=120.0)
+# result: {"success": true, "audio_base64": "...", "duration": 2.7, "format": "wav"}
+```
+
 ## Long Text (3+ sentences)
 
 For longer content, use **fire-and-forget mode** with shell backgrounding:
@@ -69,8 +99,15 @@ If "Daemon not running" error:
 ~/Projects/claude-speak/.venv/bin/claude-speak-daemon start
 ```
 
+After code updates, restart the daemon to pick up changes:
+```bash
+~/Projects/claude-speak/.venv/bin/claude-speak-daemon restart
+```
+
 ## Best Practices
 
 - For short text (1-2 sentences): run normally
 - For longer text (paragraphs): use `&` fire-and-forget
+- For batch/concurrent generation: use `generate_file` command programmatically
 - Check daemon status if issues arise
+- Use `--workers N` to tune pool size for your workload
