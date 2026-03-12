@@ -44,6 +44,7 @@ To use a skill:
 | Profile Builder | Build Claude global personalization profiles through guided Q&A | `ProfileBuilder/profile-builder/SKILL.md` |
 | Project Builder | Create Claude Projects with instructions and manifests | `ProjectBuilder/project-builder/SKILL.md` |
 | Prose Polish | Writing style analysis and improvement | `ProsePolish/prose-polish/SKILL.md` |
+| Prose Polish Redline | Multi-agent prose editing with tracked-changes .docx and HTML replay | `ProsePolishRedline/prose-polish-redline/SKILL.md` |
 | Read Aloud | TTS audio reader with word-synced highlighting | `ReadAloud/read-aloud/SKILL.md` |
 | Research to Essay | Convert research notes to essays | `ResearchToEssay/research-to-essay/SKILL.md` |
 | Second Brain | Personal knowledge capture and management | `SecondBrain/second-brain/SKILL.md` |
@@ -69,7 +70,7 @@ To use a skill:
 - Codex Peer Review, Gemini Peer Review, Codebase Navigator, MCP Builder, Playwright, PR Review Loop, Unix Review
 
 **Writing & Content**
-- Prose Polish, Read Aloud, Research to Essay, Essay to Speech, Writing Skills, Claimify, Writing Partner, Presentation Partner
+- Prose Polish, Prose Polish Redline, Read Aloud, Research to Essay, Essay to Speech, Writing Skills, Claimify, Writing Partner, Presentation Partner
 
 **AWS & Cloud**
 - AWS CDK, AWS Cost Ops, AWS Serverless

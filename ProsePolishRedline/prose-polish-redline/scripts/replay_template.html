@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prose Polish: Redline Replay</title>
+<style>
+  :root {
+    --primary: #1a365d;
+    --accent: #2b6cb0;
+    --accent-light: #bee3f8;
+    --success: #38a169;
+    --success-light: #c6f6d5;
+    --warning: #dd6b20;
+    --danger: #e53e3e;
+    --danger-light: #fed7d7;
+    --bg: #f7fafc;
+    --card: #ffffff;
+    --text: #1a202c;
+    --muted: #718096;
+    --border: #e2e8f0;
+    --comment-bg: #fefcbf;
+    --comment-border: #ecc94b;
+
+    /* Tier-specific colors */
+    --tier-structural: #2b6cb0;
+    --tier-coherence: #319795;
+    --tier-authority: #6b46c1;
+    --tier-craft: #dd6b20;
+    --tier-voice: #38a169;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  /* === HEADER === */
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    color: white;
+    padding: 48px 40px 40px;
+    text-align: center;
+    position: relative;
+  }
+  .hero h1 {
+    font-size: 2.4em;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+  }
+  .hero .subtitle {
+    font-size: 1.15em;
+    opacity: 0.9;
+    font-style: italic;
+    margin-bottom: 18px;
+  }
+  .hero .meta {
+    font-size: 0.85em;
+    opacity: 0.7;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  /* === TABS === */
+  .tabs-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px 24px 0;
+  }
+  .tab-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 0;
+  }
+  .tab-btn {
+    padding: 10px 24px;
+    border: 2px solid var(--border);
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+    background: var(--bg);
+    color: var(--muted);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.9em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { background: #edf2f7; color: var(--accent); }
+  .tab-btn.active {
+    background: var(--card);
+    color: var(--primary);
+    border-color: var(--accent);
+  }
+  .tab-stats {
+    display: block;
+    font-size: 0.78em;
+    font-weight: 400;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* === MAIN LAYOUT === */
+  .main-layout {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px 40px;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 24px;
+  }
+  .left-panel {
+    min-width: 0;
+  }
+
+  /* === CONTROLS === */
+  .controls-bar {
+    background: var(--card);
+    border: 2px solid var(--accent);
+    border-radius: 0 12px 0 0;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .ctrl-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--accent);
+    border-radius: 8px;
+    background: white;
+    color: var(--accent);
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .ctrl-btn:hover { background: var(--accent-light); }
+  .ctrl-btn.playing { background: var(--accent); color: white; }
+
+  .speed-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.82em;
+    color: var(--muted);
+  }
+  .speed-control input[type="range"] {
+    width: 80px;
+    accent-color: var(--accent);
+  }
+  .speed-label {
+    font-weight: 600;
+    color: var(--primary);
+    min-width: 28px;
+  }
+
+  .progress-wrapper {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .progress-bar-outer {
+    flex: 1;
+    height: 8px;
+    background: var(--border);
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .progress-bar-inner {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--success));
+    border-radius: 4px;
+    transition: width 0.3s;
+    width: 0%;
+  }
+  .progress-text {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.82em;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .edit-counter {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.9em;
+    font-weight: 600;
+    color: var(--primary);
+    white-space: nowrap;
+  }
+
+  /* === TIER INDICATOR === */
+  .tier-pipeline {
+    display: flex;
+    gap: 4px;
+    margin: 12px 0 0;
+    padding: 12px 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 0 0;
+  }
+  .tier-box {
+    flex: 1;
+    padding: 8px 6px;
+    text-align: center;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.7em;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border-radius: 6px;
+    background: #edf2f7;
+    color: var(--muted);
+    transition: all 0.4s;
+    position: relative;
+  }
+  .tier-box.active[data-tier="STRUCTURAL"] {
+    background: var(--tier-structural);
+    color: white;
+    box-shadow: 0 2px 8px rgba(43,108,176,0.35);
+  }
+  .tier-box.active[data-tier="COHERENCE"] {
+    background: var(--tier-coherence);
+    color: white;
+    box-shadow: 0 2px 8px rgba(49,151,149,0.35);
+  }
+  .tier-box.active[data-tier="AUTHORITY"] {
+    background: var(--tier-authority);
+    color: white;
+    box-shadow: 0 2px 8px rgba(107,70,193,0.35);
+  }
+  .tier-box.active[data-tier="CRAFT"] {
+    background: var(--tier-craft);
+    color: white;
+    box-shadow: 0 2px 8px rgba(221,107,32,0.35);
+  }
+  .tier-box.active[data-tier="VOICE"] {
+    background: var(--tier-voice);
+    color: white;
+    box-shadow: 0 2px 8px rgba(56,161,105,0.35);
+  }
+  .tier-box.completed[data-tier="STRUCTURAL"] {
+    background: var(--tier-structural);
+    color: white;
+    opacity: 0.7;
+  }
+  .tier-box.completed[data-tier="COHERENCE"] {
+    background: var(--tier-coherence);
+    color: white;
+    opacity: 0.7;
+  }
+  .tier-box.completed[data-tier="AUTHORITY"] {
+    background: var(--tier-authority);
+    color: white;
+    opacity: 0.7;
+  }
+  .tier-box.completed[data-tier="CRAFT"] {
+    background: var(--tier-craft);
+    color: white;
+    opacity: 0.7;
+  }
+  .tier-box.completed[data-tier="VOICE"] {
+    background: var(--tier-voice);
+    color: white;
+    opacity: 0.7;
+  }
+  .tier-box .tier-count {
+    display: block;
+    font-weight: 400;
+    font-size: 0.9em;
+    opacity: 0.85;
+    margin-top: 2px;
+  }
+
+  /* === DOCUMENT VIEWER === */
+  .doc-viewer {
+    background: white;
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    padding: 48px 56px;
+    max-height: 70vh;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    line-height: 1.85;
+  }
+  .doc-viewer p {
+    margin-bottom: 14px;
+    text-align: justify;
+    text-indent: 0;
+  }
+  .doc-viewer p.indented {
+    text-indent: 2em;
+  }
+  .doc-viewer .doc-heading {
+    font-weight: 700;
+    font-size: 1.1em;
+    color: var(--primary);
+    margin: 24px 0 8px;
+    text-align: left;
+  }
+  .doc-viewer .doc-title {
+    font-weight: 700;
+    font-size: 1.3em;
+    color: var(--primary);
+    margin-bottom: 16px;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  /* === EDIT MARKERS === */
+  .edit-delete {
+    text-decoration: line-through;
+    background: var(--danger-light);
+    color: var(--danger);
+    padding: 1px 3px;
+    border-radius: 3px;
+    transition: all 0.3s;
+  }
+  .edit-insert {
+    background: var(--success-light);
+    color: #276749;
+    padding: 1px 3px;
+    border-radius: 3px;
+    font-weight: 500;
+    transition: all 0.3s;
+  }
+  .edit-comment-highlight {
+    background: var(--comment-bg);
+    border-bottom: 2px solid var(--comment-border);
+    padding: 1px 3px;
+    border-radius: 3px;
+    position: relative;
+    transition: all 0.3s;
+  }
+  .comment-marker {
+    display: inline-block;
+    background: var(--comment-border);
+    color: var(--primary);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.7em;
+    font-weight: 700;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    border-radius: 50%;
+    margin-left: 3px;
+    vertical-align: super;
+  }
+
+  /* Pulse animation for new edits */
+  @keyframes editPulse {
+    0% { box-shadow: 0 0 0 0 rgba(43,108,176,0.5); }
+    50% { box-shadow: 0 0 12px 4px rgba(43,108,176,0.3); }
+    100% { box-shadow: 0 0 0 0 rgba(43,108,176,0); }
+  }
+  .edit-pulse {
+    animation: editPulse 1.2s ease-out;
+  }
+
+  /* Fade in */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(2px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .edit-fadein {
+    animation: fadeIn 0.4s ease-out;
+  }
+
+  /* === TIER OVERLAY === */
+  .tier-overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--primary);
+    color: white;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1.4em;
+    font-weight: 700;
+    padding: 20px 48px;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+  .tier-overlay.visible {
+    opacity: 1;
+  }
+  .tier-overlay .pass-num {
+    display: block;
+    font-size: 0.6em;
+    opacity: 0.75;
+    margin-bottom: 4px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* === COMMENTS PANEL === */
+  .right-panel {
+    position: sticky;
+    top: 20px;
+    align-self: start;
+  }
+  .comments-panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    max-height: 80vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .comments-header {
+    padding: 16px 20px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 700;
+    color: var(--primary);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95em;
+    position: sticky;
+    top: 0;
+    background: var(--card);
+    border-radius: 12px 12px 0 0;
+    z-index: 2;
+  }
+  .comments-list {
+    padding: 12px;
+    flex: 1;
+  }
+  .comment-card {
+    background: #fffff0;
+    border: 1px solid var(--comment-border);
+    border-left: 4px solid var(--comment-border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 0.82em;
+    line-height: 1.5;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+  .comment-card.fresh {
+    animation: fadeIn 0.4s ease-out, editPulse 1.2s ease-out;
+  }
+  .comment-num {
+    display: inline-block;
+    background: var(--comment-border);
+    color: var(--primary);
+    font-weight: 700;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 50%;
+    margin-right: 6px;
+    font-size: 0.85em;
+  }
+  .comment-tier {
+    display: inline-block;
+    font-size: 0.7em;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 6px;
+    background: #edf2f7;
+    color: var(--muted);
+  }
+  .comment-text {
+    margin-top: 6px;
+    color: var(--text);
+  }
+  .comment-target {
+    margin-top: 6px;
+    font-style: italic;
+    color: var(--muted);
+    font-size: 0.92em;
+    border-left: 2px solid var(--border);
+    padding-left: 8px;
+  }
+
+  /* Edit log in right panel */
+  .edit-log-panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    margin-bottom: 16px;
+    max-height: 35vh;
+    overflow-y: auto;
+  }
+  .edit-log-header {
+    padding: 14px 20px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 700;
+    color: var(--primary);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9em;
+    position: sticky;
+    top: 0;
+    background: var(--card);
+    border-radius: 12px 12px 0 0;
+    z-index: 2;
+  }
+  .edit-log-list {
+    padding: 8px 12px;
+  }
+  .edit-log-item {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.78em;
+    padding: 6px 8px;
+    border-bottom: 1px solid #f7fafc;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .edit-log-item.fresh {
+    animation: fadeIn 0.4s ease-out;
+    background: #f0fff4;
+  }
+  .edit-type-badge {
+    display: inline-block;
+    font-weight: 700;
+    font-size: 0.8em;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .badge-replace { background: #feebc8; color: #c05621; }
+  .badge-delete { background: var(--danger-light); color: var(--danger); }
+  .badge-insert { background: var(--success-light); color: #276749; }
+  .badge-comment { background: var(--comment-bg); color: #975a16; }
+  .edit-log-text {
+    color: var(--muted);
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  .edit-log-kata {
+    font-size: 0.85em;
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  /* === NO-DATA PLACEHOLDER === */
+  .no-comments {
+    padding: 24px;
+    text-align: center;
+    color: var(--muted);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.85em;
+    font-style: italic;
+  }
+
+  /* === FOOTER === */
+  .footer {
+    text-align: center;
+    padding: 32px 24px;
+    color: var(--muted);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.8em;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Prose Polish: Redline Replay</h1>
+  <div class="subtitle">Watch the prose polish agents edit in real time</div>
+  <div class="meta">Prose Polish Redline System</div>
+</div>
+
+<div class="tabs-container">
+  <div class="tab-bar" id="tabBar">
+    <!-- Tabs are generated dynamically from MANUSCRIPTS data -->
+  </div>
+</div>
+
+<div class="main-layout">
+  <div class="left-panel">
+    <!-- Controls -->
+    <div class="controls-bar">
+      <button class="ctrl-btn" id="playBtn" onclick="togglePlay()" title="Play / Pause">&#9654;</button>
+      <button class="ctrl-btn" id="resetBtn" onclick="resetReplay()" title="Reset">&#8634;</button>
+      <div class="speed-control">
+        <span>Speed:</span>
+        <input type="range" id="speedSlider" min="0" max="3" step="1" value="1" oninput="updateSpeed()">
+        <span class="speed-label" id="speedLabel">1x</span>
+      </div>
+      <div class="progress-wrapper">
+        <div class="progress-bar-outer" id="progressOuter" onclick="seekProgress(event)">
+          <div class="progress-bar-inner" id="progressInner"></div>
+        </div>
+        <span class="progress-text" id="progressText">0%</span>
+      </div>
+      <div class="edit-counter" id="editCounter">Edits: 0 / 0</div>
+    </div>
+
+    <!-- Tier Pipeline -->
+    <div class="tier-pipeline" id="tierPipeline">
+      <div class="tier-box" data-tier="STRUCTURAL">Structural<span class="tier-count" id="tc-STRUCTURAL">0</span></div>
+      <div class="tier-box" data-tier="COHERENCE">Coherence<span class="tier-count" id="tc-COHERENCE">0</span></div>
+      <div class="tier-box" data-tier="AUTHORITY">Authority<span class="tier-count" id="tc-AUTHORITY">0</span></div>
+      <div class="tier-box" data-tier="CRAFT">Craft<span class="tier-count" id="tc-CRAFT">0</span></div>
+      <div class="tier-box" data-tier="VOICE">Voice<span class="tier-count" id="tc-VOICE">0</span></div>
+    </div>
+
+    <!-- Document Viewer -->
+    <div class="doc-viewer" id="docViewer">
+      <p class="no-comments">Select a document tab and press Play to begin the redline replay.</p>
+    </div>
+  </div>
+
+  <div class="right-panel">
+    <div class="edit-log-panel">
+      <div class="edit-log-header">Edit Log</div>
+      <div class="edit-log-list" id="editLogList">
+        <div class="no-comments">Edits will appear here as they are applied.</div>
+      </div>
+    </div>
+    <div class="comments-panel">
+      <div class="comments-header">Comments</div>
+      <div class="comments-list" id="commentsList">
+        <div class="no-comments">Comments will appear here during replay.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tier Overlay -->
+<div class="tier-overlay" id="tierOverlay">
+  <span class="pass-num" id="tierPassNum">Pass 1</span>
+  <span id="tierPassName">STRUCTURAL</span>
+</div>
+
+<div class="footer">
+  Prose Polish Redline System &mdash; Built with Claude Code
+</div>
+
+<script>
+// ============================================================
+// DATA: Documents and Reviews
+// ============================================================
+
+const TIER_ORDER = ['STRUCTURAL', 'COHERENCE', 'AUTHORITY', 'CRAFT', 'VOICE'];
+const SPEED_MAP = [0.5, 1, 2, 4];
+
+{{MANUSCRIPT_DATA}}
+
+// ============================================================
+// APP STATE
+// ============================================================
+
+const TAB_KEYS = Object.keys(MANUSCRIPTS);
+let currentTab = TAB_KEYS[0] || '';
+let isPlaying = false;
+let currentEditIndex = 0;
+let playTimer = null;
+let commentCounter = 0;
+let appliedEdits = [];
+let sortedEdits = [];
+
+function normalizeQuotes(s) {
+  if (!s) return '';
+  return s.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"').replace(/[\u2013\u2014\u2012\u2015]/g, '-');
+}
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function getBaseDelay() {
+  const idx = parseInt(document.getElementById('speedSlider').value);
+  return 1500 / SPEED_MAP[idx];
+}
+
+function updateSpeed() {
+  const idx = parseInt(document.getElementById('speedSlider').value);
+  document.getElementById('speedLabel').textContent = SPEED_MAP[idx] + 'x';
+}
+
+// ============================================================
+// TAB GENERATION & SWITCHING
+// ============================================================
+
+function buildTabs() {
+  const bar = document.getElementById('tabBar');
+  bar.innerHTML = '';
+  TAB_KEYS.forEach((key, i) => {
+    const ms = MANUSCRIPTS[key];
+    const btn = document.createElement('button');
+    btn.className = 'tab-btn' + (i === 0 ? ' active' : '');
+    btn.setAttribute('data-tab', key);
+    btn.onclick = () => switchTab(key);
+    const editCount = ms.edits ? ms.edits.length : (ms.editCount || 0);
+    const matchRate = ms.matchRate || '';
+    btn.innerHTML = ms.label + '<span class="tab-stats">' + editCount + ' edits &middot; ' + matchRate + ' match</span>';
+    bar.appendChild(btn);
+  });
+}
+
+function switchTab(tab) {
+  if (isPlaying) togglePlay();
+  currentTab = tab;
+  currentEditIndex = 0;
+  commentCounter = 0;
+  appliedEdits = [];
+
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-tab') === tab);
+  });
+
+  prepareEdits();
+  renderDocument();
+  renderTierPipeline();
+  updateControls();
+  clearPanels();
+}
+
+function prepareEdits() {
+  const ms = MANUSCRIPTS[currentTab];
+  if (!ms || !ms.edits) { sortedEdits = []; return; }
+
+  // Group by tier in order, preserving original order within tier
+  sortedEdits = [];
+  for (const tier of TIER_ORDER) {
+    const tierEdits = ms.edits.filter(e => e.tier === tier);
+    sortedEdits.push(...tierEdits);
+  }
+}
+
+// ============================================================
+// DOCUMENT RENDERING
+// ============================================================
+
+function splitParagraphs(text) {
+  if (!text) return [];
+  return text.split(/\n\n+/).map(p => p.replace(/^\n+|\n+$/g, ''));
+}
+
+function isHeading(text) {
+  const trimmed = text.trim();
+  // Generic heuristic: short, no period, starts with uppercase letter
+  if (trimmed.length < 80 && !trimmed.includes('.') && /^[A-Z]/.test(trimmed)) return true;
+  return false;
+}
+
+function renderDocument() {
+  const ms = MANUSCRIPTS[currentTab];
+  const viewer = document.getElementById('docViewer');
+  if (!ms || !ms.text) {
+    viewer.innerHTML = '<p class="no-comments">No document text available.</p>';
+    return;
+  }
+
+  const paragraphs = splitParagraphs(ms.text);
+  let html = '';
+  for (let i = 0; i < paragraphs.length; i++) {
+    const p = paragraphs[i].trim();
+    if (!p) continue;
+    const indented = p.startsWith('\t');
+    const cleanP = p.replace(/^\t+/, '');
+
+    if (i === 0) {
+      html += `<p class="doc-title" data-para="${i}">${escapeHtml(cleanP)}</p>`;
+    } else if (isHeading(cleanP)) {
+      html += `<p class="doc-heading" data-para="${i}">${escapeHtml(cleanP)}</p>`;
+    } else {
+      html += `<p${indented ? ' class="indented"' : ''} data-para="${i}">${escapeHtml(cleanP)}</p>`;
+    }
+  }
+  viewer.innerHTML = html;
+}
+
+// ============================================================
+// EDIT APPLICATION
+// ============================================================
+
+function findAndMarkText(searchText, editType, newText, editIndex) {
+  const viewer = document.getElementById('docViewer');
+  const paras = viewer.querySelectorAll('p');
+  const normSearch = normalizeQuotes(searchText).replace(/\t/g, '').replace(/\s+/g, ' ').trim();
+
+  if (!normSearch) return false;
+
+  for (const para of paras) {
+    const paraHtml = para.innerHTML;
+    const paraText = para.textContent;
+    const normPara = normalizeQuotes(paraText).replace(/\t/g, '').replace(/\s+/g, ' ');
+
+    const searchIdx = normPara.indexOf(normSearch);
+    if (searchIdx === -1) continue;
+
+    // Find the matching region in the actual HTML by mapping character positions
+    let charCount = 0;
+    const walker = document.createTreeWalker(para, NodeFilter.SHOW_TEXT, null, false);
+    const textNodes = [];
+    let node;
+    while (node = walker.nextNode()) {
+      textNodes.push({
+        node: node,
+        start: charCount,
+        end: charCount + node.textContent.length
+      });
+      charCount += node.textContent.length;
+    }
+
+    // Map normalized position back to original text position
+    let normBuf = '';
+    let origPositions = [];
+    const fullText = paraText;
+
+    // Walk through original text, building normalized version char by char
+    for (let oi = 0; oi < fullText.length; oi++) {
+      let ch = fullText[oi];
+      ch = ch.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
+      if (ch === '\t') continue;
+      // Collapse whitespace
+      if (/\s/.test(ch)) {
+        if (normBuf.length > 0 && normBuf[normBuf.length - 1] !== ' ') {
+          normBuf += ' ';
+          origPositions.push(oi);
+        }
+        continue;
+      }
+      normBuf += ch;
+      origPositions.push(oi);
+    }
+
+    const sIdx = normBuf.indexOf(normSearch);
+    if (sIdx === -1) continue;
+
+    const origStart = origPositions[sIdx];
+    const sEnd = sIdx + normSearch.length - 1;
+    const origEnd = (sEnd < origPositions.length) ? origPositions[sEnd] + 1 : fullText.length;
+
+    // Now find which text nodes this spans
+    let segments = [];
+    for (const tn of textNodes) {
+      if (tn.end <= origStart) continue;
+      if (tn.start >= origEnd) break;
+
+      const segStart = Math.max(0, origStart - tn.start);
+      const segEnd = Math.min(tn.node.textContent.length, origEnd - tn.start);
+      segments.push({
+        node: tn.node,
+        start: segStart,
+        end: segEnd
+      });
+    }
+
+    if (segments.length === 0) continue;
+
+    // Apply the edit by replacing text in these segments
+    const uid = 'edit-' + editIndex;
+
+    if (editType === 'replace' || editType === 'delete') {
+      const matchedText = fullText.substring(origStart, origEnd);
+      let replHtml = `<span class="edit-delete edit-fadein edit-pulse" id="${uid}">${escapeHtml(matchedText)}</span>`;
+      if (editType === 'replace' && newText) {
+        replHtml += `<span class="edit-insert edit-fadein edit-pulse"> ${escapeHtml(newText)}</span>`;
+      }
+
+      const rawMatch = fullText.substring(origStart, origEnd);
+      const escapedMatch = escapeHtml(rawMatch);
+
+      if (para.innerHTML.includes(escapedMatch)) {
+        para.innerHTML = para.innerHTML.replace(escapedMatch, replHtml);
+        return true;
+      }
+
+      if (para.innerHTML.includes(rawMatch)) {
+        para.innerHTML = para.innerHTML.replace(rawMatch, replHtml);
+        return true;
+      }
+
+      // Last resort: rebuild paragraph
+      const before = fullText.substring(0, origStart);
+      const after = fullText.substring(origEnd);
+      para.innerHTML = escapeHtml(before) + replHtml + escapeHtml(after);
+      return true;
+
+    } else if (editType === 'comment') {
+      commentCounter++;
+      const matchedText = fullText.substring(origStart, origEnd);
+      const replHtml = `<span class="edit-comment-highlight edit-fadein edit-pulse" id="${uid}">${escapeHtml(matchedText)}<span class="comment-marker">${commentCounter}</span></span>`;
+
+      const escapedMatch = escapeHtml(matchedText);
+      if (para.innerHTML.includes(escapedMatch)) {
+        para.innerHTML = para.innerHTML.replace(escapedMatch, replHtml);
+        return true;
+      }
+      if (para.innerHTML.includes(matchedText)) {
+        para.innerHTML = para.innerHTML.replace(matchedText, replHtml);
+        return true;
+      }
+      return false;
+    }
+
+    return false;
+  }
+
+  return false;
+}
+
+function applyInsertEdit(afterText, newText, editIndex) {
+  const viewer = document.getElementById('docViewer');
+  const paras = viewer.querySelectorAll('p');
+  const normAfter = normalizeQuotes(afterText).replace(/\t/g, '').replace(/\s+/g, ' ').trim();
+  const uid = 'edit-' + editIndex;
+
+  if (!normAfter) return false;
+
+  for (const para of paras) {
+    const paraText = para.textContent;
+    const normPara = normalizeQuotes(paraText).replace(/\t/g, '').replace(/\s+/g, ' ');
+
+    const searchIdx = normPara.indexOf(normAfter);
+    if (searchIdx === -1) continue;
+
+    // Find original position
+    let normBuf = '';
+    let origPositions = [];
+    for (let oi = 0; oi < paraText.length; oi++) {
+      let ch = paraText[oi];
+      ch = ch.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
+      if (ch === '\t') continue;
+      if (/\s/.test(ch)) {
+        if (normBuf.length > 0 && normBuf[normBuf.length - 1] !== ' ') {
+          normBuf += ' ';
+          origPositions.push(oi);
+        }
+        continue;
+      }
+      normBuf += ch;
+      origPositions.push(oi);
+    }
+
+    const sIdx = normBuf.indexOf(normAfter);
+    if (sIdx === -1) continue;
+
+    const origStart = origPositions[sIdx];
+    const insertHtml = `<span class="edit-insert edit-fadein edit-pulse" id="${uid}">${escapeHtml(newText)} </span>`;
+
+    const escapedAfterText = escapeHtml(paraText.substring(origStart, Math.min(origStart + 60, paraText.length)));
+    if (para.innerHTML.includes(escapedAfterText)) {
+      para.innerHTML = para.innerHTML.replace(escapedAfterText, insertHtml + escapedAfterText);
+      return true;
+    }
+
+    return false;
+  }
+  return false;
+}
+
+function applyEdit(edit, index) {
+  let success = false;
+
+  if (edit.edit_type === 'replace' || edit.edit_type === 'delete') {
+    success = findAndMarkText(edit.original_text, edit.edit_type, edit.new_text, index);
+  } else if (edit.edit_type === 'insert') {
+    success = applyInsertEdit(edit.after_text, edit.new_text, index);
+  } else if (edit.edit_type === 'comment') {
+    success = findAndMarkText(edit.original_text, 'comment', '', index);
+  }
+
+  // Scroll to the edit
+  const el = document.getElementById('edit-' + index);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  // Add to edit log
+  addEditLogEntry(edit, index, success);
+
+  // Add comment if applicable
+  if (edit.edit_type === 'comment' && edit.comment) {
+    addCommentEntry(edit, success);
+  }
+
+  if (!success) {
+    console.log('Could not match edit #' + index + ':', edit.original_text?.substring(0, 60));
+  }
+
+  return success;
+}
+
+// ============================================================
+// PANEL UPDATES
+// ============================================================
+
+function addEditLogEntry(edit, index, success) {
+  const list = document.getElementById('editLogList');
+  if (index === 0) list.innerHTML = '';
+
+  const badgeClass = {
+    'replace': 'badge-replace',
+    'delete': 'badge-delete',
+    'insert': 'badge-insert',
+    'comment': 'badge-comment'
+  }[edit.edit_type] || 'badge-replace';
+
+  const summary = edit.edit_type === 'comment'
+    ? (edit.comment || '').substring(0, 80)
+    : (edit.original_text || edit.new_text || '').substring(0, 80);
+
+  const kataHtml = edit.kata ? `<span class="edit-log-kata">[${escapeHtml(edit.kata)}]</span> ` : '';
+
+  const item = document.createElement('div');
+  item.className = 'edit-log-item fresh';
+  item.innerHTML = `
+    <span class="edit-type-badge ${badgeClass}">${edit.edit_type}</span>
+    <span class="edit-log-text">${kataHtml}${escapeHtml(summary)}${!success ? ' (no match)' : ''}</span>
+  `;
+  list.insertBefore(item, list.firstChild);
+
+  setTimeout(() => item.classList.remove('fresh'), 1500);
+}
+
+function addCommentEntry(edit, success) {
+  const list = document.getElementById('commentsList');
+  if (commentCounter === 1) list.innerHTML = '';
+
+  const card = document.createElement('div');
+  card.className = 'comment-card fresh';
+  const targetText = (edit.original_text || '').substring(0, 100);
+  card.innerHTML = `
+    <span class="comment-num">${commentCounter}</span>
+    <span class="comment-tier">${edit.tier}</span>
+    <div class="comment-text">${escapeHtml(edit.comment)}</div>
+    ${targetText ? `<div class="comment-target">"${escapeHtml(targetText)}${edit.original_text.length > 100 ? '...' : ''}"</div>` : ''}
+  `;
+  list.appendChild(card);
+  list.scrollTop = list.scrollHeight;
+
+  setTimeout(() => card.classList.remove('fresh'), 1500);
+}
+
+function clearPanels() {
+  document.getElementById('editLogList').innerHTML = '<div class="no-comments">Edits will appear here as they are applied.</div>';
+  document.getElementById('commentsList').innerHTML = '<div class="no-comments">Comments will appear here during replay.</div>';
+}
+
+// ============================================================
+// TIER PIPELINE
+// ============================================================
+
+function renderTierPipeline() {
+  const boxes = document.querySelectorAll('.tier-box');
+  // Count edits per tier
+  const counts = {};
+  for (const t of TIER_ORDER) counts[t] = 0;
+  for (const e of sortedEdits) {
+    if (counts[e.tier] !== undefined) counts[e.tier]++;
+  }
+  boxes.forEach(box => {
+    const tier = box.dataset.tier;
+    const countEl = document.getElementById('tc-' + tier);
+    if (countEl) countEl.textContent = counts[tier] || 0;
+    box.classList.remove('active', 'completed');
+  });
+}
+
+function updateTierPipeline(currentTier) {
+  const boxes = document.querySelectorAll('.tier-box');
+  let passedCurrent = false;
+  boxes.forEach(box => {
+    const tier = box.dataset.tier;
+    box.classList.remove('active', 'completed');
+    if (tier === currentTier) {
+      box.classList.add('active');
+      passedCurrent = true;
+    } else if (!passedCurrent) {
+      box.classList.add('completed');
+    }
+  });
+}
+
+function showTierOverlay(tierName, passNum) {
+  const overlay = document.getElementById('tierOverlay');
+  document.getElementById('tierPassNum').textContent = 'Pass ' + passNum;
+  document.getElementById('tierPassName').textContent = tierName;
+  overlay.classList.add('visible');
+  setTimeout(() => overlay.classList.remove('visible'), 1200);
+}
+
+// ============================================================
+// CONTROLS & PLAYBACK
+// ============================================================
+
+function updateControls() {
+  const total = sortedEdits.length;
+  const pct = total > 0 ? Math.round((currentEditIndex / total) * 100) : 0;
+  document.getElementById('progressInner').style.width = pct + '%';
+  document.getElementById('progressText').textContent = pct + '%';
+  document.getElementById('editCounter').textContent = 'Edits: ' + currentEditIndex + ' / ' + total;
+
+  const playBtn = document.getElementById('playBtn');
+  if (isPlaying) {
+    playBtn.innerHTML = '&#10074;&#10074;';
+    playBtn.classList.add('playing');
+  } else {
+    playBtn.innerHTML = '&#9654;';
+    playBtn.classList.remove('playing');
+  }
+}
+
+function togglePlay() {
+  if (isPlaying) {
+    isPlaying = false;
+    if (playTimer) clearTimeout(playTimer);
+    playTimer = null;
+  } else {
+    if (currentEditIndex >= sortedEdits.length) {
+      // Reset if at end
+      resetReplay();
+    }
+    isPlaying = true;
+    playNext();
+  }
+  updateControls();
+}
+
+function playNext() {
+  if (!isPlaying || currentEditIndex >= sortedEdits.length) {
+    isPlaying = false;
+    updateControls();
+    return;
+  }
+
+  const edit = sortedEdits[currentEditIndex];
+
+  // Check if we're entering a new tier
+  const prevTier = currentEditIndex > 0 ? sortedEdits[currentEditIndex - 1].tier : null;
+  if (edit.tier !== prevTier) {
+    const passNum = TIER_ORDER.indexOf(edit.tier) + 1;
+    updateTierPipeline(edit.tier);
+    showTierOverlay(edit.tier, passNum);
+
+    // Brief pause for tier transition
+    playTimer = setTimeout(() => {
+      applyCurrentEdit();
+    }, 600);
+    return;
+  }
+
+  applyCurrentEdit();
+}
+
+function applyCurrentEdit() {
+  if (currentEditIndex >= sortedEdits.length) {
+    isPlaying = false;
+    updateControls();
+    return;
+  }
+
+  const edit = sortedEdits[currentEditIndex];
+  applyEdit(edit, currentEditIndex);
+  currentEditIndex++;
+  updateControls();
+
+  if (isPlaying && currentEditIndex < sortedEdits.length) {
+    playTimer = setTimeout(playNext, getBaseDelay());
+  } else if (currentEditIndex >= sortedEdits.length) {
+    isPlaying = false;
+    // Mark all tiers completed
+    document.querySelectorAll('.tier-box').forEach(b => {
+      b.classList.remove('active');
+      b.classList.add('completed');
+    });
+    updateControls();
+  }
+}
+
+function resetReplay() {
+  if (isPlaying) {
+    isPlaying = false;
+    if (playTimer) clearTimeout(playTimer);
+    playTimer = null;
+  }
+  currentEditIndex = 0;
+  commentCounter = 0;
+  appliedEdits = [];
+  renderDocument();
+  renderTierPipeline();
+  updateControls();
+  clearPanels();
+}
+
+function seekProgress(event) {
+  const bar = document.getElementById('progressOuter');
+  const rect = bar.getBoundingClientRect();
+  const pct = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+  const targetIdx = Math.round(pct * sortedEdits.length);
+
+  // Reset and replay up to target
+  const wasPlaying = isPlaying;
+  if (isPlaying) {
+    isPlaying = false;
+    if (playTimer) clearTimeout(playTimer);
+  }
+
+  currentEditIndex = 0;
+  commentCounter = 0;
+  appliedEdits = [];
+  renderDocument();
+  clearPanels();
+
+  // Apply all edits up to target instantly
+  for (let i = 0; i < targetIdx && i < sortedEdits.length; i++) {
+    const edit = sortedEdits[i];
+    applyEdit(edit, i);
+    currentEditIndex = i + 1;
+
+    // Update tier
+    const tier = edit.tier;
+    updateTierPipeline(tier);
+  }
+
+  updateControls();
+
+  if (wasPlaying && currentEditIndex < sortedEdits.length) {
+    isPlaying = true;
+    playTimer = setTimeout(playNext, getBaseDelay());
+    updateControls();
+  }
+}
+
+// ============================================================
+// INITIALIZATION
+// ============================================================
+
+document.addEventListener('DOMContentLoaded', function() {
+  buildTabs();
+  prepareEdits();
+  renderDocument();
+  renderTierPipeline();
+  updateControls();
+  updateSpeed();
+});
+</script>
+
+</body>
+</html>
