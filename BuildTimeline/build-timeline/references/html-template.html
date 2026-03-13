@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Build Timeline — {{REPO_NAME}}</title>
+<style>
+  {{THEME_VARS}}
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Top Nav ── */
+  .top-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .nav-title {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+  .nav-title span { color: var(--text-secondary); font-weight: 400; }
+  .stats-bar {
+    display: flex;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .stat-item { display: flex; align-items: center; gap: 4px; }
+  .stat-value { font-weight: 700; color: var(--text-primary); }
+
+  /* ── Phase Filters ── */
+  .phase-filters {
+    display: flex;
+    gap: 8px;
+    padding: 12px 24px;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+    flex-wrap: wrap;
+  }
+  .phase-filter {
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 2px solid var(--border-color);
+    background: transparent;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text-primary);
+  }
+  .phase-filter.active {
+    color: #fff;
+  }
+  .phase-filter:hover { opacity: 0.85; }
+
+  /* ── Container ── */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    position: relative;
+  }
+
+  /* ── Timeline Line ── */
+  .timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--timeline-line);
+    transform: translateX(-50%);
+  }
+
+  /* ── Phase Header ── */
+  .phase-header {
+    text-align: center;
+    padding: 16px 0 24px;
+    position: relative;
+    z-index: 2;
+  }
+  .phase-header h2 {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    background: var(--bg-primary);
+    padding: 6px 20px;
+    border-radius: 24px;
+    border: 2px solid;
+  }
+  .phase-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .phase-time {
+    display: block;
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+  .phase-stats {
+    display: block;
+    font-size: 11px;
+    color: var(--text-secondary);
+  }
+
+  /* ── Event ── */
+  .timeline-event {
+    position: relative;
+    width: 45%;
+    margin-bottom: 24px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .timeline-event.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .event-left { margin-right: auto; margin-left: 0; }
+  .event-right { margin-left: auto; margin-right: 0; }
+
+  /* ── Event Dot ── */
+  .event-dot {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    top: 20px;
+    z-index: 3;
+    border: 2px solid var(--bg-primary);
+  }
+  .event-left .event-dot { right: -30px; }
+  .event-right .event-dot { left: -30px; }
+  .dot-commit { width: 16px; height: 16px; }
+  .event-right .dot-commit { left: -32px; }
+  .event-left .dot-commit { right: -32px; }
+  .dot-error { background: #F56565 !important; }
+
+  /* ── Event Card ── */
+  .event-card {
+    background: var(--bg-card);
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: var(--shadow);
+    border-left: 3px solid var(--border-color);
+    transition: box-shadow 0.2s;
+  }
+  .event-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  .event-time {
+    font-size: 11px;
+    color: var(--text-secondary);
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+  .event-type { margin: 4px 0 8px; }
+
+  /* ── Badges ── */
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .badge-agent { background: #EBF4FF; color: #2B6CB0; }
+  .badge-command { background: #F0FFF4; color: #276749; }
+  .badge-file { background: #FEFCBF; color: #975A16; }
+  .badge-commit { background: #FAF5FF; color: #6B46C1; }
+  .badge-error { background: #FFF5F5; color: #C53030; }
+  .badge-user { background: #EDF2F7; color: #2D3748; }
+  .badge-task { background: #E6FFFA; color: #285E61; }
+  .badge-bg { background: #FEEBC8; color: #9C4221; margin-left: 4px; }
+
+  .event-card h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .event-summary {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+
+  /* ── Code ── */
+  .command-text, .commit-hash, .file-path {
+    display: block;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 12px;
+    background: var(--bg-primary);
+    padding: 6px 10px;
+    border-radius: 4px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+    margin-bottom: 6px;
+  }
+  .commit-hash {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 6px;
+    margin-bottom: 4px;
+    color: var(--text-secondary);
+  }
+  .files-changed {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  /* ── Expandable ── */
+  .expandable { margin-top: 8px; }
+  .expand-btn {
+    background: none;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 3px 10px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .expand-btn:hover {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+  }
+  .expand-content {
+    display: none;
+    margin-top: 8px;
+    font-size: 12px;
+    background: var(--bg-primary);
+    padding: 10px;
+    border-radius: 4px;
+    max-height: 300px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+  .expand-content.open { display: block; }
+
+  /* ── Agent Card ── */
+  .agent-card { border-left-width: 4px; }
+  .child-agents {
+    margin-top: 8px;
+    padding-left: 12px;
+    border-left: 2px solid var(--border-color);
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+  .child-agents li { margin-bottom: 2px; }
+
+  /* ── Error Card ── */
+  .error-card { border-left-color: #F56565; }
+
+  /* ── Commit Card ── */
+  .commit-card { border-left-color: #9F7AEA; }
+
+  /* ── User Message ── */
+  .user-card { border-left-color: #A0AEC0; }
+
+  /* ── Footer ── */
+  .timeline-footer {
+    text-align: center;
+    padding: 40px 0;
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+  .timeline-footer a { color: var(--text-secondary); text-decoration: underline; }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .timeline-line { left: 20px; }
+    .timeline-event { width: calc(100% - 48px); margin-left: 48px !important; margin-right: 0 !important; }
+    .event-left .event-dot, .event-right .event-dot { left: -32px; right: auto; }
+    .stats-bar { flex-wrap: wrap; gap: 8px 16px; }
+  }
+
+  /* ── Print ── */
+  @media print {
+    .top-nav { position: static; box-shadow: none; }
+    .phase-filters { display: none; }
+    .timeline-event { opacity: 1 !important; transform: none !important; break-inside: avoid; }
+    .expand-content { display: block !important; max-height: none !important; }
+    .expand-btn { display: none; }
+    body { background: #fff; }
+  }
+
+  /* ── Keyboard Focus ── */
+  .event-card:focus {
+    outline: 2px solid #4299E1;
+    outline-offset: 2px;
+  }
+
+  /* ── Hidden utility ── */
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<!-- Top Navigation -->
+<nav class="top-nav">
+  <div class="nav-title">{{REPO_NAME}} <span>Build Timeline</span></div>
+  <div class="stats-bar">
+    {{STATS_BAR}}
+  </div>
+</nav>
+
+<!-- Phase Filters -->
+<div class="phase-filters" id="phaseFilters">
+  {{PHASE_FILTERS}}
+</div>
+
+<!-- Timeline -->
+<div class="container">
+  <div class="timeline-line"></div>
+  {{TIMELINE_EVENTS}}
+
+  <div class="timeline-footer">
+    Generated {{GENERATED_AT}} &middot; Build Timeline v1.0
+  </div>
+</div>
+
+<script>
+(function() {
+  // ── Scroll Reveal ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.timeline-event').forEach(el => observer.observe(el));
+
+  // ── Expand/Collapse ──
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('expand-btn')) {
+      const content = e.target.nextElementSibling;
+      const isOpen = content.classList.toggle('open');
+      e.target.textContent = isOpen
+        ? e.target.textContent.replace('Show', 'Hide')
+        : e.target.textContent.replace('Hide', 'Show');
+    }
+  });
+
+  // ── Phase Filtering ──
+  document.querySelectorAll('.phase-filter').forEach(btn => {
+    btn.addEventListener('click', function() {
+      this.classList.toggle('active');
+      const phase = this.dataset.phase;
+      const isActive = this.classList.contains('active');
+
+      if (isActive) {
+        this.style.background = this.dataset.color;
+        this.style.borderColor = this.dataset.color;
+        this.style.color = '#fff';
+      } else {
+        this.style.background = 'transparent';
+        this.style.borderColor = '';
+        this.style.color = '';
+      }
+
+      applyFilters();
+    });
+  });
+
+  function applyFilters() {
+    const activeFilters = Array.from(document.querySelectorAll('.phase-filter.active'))
+      .map(btn => btn.dataset.phase);
+    const hasActiveFilters = activeFilters.length > 0;
+
+    document.querySelectorAll('.timeline-event, .phase-header').forEach(el => {
+      const phase = el.dataset.phase;
+      if (!hasActiveFilters) {
+        el.classList.remove('hidden');
+      } else {
+        el.classList.toggle('hidden', !activeFilters.includes(phase));
+      }
+    });
+  }
+
+  // ── Keyboard Navigation ──
+  let currentIndex = -1;
+  const cards = Array.from(document.querySelectorAll('.event-card'));
+  cards.forEach(card => card.setAttribute('tabindex', '0'));
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      const visibleCards = cards.filter(c => {
+        const ev = c.closest('.timeline-event');
+        return ev && !ev.classList.contains('hidden');
+      });
+      if (!visibleCards.length) return;
+
+      if (e.key === 'ArrowDown') {
+        currentIndex = Math.min(currentIndex + 1, visibleCards.length - 1);
+      } else {
+        currentIndex = Math.max(currentIndex - 1, 0);
+      }
+      visibleCards[currentIndex].focus();
+      visibleCards[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    // Enter to toggle expand
+    if (e.key === 'Enter' && document.activeElement.classList.contains('event-card')) {
+      const btn = document.activeElement.querySelector('.expand-btn');
+      if (btn) btn.click();
+    }
+  });
+
+  // ── Init: activate all phase filters ──
+  document.querySelectorAll('.phase-filter').forEach(btn => {
+    btn.classList.add('active');
+    btn.style.background = btn.dataset.color;
+    btn.style.borderColor = btn.dataset.color;
+    btn.style.color = '#fff';
+  });
+})();
+</script>
+</body>
+</html>

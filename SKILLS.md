@@ -9,11 +9,12 @@ To use a skill:
 2. Read the corresponding `SKILL.md` file
 3. Follow the persona, constraints, and output formats defined
 
-## Skills (41 total)
+## Skills (42 total)
 
 | Skill | Description | Path |
 |-------|-------------|------|
 | Agent Mail | Email automation and management | `AgentMail/agent-mail/SKILL.md` |
+| Build Timeline | Generate interactive HTML timelines of Claude Code development activity | `BuildTimeline/build-timeline/SKILL.md` |
 | Artifacts Builder | Create HTML/React artifacts | `ArtifactsBuilder/artifacts-builder/SKILL.md` |
 | AWS CDK | AWS Cloud Development Kit assistance | `AWSSkills/aws-cdk-development/SKILL.md` |
 | AWS Cost Ops | AWS cost optimization and analysis | `AWSSkills/aws-cost-operations/SKILL.md` |
