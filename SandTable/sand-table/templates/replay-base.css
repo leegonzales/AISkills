@@ -1,0 +1,37 @@
+/* ==========================================================
+   Sand Table — Catalyst "Calm Luxury" Design Tokens
+   ==========================================================
+   Shared CSS custom properties for all Sand Table replay UIs.
+   Import via @import or copy into domain-specific templates.
+   ========================================================== */
+
+:root {
+  /* --- Surface --- */
+  --st-bg: #F2EFEA;
+  --st-surface: #FAFAF8;
+  --st-surface-alt: #DFE5F3;
+  --st-border: #E0DCD5;
+
+  /* --- Typography --- */
+  --st-text: #272401;
+  --st-text-muted: #6B6651;
+  --st-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* --- Brand --- */
+  --st-primary: #557373;
+  --st-primary-dark: #3D5656;
+  --st-primary-light: #7A9E9E;
+
+  /* --- Semantic --- */
+  --st-success: #38A169;
+  --st-warning: #DD6B20;
+  --st-danger: #E53E3E;
+  --st-danger-dark: #9B2C2C;
+  --st-info: #3182CE;
+
+  /* --- Engagement/Energy Scale --- */
+  --st-scale-high: #38A169;
+  --st-scale-med: #DD6B20;
+  --st-scale-low: #E53E3E;
+  --st-scale-lost: #9B2C2C;
+}

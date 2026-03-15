@@ -1,0 +1,109 @@
+version: 1
+
+# ============================================================
+# SCOUT DOMAINS — Repo assignments per scanner
+# ============================================================
+scouts:
+  biz:
+    label: "Catalyst + DiffLab"
+    repos:
+      - ~/Projects/catalyst/coaching
+      - ~/Projects/catalyst/bizops
+      - ~/Projects/catalyst/website
+      - ~/Projects/catalyst/ai-training-business
+      - ~/Projects/catalyst/clients/fitminded
+      - ~/Projects/Difflab/bizops
+      - ~/Projects/Difflab/ai-fluency-explorer
+
+  training:
+    label: "AI Training ecosystem"
+    repos:
+      - ~/Projects/leegonzales/AIEnablementTraining
+      - ~/Projects/leegonzales/AI-Rangers
+      - ~/Projects/leegonzales/range-framework
+      - ~/Projects/leegonzales/PresentationKit
+
+  tooling:
+    label: "Dev tools & infrastructure"
+    repos:
+      - ~/Projects/leegonzales/cass
+      - ~/Projects/leegonzales/freshell
+      - ~/Projects/leegonzales/kilroy
+      - ~/Projects/leegonzales/ai-talkshow-cli
+      - ~/Projects/leegonzales/agent-orchestra
+      - ~/Projects/leegonzales/dev-environment
+      - ~/Projects/claude-sandboxes
+      - ~/Projects/leegonzales/AISkills
+      - ~/Projects/leegonzales/MCPServers
+      - ~/Projects/leegonzales/claude-guardrails
+      - ~/Projects/leegonzales/claude-allowlist
+      - ~/Projects/claude-speak
+
+  personal:
+    label: "Personal, content, hobby"
+    repos:
+      - ~/Projects/leegonzales/substack
+      - ~/Projects/leegonzales/SecondBrain
+      - ~/Projects/leegonzales/pf2e-engine
+      - ~/Projects/leegonzales/AIPresentationMaker
+      - ~/Projects/leegonzales/AIVideoTalkShow
+      - ~/Projects/leegonzales/read-aloud
+      - ~/Projects/leegonzales/inevitabilityengine
+      - ~/Projects/leegonzales/ChatGPTArchiver
+      - ~/Projects/leegonzales/ai-judgment-battery
+      - ~/Projects/leegonzales/google-workspace-mcp
+
+# ============================================================
+# SCORING — Doppelganger priority scoring config
+# ============================================================
+scoring:
+  dimensions:
+    - goals_alignment
+    - energy_impact_ratio
+    - unblocking_value
+    - tension_awareness
+  scale: [1, 5]
+  tiers:
+    launch_critical: [17, 20]
+    q1_close: [14, 16]
+    q2_setup: [11, 13]
+    maintain: [8, 10]
+    archive: [0, 7]
+
+# ============================================================
+# AGENTS — Color and role assignments
+# ============================================================
+agents:
+  scout-biz:
+    name: "Scout: Business"
+    role: "Domain Scanner"
+    color: "#3182CE"
+  scout-training:
+    name: "Scout: Training"
+    role: "Domain Scanner"
+    color: "#38A169"
+  scout-tooling:
+    name: "Scout: Tooling"
+    role: "Domain Scanner"
+    color: "#805AD5"
+  scout-personal:
+    name: "Scout: Personal"
+    role: "Domain Scanner"
+    color: "#D69E2E"
+  lee-doppelganger:
+    name: "Lee Doppelganger"
+    role: "Strategic Reviewer"
+    color: "#E53E3E"
+
+# ============================================================
+# EXTERNAL REFERENCES
+# ============================================================
+goals_graph: ~/.claude/skills/silicon-doppelganger-actual/data/goals-graph.yaml
+goals_query: ~/.claude/skills/silicon-doppelganger-actual/tools/goals_query.py
+doppelganger_persona: ~/.claude/skills/silicon-doppelganger-actual/data/lee-gonzales-persona-schema.xml
+
+# ============================================================
+# SCAN HISTORY
+# ============================================================
+output_base: ~/Projects/leegonzales/cass/output
+previous_scan: auto  # auto-detect most recent flywheel-scan-* directory

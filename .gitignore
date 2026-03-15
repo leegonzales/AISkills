@@ -89,3 +89,5 @@ test-results/
 /silicon-doppelganger
 /veo3-prompter
 /writing-skills
+node_modules/
+*.temp-execution-*

@@ -561,7 +561,7 @@ gemini_generate_image(prompt="Your image description...")
 # Add branded logo to lower-right corner
 magick /path/to/generated-image.png \
   \( /path/to/assets/catalyst-watermark-logo.png -resize 5% -alpha set -channel A -evaluate multiply 0.85 +channel \) \
-  -gravity SouthEast -geometry +25+25 -composite \
+  -gravity SouthEast -geometry +10+10 -composite \
   /path/to/output-branded.png
 ```
 
@@ -569,7 +569,7 @@ magick /path/to/generated-image.png \
 - `-resize 5%`: Logo at 5% of image width (subtle but visible)
 - `-evaluate multiply 0.85`: 85% opacity for subtlety
 - `-gravity SouthEast`: Logo in bottom-right corner
-- `-geometry +25+25`: Margin from edge
+- `-geometry +10+10`: Margin from edge
 
 #### Option B: Gemini Recreation (Fallback - Approximate)
 

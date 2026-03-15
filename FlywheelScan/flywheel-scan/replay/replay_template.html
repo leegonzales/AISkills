@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flywheel Scan Replay</title>
+<style>
+:root {
+  --bg: #F2EFEA;
+  --bg-light: #DFE5F3;
+  --primary: #557373;
+  --primary-dark: #3d5656;
+  --dark: #272401;
+  --text: #0D0D0D;
+  --text-muted: #666;
+  --white: #fff;
+  --success: #38a169;
+  --warning: #DD6B20;
+  --danger: #E53E3E;
+  --border: #d4cec5;
+  --shadow: rgba(0,0,0,0.08);
+  --gap: 12px;
+  --radius: 8px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.5; font-size: 14px;
+}
+
+/* HEADER */
+.header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: var(--white); padding: 24px 32px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
+.header .subtitle { font-size: 14px; opacity: 0.85; margin-top: 4px; }
+.header .meta { font-size: 12px; opacity: 0.7; text-align: right; }
+
+/* TABS */
+.tabs-bar {
+  display: flex; gap: 0; background: var(--dark); padding: 0 32px;
+}
+.tab-btn {
+  padding: 10px 24px; background: transparent; border: none;
+  color: rgba(255,255,255,0.6); font-size: 13px; font-weight: 600;
+  cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.2s;
+}
+.tab-btn:hover { color: rgba(255,255,255,0.9); }
+.tab-btn.active { color: var(--white); border-bottom-color: var(--white); background: rgba(255,255,255,0.08); }
+
+/* AGENT PIPELINE */
+.pipeline {
+  display: flex; gap: 4px; padding: 12px 32px;
+  background: var(--white); border-bottom: 1px solid var(--border); overflow-x: auto;
+}
+.agent-box {
+  flex: 1; min-width: 120px; padding: 8px 10px;
+  background: #e8e4dd; border-radius: 6px; text-align: center;
+  font-size: 11px; transition: all 0.3s; cursor: default; position: relative;
+}
+.agent-box .agent-name { font-weight: 700; font-size: 12px; }
+.agent-box .agent-role { display: block; font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+.agent-box .agent-count { display: block; font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+.agent-box.active {
+  color: var(--white); box-shadow: 0 0 12px rgba(85,115,115,0.4);
+  animation: pipePulse 1.5s ease-in-out infinite;
+}
+.agent-box.active .agent-role, .agent-box.active .agent-count { color: rgba(255,255,255,0.8); }
+.agent-box.completed { background: var(--success); color: var(--white); }
+.agent-box.completed .agent-role, .agent-box.completed .agent-count { color: rgba(255,255,255,0.8); }
+@keyframes pipePulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(85,115,115,0.3); }
+  50% { box-shadow: 0 0 18px rgba(85,115,115,0.6); }
+}
+
+/* CONTROLS */
+.controls {
+  display: flex; align-items: center; gap: 12px; padding: 10px 32px;
+  background: var(--white); border-bottom: 1px solid var(--border);
+}
+.controls button {
+  padding: 6px 16px; border: 1px solid var(--border); border-radius: 6px;
+  background: var(--white); font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s;
+}
+.controls button:hover { background: var(--bg-light); }
+.controls button.primary { background: var(--primary); color: var(--white); border-color: var(--primary); }
+.controls button.primary:hover { background: var(--primary-dark); }
+.controls .speed-group { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-muted); }
+.controls input[type="range"] { width: 80px; }
+.controls .progress-wrap {
+  flex: 1; height: 6px; background: #e0dcd5; border-radius: 3px; cursor: pointer; position: relative;
+}
+.controls .progress-fill { height: 100%; background: var(--primary); border-radius: 3px; transition: width 0.15s; }
+.controls .event-counter { font-size: 12px; color: var(--text-muted); white-space: nowrap; min-width: 100px; text-align: right; }
+
+/* MAIN LAYOUT */
+.main-layout {
+  display: grid; grid-template-columns: 1fr 360px; gap: 0; min-height: calc(100vh - 250px);
+}
+.left-panel { padding: 16px 24px 32px 32px; overflow-y: auto; max-height: calc(100vh - 250px); }
+.right-panel {
+  padding: 16px 32px 32px 16px; border-left: 1px solid var(--border);
+  overflow-y: auto; max-height: calc(100vh - 250px);
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* EVENT CARDS */
+.event-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 12px 16px; margin-bottom: 10px; transition: all 0.3s; opacity: 0;
+  animation: fadeIn 0.3s forwards;
+}
+@keyframes fadeIn { to { opacity: 1; } }
+.event-card.highlighted { box-shadow: 0 0 12px rgba(0,0,0,0.1); }
+.event-card .ec-header {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+}
+.ec-agent-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.ec-agent-name { font-size: 11px; font-weight: 600; color: var(--text-muted); }
+.ec-type {
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+  padding: 1px 8px; border-radius: 10px; margin-left: auto;
+}
+.ec-type.scan_start { background: var(--bg-light); color: var(--primary); }
+.ec-type.scan_finding { background: #e8e4dd; color: var(--text); }
+.ec-type.repo_triage { background: #c6f6d5; color: #276749; }
+.ec-type.roadmap_proposal { background: #bee3f8; color: #2a4365; }
+.ec-type.thread_proposal { background: #fed7d7; color: #9b2c2c; }
+.ec-type.priority_score { background: #fefcbf; color: #744210; }
+.ec-type.observation { background: #e9d8fd; color: #553c9a; }
+.ec-type.scan_complete { background: #c6f6d5; color: #276749; }
+.ec-type.scan_end { background: var(--success); color: var(--white); }
+.ec-type.repo_missing { background: var(--warning); color: var(--white); }
+.ec-type.master_queue { background: var(--primary); color: var(--white); }
+
+.ec-repo { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.ec-text { font-size: 12px; line-height: 1.5; color: var(--text); }
+.ec-text.muted { color: var(--text-muted); font-style: italic; }
+
+/* SEVERITY BADGES */
+.severity-badge {
+  display: inline-block; padding: 1px 8px; border-radius: 10px;
+  font-size: 10px; font-weight: 600; margin-left: 6px;
+}
+.severity-info { background: var(--bg-light); color: var(--primary); }
+.severity-warn, .severity-warning { background: #feebc8; color: #9c4221; }
+.severity-high, .severity-critical { background: #fed7d7; color: #9b2c2c; }
+
+/* CLASSIFICATION BADGES */
+.class-badge {
+  display: inline-block; padding: 2px 10px; border-radius: 12px;
+  font-size: 11px; font-weight: 600;
+}
+.class-active-invest { background: #c6f6d5; color: #276749; }
+.class-maintain { background: #bee3f8; color: #2a4365; }
+.class-archive { background: #e8e4dd; color: var(--text-muted); }
+
+/* THREAD PROPOSAL */
+.thread-options { margin-top: 8px; }
+.thread-option {
+  padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px;
+  margin-bottom: 6px; font-size: 12px; position: relative;
+}
+.thread-option.recommended { border-color: var(--success); background: #f0fff4; }
+.thread-option .opt-label { font-weight: 700; margin-bottom: 2px; }
+.thread-option .opt-desc { color: var(--text); }
+.thread-option .opt-trade { color: var(--text-muted); font-style: italic; margin-top: 2px; font-size: 11px; }
+.thread-option .rec-badge {
+  position: absolute; top: 8px; right: 8px;
+  background: var(--success); color: var(--white);
+  font-size: 9px; font-weight: 700; padding: 1px 6px; border-radius: 8px;
+}
+.lee-voice {
+  margin-top: 8px; padding: 8px 12px;
+  background: #fdf6e3; border-left: 3px solid #D69E2E;
+  border-radius: 4px; font-size: 12px; font-style: italic; color: #744210;
+}
+
+/* PRIORITY SCORE CARD */
+.score-bars { margin-top: 8px; }
+.score-row {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 4px; font-size: 11px;
+}
+.score-label { width: 100px; text-align: right; color: var(--text-muted); font-size: 10px; }
+.score-bar-bg {
+  flex: 1; height: 8px; background: #e8e4dd; border-radius: 4px; overflow: hidden;
+}
+.score-bar-fill { height: 100%; border-radius: 4px; transition: width 0.5s; }
+.score-val { width: 20px; font-weight: 700; text-align: center; }
+.score-total {
+  font-size: 18px; font-weight: 700; color: var(--primary);
+  display: flex; align-items: baseline; gap: 4px;
+}
+.score-total .of-20 { font-size: 12px; color: var(--text-muted); font-weight: 400; }
+.score-rank {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 50%; background: var(--primary);
+  color: var(--white); font-weight: 700; font-size: 13px; margin-right: 8px;
+}
+
+/* ROADMAP MILESTONES */
+.milestones { margin-top: 8px; }
+.milestone {
+  display: flex; align-items: flex-start; gap: 10px; margin-bottom: 6px; font-size: 12px;
+}
+.ms-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); margin-top: 5px; flex-shrink: 0; }
+.ms-quarter { font-size: 10px; color: var(--text-muted); font-weight: 600; min-width: 50px; }
+.ms-title { font-weight: 600; }
+.ms-effort {
+  font-size: 10px; padding: 0 6px; border-radius: 8px;
+  background: #e8e4dd; color: var(--text-muted); margin-left: auto; white-space: nowrap;
+}
+
+/* RIGHT SIDEBAR SECTIONS */
+.sidebar-section {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 14px 16px; margin-bottom: 12px;
+}
+.sidebar-section h3 { font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--primary); }
+.triage-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+.triage-table th { text-align: left; padding: 4px 6px; font-weight: 600; border-bottom: 1px solid var(--border); }
+.triage-table td { padding: 4px 6px; border-bottom: 1px solid #f0ede8; }
+.triage-table .repo-name { font-weight: 600; max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* STATS GRID */
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+.stat-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: 6px;
+  padding: 10px; text-align: center;
+}
+.stat-val { font-size: 24px; font-weight: 700; color: var(--primary); }
+.stat-label { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+
+/* TOP WORK QUEUE */
+.wq-item {
+  display: flex; align-items: center; gap: 8px; padding: 6px 0;
+  border-bottom: 1px solid #f0ede8; font-size: 12px;
+}
+.wq-item:last-child { border-bottom: none; }
+.wq-rank {
+  width: 24px; height: 24px; border-radius: 50%; display: flex;
+  align-items: center; justify-content: center; font-weight: 700;
+  font-size: 11px; flex-shrink: 0;
+}
+.wq-rank.tier1 { background: var(--danger); color: var(--white); }
+.wq-rank.tier2 { background: var(--warning); color: var(--white); }
+.wq-rank.tier3 { background: var(--primary); color: var(--white); }
+.wq-title { flex: 1; font-weight: 600; }
+.wq-score { font-weight: 700; color: var(--primary); min-width: 30px; text-align: right; }
+
+/* FILTER BAR */
+.filter-bar { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+.filter-chip {
+  padding: 4px 12px; border-radius: 16px; font-size: 11px; font-weight: 600;
+  cursor: pointer; border: 1px solid var(--border); background: var(--white);
+  transition: all 0.15s;
+}
+.filter-chip:hover { background: var(--bg-light); }
+.filter-chip.active { border-color: var(--primary); background: var(--primary); color: var(--white); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1 id="title">Flywheel Scan Replay</h1>
+    <div class="subtitle" id="subtitle"></div>
+  </div>
+  <div class="meta">
+    <div id="date"></div>
+    <div id="event-total"></div>
+  </div>
+</div>
+
+<div class="tabs-bar">
+  <button class="tab-btn active" data-tab="timeline">Timeline</button>
+  <button class="tab-btn" data-tab="triage">Triage Map</button>
+  <button class="tab-btn" data-tab="queue">Work Queue</button>
+  <button class="tab-btn" data-tab="threads">Threads</button>
+</div>
+
+<div class="pipeline" id="pipeline"></div>
+
+<div class="controls">
+  <button class="primary" id="playBtn">&#9654; Play</button>
+  <button id="stepBtn">Step &#9654;|</button>
+  <button id="resetBtn">&#8634; Reset</button>
+  <div class="speed-group">
+    <span>Speed</span>
+    <input type="range" id="speedSlider" min="1" max="10" value="5">
+    <span id="speedLabel">1x</span>
+  </div>
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+  <div class="event-counter" id="eventCounter">0 / 0</div>
+</div>
+
+<!-- TIMELINE TAB -->
+<div class="tab-content active" id="tab-timeline">
+  <div class="main-layout">
+    <div class="left-panel" id="eventFeed"></div>
+    <div class="right-panel">
+      <div class="stats-grid" id="statsGrid"></div>
+      <div class="sidebar-section" id="currentAgent">
+        <h3>Active Agent</h3>
+        <div id="agentInfo">Waiting to start...</div>
+      </div>
+      <div class="sidebar-section">
+        <h3>Event Distribution</h3>
+        <div id="eventDistribution"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TRIAGE TAB -->
+<div class="tab-content" id="tab-triage">
+  <div class="main-layout">
+    <div class="left-panel">
+      <div class="filter-bar" id="triageFilters"></div>
+      <div id="triageGrid"></div>
+    </div>
+    <div class="right-panel">
+      <div class="sidebar-section">
+        <h3>Classification Summary</h3>
+        <div id="triageSummary"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WORK QUEUE TAB -->
+<div class="tab-content" id="tab-queue">
+  <div class="main-layout">
+    <div class="left-panel" id="queueList"></div>
+    <div class="right-panel">
+      <div class="sidebar-section">
+        <h3>Score Distribution</h3>
+        <div id="scoreDistribution"></div>
+      </div>
+      <div class="sidebar-section">
+        <h3>Tier Breakdown</h3>
+        <div id="tierBreakdown"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- THREADS TAB -->
+<div class="tab-content" id="tab-threads">
+  <div class="main-layout">
+    <div class="left-panel" id="threadsList"></div>
+    <div class="right-panel">
+      <div class="sidebar-section">
+        <h3>Thread Status</h3>
+        <div id="threadStatus"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const DATA = __SIMULATION_DATA__;
+
+// State
+let currentIndex = 0;
+let playing = false;
+let playTimer = null;
+let speed = 1;
+const agentMap = {};
+const triageResults = [];
+const priorityScores = [];
+const threadProposals = [];
+
+function init() {
+  const s = DATA.session;
+  document.getElementById('title').textContent = s.title || 'Flywheel Scan Replay';
+  document.getElementById('subtitle').textContent = 'Session: ' + s.id;
+  document.getElementById('date').textContent = s.date;
+  document.getElementById('event-total').textContent = DATA.events.length + ' events';
+  updateCounter();
+
+  (DATA.agents || []).forEach(function(a) { agentMap[a.id] = a; });
+  buildPipeline();
+  buildStats();
+  buildEventDistribution();
+
+  preProcessEvents();
+  buildTriageTab();
+  buildQueueTab();
+  buildThreadsTab();
+
+  document.querySelectorAll('.tab-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+      document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  document.getElementById('playBtn').addEventListener('click', togglePlay);
+  document.getElementById('stepBtn').addEventListener('click', stepForward);
+  document.getElementById('resetBtn').addEventListener('click', reset);
+  document.getElementById('speedSlider').addEventListener('input', function(e) {
+    speed = [0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 6, 10][e.target.value - 1];
+    document.getElementById('speedLabel').textContent = speed + 'x';
+  });
+  document.getElementById('progressWrap').addEventListener('click', function(e) {
+    var rect = e.currentTarget.getBoundingClientRect();
+    var pct = (e.clientX - rect.left) / rect.width;
+    jumpTo(Math.floor(pct * DATA.events.length));
+  });
+}
+
+function buildPipeline() {
+  var el = document.getElementById('pipeline');
+  (DATA.agents || []).forEach(function(a) {
+    var count = DATA.events.filter(function(e) { return e.agent === a.id; }).length;
+    var div = document.createElement('div');
+    div.className = 'agent-box';
+    div.id = 'pipe-' + a.id;
+    div.style.borderTop = '3px solid ' + a.color;
+    div.innerHTML = '<span class="agent-name">' + a.name + '</span>' +
+      '<span class="agent-role">' + a.role + '</span>' +
+      '<span class="agent-count">' + count + ' events</span>';
+    el.appendChild(div);
+  });
+}
+
+function buildStats() {
+  var grid = document.getElementById('statsGrid');
+  var repos = new Set(DATA.events.filter(function(e) { return e.repo; }).map(function(e) { return e.repo; }));
+  var scores = DATA.events.filter(function(e) { return e.type === 'priority_score'; });
+  var threads = DATA.events.filter(function(e) { return e.type === 'thread_proposal'; });
+  grid.innerHTML =
+    '<div class="stat-card"><div class="stat-val">' + repos.size + '</div><div class="stat-label">Repos Scanned</div></div>' +
+    '<div class="stat-card"><div class="stat-val">' + DATA.events.length + '</div><div class="stat-label">Total Events</div></div>' +
+    '<div class="stat-card"><div class="stat-val">' + scores.length + '</div><div class="stat-label">Items Scored</div></div>' +
+    '<div class="stat-card"><div class="stat-val">' + threads.length + '</div><div class="stat-label">Threads Resolved</div></div>';
+}
+
+function buildEventDistribution() {
+  var el = document.getElementById('eventDistribution');
+  var counts = {};
+  DATA.events.forEach(function(e) { counts[e.type] = (counts[e.type] || 0) + 1; });
+  var sorted = Object.entries(counts).sort(function(a, b) { return b[1] - a[1]; });
+  var max = sorted[0] ? sorted[0][1] : 1;
+  el.innerHTML = sorted.map(function(pair) {
+    var type = pair[0], count = pair[1];
+    return '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;font-size:11px;">' +
+      '<span style="width:100px;text-align:right;color:var(--text-muted)">' + type + '</span>' +
+      '<div style="flex:1;height:6px;background:#e8e4dd;border-radius:3px;overflow:hidden">' +
+      '<div style="width:' + (count/max*100).toFixed(0) + '%;height:100%;background:var(--primary);border-radius:3px"></div></div>' +
+      '<span style="width:24px;font-weight:700;text-align:center">' + count + '</span></div>';
+  }).join('');
+}
+
+function preProcessEvents() {
+  DATA.events.forEach(function(e) {
+    if (e.type === 'repo_triage' || e.type === 'scan_complete') triageResults.push(e);
+    if (e.type === 'priority_score') priorityScores.push(e);
+    if (e.type === 'thread_proposal') threadProposals.push(e);
+  });
+  priorityScores.sort(function(a, b) { return (a.rank || 99) - (b.rank || 99); });
+}
+
+function togglePlay() {
+  playing = !playing;
+  document.getElementById('playBtn').innerHTML = playing ? '&#10074;&#10074; Pause' : '&#9654; Play';
+  if (playing) scheduleNext();
+  else clearTimeout(playTimer);
+}
+
+function scheduleNext() {
+  if (!playing || currentIndex >= DATA.events.length) {
+    playing = false;
+    document.getElementById('playBtn').innerHTML = '&#9654; Play';
+    return;
+  }
+  var delay = Math.max(50, 400 / speed);
+  playTimer = setTimeout(function() { stepForward(); scheduleNext(); }, delay);
+}
+
+function stepForward() {
+  if (currentIndex >= DATA.events.length) return;
+  renderEvent(DATA.events[currentIndex]);
+  currentIndex++;
+  updateCounter();
+  updatePipeline();
+}
+
+function reset() {
+  playing = false;
+  clearTimeout(playTimer);
+  currentIndex = 0;
+  document.getElementById('playBtn').innerHTML = '&#9654; Play';
+  document.getElementById('eventFeed').innerHTML = '';
+  updateCounter();
+  document.querySelectorAll('.agent-box').forEach(function(b) { b.classList.remove('active', 'completed'); });
+}
+
+function jumpTo(idx) {
+  reset();
+  var target = Math.min(idx, DATA.events.length);
+  for (var i = 0; i < target; i++) {
+    renderEvent(DATA.events[i], true);
+    currentIndex = i + 1;
+  }
+  updateCounter();
+  updatePipeline();
+}
+
+function updateCounter() {
+  document.getElementById('eventCounter').textContent = currentIndex + ' / ' + DATA.events.length;
+  var pct = DATA.events.length ? (currentIndex / DATA.events.length * 100) : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+function updatePipeline() {
+  if (currentIndex === 0) return;
+  var ev = DATA.events[currentIndex - 1];
+  if (!ev.agent) return;
+  document.querySelectorAll('.agent-box').forEach(function(b) { b.classList.remove('active'); });
+  var pipeEl = document.getElementById('pipe-' + ev.agent);
+  if (pipeEl) pipeEl.classList.add('active');
+  var agent = agentMap[ev.agent];
+  if (agent) {
+    document.getElementById('agentInfo').innerHTML =
+      '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">' +
+      '<div style="width:12px;height:12px;border-radius:50%;background:' + agent.color + '"></div>' +
+      '<strong>' + agent.name + '</strong></div>' +
+      '<div style="font-size:12px;color:var(--text-muted)">' + agent.role + '</div>' +
+      (ev.repo ? '<div style="font-size:12px;margin-top:4px;">Scanning: <strong>' + ev.repo + '</strong></div>' : '');
+  }
+}
+
+function esc(str) { var d = document.createElement('div'); d.textContent = str || ''; return d.innerHTML; }
+
+function renderEvent(ev, instant) {
+  var feed = document.getElementById('eventFeed');
+  var card = document.createElement('div');
+  card.className = 'event-card' + (instant ? '' : ' highlighted');
+  if (instant) card.style.animation = 'none';
+  card.style.opacity = instant ? '1' : '0';
+
+  var agent = agentMap[ev.agent] || { name: ev.agent || 'System', color: '#999' };
+  var typeClass = (ev.type || '').replace(/[^a-z_]/g, '');
+  var body = '';
+
+  switch (ev.type) {
+    case 'scan_start':
+      body = '<div class="ec-repo">' + esc(ev.repo) + '</div><div class="ec-text muted">Beginning scan...</div>';
+      break;
+    case 'scan_finding':
+      var sev = ev.severity || 'info';
+      body = '<div class="ec-repo">' + esc(ev.repo) + '<span class="severity-badge severity-' + sev + '">' + sev + '</span></div>' +
+        '<div class="ec-text">' + esc(ev.text) + '</div>';
+      break;
+    case 'repo_triage':
+      var cls = (ev.classification || '').replace(/[^a-z-]/g, '');
+      var goals = (ev.goals_alignment || []).join(', ');
+      var beads = ev.proposed_beads || [];
+      body = '<div class="ec-repo">' + esc(ev.repo) + ' <span class="class-badge class-' + cls + '">' + esc(ev.classification) + '</span></div>' +
+        '<div class="ec-text">' + esc(ev.rationale) + '</div>' +
+        (goals ? '<div style="font-size:11px;margin-top:4px;color:var(--text-muted)">Goals: ' + esc(goals) + '</div>' : '') +
+        (beads.length ? '<div style="font-size:11px;margin-top:4px;">Proposed: ' + beads.map(function(b) { return '<em>' + esc(b.title) + '</em> (P' + b.priority + ')'; }).join(', ') + '</div>' : '');
+      break;
+    case 'scan_complete':
+      var cls2 = (ev.classification || '').replace(/[^a-z-]/g, '');
+      body = '<div class="ec-repo">' + esc(ev.repo) + ' <span class="class-badge class-' + cls2 + '">' + esc(ev.classification || '') + '</span></div>' +
+        '<div class="ec-text">' + esc(ev.detail) + '</div>';
+      break;
+    case 'scan_end':
+      body = '<div class="ec-text">' + esc(ev.detail || 'Scan complete') + '</div>';
+      break;
+    case 'repo_missing':
+      body = '<div class="ec-repo">' + esc(ev.repo) + '</div><div class="ec-text">' + esc(ev.detail) + '</div>';
+      break;
+    case 'roadmap_proposal':
+      var ms = ev.milestones || [];
+      body = '<div class="ec-repo">' + esc(ev.repo) + '</div><div class="ec-text">' + esc(ev.text) + '</div>' +
+        '<div class="milestones">' + ms.map(function(m) {
+          return '<div class="milestone"><div class="ms-dot"></div>' +
+            '<div><span class="ms-quarter">' + esc(m.quarter) + '</span> <span class="ms-title">' + esc(m.title) + '</span></div>' +
+            '<span class="ms-effort">' + esc(m.effort) + '</span></div>';
+        }).join('') + '</div>';
+      break;
+    case 'observation':
+      body = '<div class="ec-text">' + esc(ev.text) + '</div>';
+      break;
+    case 'thread_proposal':
+      var opts = ev.options || [];
+      body = '<div class="ec-repo" style="font-size:15px;">' + esc(ev.thread_title) + '</div>' +
+        '<div class="thread-options">' + opts.map(function(o) {
+          return '<div class="thread-option' + (o.recommendation ? ' recommended' : '') + '">' +
+            (o.recommendation ? '<span class="rec-badge">REC</span>' : '') +
+            '<div class="opt-label">' + esc(o.label) + '</div>' +
+            '<div class="opt-desc">' + esc(o.description) + '</div>' +
+            '<div class="opt-trade">' + esc(o.trade_offs) + '</div></div>';
+        }).join('') + '</div>' +
+        (ev.lee_voice ? '<div class="lee-voice">"' + esc(ev.lee_voice) + '"</div>' : '');
+      break;
+    case 'priority_score':
+      var sc = ev.scores || {};
+      var maxScore = 5;
+      var colors = { goals_alignment: '#38a169', energy_impact_ratio: '#3182CE', unblocking_value: '#D69E2E', tension_awareness: '#805AD5' };
+      body = '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">' +
+        '<span class="score-rank">#' + (ev.rank || '?') + '</span>' +
+        '<div><div class="ec-repo" style="margin:0">' + esc(ev.bead_title) + '</div>' +
+        '<div style="font-size:11px;color:var(--text-muted)">' + esc(ev.repo) + '</div></div>' +
+        '<div class="score-total" style="margin-left:auto">' + (ev.total || 0) + '<span class="of-20">/20</span></div></div>' +
+        '<div class="score-bars">' + Object.entries(sc).map(function(pair) {
+          var k = pair[0], v = pair[1];
+          return '<div class="score-row"><span class="score-label">' + k.replace(/_/g, ' ') + '</span>' +
+            '<div class="score-bar-bg"><div class="score-bar-fill" style="width:' + (v/maxScore*100) + '%;background:' + (colors[k] || 'var(--primary)') + '"></div></div>' +
+            '<span class="score-val">' + v + '</span></div>';
+        }).join('') + '</div>' +
+        '<div class="ec-text" style="margin-top:6px">' + esc(ev.rationale) + '</div>';
+      break;
+    case 'master_queue':
+      var q = ev.queue || [];
+      body = '<div style="font-weight:700;margin-bottom:8px;">Final Ranked Queue (' + q.length + ' items)</div>' +
+        q.slice(0, 10).map(function(i) {
+          return '<div class="wq-item">' +
+            '<div class="wq-rank tier' + (i.rank <= 5 ? '1' : i.rank <= 15 ? '2' : '3') + '">' + i.rank + '</div>' +
+            '<div class="wq-title">' + esc(i.title) + '</div>' +
+            '<div class="wq-score">' + i.score + '</div></div>';
+        }).join('');
+      break;
+    default:
+      body = '<div class="ec-text">' + esc(ev.text || ev.detail || JSON.stringify(ev).slice(0, 200)) + '</div>';
+  }
+
+  card.innerHTML = '<div class="ec-header">' +
+    '<div class="ec-agent-dot" style="background:' + agent.color + '"></div>' +
+    '<span class="ec-agent-name">' + esc(agent.name) + '</span>' +
+    '<span class="ec-type ' + typeClass + '">' + (ev.type || '') + '</span></div>' + body;
+
+  feed.prepend(card);
+  if (!instant) setTimeout(function() { card.classList.remove('highlighted'); }, 2000);
+}
+
+/* TRIAGE TAB */
+function buildTriageTab() {
+  var filters = document.getElementById('triageFilters');
+  var classes = ['all', 'active-invest', 'maintain', 'archive'];
+  filters.innerHTML = classes.map(function(c) {
+    return '<span class="filter-chip' + (c === 'all' ? ' active' : '') + '" data-class="' + c + '">' + (c === 'all' ? 'All' : c) + '</span>';
+  }).join('');
+  filters.querySelectorAll('.filter-chip').forEach(function(chip) {
+    chip.addEventListener('click', function() {
+      filters.querySelectorAll('.filter-chip').forEach(function(c) { c.classList.remove('active'); });
+      chip.classList.add('active');
+      renderTriageGrid(chip.dataset.class);
+    });
+  });
+  renderTriageGrid('all');
+
+  var summary = document.getElementById('triageSummary');
+  var counts = {};
+  triageResults.forEach(function(t) { var c = t.classification || 'unknown'; counts[c] = (counts[c] || 0) + 1; });
+  summary.innerHTML = Object.entries(counts).map(function(pair) {
+    var cls = pair[0], count = pair[1];
+    return '<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:12px;border-bottom:1px solid #f0ede8">' +
+      '<span class="class-badge class-' + cls.replace(/[^a-z-]/g, '') + '">' + cls + '</span><strong>' + count + '</strong></div>';
+  }).join('');
+}
+
+function renderTriageGrid(filter) {
+  var grid = document.getElementById('triageGrid');
+  var filtered = filter === 'all' ? triageResults : triageResults.filter(function(t) { return t.classification === filter; });
+  grid.innerHTML = '<table class="triage-table"><thead><tr><th>Repo</th><th>Classification</th><th>Agent</th><th>Rationale</th></tr></thead><tbody>' +
+    filtered.map(function(t) {
+      var cls = (t.classification || '').replace(/[^a-z-]/g, '');
+      return '<tr><td class="repo-name">' + esc(t.repo) + '</td>' +
+        '<td><span class="class-badge class-' + cls + '">' + esc(t.classification || '') + '</span></td>' +
+        '<td style="font-size:11px">' + esc((agentMap[t.agent] || {}).name || t.agent || '') + '</td>' +
+        '<td style="font-size:11px;max-width:300px">' + esc(t.rationale || t.detail || '') + '</td></tr>';
+    }).join('') + '</tbody></table>';
+}
+
+/* WORK QUEUE TAB */
+function buildQueueTab() {
+  var list = document.getElementById('queueList');
+  var colors = { goals_alignment: '#38a169', energy_impact_ratio: '#3182CE', unblocking_value: '#D69E2E', tension_awareness: '#805AD5' };
+  list.innerHTML = priorityScores.map(function(p) {
+    var sc = p.scores || {};
+    return '<div class="event-card" style="opacity:1;animation:none;">' +
+      '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">' +
+      '<span class="score-rank">#' + (p.rank || '?') + '</span><div>' +
+      '<div style="font-weight:700;font-size:13px">' + esc(p.bead_title) + '</div>' +
+      '<div style="font-size:11px;color:var(--text-muted)">' + esc(p.repo) + '</div></div>' +
+      '<div class="score-total" style="margin-left:auto">' + (p.total || 0) + '<span class="of-20">/20</span></div></div>' +
+      '<div class="score-bars">' + Object.entries(sc).map(function(pair) {
+        var k = pair[0], v = pair[1];
+        return '<div class="score-row"><span class="score-label">' + k.replace(/_/g, ' ') + '</span>' +
+          '<div class="score-bar-bg"><div class="score-bar-fill" style="width:' + (v/5*100) + '%;background:' + (colors[k] || 'var(--primary)') + '"></div></div>' +
+          '<span class="score-val">' + v + '</span></div>';
+      }).join('') + '</div>' +
+      '<div style="font-size:12px;margin-top:6px;color:var(--text-muted)">' + esc(p.rationale) + '</div></div>';
+  }).join('');
+
+  /* Score distribution histogram */
+  var scoreDist = document.getElementById('scoreDistribution');
+  var buckets = {};
+  priorityScores.forEach(function(p) { var t = p.total || 0; buckets[t] = (buckets[t] || 0) + 1; });
+  var maxBucket = Math.max.apply(null, Object.values(buckets).concat([1]));
+  scoreDist.innerHTML = '<div style="display:flex;align-items:flex-end;gap:3px;height:80px;">' +
+    Array.from({length: 16}, function(_, i) { return i + 5; }).map(function(score) {
+      var count = buckets[score] || 0;
+      var h = count / maxBucket * 100;
+      return '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;">' +
+        '<div style="font-size:9px;color:var(--text-muted)">' + (count || '') + '</div>' +
+        '<div style="width:100%;height:' + h + '%;background:var(--primary);border-radius:2px;min-height:' + (count ? 2 : 0) + 'px"></div>' +
+        '<div style="font-size:9px;color:var(--text-muted)">' + score + '</div></div>';
+    }).join('') + '</div>';
+
+  /* Tier breakdown */
+  var tierBreak = document.getElementById('tierBreakdown');
+  var tiers = [
+    { name: 'Tier 1: Launch-Critical', min: 17, max: 20, color: 'var(--danger)' },
+    { name: 'Tier 2: Q1 Close', min: 14, max: 16, color: 'var(--warning)' },
+    { name: 'Tier 3: Q2 Setup', min: 11, max: 13, color: 'var(--primary)' },
+    { name: 'Tier 4: Maintain', min: 8, max: 10, color: '#999' },
+    { name: 'Tier 5: Archive', min: 0, max: 7, color: '#ccc' }
+  ];
+  tierBreak.innerHTML = tiers.map(function(t) {
+    var count = priorityScores.filter(function(p) { return (p.total || 0) >= t.min && (p.total || 0) <= t.max; }).length;
+    return '<div style="display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px">' +
+      '<div style="width:10px;height:10px;border-radius:50%;background:' + t.color + ';flex-shrink:0"></div>' +
+      '<span style="flex:1">' + t.name + '</span><strong>' + count + '</strong></div>';
+  }).join('');
+}
+
+/* THREADS TAB */
+function buildThreadsTab() {
+  var list = document.getElementById('threadsList');
+  list.innerHTML = threadProposals.map(function(t) {
+    var opts = t.options || [];
+    return '<div class="event-card" style="opacity:1;animation:none;">' +
+      '<div style="font-size:16px;font-weight:700;margin-bottom:4px;">' + esc(t.thread_title) + '</div>' +
+      '<div style="font-size:11px;color:var(--text-muted);margin-bottom:8px">' + esc(t.thread_id) + '</div>' +
+      '<div class="thread-options">' + opts.map(function(o) {
+        return '<div class="thread-option' + (o.recommendation ? ' recommended' : '') + '">' +
+          (o.recommendation ? '<span class="rec-badge">REC</span>' : '') +
+          '<div class="opt-label">' + esc(o.label) + '</div>' +
+          '<div class="opt-desc">' + esc(o.description) + '</div>' +
+          '<div class="opt-trade">' + esc(o.trade_offs) + '</div></div>';
+      }).join('') + '</div>' +
+      (t.lee_voice ? '<div class="lee-voice">"' + esc(t.lee_voice) + '"</div>' : '') + '</div>';
+  }).join('');
+
+  var status = document.getElementById('threadStatus');
+  status.innerHTML = threadProposals.map(function(t) {
+    var rec = (t.options || []).find(function(o) { return o.recommendation; });
+    return '<div style="padding:6px 0;border-bottom:1px solid #f0ede8;font-size:12px;">' +
+      '<div style="font-weight:700">' + esc(t.thread_title) + '</div>' +
+      '<div style="color:var(--success);font-size:11px">' + (rec ? esc(rec.label) : 'No recommendation') + '</div></div>';
+  }).join('');
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

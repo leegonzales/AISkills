@@ -369,7 +369,7 @@ After generating the infographic, add the Catalyst AI watermark using ImageMagic
 # Recommended: ImageMagick for pixel-perfect logo
 magick /path/to/generated-infographic.png \
   \( /path/to/assets/catalyst-watermark-logo.png -resize 5% -alpha set -channel A -evaluate multiply 0.85 +channel \) \
-  -gravity SouthEast -geometry +25+25 -composite \
+  -gravity SouthEast -geometry +10+10 -composite \
   /path/to/output-branded.png
 ```
 
