@@ -1,0 +1,13 @@
+{
+  "sand_table_protocol": "1.0",
+  "domain": "",
+  "source_type": "",
+  "temporal_model": "",
+  "event_types": [],
+  "paths": {
+    "skill": "",
+    "replay_generator": "",
+    "replay_template": "",
+    "drift_mappings": ""
+  }
+}
