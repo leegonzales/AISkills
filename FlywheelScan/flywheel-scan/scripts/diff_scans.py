@@ -18,7 +18,7 @@ def load_events(scan_dir: Path) -> dict:
     if not path.exists():
         print(f"ERROR: {path} not found", file=sys.stderr)
         sys.exit(1)
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -204,7 +204,7 @@ def main():
 
     # Write report
     output_path = curr_dir / "scan-diff-report.md"
-    with open(output_path, "w") as f:
+    with open(output_path, "w", encoding="utf-8") as f:
         f.write("\n".join(report) + "\n")
 
     print(f"Diff report written to {output_path}")

@@ -20,14 +20,14 @@ def load_template() -> str:
     if not template_path.exists():
         print(f"ERROR: Template not found at {template_path}", file=sys.stderr)
         sys.exit(1)
-    return template_path.read_text()
+    return template_path.read_text(encoding="utf-8")
 
 
 def load_drift_mappings() -> dict:
     """Load drift mappings for field correction."""
     drift_path = Path(__file__).parent.parent / "references" / "drift-mappings.json"
     if drift_path.exists():
-        with open(drift_path) as f:
+        with open(drift_path, encoding="utf-8") as f:
             return json.load(f)
     return {}
 
@@ -80,7 +80,7 @@ def main():
         sys.exit(1)
 
     # Load data
-    with open(events_path) as f:
+    with open(events_path, encoding="utf-8") as f:
         data = json.load(f)
 
     # Apply drift corrections
@@ -89,7 +89,7 @@ def main():
 
     # If corrections were made, write corrected JSON back
     if fix_count > 0:
-        with open(events_path, "w") as f:
+        with open(events_path, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
         print(f"  Applied {fix_count} drift corrections to {events_path}")
 
@@ -99,7 +99,7 @@ def main():
     html = template.replace("__SIMULATION_DATA__", json_blob)
 
     # Write output
-    with open(output_path, "w") as f:
+    with open(output_path, "w", encoding="utf-8") as f:
         f.write(html)
 
     # Summary
