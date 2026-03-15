@@ -49,8 +49,10 @@ For `--domain`, filter to only that scout's repo list.
 ### 4. Create Output Directory
 
 ```bash
-mkdir -p ~/Projects/leegonzales/cass/output/flywheel-scan-{date}
+mkdir -p {output_base}/flywheel-scan-{date}
 ```
+
+Where `{output_base}` comes from `config/scan-config.yaml`.
 
 ### 5. Load Goals Graph
 

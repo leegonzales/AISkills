@@ -256,7 +256,7 @@ If Catalyst AI branding is needed, apply post-processing:
 ```bash
 magick /path/to/lego-slide.png \
   \( /path/to/assets/catalyst-watermark-logo.png -resize 5% -alpha set -channel A -evaluate multiply 0.85 +channel \) \
-  -gravity SouthEast -geometry +25+25 -composite \
+  -gravity SouthEast -geometry +10+10 -composite \
   /path/to/output-branded.png
 ```
 

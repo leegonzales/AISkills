@@ -1,11 +1,37 @@
 ---
 name: essay-to-speech
-description: Transform written essays into spoken word presentations while preserving source material. Use when adapting essays for verbal delivery, creating talk tracks, or preparing content for presentation slides.
+description: Transform written essays into spoken word presentations while preserving source material. Also renders training module facilitator artifacts as standalone HTML document viewers. Use when adapting essays for verbal delivery, creating talk tracks, preparing content for presentation slides, or rendering module documents.
 ---
 
 # Essay to Speech
 
+Two modes:
+
+## Mode 1: Essay to Talk Track (default)
+
 Transform written essays into spoken word presentations. Outputs both the original text and talk track in connected chunks, ready for downstream slide generation.
+
+## Mode 2: Module Document Renderer
+
+Render a training module's facilitator artifacts (guides, prompts, skills) as a standalone HTML document viewer with sidebar navigation, dark mode, full-text search, and Catalyst Calm Luxury branding.
+
+**Invoke Mode 2 when:**
+- User points to a module directory with facilitator guides/prompts
+- User asks to "render documents" or "generate guide HTML"
+- Input is a directory path (not an essay file)
+
+**Usage:**
+```bash
+python3 ~/.claude/skills/essay-to-speech/scripts/render-docs.py <module_dir> \
+  --output <path.html> --title "Module Title"
+```
+
+**Template:** `templates/catalyst-docs.html` (Catalyst Calm Luxury palette)
+**Script:** `scripts/render-docs.py` (scans for .md files, categorizes, injects into template)
+
+---
+
+## Mode 1 Details
 
 ## When to Use
 
