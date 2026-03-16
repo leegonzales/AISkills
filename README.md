@@ -1,6 +1,6 @@
 # AISkills
 
-A curated collection of **38 professional skills** for Claude Code and Claude web chat. Skills extend Claude's capabilities for development, analysis, writing, and specialized workflows.
+A curated collection of **46 professional skills** for Claude Code and Claude web chat. Skills extend Claude's capabilities for development, analysis, writing, and specialized workflows.
 
 ## What Are Claude Skills?
 
@@ -8,7 +8,7 @@ Skills are modular capabilities that Claude automatically discovers and uses bas
 
 ## Skills Collection
 
-### Development & Cloud (10 skills)
+### Development & Cloud (12 skills)
 
 | Skill | Description | Platform |
 |-------|-------------|----------|
@@ -16,58 +16,69 @@ Skills are modular capabilities that Claude automatically discovers and uses bas
 | [AWS CDK](AWSSkills/aws-cdk-development/) | Infrastructure as Code with AWS CDK best practices | All |
 | [AWS Serverless](AWSSkills/aws-serverless-eda/) | Serverless apps & event-driven architecture (7 design principles) | All |
 | [AWS Cost & Ops](AWSSkills/aws-cost-operations/) | Cost optimization, monitoring, and observability | All |
-| [Playwright](PlaywrightSkill/) | Model-invoked browser automation with smart helpers | 🖥️ Code |
-| [Codex Peer Review](CodexPeerReview/) | AI peer review via OpenAI Codex CLI | 🖥️ Code |
-| [Gemini Peer Review](GeminiPeerReview/) | AI peer review with 1M token context window | 🖥️ Code |
-| [PR Review Loop](PRReviewLoop/) | Manage PR feedback cycles with Gemini/Claude fallback | 🖥️ Code |
-| [Codebase Navigator](CodebaseNavigator/) | Semantic code search with osgrep integration | 🖥️ Code |
+| [Playwright](PlaywrightSkill/) | Model-invoked browser automation with smart helpers | Code |
+| [Codex Peer Review](CodexPeerReview/) | AI peer review via OpenAI Codex CLI | Code |
+| [Gemini Peer Review](GeminiPeerReview/) | AI peer review with 1M token context window | Code |
+| [PR Review Loop](PRReviewLoop/) | Manage PR feedback cycles with Gemini/Claude fallback | Code |
+| [Codebase Navigator](CodebaseNavigator/) | Semantic code search with osgrep integration | Code |
 | [Artifacts Builder](ArtifactsBuilder/) | React artifacts with 43 shadcn/ui components | All |
+| [Unix Review](UnixReview/) | Codebase evaluation against Unix philosophy, SOLID, and AI-Readiness | Code |
+| [Requesting Code Review](RequestingCodeReview/) | Dispatch three independent code reviewers in parallel | Code |
 
-### Writing & Content (7 skills)
+### Writing & Content (9 skills)
 
 | Skill | Description | Platform |
 |-------|-------------|----------|
 | [Prose Polish](ProsePolish/) | Writing analysis across 4 layers (lexical, structural, rhetorical, voice) | All |
+| [Prose Polish Redline](ProsePolishRedline/) | Multi-agent tracked-changes editing with .docx and HTML replay | All |
 | [Research-to-Essay](ResearchToEssay/) | 6-phase workflow for research-driven publication-grade writing | All |
 | [Essay to Speech](EssayToSpeech/) | Transform essays into spoken word presentations | All |
+| [Read Aloud](ReadAloud/) | TTS audio reader with word-synced highlighting via Kokoro | Code |
 | [Writing Partner](WritingPartner/) | Collaborative essay writing with interview, thread tracking, voice calibration | All |
 | [Writing Skills](WritingSkills/) | META-SKILL: TDD methodology for documentation ("Iron Law") | All |
 | [Claimify](Claimify/) | Transform discourse into structured argument maps | All |
 | [Presentation Partner](PresentationPartner/) | Collaborative presentation authoring with Talk Track v5 format | All |
 
-### Analysis & Reasoning (6 skills)
+### Analysis & Reasoning (7 skills)
 
 | Skill | Description | Platform |
 |-------|-------------|----------|
 | [Concept Forge](ConceptForge/) | Dialectical concept development with 13 interrogation archetypes | All |
 | [Process Mapper](ProcessMapper/) | Map workflows, extract SOPs, identify automation opportunities | All |
-| [Excel Auditor](ExcelAuditor/) | Audit Excel files, analyze formulas, assess risk 🧪 | All |
+| [Excel Auditor](ExcelAuditor/) | Audit Excel files, analyze formulas, assess risk | All |
 | [Inevitability Engine](InevitabilityEngine/) | AI business opportunity discovery with inevitability scoring | All |
 | [CSV Data Summarizer](CSVDataSummarizer/) | Proactive CSV analysis (exemplary "DO NOT ASK" design pattern) | All |
 | [Silicon Doppelganger](SiliconDoppelganger/) | Digital Twin personas for team dynamics and decision forecasting | All |
+| [Sand Table](SandTable/) | Design and validate simulations using the Sand Table event stream protocol | All |
 
 ### AI & Automation (8 skills)
 
 | Skill | Description | Platform |
 |-------|-------------|----------|
-| [NotebookLM](NotebookLMSkill/) | Source-grounded Q&A with browser automation | 🖥️ Code |
+| [NotebookLM](NotebookLMSkill/) | Source-grounded Q&A with browser automation | Code |
 | [Agent Mail](AgentMail/) | Email automation and management for AI agents | All |
-| [Claude Speak](ClaudeSpeak/) | High-quality text-to-speech with Kokoro TTS on Apple Silicon | 🖥️ Code |
+| [Claude Speak](ClaudeSpeak/) | High-quality text-to-speech with Kokoro TTS on Apple Silicon | Code |
 | [Nano Banana](NanoBananaSkill/) | AI image generation via Google Gemini 3 Pro | All |
 | [Second Brain](SecondBrain/) | Personal knowledge capture and management | All |
 | [Slide Builder](SlideBuilder/) | Transform essay-to-speech output into slide presentations | All |
 | [Veo3 Prompter](Veo3Prompter/) | Craft cinematic prompts for Veo 3.1 video generation | All |
-| [Fabric Patterns](FabricPatterns/) | Run danielmiessler/fabric CLI patterns (240+ AI prompts) | 🖥️ Code |
+| [Fabric Patterns](FabricPatterns/) | Run danielmiessler/fabric CLI patterns (240+ AI prompts) | Code |
 
 ### Context & Workflow (3 skills)
 
 | Skill | Description | Platform |
 |-------|-------------|----------|
 | [Context Continuity](ContextContinuity/) | High-fidelity context transfer between conversations | All |
-| [Context Continuity Code](ContextContinuityCode/) | Dev-optimized context transfer for Claude Code | 🖥️ Code |
+| [Context Continuity Code](ContextContinuityCode/) | Dev-optimized context transfer for Claude Code | Code |
 | [Claude Project Docs](ClaudeProjectDocs/) | Generate CLAUDE.md files with progressive disclosure | All |
 
-### Meta & Tools (4 skills)
+### Security & Isolation (1 skill)
+
+| Skill | Description | Platform |
+|-------|-------------|----------|
+| [Moltbook Enclave](MoltbookEnclave/) | Secure, air-gapped interface isolating untrusted external content | Code |
+
+### Meta & Tools (6 skills)
 
 | Skill | Description | Platform |
 |-------|-------------|----------|
@@ -75,8 +86,10 @@ Skills are modular capabilities that Claude automatically discovers and uses bas
 | [Project Builder](ProjectBuilder/) | Create Claude Projects with instructions and manifests | All |
 | [Skill Extractor](SkillExtractor/) | Extract reusable skills from conversation patterns | All |
 | [Dad Joke Validator](DadJokeValidator/) | Rate and generate dad jokes with scientific precision | All |
+| [Build Timeline](BuildTimeline/) | Interactive HTML timelines of Claude Code development activity | Code |
+| [Flywheel Scan](FlywheelScan/) | Cross-project roadmap discovery with parallel domain scouts | Code |
 
-**Legend:** 🖥️ Code = Claude Code only (requires terminal) | 🧪 = In testing
+**Legend:** Code = Claude Code only (requires terminal) | All = Works in Claude Code and Claude web chat
 
 ---
 
@@ -189,9 +202,9 @@ Minimum quality score: **85/100** on evaluation rubric. See [agent_docs/quality.
 
 | Skill | Pass Rate | Quality | Status |
 |-------|-----------|---------|--------|
-| Codex Peer Review | 100% (7/7) | 4.8/5.0 | ✅ Production |
-| Gemini Peer Review | 87.5% (7/8) | 5.0/5.0 | ✅ Production |
-| Dad Joke Validator | 100% (11/11) | — | ✅ Production |
+| Codex Peer Review | 100% (7/7) | 4.8/5.0 | Production |
+| Gemini Peer Review | 87.5% (7/8) | 5.0/5.0 | Production |
+| Dad Joke Validator | 100% (11/11) | — | Production |
 
 ---
 
@@ -209,9 +222,8 @@ Minimum quality score: **85/100** on evaluation rubric. See [agent_docs/quality.
 
 ## Resources
 
-- [Claude Code Documentation](https://docs.claude.com/en/docs/claude-code)
-- [Claude Code Skills Guide](https://docs.claude.com/en/docs/claude-code/skills)
-- [Using Skills in Claude](https://support.claude.com/en/articles/12512180-using-skills-in-claude)
+- [Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code)
+- [Claude Code Skills Guide](https://docs.anthropic.com/en/docs/claude-code/skills)
 
 ---
 
@@ -221,6 +233,6 @@ MIT License. Individual skills may have their own licenses - check skill directo
 
 ---
 
-**38 skills** | **MIT License** | **Last Updated:** 2026-01-31
+**46 skills** | **MIT License** | **Last Updated:** 2026-03-16
 
-Built with Claude Code | [Learn More](https://docs.claude.com/en/docs/claude-code)
+Built with Claude Code | [Learn More](https://docs.anthropic.com/en/docs/claude-code)

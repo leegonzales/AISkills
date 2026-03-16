@@ -9,7 +9,7 @@ To use a skill:
 2. Read the corresponding `SKILL.md` file
 3. Follow the persona, constraints, and output formats defined
 
-## Skills (42 total)
+## Skills (46 total)
 
 | Skill | Description | Path |
 |-------|-------------|------|
@@ -32,6 +32,7 @@ To use a skill:
 | Essay to Speech | Transform essays into spoken presentations | `EssayToSpeech/essay-to-speech/SKILL.md` |
 | Excel Auditor | Analyze Excel files, audit formulas | `ExcelAuditor/excel-auditor/SKILL.md` |
 | Fabric Patterns | Run danielmiessler/fabric CLI patterns for analysis, extraction, summarization | `FabricPatterns/fabric-patterns/SKILL.md` |
+| Flywheel Scan | Cross-project roadmap discovery with parallel domain scouts | `FlywheelScan/flywheel-scan/SKILL.md` |
 | Gemini Peer Review | AI peer review via Gemini CLI | `GeminiPeerReview/gemini-peer-review/SKILL.md` |
 | Inevitability Engine | AI business opportunity discovery | `InevitabilityEngine/inevitability-engine/SKILL.md` |
 | MCP Builder | Build Model Context Protocol servers | `MCPBuilder/mcp-builder/SKILL.md` |
@@ -46,7 +47,9 @@ To use a skill:
 | Prose Polish | Writing style analysis and improvement | `ProsePolish/prose-polish/SKILL.md` |
 | Prose Polish Redline | Multi-agent prose editing with tracked-changes .docx and HTML replay | `ProsePolishRedline/prose-polish-redline/SKILL.md` |
 | Read Aloud | TTS audio reader with word-synced highlighting | `ReadAloud/read-aloud/SKILL.md` |
+| Requesting Code Review | Dispatch three independent code reviewers in parallel | `RequestingCodeReview/requesting-code-review/SKILL.md` |
 | Research to Essay | Convert research notes to essays | `ResearchToEssay/research-to-essay/SKILL.md` |
+| Sand Table | Design and validate simulations using the Sand Table event stream protocol | `SandTable/sand-table/SKILL.md` |
 | Second Brain | Personal knowledge capture and management | `SecondBrain/second-brain/SKILL.md` |
 | Writing Skills | General writing assistance | `WritingSkills/writing-skills/SKILL.md` |
 | PR Review Loop | Manage PR feedback cycles with Gemini/Claude | `PRReviewLoop/pr-review-loop/SKILL.md` |
@@ -67,7 +70,7 @@ To use a skill:
 ## Categories
 
 **Development & Code**
-- Codex Peer Review, Gemini Peer Review, Codebase Navigator, MCP Builder, Playwright, PR Review Loop, Unix Review
+- Codex Peer Review, Gemini Peer Review, Codebase Navigator, MCP Builder, Playwright, PR Review Loop, Unix Review, Requesting Code Review
 
 **Writing & Content**
 - Prose Polish, Prose Polish Redline, Read Aloud, Research to Essay, Essay to Speech, Writing Skills, Claimify, Writing Partner, Presentation Partner
@@ -76,7 +79,7 @@ To use a skill:
 - AWS CDK, AWS Cost Ops, AWS Serverless
 
 **Data & Analysis**
-- CSV Summarizer, Excel Auditor, Process Mapper
+- CSV Summarizer, Excel Auditor, Process Mapper, Sand Table
 
 **AI & Automation**
 - Inevitability Engine, Context Continuity, Context Continuity Code, Agent Mail, Silicon Doppelganger, Claude Speak, Second Brain, Fabric Patterns
@@ -88,4 +91,4 @@ To use a skill:
 - Artifacts Builder, Nano Banana, NotebookLM, Concept Forge, Slide Builder, Veo3 Prompter
 
 **Meta & Documentation**
-- Claude Project Docs, Dad Joke Validator, Profile Builder, Project Builder, Skill Extractor
+- Claude Project Docs, Dad Joke Validator, Profile Builder, Project Builder, Skill Extractor, Build Timeline, Flywheel Scan
