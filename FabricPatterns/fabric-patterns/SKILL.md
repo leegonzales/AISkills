@@ -229,20 +229,137 @@ Full catalog in `references/pattern-catalog.md`. High-value patterns by use case
 | `create_better_frame` | Reframing perspectives |
 | `solve_with_cot` | Chain-of-thought problem solving |
 
-### Reasoning Strategies
-Strategies are meta-prompts layered on top of any pattern via `--strategy=<name>`:
+### Reasoning Strategies — Escalation Framework
+
+Strategies are meta-prompts layered on top of any pattern via `--strategy=<name>`. Use this decision guide:
+
+**Default: No strategy (standard)**
+Use for straightforward tasks where the pattern alone is sufficient.
+
+**Escalate to `--strategy=cot` when:**
+- Task requires step-by-step reasoning or logical deduction
+- Analyzing complex arguments or multi-part problems
+- Debugging or tracing through code logic
+
+**Escalate to `--strategy=tot` when:**
+- Task is generative or creative (brainstorming, novel solutions)
+- Multiple valid approaches exist and you need to explore them
+- Problem has no obvious single path
+
+**Escalate to `--strategy=reflexion` when:**
+- First result was shallow, superficial, or missed the point
+- User says "go deeper" or "that's not quite right"
+- Self-improvement pass is likely to catch errors
+
+**Other strategies (use when specifically appropriate):**
 
 | Strategy | Effect |
 |----------|--------|
-| `cot` | Chain-of-Thought — step-by-step reasoning |
-| `tot` | Tree-of-Thought — multiple reasoning paths |
-| `cod` | Chain-of-Density — iterative compression |
-| `reflexion` | Reflect on and improve reasoning |
+| `cod` | Chain-of-Density — iterative compression (good for summarization refinement) |
 | `self-refine` | Iterative self-improvement |
-| `self-consistent` | Multiple resolution paths, pick best |
+| `self-consistent` | Multiple resolution paths, pick best (good for math/logic) |
 | `aot` | Agent-over-Tree — multi-agent collaboration |
 | `ltm` | Long-Term Memory — build and reference memory |
-| `standard` | No special prompting (default) |
+
+**Heuristic:** Start without a strategy. If the output disappoints, re-run with `cot`. If still lacking, try `reflexion`. Reserve `tot` for genuinely open-ended problems.
+
+---
+
+## Autonomous Context Management
+
+Fabric contexts let you inject persistent project-specific context into any pattern call. Manage them proactively.
+
+### Check Existing Contexts
+
+```bash
+fabric -x  # List all contexts (--listcontexts)
+```
+
+### Create a Context for a Project
+
+When working on a project, create a context file so fabric understands the codebase:
+
+```bash
+# Summarize the project and save as a context
+cat ~/Projects/myproject/README.md | fabric -p summarize > ~/.config/fabric/contexts/myproject.md
+
+# Or manually create a concise project description
+cat > ~/.config/fabric/contexts/myproject.md << 'EOF'
+Project: myproject
+Language: Python 3.12
+Framework: FastAPI
+Description: REST API for invoice processing
+Key patterns: Domain-driven design, event sourcing
+EOF
+```
+
+### Apply Contexts Automatically
+
+When running fabric commands related to a known project, always attach the context:
+
+```bash
+cat code.py | fabric -p explain_code -C myproject
+cat design.md | fabric -p review_design -C myproject
+```
+
+**Workflow:** At the start of a session involving a project, check if a context exists (`fabric -x | grep <project>`). If not, create one from the README or key files. Then attach `-C <project>` to all relevant fabric calls.
+
+### Other Context/Session Commands
+
+```bash
+fabric -X                    # List all sessions (--listsessions)
+fabric --printcontext=<name> # Print a context
+fabric --printsession=<name> # Print a session
+fabric -w <name>             # Wipe a context
+fabric -W <name>             # Wipe a session
+```
+
+---
+
+## Creating Temporary Patterns
+
+When no existing pattern fits the user's need, create a custom one on the fly.
+
+**Note:** Fabric's `-p` flag takes a pattern *name*, not a file path. Custom patterns must be placed in the patterns directory.
+
+### Workflow
+
+1. **Create a temporary pattern directory:**
+
+```bash
+PATTERN_NAME="tmp_$(date +%s)"
+mkdir -p ~/.config/fabric/patterns/$PATTERN_NAME
+cat > ~/.config/fabric/patterns/$PATTERN_NAME/system.md << 'PATTERN'
+# IDENTITY and PURPOSE
+You are an expert at [specific task]. Your job is to [specific goal].
+
+# STEPS
+- [Step 1]
+- [Step 2]
+
+# OUTPUT INSTRUCTIONS
+- Output in [format]
+- [Constraints]
+PATTERN
+```
+
+2. **Run it:**
+
+```bash
+echo "input" | fabric -p $PATTERN_NAME
+```
+
+3. **If the user finds it useful**, offer to rename it permanently:
+
+```bash
+mv ~/.config/fabric/patterns/$PATTERN_NAME ~/.config/fabric/patterns/meaningful_name
+```
+
+4. **Clean up unused temp patterns** when done:
+
+```bash
+rm -rf ~/.config/fabric/patterns/tmp_*
+```
 
 ---
 
@@ -254,10 +371,29 @@ Strategies are meta-prompts layered on top of any pattern via `--strategy=<name>
 - **Long text** (> 5000 words): Write to temp file, pipe via `cat`, consider streaming (`-s`)
 - **URLs/YouTube**: Use built-in `-u` or `-y` flags (no manual scraping needed)
 
-### Error Handling
-- If fabric returns empty output, check: is the pattern installed? Run `fabric -l | grep <pattern>`
-- If patterns are outdated, run `fabric -U` to update
-- If a model isn't available, try `fabric -L` to list available models
+### Self-Healing Pattern Knowledge
+
+Fabric's pattern catalog evolves. Prefer live queries over static assumptions:
+
+- **First use in a session:** Consider running `fabric -U` to ensure patterns are current
+- **Pattern not found?** Self-diagnose: `fabric -l | grep <pattern>` — the name may have changed
+- **Inspect a pattern directly:** `cat ~/.config/fabric/patterns/<pattern>/system.md` to understand what it actually does
+- **Prefer `fabric --help`** and live inspection over relying solely on the static reference files in this skill
+- **Management commands:** `fabric -x` (list contexts), `fabric -X` (list sessions), `fabric --liststrategies` (list strategies)
+
+### Robust Error Recovery Protocol
+
+When a fabric command fails, follow this numbered sequence:
+
+1. **Syntax check** — Is the command well-formed? Check flags and quoting.
+2. **Pattern existence check** — `fabric -l | grep <pattern>` — does the pattern exist?
+3. **Dry run** — `fabric -p <pattern> --dry-run` with the actual input to see what would be sent.
+4. **Model check** — `fabric -L` — is the model available? Try a different model with `-m`.
+5. **Update patterns** — `fabric -U` — maybe the pattern was added/renamed recently.
+6. **Strategy escalation** — If output is empty/poor, re-run with `--strategy=cot` or `--strategy=reflexion`.
+7. **API failure notification** — If the provider API is down or rate-limited, inform the user and suggest trying a different vendor/model (`-V` flag).
+
+**Never silently swallow errors.** Always tell the user what went wrong and what you tried.
 
 ### Session Management
 - Use `--session=<name>` when the user wants multi-turn fabric conversations
