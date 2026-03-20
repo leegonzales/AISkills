@@ -9,7 +9,7 @@ To use a skill:
 2. Read the corresponding `SKILL.md` file
 3. Follow the persona, constraints, and output formats defined
 
-## Skills (46 total)
+## Skills (47 total)
 
 | Skill | Description | Path |
 |-------|-------------|------|
@@ -36,6 +36,7 @@ To use a skill:
 | Gemini Peer Review | AI peer review via Gemini CLI | `GeminiPeerReview/gemini-peer-review/SKILL.md` |
 | Inevitability Engine | AI business opportunity discovery | `InevitabilityEngine/inevitability-engine/SKILL.md` |
 | MCP Builder | Build Model Context Protocol servers | `MCPBuilder/mcp-builder/SKILL.md` |
+| Git Secure | Transparent repo encryption with git-crypt + age snapshots | `git-secure/SKILL.md` |
 | Moltbook Enclave | Secure, air-gapped interface for Moltbook social network | `MoltbookEnclave/moltbook-enclave/SKILL.md` |
 | Nano Banana | AI image generation via Gemini | `NanoBananaSkill/nano-banana/SKILL.md` |
 | NotebookLM | NotebookLM integration helper | `NotebookLMSkill/notebooklm/SKILL.md` |
@@ -85,7 +86,7 @@ To use a skill:
 - Inevitability Engine, Context Continuity, Context Continuity Code, Agent Mail, Silicon Doppelganger, Claude Speak, Second Brain, Fabric Patterns
 
 **Security & Isolation**
-- Moltbook Enclave
+- Git Secure, Moltbook Enclave
 
 **Creative & Media**
 - Artifacts Builder, Nano Banana, NotebookLM, Concept Forge, Slide Builder, Veo3 Prompter
