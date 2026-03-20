@@ -1,6 +1,6 @@
 # AISkills
 
-A curated collection of **46 professional skills** for Claude Code and Claude web chat. Skills extend Claude's capabilities for development, analysis, writing, and specialized workflows.
+A curated collection of **47 professional skills** for Claude Code and Claude web chat. Skills extend Claude's capabilities for development, analysis, writing, and specialized workflows.
 
 ## What Are Claude Skills?
 
@@ -72,10 +72,11 @@ Skills are modular capabilities that Claude automatically discovers and uses bas
 | [Context Continuity Code](ContextContinuityCode/) | Dev-optimized context transfer for Claude Code | Code |
 | [Claude Project Docs](ClaudeProjectDocs/) | Generate CLAUDE.md files with progressive disclosure | All |
 
-### Security & Isolation (1 skill)
+### Security & Isolation (2 skills)
 
 | Skill | Description | Platform |
 |-------|-------------|----------|
+| [Git Secure](git-secure/) | Transparent repo encryption with git-crypt + age snapshots | Code |
 | [Moltbook Enclave](MoltbookEnclave/) | Secure, air-gapped interface isolating untrusted external content | Code |
 
 ### Meta & Tools (6 skills)
@@ -233,6 +234,6 @@ MIT License. Individual skills may have their own licenses - check skill directo
 
 ---
 
-**46 skills** | **MIT License** | **Last Updated:** 2026-03-16
+**47 skills** | **MIT License** | **Last Updated:** 2026-03-19
 
 Built with Claude Code | [Learn More](https://docs.anthropic.com/en/docs/claude-code)
