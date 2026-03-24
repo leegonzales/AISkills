@@ -18,21 +18,29 @@ Design new sand tables, scaffold project-local skills, extract agent-ops traces,
 
 ## What This Skill Knows
 
-1. **The Protocol** — Read `references/protocol-spec.md` for the event envelope, temporal models, normalization contract, multi-run comparison, and replay injection patterns.
+1. **The Protocol** — Read `references/protocol-spec.md` for the event envelope, temporal models, normalization contract, execution tiers (Tier 1-3), multi-run comparison, and replay injection patterns.
 
 2. **Existing Implementations** — Read `references/implementations.md` for the registry of Substack readership, AIEnablement training, and Agent-Ops implementations with their paths, event types, and temporal models.
 
 3. **Domain Design** — Read `references/domain-invariant-template.md` for the scaffold template. Read `references/examples.md` for real annotated events from all three domains.
 
+4. **Reusable Patterns** — Read `references/patterns.md` for the 6 battle-tested design recipes: program invariant structure, agent design, event schema enforcement (including the known LLM drift catalog), output structure, new domain creation, and multi-run comparison.
+
+5. **Reliability** — Read `references/reliability.md` for impossible narrative detection, timeout/abort rules, module batching, and cross-session context resolution patterns.
+
+6. **Multi-Session Continuity** — Read `references/multi-session.md` for the exit context schema, context loading chain, cohort matching, and context accumulation model.
+
 ## Commands
 
 ### `design <use-case>`
 
-1. Read `references/protocol-spec.md` and `references/domain-invariant-template.md`
-2. Recommend: temporal model, persona count, event types, scoring dimensions
+1. Read `references/protocol-spec.md`, `references/domain-invariant-template.md`, and `references/patterns.md`
+2. Recommend: temporal model, persona count, event types, scoring dimensions, execution tier (Tier 1-3)
 3. Identify closest existing implementation (from `references/implementations.md`) as a reference pattern
 4. Output a filled domain invariant for the proposed domain
-5. Flag domain-specific drift risks (what will the LLM get wrong?)
+5. Flag domain-specific drift risks using the known drift catalog from `references/patterns.md`
+6. Recommend reliability configuration: timeout thresholds, abort conditions, narrative integrity checks (from `references/reliability.md`)
+7. If multi-session: recommend exit context schema and context loading strategy (from `references/multi-session.md`)
 
 ### `scaffold`
 
@@ -65,12 +73,32 @@ python ~/Projects/leegonzales/AISkills/SandTable/sand-table/scripts/validate_str
 python ~/Projects/leegonzales/AISkills/SandTable/sand-table/scripts/validate_stream.py <json-path>
 ```
 
+Validation includes:
+- Schema compliance (required fields, valid types, enum values)
+- Drift correction using domain `drift-mappings.json` (see known drift catalog in `references/patterns.md`)
+- Impossible narrative detection for multi-agent simulations (see `references/reliability.md`)
+- Score range clamping and derived field computation
+
 For legacy-format files (pre-protocol), normalize first:
 
 ```bash
 python ~/Projects/leegonzales/AISkills/SandTable/sand-table/scripts/normalize.py \
     --wrap-legacy <json-path> -o <output.json>
 ```
+
+### `reliability <json-path>`
+
+Run the full reliability analysis on a simulation output:
+
+1. Read `references/reliability.md` for the detection patterns
+2. Scan all agent events for impossible narrative signals (5 checks)
+3. Check for timeout/NR events and assess simulation completeness
+4. If multi-session: validate exit context files against schema (from `references/multi-session.md`)
+5. Output a reliability report:
+   - Narrative integrity status (CLEAN / N warnings / INTEGRITY CONCERN)
+   - Data completeness (NR count, missing events)
+   - Context chain validity (multi-session only)
+   - Recommendations (re-run, accept, investigate specific agents)
 
 ## Key Principle
 

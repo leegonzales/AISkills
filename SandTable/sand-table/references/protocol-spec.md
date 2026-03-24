@@ -1,6 +1,6 @@
 # Sand Table Protocol Specification
 
-**Version:** 1.0
+**Version:** 1.1
 **Status:** Stable
 
 The Sand Table Protocol defines the event stream format for simulations and extractions across domains. It specifies the **envelope**, not the contents — domains define their own event types, scoring, and agent roles.
@@ -196,3 +196,72 @@ The shared normalizer (`scripts/normalize.py`) accepts both formats:
 - Legacy flat: wrapped into protocol structure with `meta` inferred from available fields
 
 New implementations SHOULD use the protocol structure. Existing implementations are not required to migrate.
+
+---
+
+## Execution Tiers
+
+Simulations can operate at three levels of fidelity. The tier determines how agent interactions with external tools (AI models, APIs, databases) are handled.
+
+### Tier 1: Narrated
+
+Agents describe what they would do. No actual tool interaction occurs.
+
+- Agent output: "I would write a prompt asking for help with project planning..."
+- Use when: Quick design validation, pacing checks, narrative flow testing
+- Fields: Standard agent event fields (`text`, `internal_monologue`, etc.)
+
+### Tier 2: Scripted
+
+Agents produce actual artifacts, but tool responses are predetermined or mocked.
+
+- Agent output: Writes the actual prompt text, receives a scripted/templated response
+- Use when: Schema validation, replay testing, deterministic comparison across runs
+- Fields: Standard fields + `artifact` (the actual content produced)
+
+### Tier 3: Real Agent Interaction
+
+Agents interact with live AI models (or other tools). Each participant agent gets a dedicated tool agent that responds to real inputs.
+
+- Agent output: Writes actual prompts, receives actual AI responses, iterates based on real output quality
+- Use when: The quality of the interaction matters (build exercises, tool-use simulations, skill assessments)
+- Fields: Standard fields plus:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `prompt_sent` | string | The actual prompt text sent to the tool agent |
+| `ai_response` | string | The tool agent's actual response |
+| `follow_ups` | array of `{prompt, response}` | Iteration exchanges when the agent refines their approach |
+| evaluation scores | object | Real scores from evaluator tools (domain-specific structure) |
+
+**Tool agent isolation:** Tier 3 tool agents (e.g., a "clean Claude" that each participant sends prompts to) must have NO simulation context. Their system prompt contains only the tool's natural instructions. They see only the prompt text — no persona files, no sand table awareness, no scoring framework. This isolation is what makes the interaction authentic.
+
+**When to use Tier 3:** Any scenario where narrated or scripted responses would miss the point. For example, in a training simulation, knowing whether a participant's prompt actually produces useful output requires sending it to a real AI and evaluating the real response. Narrating "they would get a good response" tells you nothing about the prompt's actual quality.
+
+---
+
+## Reliability Contract
+
+Every sand table implementation should handle these reliability concerns. See `references/reliability.md` for full patterns and implementation guidance.
+
+**Timeout handling:** Define what happens when an agent fails to respond. Mark non-responsive, record observation, proceed. Never fabricate missing data.
+
+**Abort thresholds:** Define when a degraded simulation should be halted rather than continued. Typical: 3+ agents non-responsive for 2+ consecutive units.
+
+**Impossible narrative detection:** Post-simulation scan for single-author patterns in multi-agent output. Five signals: other-agent predictions, internal state knowledge, meta-commentary, scoring awareness, synchronized exchanges.
+
+**Schema enforcement layers:** Three-layer defense against LLM drift: prompt hardening (generation time), validator agent (post-simulation), replay generator normalization (render time). See `references/patterns.md` for the known drift pattern catalog.
+
+---
+
+## Multi-Session Continuity
+
+For simulations spanning multiple sessions, the protocol supports continuity through exit context. See `references/multi-session.md` for the full pattern.
+
+**Exit context:** At the end of each session, produce one structured JSON file per agent capturing: growth narrative, key quotes, scores, behavioral markers, and facilitator notes.
+
+**Context loading:** Session N+1 requires validated context from all prior sessions. A `--prior` flag (or equivalent) specifies the run chain. Missing or invalid context is a hard error.
+
+**Cohort matching:** Agent IDs in exit context must match the current session's roster. Mismatches halt the simulation.
+
+**Accumulation:** Context from all prior sessions is assembled into each agent's spawn prompt, with actual run data taking precedence over static persona definitions.

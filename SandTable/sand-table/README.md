@@ -16,6 +16,22 @@ Three implementations follow this pattern today:
 
 All three: Events → Normalize → Interactive HTML Replay → Compare runs.
 
+## What's New in v1.1
+
+**Reliability patterns** — Battle-tested patterns for ensuring multi-agent simulations produce valid data. Includes impossible narrative detection (5 signals that catch single-author simulations), timeout/abort rules for non-responsive agents, and module batching for pacing optimization. See `references/reliability.md`.
+
+**Multi-session continuity** — Full pattern for carrying agent state across simulation sessions. Exit context schema captures growth narratives, scores, and behavioral markers. Context loading validates and assembles prior session data into spawn prompts with hard gates on missing data. See `references/multi-session.md`.
+
+**Tier 3 execution** — Protocol support for real AI agent interaction, where participant agents send actual prompts to dedicated tool agents and receive real responses. Captures `prompt_sent`, `ai_response`, and `follow_ups` fields. See the Execution Tiers section in `references/protocol-spec.md`.
+
+**Known LLM drift catalog** — A table of 10+ field name substitutions that LLMs reliably make across domains (`module_id` for `module`, `intervention` for `text`, etc.), plus guidance on building domain-specific drift mappings. See Pattern 3 in `references/patterns.md`.
+
+**Reusable design recipes** — Six domain-agnostic patterns extracted from production implementations: program invariant structure, agent design recipes, event schema enforcement, output structure, new domain creation, and multi-run comparison. See `references/patterns.md`.
+
+**Reliability command** — New `/sand-table reliability` command for running narrative integrity analysis, data completeness checks, and context chain validation.
+
+The canonical complex example for all patterns is the [AI Foundations training implementation](https://github.com/leegonzales/AIEnablementTraining) (18 personas, Tier 3 execution, multi-session continuity, 8+ successful runs).
+
 ## Project Structure
 
 ```
@@ -25,7 +41,10 @@ sand-table/
 │   ├── protocol-spec.md              # The protocol: envelope, temporal models, normalization
 │   ├── implementations.md            # Registry of known sand tables
 │   ├── domain-invariant-template.md  # Scaffold for new domains
-│   └── examples.md                   # Annotated real events from all 3 domains
+│   ├── examples.md                   # Annotated real events from all 3 domains
+│   ├── patterns.md                   # 6 reusable design recipes
+│   ├── reliability.md                # Simulation reliability patterns
+│   └── multi-session.md              # Multi-session continuity pattern
 ├── scripts/
 │   ├── normalize.py                  # Shared normalizer (drift mappings → clean events)
 │   ├── validate_stream.py            # Protocol compliance checker
@@ -73,9 +92,12 @@ See `references/protocol-spec.md` for the full spec. Key points:
 
 - Every stream has `meta`, `agents`, `events` (optional `summary`)
 - Events have `type` (string) + one temporal field (`turn`, bracket markers, or `timestamp`)
+- Three execution tiers: narrated (Tier 1), scripted (Tier 2), real agent interaction (Tier 3)
 - Domains provide `drift-mappings.json` for LLM schema drift correction
 - Multi-run comparison via `meta.id` + `meta.run`
 - Replay injection via `{{SIMULATION_DATA}}` placeholder
+- Reliability contract: timeout handling, abort thresholds, impossible narrative detection
+- Multi-session continuity: exit context, validation chain, cohort matching
 
 ## Design Principles
 

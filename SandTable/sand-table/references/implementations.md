@@ -26,7 +26,7 @@ Simulates 6 reader personas experiencing an essay section-by-section.
 
 ## AIEnablement Training
 
-Simulates 6-12 training participants going through coaching modules. Full multi-agent orchestration with Facilitator, Persona agents, and Validator.
+Simulates 6-18 training participants going through coaching modules across a 4-session program. Full multi-agent orchestration with Facilitator, Relay/Observer split, Persona agents, AI tool agents (Tier 3), PQE Scorer, and Validator. The most complex sand table implementation — canonical example for all protocol patterns.
 
 | Attribute | Value |
 |-----------|-------|
@@ -36,12 +36,18 @@ Simulates 6-12 training participants going through coaching modules. Full multi-
 | **Replay Template** | `skills/sand-table/replay/replay_template.html` |
 | **Source Type** | Simulation (multi-agent orchestration) |
 | **Temporal Model** | Bracket-based (`module_start`/`module_end` pairs) |
+| **Execution Tier** | Tier 3 — Real AI agent interaction (personas send prompts to dedicated `-ai` agents, PQE scorer evaluates real conversations) |
 | **Event Types** | `module_start`, `module_end`, `facilitator`, `persona`, `floor`, `ceiling`, `module_scores`, `range_scores`, `observation`, `transition`, `peer_exchange`, `homework_start`, `homework_persona`, `homework_end` |
-| **Summary** | Per-module scores, per-persona trajectories, range scores |
-| **Agent Count** | 6-12 personas (durable files in `personas/`) |
+| **Tier 3 Fields** | `prompt_sent`, `ai_response`, `follow_ups`, `pqe_scores`, `range_evidence`, `spoken`, `conversation` |
+| **Summary** | Per-module scores, per-persona trajectories, RANGE behavioral scores, PQE evaluator scores |
+| **Agent Count** | 18 personas (3 cohort versions: v1 6 personas, v2 6 personas, v3 6 personas; durable files in `personas/`) |
+| **Agent Topology** | Up to 15 agents per run: facilitator + 6 personas + 6 AI tool agents + PQE scorer (+ optional relay/observer split) |
 | **Drift Mappings** | External: `references/drift-mappings.json` |
 | **Multi-Run** | Yes — multi-run tabbed replay via `-r` flags |
-| **Validator** | Separate validator agent (`agents/sim-events-validator.md`) |
+| **Multi-Session** | Yes — 4-session program with exit context per persona. `--prior` flag chains runs across sessions. Exit context schema at `references/exit-context-schema.json` |
+| **Validator** | Separate validator agent (`agents/sim-events-validator.md`) with impossible narrative detection |
+| **Successful Runs** | 8+ runs across S1-S2, including Tier 3 builds with real AI interaction |
+| **Key Patterns Originated** | Impossible narrative detection, Tier 3 execution, exit context schema, module batching, cross-session context resolution, known LLM drift catalog |
 
 ---
 

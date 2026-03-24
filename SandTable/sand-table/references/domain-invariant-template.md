@@ -152,6 +152,88 @@ replay:
 
 ---
 
+## Reliability Configuration
+
+Define how the simulation handles agent failures and validates output integrity.
+
+```yaml
+reliability:
+  timeout:
+    max_retries: 1          # Re-pings before marking NR
+    action: "mark_nr"       # mark_nr | skip | abort
+  abort:
+    nr_agent_threshold: 3   # Agents non-responsive to trigger abort
+    consecutive_units: 2    # Consecutive units of NR to trigger abort
+  narrative_integrity:
+    enabled: true
+    warning_threshold: 5    # Warnings before flagging INTEGRITY CONCERN
+    signals:                # Which impossible narrative signals to check
+      - other_agent_predictions
+      - internal_state_knowledge
+      - meta_commentary
+      - scoring_awareness
+      - synchronized_exchanges
+```
+
+**Timeout handling:** When an agent fails to respond after the orchestrator's delivery and `max_retries` re-pings, mark as non-responsive. Never fabricate missing data. See `references/reliability.md` for the full protocol.
+
+**Abort rules:** When too many agents are non-responsive, halt the simulation rather than collecting degraded data. Thresholds depend on your agent count — 50% NR is always an abort.
+
+**Narrative integrity:** Post-simulation validation that checks for single-author patterns in multi-agent output. Enable for any simulation using independent agents. See `references/reliability.md` for the five detection signals.
+
+---
+
+## Multi-Session Configuration
+
+For simulations that span multiple sessions, define how agent context carries forward.
+
+```yaml
+multi_session:
+  enabled: false            # Set true for multi-session domains
+  exit_context:
+    schema: path/to/exit-context-schema.json
+    required_fields:
+      - growth_narrative
+      - headline_quote
+      - behavioral_markers
+    max_narrative_length: 1500
+  context_loading:
+    prior_flag_required: true   # --prior flag is mandatory for session 2+
+    validation: strict          # strict (hard errors) | warn (warnings only)
+    max_prior_sessions: null    # null = all, or integer to limit
+  cohort_matching: strict       # strict | flexible (allows roster changes)
+```
+
+**Exit context schema:** Define the JSON schema for per-agent exit context files. See `references/multi-session.md` for a generic template and the AI Foundations training example.
+
+**Context loading:** How prior session data is validated and assembled into agent spawn prompts. Strict mode (recommended) halts on any missing or invalid context.
+
+**Cohort matching:** Whether agent IDs must exactly match across sessions. Strict mode requires all agents present in context files to exist in the current roster. Flexible mode allows roster changes with explicit handling.
+
+See `references/multi-session.md` for the full continuity pattern.
+
+---
+
+## Known Drift Patterns
+
+Reference the common LLM drift patterns from `references/patterns.md` (Pattern 3, Section 3.2) and add domain-specific entries here.
+
+```yaml
+drift_notes:
+  # Common cross-domain patterns (always include these):
+  - "LLMs append _id to identifier fields (module_id → module)"
+  - "LLMs expand abbreviated fields (duration_min → planned_duration)"
+  - "LLMs substitute semantic synonyms for 'text' (intervention, summary, response)"
+
+  # Domain-specific patterns discovered during initial runs:
+  # - "..."
+  # - "..."
+```
+
+The first 2-3 runs of any new sand table will surface additional drift patterns. Add them to `drift-mappings.json` and re-validate. The known drift table in `references/patterns.md` is a good starting baseline for any domain.
+
+---
+
 ## Checklist
 
 Before using this domain invariant:
@@ -161,3 +243,6 @@ Before using this domain invariant:
 - [ ] Drift mappings account for known LLM synonyms and field aliases
 - [ ] Scoring dimensions defined (if applicable)
 - [ ] At least one example event per type exists in `references/examples.md`
+- [ ] Reliability configuration defined (timeout, abort, narrative integrity)
+- [ ] Multi-session configuration defined (if applicable)
+- [ ] Known drift patterns documented from initial test runs
