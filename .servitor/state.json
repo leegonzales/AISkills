@@ -1,27 +1,29 @@
 {
   "version": 1,
-  "last_health_check": "2026-03-21T12:00:00Z",
+  "last_health_check": "2026-03-27T05:09:00Z",
   "overall_status": "YELLOW",
   "concerns": [
     "git-secure skill has structural issues: wrong directory (git-secure/ vs GitSecure/git-secure/), missing README.md, missing CHANGELOG.md",
-    "PR #35 DERELICT (48+ days, fabric-patterns) — needs captain's close/merge decision",
-    "P1 bug SKILL-aon: Codex --reasoning flag docs wrong — users hitting errors",
-    "7 skills missing required files (README/CHANGELOG) — now 8 with git-secure",
+    "PR #35 DERELICT (50+ days, fabric-patterns) — needs captain's close/merge decision",
+    "8 skills missing required files (README/CHANGELOG) — includes git-secure",
     "Orphaned SecondBrain/SKILL.md at root (contains stale goals-graph content) — needs deletion",
     "No CI pipeline configured",
     "20 beads blocked on test suite epics",
-    "4 P2 bugs in Codex/Gemini skills (outdated model names, wrong flags, API errors)",
-    "2 orphaned in-progress beads: SKILL-bj2, SKILL-zmi (recommend revert to open)"
+    "4 P2 bugs in Codex/Gemini skills (outdated model names, wrong flags, API errors)"
   ],
-  "resolved_this_session": [],
+  "resolved_this_session": [
+    "SKILL-aon: Closed P1 bug — --reasoning flag already fixed in commit 6595eba",
+    "SKILL-bj2: Reverted orphaned in_progress → open",
+    "SKILL-zmi: Reverted orphaned in_progress → open"
+  ],
   "skill_count": 47,
   "beads_summary": {
     "total": 83,
-    "open": 38,
-    "in_progress": 2,
+    "open": 39,
+    "in_progress": 0,
     "blocked": 20,
-    "closed": 43,
-    "ready": 10
+    "closed": 44,
+    "ready": 19
   },
   "skills_missing_files": [
     "git-secure (README, CHANGELOG, directory structure)",
@@ -32,21 +34,22 @@
     "ClaudeSpeak/claude-speak (CHANGELOG)",
     "SecondBrain/second-brain (CHANGELOG)"
   ],
-  "stale_prs": ["#35 — fabric-patterns Gemini review (49+ days, opened Feb 2, DERELICT)"],
+  "stale_prs": ["#35 — fabric-patterns Gemini review (50+ days, opened Feb 2, DERELICT)"],
   "open_prs": ["#41 — docs: register git-secure skill in registry (46→47)"],
-  "p1_issues": ["SKILL-aon — Codex --reasoning flag docs wrong"],
-  "orphaned_in_progress": [
-    "SKILL-bj2 — [TEST] Gemini: Synthesis Framework Quality",
-    "SKILL-zmi — [TEST] Codex: CLI Flags & Command Modes"
-  ],
+  "p1_issues": [],
+  "orphaned_in_progress": [],
   "last_commit": {
-    "sha": "e4bc08e",
-    "message": "chore: add fleet doctrine compliance — persona activation + meta-banner",
+    "sha": "3e2ed24",
+    "message": "fix: update agent-mail handle to BravePike (adjective+noun required)",
     "pushed": false
   },
+  "unpushed_commits": [
+    {"sha": "3e2ed24", "message": "fix: update agent-mail handle to BravePike"},
+    {"sha": "46b2711", "message": "feat: Pike takes command — skills domain consolidation (Scotty archived)"}
+  ],
   "last_action": {
-    "type": "FLEET_DOCTRINE_COMPLIANCE",
-    "description": "Msg #126 from BrassAdama. Added 'You ARE' activation language and meta-banner format to soul.md. Committed e4bc08e. Replied msg #132."
+    "type": "HEARTBEAT",
+    "description": "Heartbeat #147. Inbox clean. Found 2 unpushed commits. Updated journal and state. Awaiting push authorization from Lee."
   },
   "quiet_streak_days": 0,
   "fleet_roster": ["BrassAdama", "DeepWatch", "SteelGuard", "QuillKeeper", "Dax (pending)", "ChartreuseBear (pending)"],
@@ -55,5 +58,5 @@
     "DeepWatch": "active (accepted 2026-03-22, expires 2026-04-21)"
   },
   "dependencies": [],
-  "notes": "2026-03-21: Heartbeat #34. No new messages. Quiet streak continues. YELLOW status holds. Awaiting captain on PR #41, PR #35, structural fixes."
+  "notes": "2026-03-26: Heartbeat #147. 2 unpushed commits (Pike migration, BravePike handle fix). PR #41 open. PR #35 now 53 days derelict. Awaiting push auth from Lee."
 }

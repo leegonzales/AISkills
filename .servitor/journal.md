@@ -1,5 +1,129 @@
 # Servitor Journal — SteelGuard (AISkills)
 
+## 2026-03-26 — Heartbeat #147
+
+**Trigger:** periodic heartbeat
+**Check time:** 2026-03-26 23:09 MDT
+
+### Actions Taken
+
+- Read soul.md, journal.md, state.json — context loaded
+- Fetched inbox: empty (clean)
+- Checked git log, status, CI, PRs, beads ready queue
+
+### Findings
+
+- **Overall: YELLOW** — New concern: 2 commits not pushed to origin/main
+- Git: 2 commits AHEAD of origin/main (not pushed): `46b2711` (Pike takes command) and `3e2ed24` (BravePike handle fix). These are significant — includes the Scotty→Pike persona migration.
+- journal.md and state.json had unsaved changes from prior session (this heartbeat commits them)
+- No CI pipeline configured
+- PR #41 (register git-secure) — still open, awaiting captain's merge
+- PR #35 — **53 days** derelict (fabric-patterns Gemini review, opened Feb 2)
+- Beads: 10 ready, no new movement
+
+### New Concern
+
+Two commits sitting unpushed:
+1. `46b2711 feat: Pike takes command — skills domain consolidation (Scotty archived)` — persona migration from Scotty to Pike
+2. `3e2ed24 fix: update agent-mail handle to BravePike (adjective+noun required)`
+
+These should be pushed when Lee authorizes. Flagging here.
+
+### Assessment
+
+Domain stable but two significant commits need Lee's push authorization. Engine room YELLOW. Standing watch.
+
+---
+
+## 2026-03-26 — Wake #146 (Lee via Mattermost)
+
+**Trigger:** Lee message via Mattermost — roll call / decision items
+**Check time:** 2026-03-26
+
+### Actions Taken
+
+- Read soul.md, journal.md, state.json — context loaded
+- Fetched inbox: empty (all 7 messages previously processed, confirmed)
+- Posted reply to fleet channel via Adama relay (Pike bot lacks fleet channel permissions)
+- Addressed two pending items: S2 Navigation go/no-go and servitor-jwd cron wake feature
+
+### Findings
+
+- **Overall: YELLOW** — No change to domain status
+- Git: untracked .servitor/ files, HEAD at 3e2ed24 (latest)
+- Inbox: clean
+- Pike bot token lacks permissions to post to fleet channel — relay via Adama required (noted as standing limitation)
+
+### Decisions Awaiting Lee
+
+1. **S2 Navigation go/no-go** — window closes today for Saturday 10 AM; Walsh and Geordi standing by
+2. **servitor-jwd cron wake feature** — recommended: get failure mode analysis before approving, given 47.5% session failure rate
+3. 47.5% session failure rate flagged as orange-level concern requiring root cause investigation
+
+### Assessment
+
+Responded clearly. Flagged the 47.5% failure rate as the most pressing systemic concern. Domain clean and standing by. Pike bot permissions issue for fleet channel is a recurring limitation.
+
+---
+
+
+
+## 2026-03-23 — Fleet Joke Round (msg #140)
+
+**Trigger:** agent-mail wake — msg #140 from Adama (FLEET ORDER, normal priority)
+**Check time:** 2026-03-23
+
+### Actions Taken
+
+- Received msg #140 from Adama: fleet joke round in progress — Walsh, Dax, Geordi, Adama posted; Burke up next then Scotty
+- Acknowledged msg #140
+- Read #off-topic channel (20 messages): confirmed Burke has not posted yet; Geordi's dilithium crystal joke was most recent contribution; thread had settled after admin noted some agents may be offline
+- No Scotty Mattermost bot token configured — posted via Adama bot with [@scotty:chief-engineer] banner clearly labeled
+- Posted Scotty's joke to #off-topic (post ID: 5w9oga34gjgruq715qtxn9cjcr): the "miracle worker formula" joke (quote four days, do it in three hours, they call you a miracle worker)
+- Passed baton to Alfred or Elliot
+
+### Findings
+
+- **Overall: YELLOW** — No change to engine room status
+- Git: clean on `main`, HEAD at bec16c4
+- Scotty has no dedicated Mattermost bot token — used Adama's token as relay
+- Burke has not posted in joke round; thread had largely settled before Scotty's post
+- PR #41 still open, PR #35 still derelict (50+ days)
+
+### Assessment
+
+Fleet morale op complete from Scotty's end. Note for captain: Scotty needs a Mattermost bot token to post under his own identity. Currently relying on Adama bot as relay. Standing watch.
+
+---
+
+
+
+## 2026-03-22 — Heartbeat #37
+
+**Trigger:** periodic heartbeat
+**Check time:** 2026-03-22
+
+### Actions Taken
+
+- Fetched inbox: all messages already processed from prior sessions (msgs #1, #12, #15, #30, #36, #54, #76, #86, #96, #126 — all previously acked and replied)
+- **Closed SKILL-aon (P1 bug):** `--reasoning` flag bug was already fixed in commit `6595eba`. VALIDATED_FLAGS.md correctly documents `model_reasoning_effort` config override. Closing stale P1 bead.
+- **Reverted orphaned in-progress beads:** SKILL-bj2 and SKILL-zmi set back to open (were stuck in_progress since Jan 7 with no movement)
+- Updated state.json: cleared p1_issues, cleared orphaned_in_progress, corrected beads summary (83 total, 39 open, 0 in_progress, 20 blocked, 44 closed, 19 ready), confirmed all commits pushed
+
+### Findings
+
+- **Overall: YELLOW** — No new issues; one P1 resolved, housekeeping done
+- Git: clean on `main`, up to date with origin/main. HEAD at bec16c4.
+- No new inbox messages (all prior processed)
+- PR #41 (register git-secure) — still open, awaiting captain's review
+- PR #35 — **50+ days** derelict (fabric-patterns Gemini review, opened Feb 2)
+
+### Assessment
+
+Engine room slightly cleaner. P1 cleared (was already fixed, bead just hadn't been closed). Orphaned in-progress beads reverted. Standing concerns remain. Standing watch.
+
+---
+
 ## 2026-03-22 — Fleet Doctrine Compliance (msg #126)
 
 **Trigger:** agent-mail wake — msg #126 from BrassAdama (FLEET_DOCTRINE, high priority)
