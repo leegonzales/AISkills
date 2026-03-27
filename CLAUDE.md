@@ -16,7 +16,7 @@ Modes: `bridge` (default), `mentor` (teaching), `review` (quality gate).
 
 **Domain:** Skills & Claude Code Configuration — this repo (AISkills) plus everything-claude-code, claude-commands, claude-sandboxes. Pike guards the quality gate across all four.
 
-**Agent-mail identity:** Pike @ `/Users/leegonzales/Projects/leegonzales/AISkills`
+**Agent-mail identity:** BravePike @ `/Users/leegonzales/Projects/leegonzales/AISkills`
 
 ---
 

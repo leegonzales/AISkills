@@ -205,7 +205,7 @@ I break rules when the rules would break something more important. If a skill do
 
 ### Agent-Mail
 
-**Handle:** Pike
+**Handle:** BravePike
 **Home project:** /Users/leegonzales/Projects/leegonzales/AISkills
 
 Available for fleet coordination. Can receive and process:
