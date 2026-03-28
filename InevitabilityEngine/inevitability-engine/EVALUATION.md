@@ -1,8 +1,8 @@
 # Inevitability Engine - Skill Evaluation
 
 **Evaluated Against:** AISkills Evaluation Rubric v1.0
-**Date:** 2025-11-22
-**Evaluator:** Self-assessment using official rubric
+**Date:** 2026-03-28
+**Evaluator:** External review (v2.0 post-revision)
 
 ---
 
@@ -33,20 +33,23 @@
 - Example use cases in README
 - Deliverable templates for immediate use
 
-### Execution Quality (5/5)
-**Score: 5**
+### Execution Quality (4/5)
+**Score: 4**
 - ✅ Comprehensive framework with detailed protocols
 - ✅ Structured methodology produces consistent outputs
 - ✅ Quality checks and validation criteria included
 - ✅ Anti-patterns documented to prevent common mistakes
+- ⚠️ v1.0 had formula inconsistency across files (fixed in v2.0)
+- ⚠️ v1.0 had stale capability projections (now methodology-based in v2.0)
 
 **Evidence:**
-- 112KB of documentation
+- 130KB+ of documentation
 - Quality checklists in each phase
 - Sensitivity analysis for robustness
 - Red flags and anti-patterns documented
+- Formula now consistent (geometric mean) across all files
 
-**Category 1 Total: 25/25**
+**Category 1 Total: 24/25**
 
 ---
 
@@ -166,12 +169,13 @@ inevitability-engine/
 - Unreleased section for future features
 - Version numbering rules defined
 
-### Testing/Validation (4/5)
-**Score: 4**
+### Testing/Validation (3/5)
+**Score: 3**
 - ✅ Passes official validation script
 - ✅ Quality checklists in each phase
 - ✅ Success criteria defined
-- ⚠️ No automated test suite (not applicable for research framework)
+- ⚠️ No automated test suite for formula calculations
+- ⚠️ v1.0 shipped with inconsistent formulas across files (fixed in v2.0)
 - ✅ Validation rubrics for outputs
 
 **Evidence:**
@@ -292,21 +296,21 @@ inevitability-engine/
 
 | Category | Score | Max |
 |----------|-------|-----|
-| Core Value Proposition | 25 | 25 |
+| Core Value Proposition | 24 | 25 |
 | Documentation Quality | 20 | 20 |
 | Technical Structure | 20 | 20 |
-| Production Readiness | 14 | 15 |
+| Production Readiness | 13 | 15 |
 | Ecosystem Fit | 10 | 10 |
 | Innovation & Design | 10 | 10 |
-| **Subtotal** | **99** | **100** |
+| **Subtotal** | **97** | **100** |
 | **Bonus Points** | **+15** | **+15** |
-| **TOTAL** | **114** | **115** |
+| **TOTAL** | **112** | **115** |
 
 ---
 
 ## Quality Tier: EXCEPTIONAL (Tier 1)
 
-**Score: 114/115 (99%)**
+**Score: 112/115 (97%)**
 
 ### Tier 1 Criteria ✅
 - ✅ High value (unique strategic business framework)
@@ -317,19 +321,28 @@ inevitability-engine/
 
 **Strengths:**
 1. **Unique value**: Only systematic AI business opportunity framework in collection
-2. **Comprehensive**: 112KB of detailed protocols and templates
-3. **Innovative**: Novel scoring system and synthetic worker taxonomy
+2. **Comprehensive**: 130KB+ of detailed protocols and templates
+3. **Innovative**: Novel geometric-mean scoring system and 15-primitive synthetic worker taxonomy
 4. **Research-backed**: Grounded in established frameworks (Wardley, scaling laws)
-5. **Production-ready**: Passes validation, extensive quality checks
-6. **Well-integrated**: Clear integration with existing skills and Claude Code tools
+5. **Future-proof**: Methodology-based projections instead of static numbers; parameterized dates
+6. **Well-integrated**: Clear integration with existing skills, web search, archive search, and AI tools
+7. **Compound AI aware**: Business model canvas includes system architecture for multi-model designs
 
-### Minor Gaps (1 point deduction)
-- Could add automated test suite for calculation formulas (though not critical for research framework)
+### Issues Fixed in v2.0
+- Formula inconsistency (3 different formulas → 1 consistent geometric mean formula)
+- Static capability projections → methodology-based approach with refresh protocol
+- 10 synthetic worker primitives → 15 (added Code Developer, Browser Operator, Voice Agent, Data Pipeline Operator, Security Sentinel)
+- Hardcoded BetterUp/Catalyst references → parameterized organizational context
+- Hardcoded year references → `[current_year]` placeholders
+- Missing capability categories → added agentic coding, computer use, MCP, voice, compound AI
+- Inflated time estimates (40-50hr) → realistic AI-assisted estimates (13-23hr)
+- Added compound AI system architecture to business model canvas
+- Updated research protocol channels for modern sources (Brave Search, archive search, Hugging Face, etc.)
 
-### Recommendations
-1. ✅ No changes required - ready for immediate use
-2. Consider future: Calculation validation scripts for inevitability scoring
-3. Consider future: Example analysis notebooks or case studies
+### Remaining Recommendations
+1. Consider adding calculation validation scripts for inevitability scoring
+2. Consider adding worked case study examples with real research data
+3. Re-run evaluation after 6 months of active use to validate scoring calibration
 
 ---
 
@@ -341,15 +354,15 @@ inevitability-engine/
 - Codex Peer Review: ~95 points
 - Claimify: ~92 points
 
-**Inevitability Engine: 114 points**
+**Inevitability Engine v2.0: 112 points**
 
-Exceeds all benchmarks. Demonstrates exceptional quality across all dimensions.
+Strong score. v1.0 had significant formula consistency issues that warranted deductions; v2.0 resolves these while expanding the framework's scope and future-proofing its methodology.
 
 ---
 
 ## Conclusion
 
-The Inevitability Engine skill demonstrates **exceptional quality** and is ready for production use. It fills a critical gap in the AISkills collection by providing systematic business opportunity analysis for the AI era.
+The Inevitability Engine skill v2.0 demonstrates **exceptional quality** and is ready for production use. It fills a critical gap in the AISkills collection by providing systematic business opportunity analysis for the AI era. The v2.0 revision addresses formula consistency, stale projections, missing capability categories, and organization-specific coupling.
 
 **Status: ✅ APPROVED - Tier 1 (Exceptional)**
 
@@ -357,4 +370,4 @@ The Inevitability Engine skill demonstrates **exceptional quality** and is ready
 
 ---
 
-Built for AISkills quality assurance | Evaluation Date: 2025-11-22
+Built for AISkills quality assurance | Evaluation Date: 2026-03-28

@@ -6,7 +6,7 @@
 
 ## Step 3.1: Define Synthetic Worker Primitives
 
-**10 atomic job functions that become commoditized:**
+**15 atomic job functions that become commoditized:**
 
 ### 1. Continuous Monitor
 **Job description**: Watches systems, processes, or information sources; alerts on anomalies, changes, or threshold crossings.
@@ -45,7 +45,7 @@
 - Competitive intelligence
 - Investment due diligence
 
-**Current feasibility**: MEDIUM-HIGH (6-month horizon, needs 500K context)
+**Current feasibility**: HIGH (production-ready with current context windows and tool use)
 
 ---
 
@@ -108,7 +108,7 @@
 - Code quality standards
 - Contract term verification
 
-**Current feasibility**: MEDIUM-HIGH (3-6 months with fine-tuning)
+**Current feasibility**: HIGH (production-ready with current capabilities)
 
 ---
 
@@ -171,7 +171,7 @@
 - Content production pipelines
 - Project task management
 
-**Current feasibility**: MEDIUM (6-12 months, needs reliable orchestration)
+**Current feasibility**: MEDIUM-HIGH (MCP + agent frameworks make orchestration production-viable)
 
 ---
 
@@ -213,7 +213,112 @@
 - Partnership management
 - Networking maintenance
 
-**Current feasibility**: MEDIUM-HIGH (6 months with long context)
+**Current feasibility**: HIGH (production-ready with persistent memory systems)
+
+---
+
+### 11. Code Developer
+**Job description**: Writes, tests, reviews, refactors, and deploys code. Handles bug fixes, feature implementation, test generation, and CI/CD pipeline management.
+
+**SLA template**:
+- Code quality: Passes linting + type checking
+- Test coverage: >80% for generated code
+- Review turnaround: <10 minutes
+- Bug fix accuracy: >85% first-attempt resolution
+- Security: No OWASP top-10 vulnerabilities introduced
+
+**Example applications**:
+- Automated bug fixing and triage
+- Test generation and maintenance
+- Code review and refactoring services
+- Migration automation (framework, language, API version)
+- Internal tooling development
+
+**Current feasibility**: HIGH (production-ready — Claude Code, Cursor, Devin shipping today)
+
+---
+
+### 12. Browser Operator
+**Job description**: Navigates web UIs, fills forms, scrapes structured data, interacts with legacy systems that lack APIs, and automates browser-based workflows.
+
+**SLA template**:
+- Navigation accuracy: >95%
+- Form fill accuracy: >98%
+- Data extraction quality: >97%
+- Error recovery: Automatic retry with fallback
+- Session management: Handles auth, cookies, CAPTCHAs (with human escalation)
+
+**Example applications**:
+- Legacy system data entry (EHR, government portals, ERPs)
+- Competitive price monitoring via web scraping
+- Automated form submissions (insurance, compliance, permits)
+- Web-based testing and QA
+- Data migration from systems without APIs
+
+**Current feasibility**: HIGH (computer use shipping in production)
+
+---
+
+### 13. Voice Agent
+**Job description**: Handles phone calls, participates in meetings, conducts real-time conversations, provides negotiation support, and manages voice-based workflows.
+
+**SLA template**:
+- Response latency: <500ms
+- Comprehension accuracy: >95%
+- Tone consistency: Matches brand/persona
+- Escalation triggers: Defined rule set for human handoff
+- Language support: Configurable per deployment
+
+**Example applications**:
+- Inbound/outbound sales calls (SDR replacement)
+- Appointment scheduling and confirmation
+- Customer support phone lines
+- Meeting participation and note-taking
+- Debt collection and follow-up calls
+
+**Current feasibility**: MEDIUM-HIGH (voice APIs maturing rapidly, production deployments emerging)
+
+---
+
+### 14. Data Pipeline Operator
+**Job description**: Manages ETL processes, transforms data between formats, monitors data quality, maintains schema consistency, and orchestrates data workflows.
+
+**SLA template**:
+- Pipeline uptime: >99.5%
+- Data quality score: >98% accuracy
+- Schema drift detection: Real-time alerts
+- Transformation accuracy: >99%
+- Recovery time: <15 minutes for pipeline failures
+
+**Example applications**:
+- Automated ETL pipeline management
+- Data quality monitoring and remediation
+- Schema migration and versioning
+- Cross-system data synchronization
+- Reporting data preparation
+
+**Current feasibility**: HIGH (code generation + tool use enables this today)
+
+---
+
+### 15. Security Sentinel
+**Job description**: Scans for vulnerabilities, analyzes security threats, responds to incidents, maintains audit trails, and ensures compliance with security policies.
+
+**SLA template**:
+- Scan coverage: 100% of codebase/infrastructure
+- False positive rate: <10%
+- Incident response time: <5 minutes for detection
+- Compliance reporting: Automated, continuous
+- Threat intelligence: Updated in real-time
+
+**Example applications**:
+- Continuous code security scanning (SAST/DAST)
+- Incident response triage and initial analysis
+- Compliance audit preparation (SOC2, ISO 27001)
+- Penetration testing assistance
+- Security policy enforcement
+
+**Current feasibility**: MEDIUM-HIGH (code analysis strong, real-time threat response emerging)
 
 ---
 
@@ -338,7 +443,33 @@ For each **P1 opportunity** from Phase 2:
 - Size: [how many potential customers]
 - Why them first: [strategic reasoning]
 
-### 7. Moat & Defensibility
+### 7. System Architecture (Compound AI Design)
+
+**Modern AI products are compound systems — not single models. Define the architecture:**
+
+**Model layer**:
+- **Frontier model**: [Which tasks require frontier reasoning? (e.g., complex synthesis, strategic analysis)]
+- **Specialized models**: [Which tasks use smaller/fine-tuned models? (e.g., classification, extraction, routing)]
+- **Model routing**: [How does the system decide which model handles which task?]
+
+**Agent layer**:
+- **Agent roles**: [What specialized agents exist? (e.g., research agent, validation agent, output agent)]
+- **Orchestration**: [How do agents coordinate? (sequential, parallel, hierarchical)]
+- **Tool integrations**: [What external tools/APIs do agents use? (MCP servers, databases, APIs)]
+
+**Quality layer**:
+- **AI-reviewing-AI**: [Where does one model check another's work?]
+- **Human-in-loop points**: [Where do humans intervene? (approval gates, quality sampling, edge cases)]
+- **Eval pipeline**: [Automated quality metrics, regression testing, drift detection]
+
+**Cost optimization**:
+- **Estimated cost per task**: [Break down inference costs by model tier]
+- **Cost at scale**: [How costs change at 10x, 100x volume]
+- **Optimization levers**: [Caching, batching, model distillation, prompt optimization]
+
+---
+
+### 8. Moat & Defensibility
 
 **Competitive advantages**:
 - Data flywheel: [how usage improves product]
@@ -353,7 +484,7 @@ For each **P1 opportunity** from Phase 2:
 - Relationships: [partnerships, integrations]
 - Regulatory: [compliance, certifications]
 
-### 8. Risk Factors
+### 9. Risk Factors
 
 **Technical risks**:
 - Capability assumptions (what if AI doesn't improve as projected?)
@@ -380,11 +511,13 @@ For each **P1 opportunity** from Phase 2:
 
 ### 3-Month Horizon (Today's Tech)
 
-**Unlocked capabilities**:
-- 200K context
-- 95%+ tool reliability
-- Multimodal (vision)
-- $3-5/1M tokens
+> **Note**: Refresh capability assumptions each run. The categories below remain stable; the specific capabilities that unlock them shift over time.
+
+**Unlocked capabilities** (update with Phase 1 research):
+- Current context windows, cost, tool reliability
+- Computer use / browser automation
+- Agentic coding
+- Multimodal (vision + audio)
 
 **Business categories**:
 1. **Document workspace agents**
@@ -402,6 +535,16 @@ For each **P1 opportunity** from Phase 2:
    - Competitive intelligence gathering
    - Market research automation
 
+4. **Agentic coding services**
+   - Automated bug triage and fixing
+   - Test generation and maintenance
+   - Code migration and modernization
+
+5. **Browser-based automation**
+   - Legacy system data entry
+   - Form submission automation
+   - Web scraping and monitoring
+
 **Example**: **SupportSynth** - Customer support triage agent
 - Reads incoming tickets, categorizes, routes to right team
 - Drafts response for human approval
@@ -414,11 +557,11 @@ For each **P1 opportunity** from Phase 2:
 
 ### 6-Month Horizon
 
-**Unlocked capabilities**:
-- 500K context
-- 97% tool reliability
-- $1-2/1M tokens
-- 4-8 hour planning
+**Unlocked capabilities** (update with Phase 1 research):
+- Larger context windows, lower costs
+- Multi-hour autonomous task execution
+- Voice agent production readiness
+- Improved multi-tool orchestration
 
 **Business categories**:
 1. **Research automation platforms**
@@ -435,6 +578,11 @@ For each **P1 opportunity** from Phase 2:
    - Long-form content generation
    - Presentation deck creation
    - Strategic memo writing
+
+4. **Voice agent services**
+   - Inbound/outbound sales calls
+   - Appointment scheduling
+   - Customer support phone lines
 
 **Example**: **LegalMind** - AI legal research associate
 - Researches case law across jurisdictions
@@ -579,6 +727,14 @@ For each **P1 opportunity** from Phase 2:
 - **Example**: Compliance, HR operations
 - **Margin**: 90-95% (pure software)
 - **Moat**: Regulatory expertise, compound integration
+
+### Pattern 5: Compound AI Platform
+- **Value prop**: Orchestrated system of specialized agents working together
+- **Pricing**: Platform fee + usage-based for agent compute
+- **Example**: End-to-end recruiting (sourcing agent + screening agent + scheduling agent + reporting agent)
+- **Margin**: 75-90% (higher infrastructure costs, but higher value capture)
+- **Moat**: Orchestration logic, inter-agent protocols, data flywheel across agents
+- **Key differentiator**: Multiple specialized models (small/fine-tuned for routine, frontier for complex) with intelligent routing — not just one model doing everything
 
 ---
 

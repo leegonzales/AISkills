@@ -11,53 +11,72 @@
 ```
 GENESIS → CUSTOM → PRODUCT → COMMODITY
 
-GENESIS (Novel, uncertain, requires research):
-- Real-time learning loops
-- Multi-agent coordination frameworks
-- Causal reasoning
-- True long-horizon planning (multi-day tasks)
-
-CUSTOM (Requires expertise, bespoke solutions):
-- Long-horizon planning (multi-hour tasks)
-- Inter-agent coordination
-- Domain-specific fine-tuning
-- Sophisticated eval frameworks
-- Computer use / tool orchestration
-
-PRODUCT (Productized but still differentiating):
-- Multimodal reasoning (vision + text)
-- Advanced RAG systems
-- Function calling / tool use
-- Context windows 100K-500K
-- Streaming outputs
+Update these positions each time you run the engine. Capabilities move
+rightward over time. The positions below are a starting template — validate
+against current benchmarks and announcements.
 
 COMMODITY (Standard, undifferentiated):
-- Basic text generation
-- Simple Q&A
-- Summarization
-- Translation
-- Code completion
-- Context windows <100K
+- Basic text generation, summarization, translation
+- Code completion and generation
+- Simple Q&A and classification
+- Context windows <200K
+- Streaming outputs
+
+PRODUCT (Productized but still differentiating):
+- Multimodal reasoning (vision + text + audio)
+- Function calling / tool use / MCP integration
+- Agentic coding (Claude Code, Cursor, Devin, etc.)
+- Computer use / browser automation
+- Advanced RAG systems
+- Context windows 200K-1M
+- Domain-specific fine-tuning
+
+CUSTOM (Requires expertise, bespoke solutions):
+- Multi-hour autonomous task execution
+- Multi-agent orchestration (Claude Agent SDK, etc.)
+- Extended thinking / chain-of-thought planning
+- Compound AI system design (model routing, specialized pipelines)
+- Voice/real-time conversational agents
+- Production eval frameworks
+- Cross-platform workflow orchestration
+
+GENESIS (Novel, uncertain, requires research):
+- Real-time continuous learning loops
+- Multi-day autonomous planning
+- Causal reasoning
+- Self-improving agent systems
+- General-purpose embodied AI
 ```
 
 **Research Protocol 1.1:**
 
-Execute these searches to understand current state:
+Execute these searches to understand current state. Replace `[current_year]` with the actual year.
 
 ```
-1. "GPT-4 Turbo capabilities benchmarks 2024"
-2. "Claude 3.5 Sonnet computer use production"
-3. "OpenAI GPT-5 predictions roadmap"
-4. "Anthropic Claude Opus 4 announcement"
-5. "LLM tool use reliability enterprise deployment"
-6. "agent orchestration frameworks production 2024"
-7. "multimodal AI capabilities vision reasoning"
+1. "[frontier model] capabilities benchmarks [current_year]"
+2. "Anthropic Claude capabilities announcement [current_year]"
+3. "OpenAI model capabilities [current_year]"
+4. "Google Gemini capabilities [current_year]"
+5. "LLM tool use MCP reliability enterprise deployment"
+6. "agent orchestration frameworks production [current_year]"
+7. "multimodal AI capabilities vision audio reasoning"
+8. "agentic coding tools comparison [current_year]"
+9. "computer use browser automation AI [current_year]"
+10. "AI voice agents production deployment"
 ```
+
+**Also check:**
+- Anthropic blog and documentation (anthropic.com)
+- OpenAI blog and API docs
+- Hugging Face model cards and leaderboards
+- AI benchmark aggregators (LMSYS Chatbot Arena, etc.)
+- Archive.org for historical capability snapshots
 
 **Analysis questions:**
 - What capabilities moved from custom → product in the last 12 months?
 - What's moving from product → commodity in the next 6 months?
 - What's emerging from genesis → custom?
+- What compound capabilities emerged (e.g., tool use + extended thinking)?
 
 **Output**: Evolution map showing current position and trajectory for each capability
 
@@ -69,27 +88,30 @@ Execute these searches to understand current state:
 
 **Framework**: constraint_removed → business_unlock mapping
 
-**Examples:**
+**Examples (historical — update with current constraint removals):**
 
-| Constraint (2023) | Removed (2024) | Business Unlock |
-|-------------------|----------------|-----------------|
-| 8K context limit | 128K-200K available | Full document comprehension, entire codebases |
-| Unreliable function calling | 95%+ accuracy | Production agent workflows |
-| $30/1M tokens | $3-5/1M tokens | High-volume automation economically viable |
-| Text-only | Multimodal (vision) | Screenshot analysis, design review, document OCR |
-| Brittle multi-step | Robust tool chains | End-to-end workflow automation |
+| Constraint (Prior Gen) | Removed (Current Gen) | Business Unlock |
+|------------------------|-----------------------|-----------------|
+| 8K context limit | 200K-2M available | Full document comprehension, entire codebases |
+| Unreliable function calling | MCP + tool use at production-grade | Standardized agent workflows across tools |
+| $30/1M tokens | $0.50-3/1M for frontier models | High-volume automation economically viable |
+| Text-only | Multimodal (vision + audio) | Screenshot analysis, design review, voice agents |
+| Brittle multi-step | Multi-hour autonomous agent execution | End-to-end workflow automation |
+| No computer use | Browser automation, GUI interaction | Web scraping, form filling, legacy system integration |
+| Manual coding only | Agentic coding (Claude Code, etc.) | Code generation, testing, deployment as a service |
 
 **Research Protocol 1.2:**
 
 Execute these searches to understand constraint removals:
 
 ```
-1. "what can GPT-4 do that GPT-3.5 couldn't"
-2. "Claude 3.5 vs Claude 3 capabilities comparison"
-3. "LLM context window evolution 2023 2024"
-4. "AI tool use reliability improvements"
-5. "inference cost reduction trends 2024"
-6. "function calling accuracy benchmarks"
+1. "[current frontier model] vs [previous gen] capabilities comparison"
+2. "LLM context window evolution [current_year-1] [current_year]"
+3. "AI tool use MCP reliability improvements"
+4. "inference cost reduction trends [current_year]"
+5. "agentic coding capabilities improvements"
+6. "computer use AI production readiness"
+7. "AI voice agent improvements [current_year]"
 ```
 
 **For each constraint removal, ask:**
@@ -119,29 +141,40 @@ Execute these searches to understand constraint removals:
 3. **Observed rates**: Track improvement velocity over 6-12 months
 4. **Extrapolate conservatively**: Use lower bound of projections
 
-**Capability timeline template:**
+**Capability timeline template (fill in with current research):**
 
-|Horizon|Context Window|Cost/1M tokens|Tool Reliability|Multimodal|Planning Horizon|
-|-------|--------------|--------------|----------------|----------|----------------|
-|**Today**|128K-200K|$3-5|95%|Vision good|30min-2hr|
-|**3 months**|200K-300K|$2-3|96%|Vision + audio|2-4hr|
-|**6 months**|500K|$1-2|97%|Native multimodal|4-8hr|
-|**12 months**|1M|$0.50-1|98%|Real-time video|8-16hr|
-|**18 months**|2M|$0.25-0.50|98.5%|Full multimedia|16-24hr|
-|**24 months**|5M+|$0.10-0.25|99%|Seamless modalities|24-48hr+|
+> **Instructions**: Research current values for "Today" row, then project forward using observed improvement rates, announced roadmaps, and scaling law projections. Be conservative — use lower-bound estimates.
+
+|Horizon|Context Window|Cost/1M tokens (input)|Tool Reliability|Agentic Autonomy|Multimodal|
+|-------|--------------|---------------------|----------------|----------------|----------|
+|**Today**|[research]|[research]|[research]|[research]|[research]|
+|**3 months**|[project]|[project]|[project]|[project]|[project]|
+|**6 months**|[project]|[project]|[project]|[project]|[project]|
+|**12 months**|[project]|[project]|[project]|[project]|[project]|
+|**18 months**|[project]|[project]|[project]|[project]|[project]|
+|**24 months**|[project]|[project]|[project]|[project]|[project]|
 
 **Research Protocol 1.3:**
 
 Execute these searches for forecasting:
 
 ```
-1. "scaling laws LLM compute tokens chinchilla"
-2. "anthropic claude context window roadmap 2025"
-3. "openai gpt capabilities 2025 predictions"
-4. "inference cost trends projection 2025"
-5. "AI agent planning horizon improvements"
-6. "LLM reliability improvement rate"
+1. "scaling laws LLM compute inference efficiency [current_year]"
+2. "anthropic claude roadmap capabilities [current_year]"
+3. "openai model capabilities predictions [current_year]"
+4. "inference cost trends projection [current_year] [current_year+1]"
+5. "AI agent planning horizon autonomous improvements"
+6. "LLM reliability improvement rate production"
+7. "MCP tool integration ecosystem growth"
+8. "compound AI systems architecture trends"
 ```
+
+**Additional sources for forecasting:**
+- Epoch AI (epochai.org) — compute trends, scaling analysis
+- AI Index Report (Stanford HAI) — annual capability survey
+- Frontier model provider blogs and changelogs
+- Hugging Face Open LLM Leaderboard — benchmark trajectories
+- Archive.org snapshots of benchmark sites for historical comparison
 
 **Capability unlock mapping:**
 
@@ -189,7 +222,7 @@ For each horizon, identify:
 
 For each segment:
 ```
-1. "[segment] AI automation opportunities 2024"
+1. "[segment] AI automation opportunities [current_year]"
 2. "[segment] workflow bottlenecks"
 3. "[segment] software spending priorities"
 4. "AI capabilities for [segment] use cases"

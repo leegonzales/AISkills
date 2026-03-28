@@ -15,7 +15,7 @@ When this happens, the business **will** come into existence. The only question 
 ## The Inevitability Formula
 
 ```
-Inevitability Score = (E × T × M) / F
+Inevitability = (E × T × M)^(1/3) - (F / 3)
 
 Where:
 E = Economic Pressure [0-10]
@@ -23,18 +23,19 @@ T = Technical Feasibility [0-10]
 M = Market Readiness [0-10]
 F = Adoption Friction [1-10]
 
-Interpretation:
-- Score > 30: Inevitable within 12 months
-- Score > 25: Inevitable within 18 months
-- Score > 20: Likely within 24 months
-- Score > 15: Possible within 24 months
-- Score < 15: Not inevitable in this horizon
+Interpretation (0-10 scale):
+- > 7.5: Inevitable NOW — build immediately (3-6 months)
+- 6-7.5: Highly inevitable — prioritize and plan (6-12 months)
+- 4.5-6: Likely — monitor closely, prepare (12-18 months)
+- 3-4.5: Possible — track, wait for catalyst (18-24+ months)
+- < 3: Unlikely — revisit assumptions (24+ months or never)
 ```
 
 **Why this formula works:**
-- **Multiplicative numerator**: All three factors must be present (if any is zero, score is zero)
-- **Divisive friction**: High barriers can delay even high-pressure opportunities
-- **Non-linear**: Small improvements in any factor dramatically change inevitability
+- **Geometric mean (cube root of product)**: All three factors must be present — if any is zero, score is zero. Preserves the multiplicative requirement without producing unmanageable ranges.
+- **Linear friction penalty**: High barriers delay even high-potential opportunities, but don't dominate the score.
+- **0-10 output scale**: Intuitive scoring. Perfect opportunity (10,10,10,1) = 9.67. Strong opportunity with moderate friction (8,8,8,5) = 6.33.
+- **Sensitivity**: Small improvements in any factor produce meaningful but proportional score changes.
 
 ---
 
@@ -316,55 +317,13 @@ T = 9 (85% automatable)
 M = 8 (strong budget, moderate behavior readiness)
 F = 5 (moderate friction)
 
-Inevitability = (E × T × M) / F
-Inevitability = (10 × 9 × 8) / 5
-Inevitability = 720 / 5
-Inevitability = 144
+Inevitability = (E × T × M)^(1/3) - (F / 3)
+Inevitability = (10 × 9 × 8)^(1/3) - (5 / 3)
+Inevitability = (720)^(1/3) - 1.67
+Inevitability = 8.96 - 1.67
+Inevitability = 7.29
 
-Wait, that's too high. The formula needs recalibration...
-```
-
-### REVISED FORMULA
-
-The issue is that raw multiplication creates scores that are too high. Let's use a normalized version:
-
-```
-Inevitability = (E/10 × T/10 × M/10) / (F/10) × 100
-
-This gives scores from 0-100
-```
-
-**Recalculated:**
-```
-Inevitability = (1.0 × 0.9 × 0.8) / 0.5 × 100
-Inevitability = 0.72 / 0.5 × 100
-Inevitability = 1.44 × 100
-Inevitability = 144
-
-Still too high...
-```
-
-### FINAL CORRECTED FORMULA
-
-```
-Inevitability = ((E + T + M) / 3) - (F / 2)
-
-This creates a 0-10 scale where:
-- Perfect opportunity: (10 + 10 + 10) / 3 - (1 / 2) = 9.5
-- Threshold for inevitable: > 7
-- Likely: 5-7
-- Possible: 3-5
-- Unlikely: < 3
-```
-
-**Legal Research Final Score:**
-```
-Inevitability = ((10 + 9 + 8) / 3) - (5 / 2)
-Inevitability = (27 / 3) - 2.5
-Inevitability = 9.0 - 2.5
-Inevitability = 6.5
-
-Interpretation: LIKELY inevitable within 6-12 months
+Interpretation: HIGHLY INEVITABLE within 6-12 months
 ```
 
 ---
@@ -373,11 +332,11 @@ Interpretation: LIKELY inevitable within 6-12 months
 
 | Score | Interpretation | Timing | Action |
 |-------|----------------|--------|--------|
-| **8.5-10** | Inevitable NOW | 3-6 months | Drop everything, build immediately |
-| **7-8.5** | Highly inevitable | 6-12 months | Prioritize, start planning |
-| **5-7** | Likely inevitable | 12-18 months | Monitor closely, prepare |
-| **3-5** | Possible | 18-24+ months | Track, wait for catalyst |
-| **<3** | Unlikely | 24+ months or never | Revisit assumptions |
+| **> 7.5** | Inevitable NOW | 3-6 months | Drop everything, build immediately |
+| **6-7.5** | Highly inevitable | 6-12 months | Prioritize, start planning |
+| **4.5-6** | Likely inevitable | 12-18 months | Monitor closely, prepare |
+| **3-4.5** | Possible | 18-24+ months | Track, wait for catalyst |
+| **< 3** | Unlikely | 24+ months or never | Revisit assumptions |
 
 ---
 
@@ -392,8 +351,8 @@ Interpretation: LIKELY inevitable within 6-12 months
 - Behavior readiness slower (M = 6 instead of 8)
 
 ```
-Inevitability = ((10 + 7 + 6) / 3) - 2.5 = 7.67 - 2.5 = 5.17
-Still LIKELY but delayed
+Inevitability = (10 × 7 × 6)^(1/3) - 5/3 = (420)^(1/3) - 1.67 = 7.49 - 1.67 = 5.82
+Still LIKELY but delayed to 12-18 months
 ```
 
 **Scenario 2: Optimistic**
@@ -401,8 +360,8 @@ Still LIKELY but delayed
 - Integration easier than expected (F = 3 instead of 5)
 
 ```
-Inevitability = ((10 + 9 + 8) / 3) - 1.5 = 9.0 - 1.5 = 7.5
-HIGHLY inevitable, earlier timeline
+Inevitability = (10 × 9 × 8)^(1/3) - 3/3 = 8.96 - 1.0 = 7.96
+INEVITABLE NOW, accelerated timeline
 ```
 
 **Scenario 3: Competitive pressure**
@@ -410,8 +369,8 @@ HIGHLY inevitable, earlier timeline
 - Market validation → Reduces trust gap (F = 4)
 
 ```
-Inevitability = ((10 + 9 + 9) / 3) - 2.0 = 9.33 - 2.0 = 7.33
-HIGHLY inevitable, market heating up
+Inevitability = (10 × 9 × 9)^(1/3) - 4/3 = (810)^(1/3) - 1.33 = 9.32 - 1.33 = 7.99
+INEVITABLE NOW, market heating up
 ```
 
 ---
@@ -422,18 +381,18 @@ HIGHLY inevitable, market heating up
 
 | Opportunity | E | T | M | F | Score | Timing | Priority |
 |-------------|---|---|---|---|-------|--------|----------|
-| Legal research AI | 10 | 9 | 8 | 5 | 6.5 | 6-12mo | P1 |
-| Financial data aggregation | 8 | 9 | 9 | 3 | 7.17 | 3-6mo | P1 |
-| Meeting synthesis | 6 | 10 | 9 | 2 | 7.5 | 3mo | P1 |
-| Design feedback tracker | 5 | 7 | 6 | 4 | 4.0 | 12-18mo | P2 |
-| Code review automation | 7 | 8 | 8 | 3 | 6.17 | 6-12mo | P2 |
+| Legal research AI | 10 | 9 | 8 | 5 | 7.29 | 6-12mo | P1 |
+| Financial data aggregation | 8 | 9 | 9 | 3 | 7.67 | 3-6mo | P1 |
+| Meeting synthesis | 6 | 10 | 9 | 2 | 7.47 | 3-6mo | P1 |
+| Design feedback tracker | 5 | 7 | 6 | 4 | 4.61 | 12-18mo | P2 |
+| Code review automation | 7 | 8 | 8 | 3 | 6.64 | 6-12mo | P2 |
 
 **Portfolio insights:**
-- Meeting synthesis: Highest score, move now
-- Financial data aggregation: High score, low friction
-- Legal research: Strong fundamentals, moderate friction
-- Design feedback: Possible but wait for catalyst
-- Code review: Solid, competitive market
+- Financial data aggregation: Highest score (7.67), low friction — move now
+- Meeting synthesis: Strong score (7.47), very low friction — move now
+- Legal research: Strong fundamentals (7.29), moderate friction holds it back
+- Code review: Solid (6.64), competitive but viable
+- Design feedback: Possible (4.61), wait for catalyst
 
 ---
 
@@ -444,23 +403,23 @@ HIGHLY inevitable, market heating up
 ### Legal Research: Horizon Sensitivity
 
 **Today:**
-- T = 6 (only 60% automatable with 128K context)
-- Score = ((10 + 6 + 8) / 3) - 2.5 = 5.5 (LIKELY but marginal)
+- T = 6 (only 60% automatable with current context)
+- Score = (10 × 6 × 8)^(1/3) - 5/3 = (480)^(1/3) - 1.67 = 7.83 - 1.67 = 6.16 (HIGHLY INEVITABLE, borderline)
 
 **3 months:**
-- T = 7 (70% automatable with 200K context)
-- Score = ((10 + 7 + 8) / 3) - 2.5 = 5.83 (LIKELY)
+- T = 7 (70% automatable with larger context)
+- Score = (10 × 7 × 8)^(1/3) - 5/3 = (560)^(1/3) - 1.67 = 8.24 - 1.67 = 6.57 (HIGHLY INEVITABLE)
 
 **6 months:**
-- T = 9 (85% automatable with 500K context)
+- T = 9 (85% automatable)
 - M = 8 (more awareness)
-- Score = ((10 + 9 + 8) / 3) - 2.5 = 6.5 (LIKELY)
+- Score = (10 × 9 × 8)^(1/3) - 5/3 = 8.96 - 1.67 = 7.29 (HIGHLY INEVITABLE)
 
 **12 months:**
-- T = 10 (95% automatable with 1M context)
+- T = 10 (95% automatable)
 - M = 9 (proven solutions in market)
 - F = 4 (trust gap narrowing)
-- Score = ((10 + 10 + 9) / 3) - 2.0 = 7.67 (HIGHLY INEVITABLE)
+- Score = (10 × 10 × 9)^(1/3) - 4/3 = 9.65 - 1.33 = 8.32 (INEVITABLE NOW)
 
 **Insight: Opportunity strengthens over time → Early mover advantage**
 

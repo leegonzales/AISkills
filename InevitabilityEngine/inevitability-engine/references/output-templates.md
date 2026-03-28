@@ -63,8 +63,8 @@ The AI capability landscape is evolving across three key dimensions:
 1. [Opportunity name]: [Why wait and what to watch]
 
 ### Resource Allocation
-- **Internal tools**: [Opportunities that fit BetterUp strategy]
-- **Catalyst offerings**: [Opportunities that are packageable/repeatable]
+- **Internal tools**: [Opportunities that fit organizational strategy]
+- **Packaged offerings**: [Opportunities that are packageable/repeatable]
 - **Potential spin-outs**: [Venture-scale opportunities]
 ```
 
@@ -287,7 +287,7 @@ The AI capability landscape is evolving across three key dimensions:
 - Rationale: [Why this score]
 
 #### Final Score
-**Inevitability = ([E + T + M] / 3) - (F / 2) = [X.X]**
+**Inevitability = (E × T × M)^(1/3) - (F / 3) = [X.X]**
 
 **Interpretation**: [Inevitable NOW / Highly inevitable / Likely / Possible / Unlikely]
 **Timeline**: [When this becomes inevitable]
@@ -327,7 +327,7 @@ The AI capability landscape is evolving across three key dimensions:
 
 #### For [Organization]
 
-**Recommended action**: [Internal tool / Catalyst offering / Spin-out / Pass]
+**Recommended action**: [Internal tool / Packaged offering / Spin-out / Pass]
 
 **Rationale**:
 - [Reason 1]
@@ -529,7 +529,7 @@ Key insight: [What becomes possible that wasn't before]
 **[Inevitable NOW / Highly inevitable / Likely]** | Timeline: [X] months
 
 ## Recommended Action
-[Internal tool / Catalyst offering / Spin-out / Pass]
+[Internal tool / Packaged offering / Spin-out / Pass]
 
 **Next step**: [Specific action]
 ```

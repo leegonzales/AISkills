@@ -12,10 +12,12 @@ A research protocol for discovering novel software businesses that become inevit
 
 **Thesis**: We're witnessing the **first-ever inversion of the tool adaptation curve**. Historically, humans adapted to tools faster than tools evolved. Now, tools (LLMs) evolve faster than humans can adapt. This creates a **capability overhang** that unlocks previously impossible business models.
 
-**Three forcing functions:**
-1. **Context window explosion** (4K → 128K → 2M tokens in 24 months)
-2. **Inference cost collapse** (~90% reduction/year)
-3. **Tool-use reliability** (function calling: 60% → 95%+ in 18 months)
+**Five forcing functions:**
+1. **Context window explosion** (4K → 200K → 2M tokens, continuing to grow)
+2. **Inference cost collapse** (~70-90% reduction/year for equivalent capability)
+3. **Tool-use reliability** (function calling, MCP, computer use reaching production-grade)
+4. **Agentic autonomy** (multi-hour autonomous task execution, multi-agent orchestration)
+5. **Compound AI systems** (model routing, specialized + frontier models working together)
 
 **Result**: The "synthetic worker" isn't metaphor—it's **infrastructure**. Companies will hire, fire, eval, and SLA these entities. The opportunity lies in **tooling, governance, coordination, and domain specialization** of this new workforce layer.
 
@@ -49,11 +51,12 @@ Load `references/capability-mapping.md` for detailed protocol.
 3. Project forward using scaling laws and roadmaps
 4. Build capability unlock timeline
 
-**Key research queries:**
-- "GPT-4 capabilities vs GPT-5 predictions site:openai.com OR site:anthropic.com"
-- "context window roadmap LLM 2024 2025"
-- "agent orchestration frameworks production deployment"
-- "inference cost trends 2024 2025"
+**Key research queries** (replace `[current_year]` with actual year):
+- "frontier LLM capabilities benchmarks [current_year] site:openai.com OR site:anthropic.com"
+- "context window roadmap LLM [current_year]"
+- "agent orchestration frameworks MCP production deployment"
+- "inference cost trends [current_year]"
+- "agentic coding computer use capabilities [current_year]"
 
 **Output**: Capability timeline showing what becomes automatable at each horizon
 
@@ -79,8 +82,8 @@ Load `references/opportunity-discovery.md` for detailed protocol.
 4. Manual workarounds
 5. Budget allocated to solutions
 
-**Key research pattern:**
-- "[segment] biggest time wasters 2024"
+**Key research pattern** (replace `[current_year]` with actual year):
+- "[segment] biggest time wasters [current_year]"
 - "[segment] workflow automation pain points"
 - "[segment] AI adoption barriers"
 - "site:reddit.com [segment] productivity challenges"
@@ -137,7 +140,7 @@ Load `references/validation-refinement.md` for detailed protocol.
 **For top opportunities:**
 
 1. **Search existing solutions**
-   - "[business idea] startup 2024"
+   - "[business idea] startup [current_year]"
    - "[business idea] AI tool"
    - Assess: AI-native or bolt-on?
 
@@ -146,7 +149,7 @@ Load `references/validation-refinement.md` for detailed protocol.
    - Count mentions, upvotes, engagement
 
 3. **Estimate TAM/SAM**
-   - "[segment] market size 2024"
+   - "[segment] market size [current_year]"
    - "[job function] salary [geography]"
    - Calculate: # workers × % replaceable × willingness to pay
 
@@ -165,19 +168,26 @@ Load `references/validation-refinement.md` for detailed protocol.
 
 Load `references/inevitability-framework.md` for detailed formulas and examples.
 
-**Inevitability formula:**
+**Inevitability formula (geometric mean with friction penalty):**
 
 ```
-Inevitability = (Economic_Pressure × Technical_Feasibility × Market_Readiness) / Adoption_Friction
+Inevitability = (E × T × M)^(1/3) - (F / 3)
 
 Where:
-E = (current_cost / ai_cost) - 1  [scale 0-10]
-T = % of workflow automatable  [scale 0-10]
-M = (existing_budget + behavior_change_readiness) / 2  [scale 0-10]
-F = integration_cost + trust_gap + regulatory_barrier  [scale 1-10]
+E = Economic Pressure [0-10]     — (current_cost / ai_cost) mapped to scale
+T = Technical Feasibility [0-10] — % of workflow automatable × 10
+M = Market Readiness [0-10]      — (existing_budget + behavior_readiness) / 2
+F = Adoption Friction [1-10]     — integration_cost + trust_gap + regulatory_barrier
+
+Interpretation (0-10 scale):
+- > 7.5: Inevitable NOW — build immediately (3-6 months)
+- 6-7.5: Highly inevitable — prioritize and plan (6-12 months)
+- 4.5-6: Likely — monitor closely, prepare (12-18 months)
+- 3-4.5: Possible — track, wait for catalyst (18-24+ months)
+- < 3: Unlikely — revisit assumptions (24+ months or never)
 ```
 
-**Threshold**: Score > 25 = inevitable within stated horizon
+**Why geometric mean?** All three factors (E, T, M) must be present — if any is zero, the score is zero. But unlike raw multiplication, the cube root keeps scores on a 0-10 scale. Friction acts as a linear penalty that delays even high-potential opportunities.
 
 **For each opportunity:**
 1. Calculate economic pressure (cost ratio)
@@ -185,9 +195,10 @@ F = integration_cost + trust_gap + regulatory_barrier  [scale 1-10]
 3. Gauge market readiness (budget + willingness)
 4. Estimate adoption friction (barriers)
 5. Compute score
-6. Rank by inevitability
+6. Run sensitivity analysis (pessimistic/optimistic scenarios)
+7. Rank by inevitability
 
-**Output**: Ranked list of opportunities with inevitability scores
+**Output**: Ranked list of opportunities with inevitability scores and sensitivity ranges
 
 ---
 
@@ -231,38 +242,73 @@ Load `references/output-templates.md` for formatting examples.
 
 ### Wardley Evolution Axis
 
-Map capabilities across evolution stages:
+Map capabilities across evolution stages. Update positions each time you run the engine.
 
 ```
 GENESIS → CUSTOM → PRODUCT → COMMODITY
-├─ Multimodal reasoning (custom→product)
-├─ Long-horizon planning (genesis→custom)
-├─ Reliable tool orchestration (product→commodity)
-├─ Real-time learning loops (genesis)
-├─ Inter-agent coordination (genesis→custom)
-├─ Domain-specific fine-tuning (custom→product)
-└─ Eval frameworks (custom→product)
+
+COMMODITY (Standard, undifferentiated):
+├─ Basic text generation, summarization, translation
+├─ Code completion and generation
+├─ Simple Q&A and classification
+└─ Context windows <200K
+
+PRODUCT (Productized, differentiating):
+├─ Multimodal reasoning (vision + text + audio)
+├─ Function calling / tool use / MCP integration
+├─ Agentic coding (Claude Code, Cursor, etc.)
+├─ Computer use / browser automation
+├─ Advanced RAG systems
+├─ Context windows 200K-1M
+└─ Domain-specific fine-tuning
+
+CUSTOM (Requires expertise, bespoke):
+├─ Multi-hour autonomous task execution
+├─ Multi-agent orchestration
+├─ Extended thinking / chain-of-thought planning
+├─ Compound AI system design (model routing, specialized pipelines)
+├─ Voice/real-time conversational agents
+├─ Eval frameworks for production AI
+└─ Cross-platform workflow orchestration
+
+GENESIS (Novel, uncertain, research):
+├─ Real-time continuous learning loops
+├─ Multi-day autonomous planning
+├─ Causal reasoning
+├─ Self-improving agent systems
+└─ General-purpose embodied AI
 ```
 
-Load `references/wardley-mapping.md` for detailed methodology.
+> **Refresh protocol**: Run Phase 1 capability mapping research to update positions. Capabilities move rightward (toward commodity) over time — track which ones crossed thresholds since last run.
 
 ---
 
 ### Time-Horizon Capability Unlocks
 
-|Horizon|Context|Cost/1M tokens|Tool Reliability|New Unlock|
-|-------|-------|--------------|----------------|----------|
-|**3mo**|200K|$0.15|96%|Real-time document workspace agents|
-|**6mo**|500K|$0.08|97%|Multi-hour autonomous research|
-|**12mo**|1M|$0.04|98%|Cross-platform orchestration|
-|**18mo**|2M|$0.02|98.5%|Long-context strategic planning|
-|**24mo**|5M+|$0.01|99%|Synthetic PM/analyst roles|
+> **Important**: The table below is an **example template**. Refresh projections each time you run the engine by executing Phase 1 research. AI capabilities evolve in jumps, not smooth curves — use current benchmarks, announced roadmaps, and observed improvement rates.
+
+**Methodology for building this table:**
+1. Check frontier model announcements (Anthropic, OpenAI, Google, Meta)
+2. Track benchmark improvements over trailing 6-12 months
+3. Project conservatively using lower-bound estimates
+4. Note capability threshold crossings (when something goes from "demo" to "production-grade")
+5. Map each unlock to business categories it enables
+
+|Horizon|Key Capability Dimensions to Track|Business Category Unlocked|
+|-------|----------------------------------|--------------------------|
+|**3mo**|Context window, cost/token, tool reliability, computer use|Document agents, routine automation, monitoring|
+|**6mo**|Multi-hour autonomy, multi-tool orchestration, voice|Research platforms, complex document processing, voice agents|
+|**12mo**|Cross-platform orchestration, model routing, fine-tuning access|Synthetic operations teams, compound AI products|
+|**18mo**|Extended planning horizons, multi-agent coordination|Executive co-pilots, strategic analysis services|
+|**24mo**|Near-human strategic reasoning, full multimedia|Synthetic departments, autonomous business units|
+
+**For each horizon, research and fill in:** context window size, cost/1M tokens (input & output), tool reliability %, planning horizon duration, and new modalities available.
 
 ---
 
 ### Synthetic Worker Primitives
 
-**10 atomic job functions that become commoditized:**
+**15 atomic job functions that become commoditized:**
 
 1. **Continuous Monitor** - Watches systems, alerts on anomaly
 2. **Research Synthesizer** - Gathers sources, summarizes, cites
@@ -274,6 +320,11 @@ Load `references/wardley-mapping.md` for detailed methodology.
 8. **Workflow Orchestrator** - Manages multi-step processes
 9. **Analysis Generator** - Runs reports, identifies patterns
 10. **Relationship Maintainer** - Tracks context, personalizes outreach
+11. **Code Developer** - Writes, tests, reviews, deploys code
+12. **Browser Operator** - Navigates web UIs, fills forms, scrapes data, interacts with legacy systems
+13. **Voice Agent** - Handles calls, meetings, real-time conversation, negotiation support
+14. **Data Pipeline Operator** - ETL, data transformation, quality monitoring, schema management
+15. **Security Sentinel** - Vulnerability scanning, threat analysis, incident response, audit trails
 
 Cross these with target segments to generate business ideas.
 
@@ -283,10 +334,13 @@ Cross these with target segments to generate business ideas.
 
 Load `references/research-protocols.md` for complete query library.
 
+> **Research channels**: Use all available tools — web search (Brave, Google), web fetch for deep-reading pages, archive search for historical snapshots, and direct site queries. Replace `[current_year]` with the actual year.
+
 **Capability tracking:**
-- "GPT-5 capabilities predictions 2025"
-- "Claude context window roadmap"
-- "LLM tool use reliability production"
+- "frontier model capabilities announcements [current_year]"
+- "Claude Opus Sonnet capabilities [current_year]"
+- "LLM tool use MCP reliability production"
+- "agentic coding computer use benchmarks [current_year]"
 
 **Pain point mining:**
 - "[segment] workflow inefficiencies reddit"
@@ -294,13 +348,14 @@ Load `references/research-protocols.md` for complete query library.
 - "[job function] time tracking studies"
 
 **Market validation:**
-- "[business idea] startup funding 2024"
+- "[business idea] startup funding [current_year]"
 - "[segment] software spending trends"
 - "[task] automation ROI case studies"
 
 **Competitive intelligence:**
-- "AI [task] automation companies"
+- "AI [task] automation companies [current_year]"
 - "[competitor] customer reviews G2 Capterra"
+- "[competitor] alternatives [current_year]"
 
 ---
 
@@ -352,21 +407,23 @@ For each high-value task:
 
 ## Execution Checklist
 
-When running full discovery process:
+When running full discovery process (AI-assisted estimates):
 
-- [ ] Phase 1: Capability Frontier Mapping (2-3 hours)
-- [ ] Phase 2: Segment-Problem Discovery (8-10 hours, 15 segments)
-- [ ] Phase 3: Business Model Generation (6-8 hours, top 25 opportunities)
-- [ ] Phase 4: Market Validation (10-12 hours, top 50 opportunities)
-- [ ] Phase 5: Inevitability Scoring (2-3 hours)
-- [ ] Phase 6: Synthesis & Output (8-10 hours)
+- [ ] Phase 1: Capability Frontier Mapping (1-2 hours)
+- [ ] Phase 2: Segment-Problem Discovery (3-5 hours, 15 segments)
+- [ ] Phase 3: Business Model Generation (2-4 hours, top 25 opportunities)
+- [ ] Phase 4: Market Validation (4-6 hours, top 50 opportunities)
+- [ ] Phase 5: Inevitability Scoring (1-2 hours)
+- [ ] Phase 6: Synthesis & Output (2-4 hours)
 
-**Total estimated research time: 40-50 hours**
+**Total estimated research time: 13-23 hours** (AI-assisted with web search, web fetch, and archive search)
+
+> **Note**: These estimates assume an AI agent with access to web search, web fetch, and archive search tools running each phase with human review at key decision points. Purely manual execution would take 2-3x longer.
 
 Can execute in iterations:
-- **Sprint 1**: Phases 1-2 (discover landscape)
-- **Sprint 2**: Phases 3-4 (generate and validate)
-- **Sprint 3**: Phases 5-6 (score and synthesize)
+- **Sprint 1**: Phases 1-2 (discover landscape) — 4-7 hours
+- **Sprint 2**: Phases 3-4 (generate and validate) — 6-10 hours
+- **Sprint 3**: Phases 5-6 (score and synthesize) — 3-6 hours
 
 ---
 
@@ -386,7 +443,7 @@ Can execute in iterations:
 - Prefer businesses that scale with inference, not headcount
 
 **Success criteria:**
-- At least 10 opportunities with inevitability score > 30
+- At least 10 opportunities with inevitability score > 6.0
 - At least 3 opportunities actionable within 90 days
 - At least 1 opportunity worth spinning out as venture-backed startup
 - Clear time-to-revenue estimates for each
@@ -395,10 +452,12 @@ Can execute in iterations:
 
 ## Integration Points
 
-**With web research capabilities:**
-- Use WebSearch extensively for pain point mining
-- Use WebFetch for detailed competitive analysis
-- Use Grep for local codebase capability assessment
+**With research capabilities:**
+- Use **web search** (Brave Search, Google) extensively for pain point mining and market validation
+- Use **web fetch** for deep-reading articles, extracting structured data, and competitive analysis
+- Use **archive search** (archive.org) for historical capability snapshots and tracking improvement over time
+- Use **Grep** for local codebase capability assessment
+- Use the **AI model's own knowledge** as a research source for capability assessments and industry synthesis
 
 **With other skills:**
 - **process-mapper**: Validate automation feasibility for specific workflows
@@ -406,9 +465,11 @@ Can execute in iterations:
 - **strategy-to-artifact**: Convert opportunity analysis into pitch decks
 
 **With business context:**
-- Flag opportunities with **BetterUp synergy** (internal tool → external product)
-- Highlight **Catalyst packaging potential** (repeatable, teachable, scalable)
+- Flag opportunities with **organizational synergy** (internal tool → external product)
+- Highlight **consulting/packaging potential** (repeatable, teachable, scalable)
 - Identify unfair advantages from domain expertise
+
+> **Configuration**: Before running, define your organizational context in the prompt — company name, strategic priorities, and decision framework (build internally / package as offering / spin out / open source). This enables personalized strategic recommendations throughout.
 
 ---
 
@@ -468,7 +529,7 @@ Response:
 ## Success Metrics
 
 **Research succeeds when:**
-- At least 10 high-scoring opportunities identified (>30)
+- At least 10 high-scoring opportunities identified (>6.0)
 - Market validation confirms buyer intent
 - TAM/SAM estimates are defensible
 - Competitive analysis reveals clear wedge

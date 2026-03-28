@@ -22,8 +22,8 @@ We're witnessing the **first-ever inversion of the tool adaptation curve**. Hist
 
 ### Prerequisites
 
-- Access to web search capabilities (WebSearch, WebFetch)
-- 40-50 hours for full research protocol
+- Access to web search, web fetch, and archive search capabilities
+- 13-23 hours for full AI-assisted research protocol (or subset for specific phases)
 - Understanding of target segments and industries
 
 ### Basic Usage
@@ -40,36 +40,36 @@ Then choose your path:
 
 ## The Six-Phase Framework
 
-### Phase 1: Capability Frontier Mapping (2-3 hours)
+### Phase 1: Capability Frontier Mapping (1-2 hours)
 Map current and projected AI capabilities across time horizons. Identify constraint removals and capability unlocks.
 
 **Output**: Capability timeline showing what becomes automatable at 3mo, 6mo, 12mo, 18mo, 24mo horizons.
 
-### Phase 2: Opportunity Discovery (8-10 hours)
+### Phase 2: Opportunity Discovery (3-5 hours)
 Build segment × problem matrix. Mine pain points from 15+ segments. Identify high-value automation targets.
 
 **Output**: 50-100+ validated pain points with economic impact and automation potential.
 
-### Phase 3: Business Model Generation (6-8 hours)
+### Phase 3: Business Model Generation (2-4 hours)
 Define synthetic worker primitives. Cross with segments to generate business concepts. Map to time horizons.
 
 **Output**: 25-50 business models with SLAs, eval frameworks, and unit economics.
 
-### Phase 4: Market Validation (10-12 hours)
+### Phase 4: Market Validation (4-6 hours)
 Validate demand, size markets, analyze competition, identify differentiation vectors.
 
 **Output**: TAM/SAM/SOM, competitive analysis, pricing validation, strategic positioning.
 
-### Phase 5: Inevitability Scoring (2-3 hours)
-Quantify inevitability using the formula: `((E + T + M) / 3) - (F / 2)`
-- E = Economic Pressure (cost reduction)
-- T = Technical Feasibility (% automatable)
-- M = Market Readiness (budget + behavior)
-- F = Adoption Friction (barriers)
+### Phase 5: Inevitability Scoring (1-2 hours)
+Quantify inevitability using the geometric mean formula: `(E × T × M)^(1/3) - (F / 3)`
+- E = Economic Pressure (cost reduction) [0-10]
+- T = Technical Feasibility (% automatable) [0-10]
+- M = Market Readiness (budget + behavior) [0-10]
+- F = Adoption Friction (barriers) [1-10]
 
-**Output**: Ranked opportunities with inevitability scores, timing estimates, sensitivity analysis.
+**Output**: Ranked opportunities with inevitability scores (0-10 scale), timing estimates, sensitivity analysis.
 
-### Phase 6: Synthesis & Output (8-10 hours)
+### Phase 6: Synthesis & Output (2-4 hours)
 Create comprehensive deliverable with executive summary, opportunity matrix, deep dives, research appendix.
 
 **Output**: Publication-ready research report with actionable recommendations.
@@ -79,7 +79,7 @@ Create comprehensive deliverable with executive summary, opportunity matrix, dee
 ### Inevitability Formula
 
 ```
-Inevitability = ((E + T + M) / 3) - (F / 2)
+Inevitability = (E × T × M)^(1/3) - (F / 3)
 
 Where:
 E = Economic Pressure [0-10]
@@ -87,15 +87,18 @@ T = Technical Feasibility [0-10]
 M = Market Readiness [0-10]
 F = Adoption Friction [1-10]
 
-Score > 7: Inevitable
-Score 5-7: Likely
-Score 3-5: Possible
-Score < 3: Unlikely
+> 7.5: Inevitable NOW (3-6 months)
+6-7.5: Highly inevitable (6-12 months)
+4.5-6: Likely (12-18 months)
+3-4.5: Possible (18-24+ months)
+< 3: Unlikely (24+ months or never)
 ```
+
+**Why geometric mean?** All three positive factors must be present (if any is zero, score is zero), while the cube root keeps output on a 0-10 scale. Friction linearly penalizes even high-potential opportunities.
 
 ### Synthetic Worker Primitives
 
-10 atomic job functions that become commoditized:
+15 atomic job functions that become commoditized:
 
 1. **Continuous Monitor** - Watches systems, alerts on anomalies
 2. **Research Synthesizer** - Gathers and synthesizes information
@@ -107,16 +110,23 @@ Score < 3: Unlikely
 8. **Workflow Orchestrator** - Manages multi-step processes
 9. **Analysis Generator** - Runs reports, identifies patterns
 10. **Relationship Maintainer** - Tracks context, personalizes outreach
+11. **Code Developer** - Writes, tests, reviews, deploys code
+12. **Browser Operator** - Navigates web UIs, fills forms, scrapes data
+13. **Voice Agent** - Handles calls, meetings, real-time conversation
+14. **Data Pipeline Operator** - ETL, transformation, quality monitoring
+15. **Security Sentinel** - Vulnerability scanning, threat analysis, incident response
 
 ### Time-Horizon Capability Unlocks
 
-| Horizon | Context | Cost/1M | Reliability | Business Category |
-|---------|---------|---------|-------------|-------------------|
-| 3mo | 200K | $0.15 | 96% | Document workspace agents |
-| 6mo | 500K | $0.08 | 97% | Research automation platforms |
-| 12mo | 1M | $0.04 | 98% | Synthetic operations teams |
-| 18mo | 2M | $0.02 | 98.5% | Executive co-pilots |
-| 24mo | 5M+ | $0.01 | 99% | Synthetic departments |
+> Capability projections are methodology-based, not static. Run Phase 1 research to fill in current values each time you use the engine. The table below shows the business categories that unlock at each horizon — the specific capability numbers should be researched fresh.
+
+| Horizon | Key Dimensions to Research | Business Category Unlocked |
+|---------|---------------------------|----------------------------|
+| 3mo | Context, cost, tool reliability, computer use | Document agents, routine automation, monitoring |
+| 6mo | Multi-hour autonomy, voice, orchestration | Research platforms, complex document processing, voice agents |
+| 12mo | Cross-platform orchestration, model routing | Synthetic operations teams, compound AI products |
+| 18mo | Extended planning, multi-agent coordination | Executive co-pilots, strategic analysis |
+| 24mo | Near-human strategic reasoning, multimedia | Synthetic departments, autonomous business units |
 
 ## Directory Structure
 
@@ -182,13 +192,13 @@ Process:
 4. 25-50 business models generated
 5. Top 25 validated and scored
 6. Comprehensive deliverable with executive summary, matrix, deep dives
-7. Strategic recommendations (internal/Catalyst/spin-out decisions)
+7. Strategic recommendations (internal/packaged/spin-out decisions)
 ```
 
 ## Success Criteria
 
 Research succeeds when:
-- ✅ At least 10 opportunities with inevitability score > 7
+- ✅ At least 10 opportunities with inevitability score > 6.0
 - ✅ At least 3 opportunities actionable within 90 days
 - ✅ At least 1 opportunity worth spinning out as venture-backed startup
 - ✅ Clear time-to-revenue estimates for each
@@ -244,9 +254,9 @@ This skill is part of the AISkills collection. For issues, improvements, or new 
 Before running the Inevitability Engine:
 
 - [ ] Define research scope (segments, time horizons, constraints)
-- [ ] Allocate 40-50 hours (or subset for specific phases)
+- [ ] Allocate 13-23 hours for AI-assisted execution (or subset for specific phases)
 - [ ] Set up access to web research capabilities
-- [ ] Identify strategic context (BetterUp/Catalyst/spin-out criteria)
+- [ ] Identify strategic context (organizational strategic context (build/package/spin-out criteria))
 - [ ] Prepare note-taking system for research findings
 - [ ] Review key frameworks (inevitability formula, synthetic workers, time horizons)
 

@@ -13,7 +13,7 @@
 **Research protocol:**
 
 ```
-Search 1: "[business concept] startup 2024"
+Search 1: "[business concept] startup [current_year]"
 Search 2: "[business concept] AI tool"
 Search 3: "[segment] [task] automation software"
 Search 4: "[problem] solution market"
@@ -113,7 +113,7 @@ Search 5: "[segment] [task] tools discussion"
 
 **TAM (Total Addressable Market):**
 - All potential customers in universe
-- Research: "[segment] market size 2024"
+- Research: "[segment] market size [current_year]"
 - Calculate: # of workers × average salary × % of time on task
 
 **SAM (Serviceable Addressable Market):**
@@ -131,7 +131,7 @@ Search 5: "[segment] [task] tools discussion"
 **Research protocol:**
 
 ```
-Search 1: "[segment] market size 2024"
+Search 1: "[segment] market size [current_year]"
 Search 2: "[job function] employment statistics [country]"
 Search 3: "[job function] salary data [geography]"
 Search 4: "[segment] software spending trends"
@@ -315,12 +315,14 @@ Chosen model: $299/month per attorney
 
 **For opportunities that validate, decide strategic fit:**
 
+> **Configuration**: Replace `[your_organization]` with your company name and adjust the decision tree to match your strategic priorities. The framework below is a template.
+
 ### Decision Matrix
 
-| Criteria | Internal Tool | Catalyst Offering | Spin-out Startup | Open Source |
+| Criteria | Internal Tool | Packaged Offering | Spin-out Startup | Open Source |
 |----------|---------------|-------------------|------------------|-------------|
 | **Time to revenue** | Long (internal ROI) | Medium (months) | Long (years) | None (reputation) |
-| **Strategic alignment** | High (BetterUp synergy) | Medium (repeatable) | Low (different business) | Low (community) |
+| **Strategic alignment** | High (org synergy) | Medium (repeatable) | Low (different business) | Low (community) |
 | **Repeatability** | Low (custom) | High (packageable) | Medium (venture) | N/A |
 | **Capital required** | Low (OpEx) | Low (bootstrappable) | High (VC-scale) | Low (volunteer) |
 | **Upside potential** | Medium (cost savings) | Medium (service revenue) | High (equity value) | Reputation/brand |
@@ -329,9 +331,9 @@ Chosen model: $299/month per attorney
 
 ### Decision Tree
 
-**Is this strategically valuable to BetterUp/Catalyst?**
-- YES → Could it be packaged as repeatable Catalyst offering?
-  - YES → **Catalyst offering**
+**Is this strategically valuable to [your_organization]?**
+- YES → Could it be packaged as a repeatable offering?
+  - YES → **Packaged offering** (consulting, SaaS, or productized service)
   - NO → Is upside >$100M?
     - YES → **Spin-out startup**
     - NO → **Internal tool**
@@ -411,7 +413,7 @@ Chosen model: $299/month per attorney
 
 ### 5. Strategic Recommendations
 - Build vs buy vs partner decisions
-- Prioritized portfolio (internal/Catalyst/spin-out/OSS)
+- Prioritized portfolio (internal/packaged/spin-out/OSS)
 - Resource allocation suggestions
 
 ### 6. Risk Register

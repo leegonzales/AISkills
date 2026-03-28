@@ -2,6 +2,45 @@
 
 **Complete catalog of search patterns for each phase of the Inevitability Engine.**
 
+> **Date parameterization**: All queries use `[current_year]` and `[current_year-1]` as placeholders. Replace with actual years when executing searches.
+
+> **Research channels**: Use all available tools for maximum coverage:
+> - **Web search** (Brave Search, Google) — broad discovery, recent results
+> - **Web fetch** — deep-read specific pages, extract structured data from articles
+> - **Archive search** (archive.org, Wayback Machine) — historical capability snapshots, tracking improvement over time
+> - **AI model knowledge** — frontier models have training data that includes capability assessments, benchmarks, and industry analysis; use the model itself as a research source for synthesis
+> - **Specialized sources** (see below)
+
+### High-Quality Information Sources
+
+**Frontier model providers:**
+- anthropic.com/research, anthropic.com/news — Claude capabilities, research papers
+- openai.com/blog, openai.com/research — GPT capabilities, safety research
+- ai.google.dev, blog.google/technology/ai — Gemini capabilities
+
+**Benchmarks & leaderboards:**
+- Hugging Face Open LLM Leaderboard — model comparison
+- LMSYS Chatbot Arena — human preference rankings
+- Epoch AI (epochai.org) — compute trends, scaling analysis
+
+**Research & analysis:**
+- arxiv.org — academic papers on AI capabilities
+- Stanford HAI AI Index Report — annual capability survey
+- Import AI newsletter, The Batch — curated AI news
+
+**Community intelligence:**
+- Reddit (r/MachineLearning, r/LocalLLaMA, segment-specific subreddits)
+- Hacker News — technical discussions, startup launches
+- GitHub discussions & trending — open-source AI tools
+- AI-focused Discord servers and communities
+- Hugging Face community forums
+
+**Industry analysis:**
+- Gartner, Forrester, IDC — enterprise technology trends
+- a16z, Sequoia, Bessemer — VC market maps and analyses
+- G2, Capterra — software reviews and comparisons
+- Crunchbase — startup funding data
+
 ---
 
 ## Phase 1: Capability Mapping
@@ -10,33 +49,33 @@
 
 **OpenAI:**
 ```
-"GPT-4 Turbo capabilities benchmarks 2024"
-"GPT-5 predictions roadmap"
+"[frontier model] capabilities benchmarks [current_year]"
+"OpenAI model capabilities roadmap [current_year]"
 "OpenAI model capabilities comparison"
 "site:openai.com GPT-4 system card"
-"site:openai.com research 2024"
+"site:openai.com research [current_year]"
 ```
 
 **Anthropic:**
 ```
-"Claude 3.5 Sonnet capabilities"
-"Claude Opus 4 announcement"
+"Claude latest model capabilities [current_year]"
+"Claude model announcement [current_year]"
 "Anthropic computer use production"
 "site:anthropic.com Claude capabilities"
-"site:anthropic.com research 2024"
+"site:anthropic.com research [current_year]"
 ```
 
 **Google:**
 ```
-"Gemini 1.5 Pro capabilities"
-"Gemini Ultra benchmarks"
+"Gemini latest model capabilities [current_year]"
+"Gemini benchmarks comparison [current_year]"
 "Google AI model comparison"
 "site:ai.google.dev Gemini"
 ```
 
 **General capability tracking:**
 ```
-"LLM capabilities comparison 2024"
+"LLM capabilities comparison [current_year]"
 "large language model benchmarks"
 "AI model performance trends"
 "transformer model improvements"
@@ -47,8 +86,8 @@
 ### Context Windows
 
 ```
-"LLM context window evolution 2023 2024"
-"context window roadmap 2025"
+"LLM context window evolution [current_year-1] [current_year]"
+"context window roadmap [current_year]"
 "long context models comparison"
 "1M token context window"
 "Claude context window roadmap"
@@ -74,10 +113,10 @@
 ### Cost & Inference
 
 ```
-"inference cost trends 2024"
+"inference cost trends [current_year]"
 "LLM pricing comparison"
 "cost per token reduction"
-"AI cost projections 2025"
+"AI cost projections [current_year]"
 "model inference efficiency"
 ```
 
@@ -86,7 +125,7 @@
 ### Multimodal Capabilities
 
 ```
-"multimodal AI capabilities 2024"
+"multimodal AI capabilities [current_year]"
 "vision language models comparison"
 "GPT-4V benchmark results"
 "Claude 3.5 vision capabilities"
@@ -96,14 +135,65 @@
 
 ---
 
+### Agentic Coding & Developer Tools
+
+```
+"agentic coding tools comparison [current_year]"
+"Claude Code Cursor Devin comparison"
+"AI code generation production deployment"
+"developer productivity AI tools"
+"automated testing AI [current_year]"
+"code review automation AI"
+```
+
+---
+
+### Computer Use & Browser Automation
+
+```
+"AI computer use browser automation [current_year]"
+"Claude computer use production"
+"web scraping AI agents"
+"legacy system automation AI"
+"RPA vs AI agent automation"
+"browser automation AI tools"
+```
+
+---
+
+### Voice & Conversational AI
+
+```
+"AI voice agents production [current_year]"
+"conversational AI phone calls"
+"voice AI sales customer support"
+"real-time voice AI latency"
+"AI meeting participant [current_year]"
+```
+
+---
+
+### Multi-Agent & Compound AI Systems
+
+```
+"multi-agent AI orchestration [current_year]"
+"compound AI systems architecture"
+"model routing optimization"
+"AI agent coordination frameworks"
+"MCP model context protocol adoption"
+"specialized vs general AI models production"
+```
+
+---
+
 ### Scaling Laws & Projections
 
 ```
 "scaling laws LLM compute tokens"
-"chinchilla scaling laws"
-"AI capability forecasting"
+"AI capability forecasting [current_year]"
 "model performance predictions"
 "compute efficiency trends"
+"inference optimization techniques"
 ```
 
 ---
@@ -115,7 +205,7 @@
 **For each segment [segment] = lawyers, accountants, designers, etc.:**
 
 ```
-"[segment] biggest time wasters 2024"
+"[segment] biggest time wasters [current_year]"
 "[segment] productivity challenges survey"
 "[segment] time consuming tasks"
 "[segment] workflow inefficiencies"
@@ -168,7 +258,7 @@
 ### Market Research
 
 ```
-"[segment] software needs survey 2024"
+"[segment] software needs survey [current_year]"
 "[segment] workflow tools market research"
 "[segment] technology adoption study"
 "[segment] software spending priorities"
@@ -181,7 +271,7 @@
 ### Budget & Economics
 
 ```
-"[segment] software spending trends 2024"
+"[segment] software spending trends [current_year]"
 "[segment] technology budget allocation"
 "[segment] SaaS spending"
 "[segment] cost of [task]"
@@ -248,7 +338,7 @@
 
 **Finding competitors:**
 ```
-"[business concept] startup 2024"
+"[business concept] startup [current_year]"
 "[business concept] AI tool"
 "[business concept] companies"
 "[segment] [task] automation software"
@@ -262,7 +352,7 @@
 "[company name] Crunchbase"
 "[company name] revenue"
 "[company name] customers"
-"[space] market map 2024"
+"[space] market map [current_year]"
 ```
 
 **Customer feedback:**
@@ -310,7 +400,7 @@
 
 **TAM research:**
 ```
-"[segment] market size 2024"
+"[segment] market size [current_year]"
 "[industry] market research report"
 "[job function] employment statistics [country]"
 "number of [job title] in [country]"
@@ -319,7 +409,7 @@
 
 **Software spending:**
 ```
-"[segment] software spending 2024"
+"[segment] software spending [current_year]"
 "[industry] SaaS spending trends"
 "[segment] technology budget"
 "[industry] software market size"
@@ -390,7 +480,7 @@
 ### Competitive Dynamics
 
 ```
-"[space] competitive landscape 2024"
+"[space] competitive landscape [current_year]"
 "[incumbent] AI strategy"
 "AI startups [domain]"
 "[space] market consolidation"
@@ -524,7 +614,7 @@ site:linkedin.com [query]
 ### Time-Bounded Searches
 
 ```
-"[query] 2024"
+"[query] [current_year]"
 "[query] 2023"
 "[query] after:2024-01-01"
 "[query] before:2024-12-31"
@@ -550,7 +640,7 @@ site:linkedin.com [query]
 ### Template 1: New Segment Discovery
 
 ```
-Step 1: "[segment] biggest time wasters 2024"
+Step 1: "[segment] biggest time wasters [current_year]"
 Step 2: "site:reddit.com [segment] productivity"
 Step 3: "[segment] workflow automation challenges"
 Step 4: "[segment] software spending trends"
@@ -564,7 +654,7 @@ Extract: Top 10 tasks, pain points, budget, barriers
 ### Template 2: Competitive Landscape
 
 ```
-Step 1: "[business concept] startups 2024"
+Step 1: "[business concept] startups [current_year]"
 Step 2: "[business concept] companies funding"
 Step 3: "[competitor1] reviews G2"
 Step 4: "[competitor2] customers complaints"
@@ -580,7 +670,7 @@ Extract: Competitors, positioning, strengths, weaknesses, gaps
 ```
 Step 1: "[segment] looking for [solution]"
 Step 2: "site:reddit.com [problem] solutions"
-Step 3: "[segment] market size 2024"
+Step 3: "[segment] market size [current_year]"
 Step 4: "[similar tool] pricing"
 Step 5: "[task] automation ROI"
 

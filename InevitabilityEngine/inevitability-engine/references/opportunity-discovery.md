@@ -34,7 +34,7 @@
 
 **Search pattern 1: Time wasters**
 ```
-"[segment] biggest time wasters 2024"
+"[segment] biggest time wasters [current_year]"
 "[segment] time consuming tasks survey"
 "[segment] productivity challenges"
 ```
@@ -62,7 +62,7 @@
 
 **Search pattern 5: Market research**
 ```
-"[segment] software needs survey 2024"
+"[segment] software needs survey [current_year]"
 "[segment] workflow tools market research"
 "[segment] biggest frustrations with current tools"
 ```
@@ -125,7 +125,7 @@ For each segment, document:
 
 **Research execution:**
 
-Search 1: "lawyers biggest time wasters 2024"
+Search 1: "lawyers biggest time wasters [current_year]"
 - Result: Document review (30%), legal research (25%), admin (20%)
 
 Search 2: "legal workflow automation challenges"
@@ -137,7 +137,7 @@ Search 3: "lawyers AI adoption barriers"
 Search 4: "site:reddit.com lawyers productivity pain points"
 - Result: Threads on manual citation, reading case law, tracking changes in precedent
 
-Search 5: "legal professionals software spending 2024"
+Search 5: "legal professionals software spending [current_year]"
 - Result: $300-500/month/attorney on research tools (Westlaw, LexisNexis)
 
 **Extracted pain points:**
