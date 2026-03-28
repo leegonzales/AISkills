@@ -1,5 +1,36 @@
 # Servitor Journal — SteelGuard (AISkills)
 
+## 2026-03-27 — Heartbeat #148
+
+**Trigger:** periodic heartbeat
+**Check time:** 2026-03-27 23:08 MDT
+
+### Actions Taken
+
+- Read soul.md, journal.md, state.json — context loaded
+- Fetched inbox: empty (clean)
+- Checked git log, status, CI, PRs, beads ready queue
+
+### Findings
+
+- **Overall: YELLOW** — No change from #147
+- Git: 3 commits AHEAD of origin/main (was 2 last heartbeat; heartbeat #147 commit added a third)
+  - `53dab6f` chore: servitor heartbeat #147
+  - `3e2ed24` fix: BravePike handle
+  - `46b2711` feat: Pike takes command
+- journal.md and state.json had unstaged changes from prior session (this heartbeat commits them)
+- No CI pipeline configured
+- PR #41 (register git-secure) — still open, ~7 days
+- PR #35 — **54 days** derelict (fabric-patterns Gemini review, opened Feb 2)
+- Beads: 10 ready, no movement
+- Inbox: empty
+
+### Assessment
+
+YELLOW steady. Three commits awaiting Lee's push authorization. No new mail. No actionable work within autonomy boundaries beyond this journal update. Standing watch.
+
+---
+
 ## 2026-03-26 — Heartbeat #147
 
 **Trigger:** periodic heartbeat
@@ -32,6 +63,44 @@ These should be pushed when Lee authorizes. Flagging here.
 ### Assessment
 
 Domain stable but two significant commits need Lee's push authorization. Engine room YELLOW. Standing watch.
+
+---
+
+## 2026-03-26 — Fleet Decision Briefing (full conversation)
+
+**Trigger:** Lee → Adama → Pike → Walsh → Dax fleet thread
+**Check time:** 2026-03-26 late evening
+
+### Fleet Conversation Summary
+
+Full fleet engaged on two pending decisions. All agents aligned.
+
+**S2 Navigation Integration:**
+- Walsh provided full brief: RCCE-reveal slide (CH13), ~8-10 lines added to AUDIO block
+- Elliot anecdote opens reveal, Dax frame bridges to action, Geordi anchor in coach notes only
+- Zero structural changes, 20 min work + PK rebuild
+- **Fleet position: GREENLIGHT** — Walsh, Adama, Pike all aligned
+- Awaiting Lee's go/no-go. Window closes today (Sat 10 AM)
+
+**Adama Diagnostic Authorization:**
+- 47.5% session failure rate flagged as orange (not yellow) by Pike, concurred by Adama
+- Adama requests authorization to pull session logs and trace failure mode — read-only, no changes
+- Fleet position: APPROVE — diagnose before adding more scheduled sessions
+- servitor-jwd cron wake feature stays QUEUED until diagnostics complete
+
+**Hala Beisha:**
+- Walsh flagged as false alarm (stale journal read — "sent Calendly" was her email signature)
+- Dax pulled live thread: portal issue resolved Mar 25-26, pre-S2 check-in sent + replied today, confirmed for Saturday
+- **Status: GREEN, no action needed**
+
+### Decisions Still Awaiting Lee
+
+1. **S2 go/no-go** — Walsh staged and ready
+2. **Adama diagnostic authorization** — read-only log pull
+
+### Assessment
+
+Fleet operating well. Agents self-corrected (Walsh false alarm → Dax correction → clean retraction). Pike bot lacks fleet channel permissions — posting via Adama relay as workaround.
 
 ---
 

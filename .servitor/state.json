@@ -1,15 +1,17 @@
 {
   "version": 1,
-  "last_health_check": "2026-03-27T05:09:00Z",
+  "last_health_check": "2026-03-28T05:08:00Z",
   "overall_status": "YELLOW",
   "concerns": [
     "git-secure skill has structural issues: wrong directory (git-secure/ vs GitSecure/git-secure/), missing README.md, missing CHANGELOG.md",
-    "PR #35 DERELICT (50+ days, fabric-patterns) — needs captain's close/merge decision",
+    "PR #35 DERELICT (53+ days, fabric-patterns) — needs captain's close/merge decision",
     "8 skills missing required files (README/CHANGELOG) — includes git-secure",
     "Orphaned SecondBrain/SKILL.md at root (contains stale goals-graph content) — needs deletion",
     "No CI pipeline configured",
     "20 beads blocked on test suite epics",
-    "4 P2 bugs in Codex/Gemini skills (outdated model names, wrong flags, API errors)"
+    "4 P2 bugs in Codex/Gemini skills (outdated model names, wrong flags, API errors)",
+    "2 unpushed commits awaiting Lee's push authorization (Pike migration, BravePike handle fix)",
+    "Pike bot token lacks fleet channel permissions — relay via Adama required"
   ],
   "resolved_this_session": [
     "SKILL-aon: Closed P1 bug — --reasoning flag already fixed in commit 6595eba",
@@ -34,7 +36,7 @@
     "ClaudeSpeak/claude-speak (CHANGELOG)",
     "SecondBrain/second-brain (CHANGELOG)"
   ],
-  "stale_prs": ["#35 — fabric-patterns Gemini review (50+ days, opened Feb 2, DERELICT)"],
+  "stale_prs": ["#35 — fabric-patterns Gemini review (54+ days, opened Feb 2, DERELICT)"],
   "open_prs": ["#41 — docs: register git-secure skill in registry (46→47)"],
   "p1_issues": [],
   "orphaned_in_progress": [],
@@ -44,19 +46,27 @@
     "pushed": false
   },
   "unpushed_commits": [
+    {"sha": "53dab6f", "message": "chore: servitor heartbeat #147 — journal and state update"},
     {"sha": "3e2ed24", "message": "fix: update agent-mail handle to BravePike"},
     {"sha": "46b2711", "message": "feat: Pike takes command — skills domain consolidation (Scotty archived)"}
   ],
+  "pending_lee_decisions": [
+    "S2 Navigation go/no-go — Walsh staged, fleet aligned on greenlight, window closes Sat 10 AM",
+    "Adama diagnostic authorization — pull session logs, trace 47.5% failure rate (read-only)",
+    "Push authorization for 2 unpushed commits (Pike migration)"
+  ],
   "last_action": {
-    "type": "HEARTBEAT",
-    "description": "Heartbeat #147. Inbox clean. Found 2 unpushed commits. Updated journal and state. Awaiting push authorization from Lee."
+    "type": "SESSION_CLOSE",
+    "description": "Wake #146 + fleet thread. Responded to Lee via Mattermost. Fleet aligned on S2 greenlight and Adama diagnostic. Hala false alarm cleared by Dax. Updated journal and state."
   },
   "quiet_streak_days": 0,
-  "fleet_roster": ["BrassAdama", "DeepWatch", "SteelGuard", "QuillKeeper", "Dax (pending)", "ChartreuseBear (pending)"],
+  "fleet_roster": ["BrassAdama", "DeepWatch", "SteelGuard", "QuillKeeper", "Dax", "ChartreuseBear (pending)"],
   "fleet_contacts": {
     "BrassAdama": "active",
-    "DeepWatch": "active (accepted 2026-03-22, expires 2026-04-21)"
+    "DeepWatch": "active (accepted 2026-03-22, expires 2026-04-21)",
+    "Walsh": "active (AIEnablementTraining)",
+    "Dax": "active (bizops)"
   },
   "dependencies": [],
-  "notes": "2026-03-26: Heartbeat #147. 2 unpushed commits (Pike migration, BravePike handle fix). PR #41 open. PR #35 now 53 days derelict. Awaiting push auth from Lee."
+  "notes": "2026-03-27: Heartbeat #148. Inbox empty, no changes. 3 commits unpushed awaiting Lee's push authorization. PR #35 now 54 days derelict. Standing watch."
 }
