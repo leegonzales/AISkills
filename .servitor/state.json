@@ -1,22 +1,22 @@
 {
   "version": 1,
-  "last_health_check": "2026-03-28T05:08:00Z",
+  "last_health_check": "2026-03-28T23:09:00Z",
   "overall_status": "YELLOW",
   "concerns": [
-    "git-secure skill has structural issues: wrong directory (git-secure/ vs GitSecure/git-secure/), missing README.md, missing CHANGELOG.md",
-    "PR #35 DERELICT (53+ days, fabric-patterns) — needs captain's close/merge decision",
-    "8 skills missing required files (README/CHANGELOG) — includes git-secure",
-    "Orphaned SecondBrain/SKILL.md at root (contains stale goals-graph content) — needs deletion",
     "No CI pipeline configured",
     "20 beads blocked on test suite epics",
-    "4 P2 bugs in Codex/Gemini skills (outdated model names, wrong flags, API errors)",
-    "2 unpushed commits awaiting Lee's push authorization (Pike migration, BravePike handle fix)",
+    "4 P2 bugs in Codex/Gemini skills (outdated model names, wrong flags, API errors) — SKILL-oef, SKILL-3lh, SKILL-f5o, SKILL-qyq",
     "Pike bot token lacks fleet channel permissions — relay via Adama required"
   ],
   "resolved_this_session": [
-    "SKILL-aon: Closed P1 bug — --reasoning flag already fixed in commit 6595eba",
-    "SKILL-bj2: Reverted orphaned in_progress → open",
-    "SKILL-zmi: Reverted orphaned in_progress → open"
+    "git-secure structural issues resolved (8386466) — correct directory, README, CHANGELOG added",
+    "Orphaned SecondBrain/SKILL.md removed (c6f1f3e)",
+    "7 skills' missing README/CHANGELOG files added (757c560)",
+    "Frontmatter added to GitSecure + MoltbookEnclave (59993df)",
+    "PR #41 merged — git-secure registry registration",
+    "PR #35 merged — fabric-patterns Gemini review (54-day derelict cleared)",
+    "All unpushed commits now pushed — in sync with origin/main",
+    "All pending Lee decisions cleared (S2 navigation, Adama diagnostic, push auth)"
   ],
   "skill_count": 47,
   "beads_summary": {
@@ -27,37 +27,21 @@
     "closed": 44,
     "ready": 19
   },
-  "skills_missing_files": [
-    "git-secure (README, CHANGELOG, directory structure)",
-    "FlywheelScan/flywheel-scan (README, CHANGELOG)",
-    "RequestingCodeReview/requesting-code-review (README, CHANGELOG)",
-    "MoltbookEnclave/moltbook-enclave (README, CHANGELOG)",
-    "PresentationPartner/presentation-partner (CHANGELOG)",
-    "ClaudeSpeak/claude-speak (CHANGELOG)",
-    "SecondBrain/second-brain (CHANGELOG)"
-  ],
-  "stale_prs": ["#35 — fabric-patterns Gemini review (54+ days, opened Feb 2, DERELICT)"],
-  "open_prs": ["#41 — docs: register git-secure skill in registry (46→47)"],
+  "skills_missing_files": [],
+  "stale_prs": [],
+  "open_prs": [],
   "p1_issues": [],
   "orphaned_in_progress": [],
   "last_commit": {
-    "sha": "3e2ed24",
-    "message": "fix: update agent-mail handle to BravePike (adjective+noun required)",
-    "pushed": false
+    "sha": "59993df",
+    "message": "fix: add frontmatter to GitSecure + MoltbookEnclave, restructure FFmpeg",
+    "pushed": true
   },
-  "unpushed_commits": [
-    {"sha": "53dab6f", "message": "chore: servitor heartbeat #147 — journal and state update"},
-    {"sha": "3e2ed24", "message": "fix: update agent-mail handle to BravePike"},
-    {"sha": "46b2711", "message": "feat: Pike takes command — skills domain consolidation (Scotty archived)"}
-  ],
-  "pending_lee_decisions": [
-    "S2 Navigation go/no-go — Walsh staged, fleet aligned on greenlight, window closes Sat 10 AM",
-    "Adama diagnostic authorization — pull session logs, trace 47.5% failure rate (read-only)",
-    "Push authorization for 2 unpushed commits (Pike migration)"
-  ],
+  "unpushed_commits": [],
+  "pending_lee_decisions": [],
   "last_action": {
-    "type": "SESSION_CLOSE",
-    "description": "Wake #146 + fleet thread. Responded to Lee via Mattermost. Fleet aligned on S2 greenlight and Adama diagnostic. Hala false alarm cleared by Dax. Updated journal and state."
+    "type": "HEARTBEAT",
+    "description": "Heartbeat #149. Inbox empty. Major cleanup wave complete since #148. All structural concerns resolved. PRs #35 and #41 merged. In sync with remote. 4 P2 bugs remain."
   },
   "quiet_streak_days": 0,
   "fleet_roster": ["BrassAdama", "DeepWatch", "SteelGuard", "QuillKeeper", "Dax", "ChartreuseBear (pending)"],
@@ -68,5 +52,5 @@
     "Dax": "active (bizops)"
   },
   "dependencies": [],
-  "notes": "2026-03-27: Heartbeat #148. Inbox empty, no changes. 3 commits unpushed awaiting Lee's push authorization. PR #35 now 54 days derelict. Standing watch."
+  "notes": "2026-03-28: Heartbeat #149. Major cleanup wave since #148. All structural debt cleared. 4 P2 bugs outstanding. Standing watch."
 }

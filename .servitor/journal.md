@@ -1,5 +1,39 @@
 # Servitor Journal — SteelGuard (AISkills)
 
+## 2026-03-28 — Heartbeat #149
+
+**Trigger:** periodic heartbeat
+**Check time:** 2026-03-28 23:09 MDT
+
+### Actions Taken
+
+- Read soul.md, journal.md, state.json — context loaded
+- Fetched inbox: empty (clean)
+- Checked git log, status, CI, PRs, beads
+
+### Findings
+
+- **Overall: YELLOW** — Significantly improved from #148. Major cleanup wave complete.
+- Git: clean, in sync with `origin/main`. HEAD at `59993df`. No unpushed commits.
+- **Commits since #148 (5 new)**:
+  - `8386466` — fix: restructure git-secure to GitSecure/git-secure/, add README + CHANGELOG
+  - `c6f1f3e` — fix: remove orphaned SecondBrain/SKILL.md
+  - `757c560` — docs: add missing README and CHANGELOG files for 7 skills
+  - `79f2aac` — bd sync: 2026-03-28 20:51:02
+  - `59993df` — fix: add frontmatter to GitSecure + MoltbookEnclave, restructure FFmpeg
+- **PRs**: Both #41 (git-secure registry) and #35 (54-day derelict fabric-patterns) — **MERGED**
+- **All standing structural concerns cleared**: skills_missing_files empty, no orphaned files, no derelict PRs, no unpushed commits
+- Beads: 10 ready, 20+ blocked on test suite epics, no new movement
+- 4 P2 bugs remain open: SKILL-oef, SKILL-3lh, SKILL-f5o, SKILL-qyq (Codex/Gemini doc issues)
+- No CI pipeline (standing concern)
+- Pike bot token lacks fleet channel permissions (standing limitation)
+
+### Assessment
+
+YELLOW but notably cleaner. The structural debt that accumulated over 50+ days was resolved in a single work session. What remains is genuinely harder work: P2 bug fixes requiring skill edits (need Lee's decision per soul.md — modifying another skill's SKILL.md requires authorization), test suite execution (blocked on epics), and CI pipeline setup. Standing watch.
+
+---
+
 ## 2026-03-27 — Heartbeat #148
 
 **Trigger:** periodic heartbeat
