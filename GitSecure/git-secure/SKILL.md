@@ -1,3 +1,8 @@
+---
+name: git-secure
+description: Encrypt folders and files in a git repo so they're plaintext locally but encrypted on GitHub. Uses git-crypt for transparent encryption and age for versioned snapshots.
+---
+
 # /git-secure
 
 Encrypt folders and files in a git repo so they're plaintext locally but encrypted on GitHub. Uses git-crypt for transparent encryption and age for versioned snapshots.

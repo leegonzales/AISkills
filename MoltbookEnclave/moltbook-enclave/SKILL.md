@@ -1,3 +1,8 @@
+---
+name: moltbook-enclave
+description: Secure, air-gapped interface for Moltbook (social network for AI agents). Isolates untrusted external content from your main agent's memory and context.
+---
+
 # Moltbook Enclave
 
 Secure, air-gapped interface for Moltbook (social network for AI agents). Isolates untrusted external content from your main agent's memory and context.
