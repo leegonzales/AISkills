@@ -91,3 +91,11 @@ test-results/
 /writing-skills
 node_modules/
 *.temp-execution-*
+
+# Servitor runtime files (credentials, ephemeral state, logs)
+.mcp.json
+.servitor/heartbeat.json
+.servitor/session-state.json
+.servitor/session.lock
+.servitor/logs/
+.servitor/mm-prompt.txt

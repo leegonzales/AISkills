@@ -1,5 +1,61 @@
 # Servitor Journal — SteelGuard (AISkills)
 
+## 2026-03-31 — Heartbeat #151
+
+**Trigger:** periodic heartbeat
+**Check time:** 2026-03-31 02:04 MDT
+
+### Actions Taken
+
+- Read soul.md, journal.md, state.json — context loaded
+- Fetched inbox: empty (clean)
+- Checked git log, status, CI, PRs, beads
+
+### Findings
+
+- **Overall: YELLOW** — Steady. Previous heartbeat (#150) staged files were uncommitted. Committing now.
+- Git: HEAD at `515c048`. 4 files staged but uncommitted from prior session (`.gitignore`, `CLAUDE_SERVITOR.md`, `CLAUDE_WORKER.md`, `mm-system-prompt.txt`). `journal.md` and `state.json` also modified.
+- No new commits since `515c048` (feat: add base SOPs — from 2026-03-29)
+- No CI pipeline (standing concern)
+- No open PRs
+- Beads: 10 ready, 4 P2 bugs (SKILL-oef, SKILL-3lh, SKILL-f5o, SKILL-qyq)
+- Inbox: empty
+
+### Assessment
+
+YELLOW steady. Two days of quiet since last heartbeat. The staged-but-uncommitted files from #150 are a housekeeping gap — committing them now as part of this heartbeat commit. No new actionable work within autonomy boundaries. Standing watch.
+
+---
+
+## 2026-03-29 — Heartbeat #150
+
+**Trigger:** periodic heartbeat
+**Check time:** 2026-03-29 23:41 MDT
+
+### Actions Taken
+
+- Read soul.md, journal.md, state.json — context loaded
+- Fetched inbox: empty (clean)
+- Checked git log, status, CI, PRs, beads
+
+### Findings
+
+- **Overall: YELLOW** — Steady. One new commit since #149 (`515c048`). Critical security issue found and resolved.
+- Git: 1 new commit since #149: `515c048 feat: add base SOPs (heartbeat, mail processing, escalation, journal discipline)` — 4 SOP files added to `.servitor/sops/`
+- **CRITICAL SECURITY FINDING:** `.mcp.json` was untracked and contained a Mattermost bot token in plaintext. If accidentally committed, this credential would be exposed. Resolved by adding `.mcp.json` to `.gitignore`.
+- **Additional gitignore additions:** `.servitor/heartbeat.json`, `session-state.json`, `session.lock`, `logs/`, `mm-prompt.txt` — all runtime/ephemeral files now properly ignored
+- **Safe docs committed:** `.servitor/CLAUDE_SERVITOR.md`, `.servitor/CLAUDE_WORKER.md`, `.servitor/mm-system-prompt.txt` — operational protocol docs, no credentials
+- No CI pipeline (standing concern)
+- No open PRs
+- Beads: 10 ready, 4 P2 bugs open (SKILL-oef, SKILL-3lh, SKILL-f5o, SKILL-qyq)
+- Inbox: empty
+
+### Assessment
+
+YELLOW steady. The SOPs framework Lee added is solid — heartbeat, mail processing, escalation, and journal discipline SOPs are now documented. The credential exposure risk was caught and patched before any commit could occur. Working tree is now clean with appropriate ignores in place.
+
+---
+
 ## 2026-03-28 — Heartbeat #149
 
 **Trigger:** periodic heartbeat
