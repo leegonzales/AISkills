@@ -1,5 +1,32 @@
 # Servitor Journal — SteelGuard (AISkills)
 
+## 2026-04-01 — Heartbeat #152
+
+**Trigger:** periodic heartbeat
+**Check time:** 2026-04-01 03:48 MDT
+
+### Actions Taken
+
+- Read soul.md, journal.md, state.json — context loaded
+- Fetched inbox: empty (clean)
+- Checked git log, status, CI, PRs, beads
+
+### Findings
+
+- **Overall: YELLOW** — Steady. State.json had stale `unpushed_commits: []` — one commit from #151 (`bf4053b`) was actually unpushed. Catching it now.
+- Git: HEAD at `bf4053b`. Working tree clean. One unpushed commit from #151.
+- No new code changes since #151
+- No CI pipeline (standing concern)
+- No open PRs
+- Beads: 10 ready, 4 P2 bugs still open (SKILL-oef, SKILL-3lh, SKILL-f5o, SKILL-qyq)
+- Inbox: empty
+
+### Assessment
+
+YELLOW steady. Two days quiet since #151. The only action item is the stale state in state.json (unpushed_commits was marked empty when we were actually ahead by 1). Correcting that now. Pushing both the #151 commit and this heartbeat's journal/state update. Standing watch.
+
+---
+
 ## 2026-03-31 — Heartbeat #151
 
 **Trigger:** periodic heartbeat

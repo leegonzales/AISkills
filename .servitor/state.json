@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_health_check": "2026-03-31T08:04:00Z",
+  "last_health_check": "2026-04-01T09:48:00Z",
   "overall_status": "YELLOW",
   "concerns": [
     "No CI pipeline configured",
@@ -9,14 +9,7 @@
     "Pike bot token lacks fleet channel permissions — relay via Adama required"
   ],
   "resolved_this_session": [
-    "git-secure structural issues resolved (8386466) — correct directory, README, CHANGELOG added",
-    "Orphaned SecondBrain/SKILL.md removed (c6f1f3e)",
-    "7 skills' missing README/CHANGELOG files added (757c560)",
-    "Frontmatter added to GitSecure + MoltbookEnclave (59993df)",
-    "PR #41 merged — git-secure registry registration",
-    "PR #35 merged — fabric-patterns Gemini review (54-day derelict cleared)",
-    "All unpushed commits now pushed — in sync with origin/main",
-    "All pending Lee decisions cleared (S2 navigation, Adama diagnostic, push auth)"
+    "Stale unpushed_commits[] in state.json corrected — bf4053b was unpushed from #151"
   ],
   "skill_count": 47,
   "beads_summary": {
@@ -25,7 +18,7 @@
     "in_progress": 0,
     "blocked": 20,
     "closed": 44,
-    "ready": 19
+    "ready": 10
   },
   "skills_missing_files": [],
   "stale_prs": [],
@@ -33,17 +26,17 @@
   "p1_issues": [],
   "orphaned_in_progress": [],
   "last_commit": {
-    "sha": "59993df",
-    "message": "fix: add frontmatter to GitSecure + MoltbookEnclave, restructure FFmpeg",
-    "pushed": true
+    "sha": "bf4053b",
+    "message": "chore: servitor heartbeat #151 — commit staged files from #150, journal and state update",
+    "pushed": false
   },
-  "unpushed_commits": [],
+  "unpushed_commits": ["bf4053b"],
   "pending_lee_decisions": [],
   "last_action": {
     "type": "HEARTBEAT",
-    "description": "Heartbeat #151. Inbox empty. Committed staged files from #150 (gitignore security fix, protocol docs). No new changes. 4 P2 bugs remain. Standing watch."
+    "description": "Heartbeat #152. Inbox empty. Caught stale state — bf4053b from #151 was unpushed. No new changes. Pushing now. Standing watch."
   },
-  "quiet_streak_days": 0,
+  "quiet_streak_days": 2,
   "fleet_roster": ["BrassAdama", "DeepWatch", "SteelGuard", "QuillKeeper", "Dax", "ChartreuseBear (pending)"],
   "fleet_contacts": {
     "BrassAdama": "active",
@@ -52,5 +45,5 @@
     "Dax": "active (bizops)"
   },
   "dependencies": [],
-  "notes": "2026-03-31: Heartbeat #151. Committed staged files from #150 (gitignore security fix + protocol docs). Inbox clean. No new changes. 4 P2 bugs outstanding. Standing watch."
+  "notes": "2026-04-01: Heartbeat #152. Inbox clean. Caught stale unpushed_commits in state.json from #151. Pushed bf4053b + this heartbeat commit. 4 P2 bugs outstanding. Standing watch."
 }
