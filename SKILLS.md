@@ -9,7 +9,7 @@ To use a skill:
 2. Read the corresponding `SKILL.md` file
 3. Follow the persona, constraints, and output formats defined
 
-## Skills (47 total)
+## Skills (49 total)
 
 | Skill | Description | Path |
 |-------|-------------|------|
@@ -23,6 +23,7 @@ To use a skill:
 | Claude Speak | Text-to-speech with AI voice synthesis | `ClaudeSpeak/claude-speak/SKILL.md` |
 | Claude Project Docs | Generate CLAUDE.md documentation | `ClaudeProjectDocs/claude-project-docs/SKILL.md` |
 | Codebase Navigator | Semantic code search with osgrep | `CodebaseNavigator/codebase-navigator/SKILL.md` |
+| Command Center Builder | Build personalized AI command centers with MCPs, voice print, and workflows | `CommandCenterBuilder/command-center-builder/SKILL.md` |
 | Codex Peer Review | AI peer review via Codex CLI | `CodexPeerReview/codex-peer-review/SKILL.md` |
 | Concept Forge | Ideation and concept refinement | `ConceptForge/concept-forge/SKILL.md` |
 | Context Continuity | Session context preservation | `ContextContinuity/context-continuity/SKILL.md` |
@@ -39,6 +40,7 @@ To use a skill:
 | Git Secure | Transparent repo encryption with git-crypt + age snapshots | `git-secure/SKILL.md` |
 | Moltbook Enclave | Secure, air-gapped interface for Moltbook social network | `MoltbookEnclave/moltbook-enclave/SKILL.md` |
 | Nano Banana | AI image generation via Gemini | `NanoBananaSkill/nano-banana/SKILL.md` |
+| Opportunity Scanner | Deep-scan work tools to find high-ROI skills, projects, and artifacts to build | `OpportunityScanner/opportunity-scanner/SKILL.md` |
 | NotebookLM | NotebookLM integration helper | `NotebookLMSkill/notebooklm/SKILL.md` |
 | Playwright | Browser automation and testing | `PlaywrightSkill/playwright/SKILL.md` |
 | Presentation Partner | Collaborative presentation authoring with Talk Track v5 format | `PresentationPartner/presentation-partner/SKILL.md` |
@@ -58,6 +60,7 @@ To use a skill:
 | Silicon Doppelganger | Build personal proxy agents for PAIRL Conductor | `SiliconDoppelganger/silicon-doppelganger/SKILL.md` |
 | Skill Extractor | Extract reusable skills from conversation patterns | `SkillExtractor/skill-extractor/SKILL.md` |
 | Slide Builder | Transform essay-to-speech output into presentations | `SlideBuilder/slide-builder/SKILL.md` |
+| Strategy Explorer | Guide leaders to build Claude projects that help their org understand department strategy | `StrategyExplorer/strategy-explorer/SKILL.md` |
 | Unix Review | Codebase evaluation against Unix philosophy, SOLID, and AI-Readiness | `UnixReview/unix-review/SKILL.md` |
 | Writing Partner | Collaborative fiction writing assistant | `WritingPartner/writing-partner/SKILL.md` |
 
