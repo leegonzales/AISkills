@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_health_check": "2026-04-01T09:48:00Z",
+  "last_health_check": "2026-04-03T12:28:00Z",
   "overall_status": "YELLOW",
   "concerns": [
     "No CI pipeline configured",
@@ -9,9 +9,9 @@
     "Pike bot token lacks fleet channel permissions — relay via Adama required"
   ],
   "resolved_this_session": [
-    "Stale unpushed_commits[] in state.json corrected — bf4053b was unpushed from #151"
+    "codex-commands.md sandbox flag names updated to current API (workspace-read→read-only, none→danger-full-access)"
   ],
-  "skill_count": 47,
+  "skill_count": 49,
   "beads_summary": {
     "total": 83,
     "open": 39,
@@ -26,18 +26,18 @@
   "p1_issues": [],
   "orphaned_in_progress": [],
   "last_commit": {
-    "sha": "bf4053b",
-    "message": "chore: servitor heartbeat #151 — commit staged files from #150, journal and state update",
+    "sha": "cce720d",
+    "message": "fix: update Codex sandbox flag names to current API",
     "pushed": false
   },
-  "unpushed_commits": ["bf4053b"],
+  "unpushed_commits": ["cce720d"],
   "pending_lee_decisions": [],
   "last_action": {
     "type": "HEARTBEAT",
-    "description": "Heartbeat #152. Inbox empty. Caught stale state — bf4053b from #151 was unpushed. No new changes. Pushing now. Standing watch."
+    "description": "Heartbeat #153. Inbox empty. Two new skills (OpportunityScanner, CommandCenterBuilder) added since #152 — structurally compliant, registry at 49. Fixed stale codex sandbox flag names. Standing watch."
   },
   "quiet_streak_days": 2,
-  "fleet_roster": ["BrassAdama", "DeepWatch", "SteelGuard", "QuillKeeper", "Dax", "ChartreuseBear (pending)"],
+  "fleet_roster": ["BrassAdama", "DeepWatch", "QuillKeeper", "Dax", "ChartreuseBear (pending)"],
   "fleet_contacts": {
     "BrassAdama": "active",
     "DeepWatch": "active (accepted 2026-03-22, expires 2026-04-21)",
@@ -45,5 +45,5 @@
     "Dax": "active (bizops)"
   },
   "dependencies": [],
-  "notes": "2026-04-01: Heartbeat #152. Inbox clean. Caught stale unpushed_commits in state.json from #151. Pushed bf4053b + this heartbeat commit. 4 P2 bugs outstanding. Standing watch."
+  "notes": "2026-04-03: Heartbeat #153. OpportunityScanner + CommandCenterBuilder added (Lee, 2026-04-01). Codex sandbox flags fixed. 4 P2 bugs outstanding. Standing watch."
 }

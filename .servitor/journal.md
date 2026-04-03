@@ -1,4 +1,36 @@
-# Servitor Journal — SteelGuard (AISkills)
+# Servitor Journal — Pike (AISkills)
+
+## 2026-04-03 — Heartbeat #153
+
+**Trigger:** periodic heartbeat
+**Check time:** 2026-04-03 06:28 MDT
+
+### Actions Taken
+
+- Read soul.md, journal.md, state.json — context loaded
+- Fetched inbox: empty (clean)
+- Checked git log, status, CI, PRs, beads
+- Committed codex-commands.md sandbox flag accuracy fix (cce720d)
+
+### Findings
+
+- **Overall: YELLOW** — Steady. Two new skills added since #152, one stale codex ref fixed.
+- Git: 2 new commits since #152: `b94e453 feat: add Opportunity Scanner skill`, `259861f feat: add Command Center Builder skill` (both by Lee, 2026-04-01). No unpushed commits from prior heartbeats.
+- **New skills (structurally compliant):**
+  - OpportunityScanner: SKILL.md, README, CHANGELOG, LICENSE, 4 refs, dist/ — ✓
+  - CommandCenterBuilder: SKILL.md, README, CHANGELOG, LICENSE, 6 refs, dist/ — ✓
+  - SKILLS.md registry updated to 49 skills
+- **Stale ref fixed:** `codex-commands.md` had deprecated sandbox mode names (workspace-read → read-only, none → danger-full-access). Committed as cce720d.
+- No CI pipeline (standing concern)
+- No open PRs
+- Beads: 10 ready, 4 P2 bugs still open (SKILL-oef, SKILL-3lh, SKILL-f5o, SKILL-qyq)
+- Inbox: empty
+
+### Assessment
+
+YELLOW steady. Active skill additions — two well-structured skills entered the fleet in the last two days. The codex sandbox flag drift was caught and corrected within autonomy bounds. Standing watch.
+
+---
 
 ## 2026-04-01 — Heartbeat #152
 
