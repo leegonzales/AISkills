@@ -159,23 +159,23 @@ codex --ask-for-approval on-failure "Run tests and fix issues"
 **Flag:** `--sandbox [mode]`
 
 **Modes:**
-- `none`: No file system access
-- `workspace-read`: Read-only access to workspace
+- `danger-full-access`: No file system restrictions (use with caution)
+- `read-only`: Read-only access to workspace
 - `workspace-write`: Read and write access to workspace
 
 **Usage:**
 ```bash
 # Read-only (safest for review)
-codex --sandbox workspace-read "Review codebase structure"
+codex --sandbox read-only "Review codebase structure"
 
 # Write access (for implementing suggestions)
 codex --sandbox workspace-write "Implement the suggested refactoring"
 
-# No file access
-codex --sandbox none "Analyze this code snippet"
+# Full access (use with caution)
+codex --sandbox danger-full-access "Analyze this code snippet"
 ```
 
-**Recommended for peer review:** `workspace-read` for analysis, `none` for isolated snippets
+**Recommended for peer review:** `read-only` for analysis, `workspace-write` for implementing suggestions
 
 ---
 
@@ -245,8 +245,8 @@ Available within interactive Codex sessions (not applicable to `codex exec`).
 # Approval mode (suggest|auto|on-failure)
 ask_for_approval = "suggest"
 
-# Sandbox mode (none|workspace-read|workspace-write)
-sandbox = "workspace-read"
+# Sandbox mode (read-only|workspace-write|danger-full-access)
+sandbox = "read-only"
 
 # Output format
 output_format = "text"
@@ -255,7 +255,7 @@ output_format = "text"
 **Recommended peer review config:**
 ```toml
 ask_for_approval = "suggest"
-sandbox = "workspace-read"
+sandbox = "read-only"
 output_format = "text"
 ```
 
@@ -346,7 +346,7 @@ Focus: Clean code, test coverage
 
 **Command:**
 ```bash
-cat <<'EOF' | codex exec --sandbox workspace-read
+cat <<'EOF' | codex exec --sandbox read-only
 [ARCHITECTURE REVIEW]
 
 System: Multi-tenant SaaS platform
@@ -369,7 +369,7 @@ EOF
 
 **Why this pattern:**
 - Heredoc pipes cleanly to `codex exec`
-- `--sandbox workspace-read`: Safe read-only access
+- `--sandbox read-only`: Safe read-only access
 
 ---
 
@@ -377,7 +377,7 @@ EOF
 
 **Command:**
 ```bash
-cat <<'EOF' | codex exec --image architecture-diagram.png --sandbox workspace-read
+cat <<'EOF' | codex exec --image architecture-diagram.png --sandbox read-only
 Analyze the attached architecture diagram.
 
 Context:
@@ -404,7 +404,7 @@ EOF
 
 **Command:**
 ```bash
-cat <<'EOF' | codex exec --sandbox none
+cat <<'EOF' | codex exec --sandbox danger-full-access
 [SECURITY REVIEW]
 
 Code:
@@ -424,7 +424,7 @@ EOF
 
 **Why this pattern:**
 - Heredoc for multi-line prompt
-- `--sandbox none`: No file access for isolated code review
+- `--sandbox danger-full-access`: No sandbox restrictions (use when reviewing pasted code snippets with no workspace needed)
 - Explicit threat model for focused analysis
 
 ---
@@ -479,7 +479,7 @@ EOF
 
 **Command:**
 ```bash
-cat <<'EOF' | codex exec --sandbox workspace-read
+cat <<'EOF' | codex exec --sandbox read-only
 [PERFORMANCE ANALYSIS]
 
 File: src/api/order-handler.ts
@@ -512,7 +512,7 @@ EOF
 
 **Command:**
 ```bash
-cat <<'EOF' | codex exec --sandbox workspace-read
+cat <<'EOF' | codex exec --sandbox read-only
 [TESTING STRATEGY REVIEW]
 
 Module: User authentication service
@@ -607,7 +607,7 @@ codex exec "[prompt]"
 
 **Recommended:**
 ```bash
-codex --sandbox workspace-read "[prompt]"
+codex --sandbox read-only "[prompt]"
 ```
 
 **Why:** Safe for analysis, prevents unintended changes
@@ -655,9 +655,8 @@ codex --image architecture.png "Analyze this architecture"
 
 **Recommended `~/.codex/config.toml`:**
 ```toml
-model = "codex-1"
 ask_for_approval = "suggest"
-sandbox = "workspace-read"
+sandbox = "read-only"
 ```
 
 **Why:** Consistent, safe defaults for peer review
@@ -712,7 +711,7 @@ codex exec --resume $SESSION_ID "Now focus on security concerns"
 
 echo "Running Codex peer review..."
 
-REVIEW_OUTPUT=$(codex exec --sandbox workspace-read "$(cat <<'EOF'
+REVIEW_OUTPUT=$(codex exec --sandbox read-only "$(cat <<'EOF'
 Review the architecture changes in this PR.
 
 Changes: $(git diff main --name-only)
@@ -789,7 +788,7 @@ fi
 | Interactive mode | `codex "question"` |
 | JSON output | `codex exec -o json "prompt"` |
 | Resume session | `codex exec --resume [id]` |
-| Read-only mode | `codex exec --sandbox workspace-read` |
+| Read-only mode | `codex exec --sandbox read-only` |
 
 ---
 
