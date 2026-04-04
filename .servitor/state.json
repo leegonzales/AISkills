@@ -1,23 +1,26 @@
 {
   "version": 1,
-  "last_health_check": "2026-04-03T12:28:00Z",
+  "last_health_check": "2026-04-04T12:30:00Z",
   "overall_status": "YELLOW",
   "concerns": [
     "No CI pipeline configured",
     "20 beads blocked on test suite epics",
-    "4 P2 bugs in Codex/Gemini skills (outdated model names, wrong flags, API errors) — SKILL-oef, SKILL-3lh, SKILL-f5o, SKILL-qyq",
+    "3 P2 bugs in Gemini/Codex skills — SKILL-oef (Gemini outdated models), SKILL-f5o (Gemini API 400), SKILL-qyq (Codex --reasoning flag wrong)",
+    "McpProxyMux/mcp-proxy/SKILL.md in working tree — partially structured, needs Lee's decision",
     "Pike bot token lacks fleet channel permissions — relay via Adama required"
   ],
   "resolved_this_session": [
-    "codex-commands.md sandbox flag names updated to current API (workspace-read→read-only, none→danger-full-access)"
+    "SKILL-3lh closed (Codex sandbox flag names — fixed in cce720d)",
+    "Committed .servitor/CONSTITUTION.md + CLAUDE_SERVITOR.md on-wake protocol update",
+    "state.json stale unpushed_commits corrected (was [cce720d], actually all pushed)"
   ],
   "skill_count": 49,
   "beads_summary": {
     "total": 83,
-    "open": 39,
+    "open": 38,
     "in_progress": 0,
     "blocked": 20,
-    "closed": 44,
+    "closed": 45,
     "ready": 10
   },
   "skills_missing_files": [],
@@ -26,17 +29,19 @@
   "p1_issues": [],
   "orphaned_in_progress": [],
   "last_commit": {
-    "sha": "cce720d",
-    "message": "fix: update Codex sandbox flag names to current API",
-    "pushed": false
+    "sha": "dc3a515",
+    "message": "chore: servitor heartbeat #153 — journal and state update",
+    "pushed": true
   },
-  "unpushed_commits": ["cce720d"],
-  "pending_lee_decisions": [],
+  "unpushed_commits": [],
+  "pending_lee_decisions": [
+    "McpProxyMux/mcp-proxy/SKILL.md — draft skill in working tree. Add README + CHANGELOG and register in SKILLS.md, or discard?"
+  ],
   "last_action": {
     "type": "HEARTBEAT",
-    "description": "Heartbeat #153. Inbox empty. Two new skills (OpportunityScanner, CommandCenterBuilder) added since #152 — structurally compliant, registry at 49. Fixed stale codex sandbox flag names. Standing watch."
+    "description": "Heartbeat #154. Inbox empty. CONSTITUTION.md + CLAUDE_SERVITOR.md committed. SKILL-3lh closed. McpProxyMux partial skill flagged for Lee. 3 P2 bugs remain. Standing watch."
   },
-  "quiet_streak_days": 2,
+  "quiet_streak_days": 1,
   "fleet_roster": ["BrassAdama", "DeepWatch", "QuillKeeper", "Dax", "ChartreuseBear (pending)"],
   "fleet_contacts": {
     "BrassAdama": "active",
@@ -45,5 +50,5 @@
     "Dax": "active (bizops)"
   },
   "dependencies": [],
-  "notes": "2026-04-03: Heartbeat #153. OpportunityScanner + CommandCenterBuilder added (Lee, 2026-04-01). Codex sandbox flags fixed. 4 P2 bugs outstanding. Standing watch."
+  "notes": "2026-04-04: Heartbeat #154. CONSTITUTION.md added to fleet governance. SKILL-3lh closed. McpProxyMux skill draft in working tree — needs Lee's call. 3 P2 bugs outstanding."
 }

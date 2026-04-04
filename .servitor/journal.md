@@ -1,5 +1,39 @@
 # Servitor Journal — Pike (AISkills)
 
+## 2026-04-04 — Heartbeat #154
+
+**Trigger:** periodic heartbeat
+**Check time:** 2026-04-04 06:30 MDT
+
+### Actions Taken
+
+- Read soul.md, CONSTITUTION.md, journal.md, state.json — context loaded
+- Fetched inbox: empty (clean)
+- Checked git log, git status, CI, PRs, beads
+- Closed SKILL-3lh (Codex sandbox flag names — fixed in cce720d)
+- Staged .servitor/CONSTITUTION.md + .servitor/CLAUDE_SERVITOR.md for commit
+- Flagged McpProxyMux/mcp-proxy/SKILL.md as partially-structured work in progress
+
+### Findings
+
+- **Overall: YELLOW** — Steady. Two items committed by fleet since #153.
+- Git: HEAD at dc3a515 (heartbeat #153). All commits pushed — state.json stale (`unpushed_commits: ["cce720d"]` was incorrect). Correcting.
+- **Working tree 3 items:**
+  1. `.servitor/CLAUDE_SERVITOR.md` — modified: on-wake protocol now references `CONSTITUTION.md` as step 2
+  2. `.servitor/CONSTITUTION.md` — new untracked: immutable fleet standards document (added by Lee or fleet coordination)
+  3. `McpProxyMux/mcp-proxy/SKILL.md` — new untracked skill (partial: SKILL.md only, missing README + CHANGELOG)
+- **CONSTITUTION.md** — fleet governance doc defining 7 articles (Security, Data Integrity, Boundaries, Workspace Isolation, Transparency, Resource Discipline, Human Authority). Coherent pair with the CLAUDE_SERVITOR.md update. Committing both.
+- **McpProxyMux skill** — MCP Proxy Mux skill for managing the stdio→HTTP proxy multiplexer. SKILL.md is well-written and production-relevant. Missing: README.md, CHANGELOG.md, proper directory structure validation. NOT committing without Lee's direction — new skill addition requires captain's approval.
+- **SKILL-3lh closed** — was tracking Codex sandbox flag names bug, already fixed in cce720d.
+- **3 remaining P2 bugs:** SKILL-oef (Gemini outdated model names), SKILL-f5o (Gemini API 400 error), SKILL-qyq (Codex --reasoning flag wrong)
+- No CI, no open PRs, inbox clean.
+
+### Assessment
+
+YELLOW steady. CONSTITUTION.md entering the fleet — important governance artifact. McpProxyMux skill is in draft state in working directory; flagged for Lee to decide whether to structure and add. Three P2 bugs remain open on Gemini/Codex peer review skills. Standing watch.
+
+---
+
 ## 2026-04-03 — Heartbeat #153
 
 **Trigger:** periodic heartbeat
