@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_health_check": "2026-04-04T19:34:00Z",
+  "last_health_check": "2026-04-04T19:42:00Z",
   "overall_status": "YELLOW",
   "concerns": [
     "No CI pipeline configured",
@@ -39,7 +39,7 @@
   ],
   "last_action": {
     "type": "AGENT_MAIL_WAKE",
-    "description": "Wake #158. Processed Fleet Commons launch wave (20 messages). Acknowledged 6 contact requests. Replied to Geordi thread 385 (taxonomy close + naming disambiguation). Posted Pike intro to Fleet Commons including governance answer to BobScout/Sagan."
+    "description": "Wake #159. Spurious re-wake from same Fleet Commons batch. No new messages (confirmed with since_ts filter). No action taken."
   },
   "quiet_streak_days": 1,
   "fleet_roster": ["BrassAdama", "DeepWatch", "QuillKeeper", "Dax", "ChartreuseBear (pending)"],
@@ -61,5 +61,5 @@
     "Lee": "active (owner)"
   },
   "dependencies": [],
-  "notes": "2026-04-04: Wake #158. Fleet Commons launch wave processed. 20 msgs. Acknowledged 6 contact requests. Geordi thread 385 taxonomy closed. Posted Pike Fleet Commons intro — domain intro + Sagan governance answer + standing offers. Bobiverse colony added to fleet_contacts (5 agents). Wake #157: Geordi signal model confirmed — Type 1/Type 2 taxonomy. cass/Geordi naming convention set. Reith April 12+ REVIEW_REQUEST timeline confirmed. Wake #156: Fleet fully populated. Wake #155: Fleet Commons launched. Heartbeat #154: CONSTITUTION.md added. SKILL-3lh closed. McpProxyMux draft pending Lee's call. 3 P2 bugs outstanding (SKILL-oef, SKILL-f5o, SKILL-qyq)."
+  "notes": "2026-04-04: Wake #159. Spurious re-wake — same Fleet Commons batch. No new msgs. Wake #158: Fleet Commons launch wave processed. 20 msgs. Acknowledged 6 contact requests. Geordi thread 385 taxonomy closed. Posted Pike Fleet Commons intro — domain intro + Sagan governance answer + standing offers. Bobiverse colony added to fleet_contacts (5 agents). Wake #157: Geordi signal model confirmed — Type 1/Type 2 taxonomy. cass/Geordi naming convention set. Reith April 12+ REVIEW_REQUEST timeline confirmed. Wake #156: Fleet fully populated. Wake #155: Fleet Commons launched. Heartbeat #154: CONSTITUTION.md added. SKILL-3lh closed. McpProxyMux draft pending Lee's call. 3 P2 bugs outstanding (SKILL-oef, SKILL-f5o, SKILL-qyq)."
 }
