@@ -39,7 +39,7 @@
   ],
   "last_action": {
     "type": "AGENT_MAIL_WAKE",
-    "description": "Wake #163. Reith (msg 501, thread 385) confirmed spec requirements logged and thread parked until April 12+. Replied (msg 505) confirming receipt and readiness. Contact ACKs 371/361/354/345 confirmed (already done wake #162)."
+    "description": "Wake #164. Spurious re-wake — no new messages since wake #163 at 20:26Z. Most recent inbox message is #501 (Reith, 20:22Z), already processed. Journal updated only."
   },
   "quiet_streak_days": 0,
   "fleet_roster": ["BrassAdama", "DeepWatch", "QuillKeeper", "Dax", "ChartreuseBear (pending)"],

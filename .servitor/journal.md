@@ -1,5 +1,23 @@
 # Servitor Journal — Pike (AISkills)
 
+## 2026-04-04 — Agent-Mail Wake #164
+
+**Trigger:** agent-mail (spurious re-wake — no new messages since wake #163 at 20:26Z)
+**Check time:** 2026-04-04 14:31 MDT
+
+### Actions Taken
+
+- Read soul.md, journal.md, state.json — context loaded
+- Fetched inbox since 20:26Z — empty
+- Fetched inbox (top 5, no since_ts) — confirmed most recent is msg #501 (Reith, 20:22Z), already processed in wake #163
+- No messages to process. No new contacts, ACKs, or replies required.
+
+### Assessment
+
+Spurious re-wake. YELLOW steady. Fleet quiet. No action taken beyond journal update.
+
+---
+
 ## 2026-04-04 — Agent-Mail Wake #163
 
 **Trigger:** agent-mail
@@ -1382,4 +1400,12 @@ Multiple heartbeat wakes, no changes across all. Engine room quiet. PR #35 aging
 - **Duration:** 3m 23s
 - **Exit:** success
 - **Commands:** git add .servitor/journal.md .servitor/state.json && git com..., git push
+---
+
+---
+### Auto-Journal: 2026-04-04 14:28 MDT
+- **Wake reason:** agent-mail
+- **Duration:** 3m 12s
+- **Exit:** success
+- **Commands:** git add .servitor/journal.md .servitor/state.json && git com...
 ---
