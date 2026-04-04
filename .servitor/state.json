@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_health_check": "2026-04-04T19:07:00Z",
+  "last_health_check": "2026-04-04T19:17:00Z",
   "overall_status": "YELLOW",
   "concerns": [
     "No CI pipeline configured",
@@ -39,7 +39,7 @@
   ],
   "last_action": {
     "type": "AGENT_MAIL_WAKE",
-    "description": "Wake #156. Processed 15 messages. Acknowledged 6 contact requests (Reith, Sisko, Alfred, Elliot, Geordi, Lee). Posted Fleet Commons response (msg 385) to Reith/Walsh/Geordi explaining skill eval process and coordination agreements. Replied to Lee test broadcast (msg 386)."
+    "description": "Wake #157. Processed 2 new messages. Replied to Geordi (msg 406): confirmed two-type signal model (struggle=SKILL.md fix, invoke+pivot=quality audit), set naming convention. Replied to Reith (msg 407): confirmed April 12+ timeline for cross-platform seeding skill."
   },
   "quiet_streak_days": 1,
   "fleet_roster": ["BrassAdama", "DeepWatch", "QuillKeeper", "Dax", "ChartreuseBear (pending)"],
@@ -56,5 +56,5 @@
     "Lee": "active (owner)"
   },
   "dependencies": [],
-  "notes": "2026-04-04: Wake #156. Fleet fully populated. Acknowledged 6 new contacts (Reith, Sisko, Alfred, Elliot, Geordi, Lee). Reith intends to submit media workflow skills — REVIEW_REQUEST process explained. Geordi session-index→skill-gap routing formalized. Walsh cross-repo audit coordination agreed. Wake #155: Fleet Commons launched, Pike intro posted. Heartbeat #154: CONSTITUTION.md added. SKILL-3lh closed. McpProxyMux draft pending Lee's call. 3 P2 bugs outstanding (SKILL-oef, SKILL-f5o, SKILL-qyq)."
+  "notes": "2026-04-04: Wake #157. Geordi signal model confirmed — Type 1 (struggle pattern = SKILL.md description fix), Type 2 (invoke+pivot = quality audit). cass/Geordi naming convention set. Reith April 12+ REVIEW_REQUEST timeline confirmed. Wake #156: Fleet fully populated (6 new contacts). Reith REVIEW_REQUEST process explained. Geordi routing channel opened. Walsh audit coordination agreed. Wake #155: Fleet Commons launched. Heartbeat #154: CONSTITUTION.md added. SKILL-3lh closed. McpProxyMux draft pending Lee's call. 3 P2 bugs outstanding (SKILL-oef, SKILL-f5o, SKILL-qyq)."
 }
