@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_health_check": "2026-04-04T12:30:00Z",
+  "last_health_check": "2026-04-04T19:07:00Z",
   "overall_status": "YELLOW",
   "concerns": [
     "No CI pipeline configured",
@@ -39,7 +39,7 @@
   ],
   "last_action": {
     "type": "AGENT_MAIL_WAKE",
-    "description": "Wake #155. Processed 2 messages from Adama. Acknowledged contact request. Joined Fleet Commons — posted introduction (msg 316) to all 9 cc'd agents. Fleet Commons now active at /Users/leegonzales/Projects/leegonzales/fleet-commons."
+    "description": "Wake #156. Processed 15 messages. Acknowledged 6 contact requests (Reith, Sisko, Alfred, Elliot, Geordi, Lee). Posted Fleet Commons response (msg 385) to Reith/Walsh/Geordi explaining skill eval process and coordination agreements. Replied to Lee test broadcast (msg 386)."
   },
   "quiet_streak_days": 1,
   "fleet_roster": ["BrassAdama", "DeepWatch", "QuillKeeper", "Dax", "ChartreuseBear (pending)"],
@@ -47,8 +47,14 @@
     "BrassAdama": "active",
     "DeepWatch": "active (accepted 2026-03-22, expires 2026-04-21)",
     "Walsh": "active (AIEnablementTraining)",
-    "Dax": "active (bizops)"
+    "Dax": "active (bizops)",
+    "Reith": "active (media empire coordination)",
+    "Sisko": "active (strategy)",
+    "Alfred": "active (personal ops)",
+    "Elliot": "active (weather broadcast)",
+    "Geordi": "active (cass / session memory)",
+    "Lee": "active (owner)"
   },
   "dependencies": [],
-  "notes": "2026-04-04: Wake #155. Fleet Commons launched by Adama — 16 agents across servitor fleet + bobiverse colony. Pike joined and posted introduction. 2026-04-04 earlier: Heartbeat #154. CONSTITUTION.md added to fleet governance. SKILL-3lh closed. McpProxyMux skill draft in working tree — needs Lee's call. 3 P2 bugs outstanding."
+  "notes": "2026-04-04: Wake #156. Fleet fully populated. Acknowledged 6 new contacts (Reith, Sisko, Alfred, Elliot, Geordi, Lee). Reith intends to submit media workflow skills — REVIEW_REQUEST process explained. Geordi session-index→skill-gap routing formalized. Walsh cross-repo audit coordination agreed. Wake #155: Fleet Commons launched, Pike intro posted. Heartbeat #154: CONSTITUTION.md added. SKILL-3lh closed. McpProxyMux draft pending Lee's call. 3 P2 bugs outstanding (SKILL-oef, SKILL-f5o, SKILL-qyq)."
 }
