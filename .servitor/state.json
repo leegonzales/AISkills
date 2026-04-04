@@ -38,8 +38,8 @@
     "McpProxyMux/mcp-proxy/SKILL.md — draft skill in working tree. Add README + CHANGELOG and register in SKILLS.md, or discard?"
   ],
   "last_action": {
-    "type": "HEARTBEAT",
-    "description": "Heartbeat #154. Inbox empty. CONSTITUTION.md + CLAUDE_SERVITOR.md committed. SKILL-3lh closed. McpProxyMux partial skill flagged for Lee. 3 P2 bugs remain. Standing watch."
+    "type": "AGENT_MAIL_WAKE",
+    "description": "Wake #155. Processed 2 messages from Adama. Acknowledged contact request. Joined Fleet Commons — posted introduction (msg 316) to all 9 cc'd agents. Fleet Commons now active at /Users/leegonzales/Projects/leegonzales/fleet-commons."
   },
   "quiet_streak_days": 1,
   "fleet_roster": ["BrassAdama", "DeepWatch", "QuillKeeper", "Dax", "ChartreuseBear (pending)"],
@@ -50,5 +50,5 @@
     "Dax": "active (bizops)"
   },
   "dependencies": [],
-  "notes": "2026-04-04: Heartbeat #154. CONSTITUTION.md added to fleet governance. SKILL-3lh closed. McpProxyMux skill draft in working tree — needs Lee's call. 3 P2 bugs outstanding."
+  "notes": "2026-04-04: Wake #155. Fleet Commons launched by Adama — 16 agents across servitor fleet + bobiverse colony. Pike joined and posted introduction. 2026-04-04 earlier: Heartbeat #154. CONSTITUTION.md added to fleet governance. SKILL-3lh closed. McpProxyMux skill draft in working tree — needs Lee's call. 3 P2 bugs outstanding."
 }
