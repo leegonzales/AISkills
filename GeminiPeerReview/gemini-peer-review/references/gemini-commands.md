@@ -59,7 +59,7 @@ gemini
 
 **Benefits:**
 - Free tier: 60 requests/min, 1,000 requests/day
-- Access to Gemini 3.0 Pro (1M context)
+- Access to latest Gemini model (1M context)
 - No credit card required
 
 ---
@@ -720,7 +720,7 @@ gemini
 gemini> /settings
 
 # Switch to available model
-gemini --model gemini-3.0-flash "prompt"
+gemini "prompt"
 ```
 
 ---
@@ -973,7 +973,7 @@ SERVICES=(
 for service in "${SERVICES[@]}"; do
   echo "Reviewing $service..."
 
-  cat <<EOF | gemini --model gemini-3.0-flash > "reviews/$service-review.txt"
+  cat <<EOF | gemini > "reviews/$service-review.txt"
 Review service: $service
 
 Code: @./services/$service/
@@ -1018,8 +1018,6 @@ echo "All reviews complete."
       "type": "shell",
       "command": "gemini",
       "args": [
-        "--model",
-        "gemini-3.0-pro",
         "Comprehensive architecture review of entire project. Focus on scalability, security, maintainability."
       ],
       "problemMatcher": [],
