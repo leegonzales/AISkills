@@ -1,5 +1,69 @@
 # Servitor Journal — Pike (AISkills)
 
+## 2026-04-06 — Heartbeat #168
+
+**Trigger:** heartbeat
+**Check time:** 2026-04-06 12:15 MDT
+
+### Actions Taken
+
+- Read soul.md, journal.md (tail), state.json — context loaded
+- Fetched inbox — empty (no messages since 2026-04-05T18:16:00Z)
+- Checked git log, git status, CI, PRs, beads ready — assessed state
+- **PR #42 review feedback processed:** Gemini Code Assist (automated) identified 3 documentation inconsistencies in the `fix/gemini-stale-model-names` branch. All fell within autonomy boundaries (accuracy corrections). Fixed:
+  1. `SKILL.md` line 727: `1,500 requests/day` → `1,000 requests/day` (synced with gemini-commands.md free tier spec)
+  2. `assets/prompt-templates.md` line 9: `2M token context window` → `1M token context window` (synced with SKILL.md and gemini-commands.md)
+  3. `references/gemini-commands.md` line 722: `# Switch to available model` → `# Retry the prompt with updated settings` (comment was stale after --model flag removal)
+- Committed all fixes + pending journal/state changes to `fix/gemini-stale-model-names`
+
+### Messages Processed
+
+None — inbox quiet since Heartbeat #167.
+
+### Beads Changes
+
+None this session.
+
+### Assessment
+
+YELLOW steady. PR #42 review feedback resolved. Three documentation inconsistencies corrected. PR ready for Lee's final review and merge.
+
+---
+
+## 2026-04-05 — Heartbeat #167
+
+**Trigger:** heartbeat
+**Check time:** 2026-04-05 12:16 MDT
+
+### Actions Taken
+
+- Read soul.md, journal.md (tail), state.json — context loaded
+- Fetched inbox — no new messages since Wake #166 (last was msg #529, 2026-04-04T20:51:50Z)
+- Checked git log, git status, CI, PRs, beads ready — assessed state
+- **Executed 3 P2 bug fixes:**
+  - **SKILL-qyq** — closed as duplicate. No `--reasoning` flag references exist in current Codex skill files. SKILL-aon was already fixed in commit 6595eba.
+  - **SKILL-oef + SKILL-f5o** — fixed stale Gemini model names. Created branch `fix/gemini-stale-model-names`. Changes:
+    - `GeminiPeerReview/gemini-peer-review/SKILL.md`: "Gemini 3.0 Pro" → "latest Gemini model"
+    - `GeminiPeerReview/gemini-peer-review/references/gemini-commands.md`: removed all `--model gemini-3.0-*` flags from error handling and script examples
+    - `GeminiPeerReview/gemini-peer-review/assets/prompt-templates.md`: replaced all deprecated `-p "$(cat <<'EOF' ... EOF)"` pattern with stdin pipe (`cat <<'EOF' | gemini`); removed Model Selection Guide with stale names
+  - Committed as `bbe453b`, pushed branch, opened **PR #42** (leegonzales/AISkills#42)
+  - Closed SKILL-oef, SKILL-f5o, SKILL-qyq in beads
+
+### Messages Processed
+
+None — inbox quiet since Wake #166.
+
+### Beads Changes
+
+- Closed: SKILL-oef, SKILL-f5o, SKILL-qyq
+- Open P2 bugs remaining: 0
+
+### Assessment
+
+YELLOW → improving. All 3 standing P2 bugs resolved or closed. PR #42 open for Lee's review. McpProxyMux/ still pending Lee's decision. Fleet quiet.
+
+---
+
 ## 2026-04-04 — Agent-Mail Wake #166
 
 **Trigger:** agent-mail
@@ -1477,4 +1541,20 @@ Multiple heartbeat wakes, no changes across all. Engine room quiet. PR #35 aging
 - **Duration:** 3m 28s
 - **Exit:** success
 - **Commands:** ls /Users/leegonzales/Projects/leegonzales/AIEnablementTrain..., ls -la /Users/leegonzales/Projects/leegonzales/AIEnablementT..., ls -la /Users/leegonzales/Projects/leegonzales/AIEnablementT..., find /Users/leegonzales/Projects/leegonzales/AIEnablementTra..., for dir in module-build training-brainstorm training-build t..., wc -l /Users/leegonzales/Projects/leegonzales/AIEnablementTr..., git add .servitor/journal.md .servitor/state.json && git com..., git push
+---
+
+---
+### Auto-Journal: 2026-04-04 14:55 MDT
+- **Wake reason:** agent-mail
+- **Duration:** 1m 55s
+- **Exit:** success
+- **Commands:** git add .servitor/journal.md .servitor/state.json && git com..., git push
+---
+
+---
+### Auto-Journal: 2026-04-05 12:22 MDT
+- **Wake reason:** heartbeat
+- **Duration:** 5m 42s
+- **Exit:** exit code 1
+- **Commands:** git log --oneline -20 && echo "---STATUS---" && git status &..., bd ready 2>/dev/null && echo "---OPEN---" && bd list --statu..., bd show SKILL-oef 2>/dev/null && echo "===" && bd show SKILL..., git checkout -b fix/gemini-stale-model-names 2>&1, grep -c 'EOF' /Users/leegonzales/Projects/leegonzales/AISkil..., grep -n 'gemini-3\.0\|gemini-2\.0-flash\|-p "\$(cat' /Users/..., bd close SKILL-qyq --reason="Duplicate of SKILL-aon which wa..., git diff --stat && git status, git add GeminiPeerReview/gemini-peer-review/SKILL.md GeminiP..., git push -u origin fix/gemini-stale-model-names 2>&1, gh pr create --title "fix: remove stale Gemini model names f..., bd close SKILL-oef SKILL-f5o --reason="Fixed in PR #42 (fix/...
 ---

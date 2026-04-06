@@ -6,7 +6,7 @@ Ready-to-use prompt templates for common peer review scenarios. Copy, customize 
 
 ## Overview
 
-This guide provides battle-tested prompt templates for conducting thorough peer reviews using Google Gemini. Each template is designed to leverage Gemini's 2M token context window and advanced reasoning capabilities.
+This guide provides battle-tested prompt templates for conducting thorough peer reviews using Google Gemini. Each template is designed to leverage Gemini's 1M token context window and advanced reasoning capabilities.
 
 **Template Benefits:**
 - Copy-paste ready for immediate use

@@ -719,7 +719,7 @@ gemini "Review only @./src/auth/login.js (not entire directory)"
 gemini
 gemini> /settings
 
-# Switch to available model
+# Retry the prompt with updated settings
 gemini "prompt"
 ```
 
