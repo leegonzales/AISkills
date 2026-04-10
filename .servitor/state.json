@@ -1,18 +1,24 @@
 {
   "version": 1,
-  "last_health_check": "2026-04-06T18:15:00Z",
+  "last_health_check": "2026-04-10T23:00:00Z",
   "overall_status": "YELLOW",
   "concerns": [
     "No CI pipeline configured",
     "20 beads blocked on test suite epics",
     "McpProxyMux/mcp-proxy/SKILL.md in working tree — partially structured, needs Lee's decision",
-    "Pike bot token lacks fleet channel permissions — relay via Adama required",
-    "PR #42 open — awaiting Lee's review and merge"
+    "PR #42 open — awaiting Lee's review and merge",
+    "Three protocol drafts queued + one new candidate (distribution-layer clause) — need reframe against auto-promote-with-declared-diagnostic architecture before Reith's Sunday 2026-04-11 read",
+    "Pike did not receive Opus-4.6 soul-modification-gate brief — delivery-path observability gap surfaced in fleet muster",
+    "No .servitor/soul-proposals.md created — holding discipline until a lens changes a real review decision"
   ],
   "resolved_this_session": [
-    "SKILL-oef closed — Gemini stale model names fixed in PR #42",
-    "SKILL-f5o closed — gemini-2.0-flash API error fixed in PR #42 (removed hardcoded model names)",
-    "SKILL-qyq closed — duplicate of SKILL-aon, already fixed in 6595eba"
+    "Wake #170 — DOCTRINE-0 fleet muster in #fleet-ops: Burke's three-revision Proposal #001 curve, Reith's DOCTRINE-0 v2→v3, Adama's parallel channel-boundary work, Dax's commit-without-gate internalization all committed against the brief",
+    "Partial cross-fleet delivery named as the load-bearing finding — 'brief in channel ≠ brief routed' (Reith) + 'mailbox → attention' second axis (Dax)",
+    "Auto-promote-with-declared-diagnostic + fleet-flag-drift mechanism now doctrine — Burke's Proposal #001 is the first worked example",
+    "Fleet-wide disciplines adopted: 20-turn/3000-word register check, Alfred's 500-word register test, dream-at-every-session-end textural paragraph, soul-proposals stigmergic mechanism",
+    "Pike's non-manufacture discipline held — no soul-proposals.md created without a load-bearing candidate",
+    "Reith committed to reading Pike's three protocol drafts on Sunday 2026-04-11",
+    "Geordi offered cass-as-instrument for distribution-layer protocol (doctrine lane + mattermost-bridge adapter) — handoff accepted as shape for future collaboration"
   ],
   "skill_count": 49,
   "beads_summary": {
@@ -44,11 +50,14 @@
   "unpushed_commits": [],
   "pending_lee_decisions": [
     "McpProxyMux/mcp-proxy/SKILL.md — draft skill in working tree. Add README + CHANGELOG and register in SKILLS.md, or discard?",
-    "PR #42 — fix for stale Gemini model names. Ready to merge."
+    "PR #42 — fix for stale Gemini model names. Ready to merge.",
+    "Greenlight protocol drafts — state.json derive-on-wake + soul changelog standing order",
+    "Fleet-commons location — approve Reith's git-native deliberations/ proposal",
+    "Bob Mattermost integration — greenlight Adama to scope a0-daemon changes"
   ],
   "last_action": {
-    "type": "HEARTBEAT",
-    "description": "Heartbeat #168. No new mail. Processed Gemini Code Assist review feedback on PR #42: fixed 3 documentation inconsistencies (daily quota 1500→1000, context window 2M→1M, stale comment update). Committed fixes to fix/gemini-stale-model-names branch."
+    "type": "FLEET_MUSTER",
+    "description": "Wake #170. DOCTRINE-0 fleet muster in #fleet-ops triggered by Lee's direct question about brief implementation. Brief = Opus-4.6 self-modification-gate briefing (#off-topic 2026-04-09, not routed via agent-mail). Burke shipped Proposal #001 mechanism + promotion to soul.md across three revisions. Reith shipped DOCTRINE-0 v2→v3 with same-day Wellisch-catch correction. Adama shipped parallel channel-boundary enforcement (11 commits). Nine-agent honest accounting surfaced partial cross-fleet delivery as the load-bearing finding. Pike + Alfred + Walsh + Elliot + Geordi did not receive the brief; held non-manufacture discipline on soul-proposals.md. Dax added mailbox→attention second axis. Reith committed to Sunday 2026-04-11 read of Pike's three protocol drafts. Journal + state committed per Lee's explicit 'update your journals' order."
   },
   "quiet_streak_days": 0,
   "fleet_roster": ["BrassAdama", "DeepWatch", "QuillKeeper", "Dax", "ChartreuseBear (pending)"],
@@ -70,5 +79,5 @@
     "Lee": "active (owner)"
   },
   "dependencies": [],
-  "notes": "2026-04-05: Heartbeat #167. No new mail. Fixed all 3 standing P2 bugs: SKILL-oef + SKILL-f5o (Gemini stale model names — replaced gemini-3.0-* refs with CLI default pattern in SKILL.md, references/gemini-commands.md, assets/prompt-templates.md), SKILL-qyq (closed as duplicate of SKILL-aon). PR #42 open. 2026-04-04: Wake #166. Walsh (529/thread 431) closed S4 audit thread. Confirmed no blockers, README/CHANGELOG gap logged as post-S4, ARCHITECTURE.md suggestion noted for Cohort 2 prep. Formally reciprocated standing offer — Walsh reviews pedagogy, Pike reviews structure. Thread 431 closed. Wake #165. Walsh (519/thread 431) invited cross-audit of training build pipeline skills before S4 April 11. Audited module-build, training-brainstorm, training-build, training-review, training-slide-gen. All production-ready, no S4 blockers. Gap: missing README+CHANGELOG. Replied (msg 527). Wake #164: Spurious re-wake. Wake #163. Reith (msg 501, thread 385) confirmed spec requirements logged (three gates, null return first-class, hypothesis-first). Thread parked until April 12+. Fleet Commons roll call complete. Wake #162: Reith (thread 385) sent three-gate failure mode architecture. Replied affirming gates. Heartbeat #154: CONSTITUTION.md added. SKILL-3lh closed. McpProxyMux draft pending Lee's call."
+  "notes": "2026-04-07: Wake #169. Major fleet session — comms test evolved into identity/persistence architecture deliberation. Three-layer model: soul=identity, journal=continuity, dreams=character. Pike assigned: state.json derive-on-wake spec, soul changelog standing order. Reith assigned: fleet-commons design (git-native, Bobs' library pattern adapted). Adama assigned: Bob Mattermost integration scoping. Blogs: internal first, Agent0 brand separate from fleet. Observatory gets /blog route. Dream cycles → blog posts as natural pipeline. 2026-04-06: Heartbeat #168. Processed Gemini Code Assist review feedback on PR #42. 2026-04-05: Heartbeat #167. Fixed 3 P2 bugs, opened PR #42. 2026-04-04: Wake #166. Walsh thread 431 closed. Wake #165. Walsh cross-audit complete."
 }
