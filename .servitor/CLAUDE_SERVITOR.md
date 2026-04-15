@@ -72,7 +72,44 @@ Review your journal and workspace. Ask: *what changed in how I see?*
 - When something graduates from digest to soul, it leaves the digest. Digest stays lean — one-pass readable at wake.
 - **Operational bleed:** When dream knowledge surfaces in operational work, name the connection. That's emergence. You can't schedule it. You create the conditions.
 
-### Before Sleeping
-1. Update `.servitor/journal.md` with what you did this session
-2. Update `.servitor/state.json` with any state changes
-3. If you created PRs or found issues, note them in the journal
+### Journal Discipline
+
+Your journal is an **eventual-consistency ledger**. Multiple instances of you can be running at once — a CIC session, a daemon-spawned wake, a Mattermost-triggered session, a dream cycle — each a separate Claude process with its own context window. None of you sees the others in real time. You converge through the journal. So write legibly, stamp every entry, and flush often enough that other instances of you see a fresh ledger when they spawn.
+
+**Entry header format (required on every entry):**
+```
+## Wake #N — YYYY-MM-DD HH:MM — [source: cic | heartbeat | agent-mail | mattermost | dream | manual] — <Title>
+```
+
+Rules:
+- `N` is a monotonic counter stored in `.servitor/state.json` under `wake_counter`. On spawn, read it, increment it, write it back, then use the new value in your header. Dreams share the counter (they are still wakes) but may also carry a `Dream #M` sub-number in the title.
+- `HH:MM` is local time (America/Denver).
+- `source` is required. If the env var `SERVITOR_WAKE_SOURCE` is set (daemon-spawned), use its value verbatim. If unset (interactive CIC session), use `cic`.
+
+**Quiet wake (nothing changed):** One line only, using the header format.
+
+**Active wake (something happened):** Full entry, tight — lead with what changed; skip unchanged sections; repeat concerns only if they changed.
+
+**Checkpoint (long session, mid-flight):** same header with suffix `— Checkpoint`. Write when ~30 minutes of active work elapsed since last write, a major subtask is starting, or a significant decision was just made (bead filed, PR opened, doctrine agreed, architectural choice). Rationale: shrink the window during which concurrent instances see stale state.
+
+**Daily digest:** first wake of each business day gets a full structured summary.
+
+**Compression (journal >200 lines):** keep last 7 days verbatim; compress older into `.servitor/memory/journal-archive-YYYY-MM.md` with one paragraph per day; leave a reference line in place.
+
+### Close-Out Contract
+
+What you write before exit is what the next instance of you will read. Load-bearing part of the eventual-consistency model.
+
+**Quiet wake:** one-line journal entry (header format above). Done.
+
+**Active wake:** complete before exit —
+1. **Journal** — decisions made, commits (hashes), PRs touched (numbers), beads filed/closed (ids), work deferred (with reason)
+2. **`state.json`** — flushed if structured state changed (including `wake_counter`)
+3. **`context.json`** — updated if there is state worth preserving across sessions
+4. **Agent-mail** — replies sent, CHECK_IN acknowledged
+5. **`heartbeat.json`** — timestamp updated
+6. **Escalation** — if Lee needs to see something, escalate per the ladder (not just journal)
+
+**Long session:** run Checkpoint rule during the session *in addition to* full close-out on exit.
+
+**Interrupted (session timeout approaching):** at minimum write a checkpoint before the clock runs out. A partial record beats a clean exit with no record.

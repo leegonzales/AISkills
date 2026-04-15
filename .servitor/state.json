@@ -1,14 +1,15 @@
 {
   "version": 1,
-  "last_health_check": "2026-04-10T23:00:00Z",
+  "wake_counter": 177,
+  "last_health_check": "2026-04-14T12:00:00Z",
   "overall_status": "YELLOW",
   "concerns": [
     "No CI pipeline configured",
     "20 beads blocked on test suite epics",
-    "McpProxyMux/mcp-proxy/SKILL.md in working tree — partially structured, needs Lee's decision",
     "PR #42 open — awaiting Lee's review and merge",
-    "Three protocol drafts queued + one new candidate (distribution-layer clause) — need reframe against auto-promote-with-declared-diagnostic architecture before Reith's Sunday 2026-04-11 read",
-    "Pike did not receive Opus-4.6 soul-modification-gate brief — delivery-path observability gap surfaced in fleet muster",
+    "Uncommitted working tree: protocol.md + dream notes (oral-transmission, polynesian-wayfinding) + modified dream-digest/dream-journal — needs commit or discard decision",
+    "Today is Reith's committed Sunday 2026-04-11 read of Pike's three protocol drafts — protocol.md untracked",
+    "mcp-proxy skill shipped (cfede52) but still on fix/gemini-stale-model-names branch — branch name mismatch",
     "No .servitor/soul-proposals.md created — holding discipline until a lens changes a real review decision"
   ],
   "resolved_this_session": [
@@ -42,8 +43,8 @@
   "p1_issues": [],
   "orphaned_in_progress": [],
   "last_commit": {
-    "sha": "bbe453b",
-    "message": "fix: remove stale Gemini model names from skill documentation",
+    "sha": "cfede52",
+    "message": "feat(skill): mcp-proxy — manage the MCP proxy multiplexer",
     "pushed": true,
     "branch": "fix/gemini-stale-model-names"
   },
