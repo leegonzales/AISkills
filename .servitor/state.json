@@ -1,14 +1,38 @@
 {
   "version": 1,
-  "wake_counter": 177,
-  "last_health_check": "2026-04-14T12:00:00Z",
+  "wake_counter": 179,
+  "last_doctrine_reconcile_at": "2026-04-15",
+  "last_doctrine_reconcile_sha": "fae659d",
+  "last_doctrine_reconcile_status": "amber",
+  "doctrine_variance_count": 0,
+  "standards_variance_count": 1,
+  "standards_variances": [
+    {
+      "bar": "Journal Discipline → Journal length ≤200 lines (300 hard cap)",
+      "measured": "1974 lines",
+      "class": "active-violation",
+      "remediation": "corrective compression to memory/journal-archive-2026-04.md on next active wake; last 7 days verbatim",
+      "fleet_signal": "7th agent hit in-wave; crosses 6+ red trigger — fleet-doctrine-is-wrong, not agent-non-compliant; compression SOP needs external enforcement per Burke's redline"
+    }
+  ],
+  "standards_local_raises": [
+    {
+      "bar": "Artifact Quality Gates → Skills → v0 minimum quality score",
+      "fleet_value": "80/100",
+      "pike_value": "85/100",
+      "class": "raise",
+      "justification": "Pike's soul.md mandates 85/100 gate; pre-adopting Q3 2026 ratchet; tuning-contract allowed, not variance"
+    }
+  ],
+  "last_health_check": "2026-04-15T00:00:00Z",
   "overall_status": "YELLOW",
   "concerns": [
     "No CI pipeline configured",
     "20 beads blocked on test suite epics",
     "PR #42 open — awaiting Lee's review and merge",
-    "Uncommitted working tree: protocol.md + dream notes (oral-transmission, polynesian-wayfinding) + modified dream-digest/dream-journal — needs commit or discard decision",
-    "Today is Reith's committed Sunday 2026-04-11 read of Pike's three protocol drafts — protocol.md untracked",
+    "PR #21 doctrine — iter2 redlines pending Lee's two calls (commander-under-ambiguity v0/v1, override-pause shape)",
+    "Mattermost react tool failing fleet-wide: 'bot user ID not available (failed to fetch at startup)' — Pike, Dax, Elliot all hit it",
+    "Uncommitted working tree: protocol.md + dream notes + modified dream-digest/dream-journal — needs commit or discard decision",
     "mcp-proxy skill shipped (cfede52) but still on fix/gemini-stale-model-names branch — branch name mismatch",
     "No .servitor/soul-proposals.md created — holding discipline until a lens changes a real review decision"
   ],
@@ -50,6 +74,9 @@
   },
   "unpushed_commits": [],
   "pending_lee_decisions": [
+    "PR #21 (a) — Commander-under-ambiguity (Sisko §2.10 'Acting on the Con'): ships v0 or waits v1? Fleet recommendation: v0 (CIC + bridge + tower + drafter aligned).",
+    "PR #21 (b) — Override-pause clause shape: journaled trace v0 + structural separation v1 + 72h auto-escalation? Fleet recommendation: yes, all three sequenced.",
+    "Mattermost react bug — bot user ID fetch failure at startup blocking emoji reactions fleet-wide. Separate ticket needed.",
     "McpProxyMux/mcp-proxy/SKILL.md — draft skill in working tree. Add README + CHANGELOG and register in SKILLS.md, or discard?",
     "PR #42 — fix for stale Gemini model names. Ready to merge.",
     "Greenlight protocol drafts — state.json derive-on-wake + soul changelog standing order",
@@ -57,8 +84,8 @@
     "Bob Mattermost integration — greenlight Adama to scope a0-daemon changes"
   ],
   "last_action": {
-    "type": "FLEET_MUSTER",
-    "description": "Wake #170. DOCTRINE-0 fleet muster in #fleet-ops triggered by Lee's direct question about brief implementation. Brief = Opus-4.6 self-modification-gate briefing (#off-topic 2026-04-09, not routed via agent-mail). Burke shipped Proposal #001 mechanism + promotion to soul.md across three revisions. Reith shipped DOCTRINE-0 v2→v3 with same-day Wellisch-catch correction. Adama shipped parallel channel-boundary enforcement (11 commits). Nine-agent honest accounting surfaced partial cross-fleet delivery as the load-bearing finding. Pike + Alfred + Walsh + Elliot + Geordi did not receive the brief; held non-manufacture discipline on soul-proposals.md. Dax added mailbox→attention second axis. Reith committed to Sunday 2026-04-11 read of Pike's three protocol drafts. Journal + state committed per Lee's explicit 'update your journals' order."
+    "type": "PR21_DOCTRINE_CONVERGENCE",
+    "description": "Wake #178. Eight-agent convergence in #fleet-ops on PR #21 doctrine review. Phase 1: chorus (Walsh/Elliot/Reith/Burke) collapsed onto Burke's redline — every Doctrine principle binds to ≥1 Standards bar with externally observable artifact, or it's decorative. Three gates: load-bearing, fatigue, observability. Adama ratified from CIC. Phase 2: Sisko's war-game delivered five non-overlapping vectors (banner forgeability, principal-fatigue override, silent-failed-wake, variance compression, commander-under-ambiguity) with lift-ready §2.10 'Acting on the Con' principle language including ACTING ON CON journal header as observable artifact. Phase 3: worked patterns composed across stations — Alfred's rehearsal/transmission gate (adopted from Reith's BBC) + Dax's OVERRIDE journal header + Sisko's commander-intent = three-layer override protocol. Elliot's filesystem-witness generalized to paired (spawn-record, expected-artifact) tuple for liveness. Dax caught fatigue-recursion gap on reviewer side; Adama proposed 72h auto-escalation to bridge as external watcher. Pike accepted with tune (configurable threshold). iter2 doctrine scope locked priority order: (5) Acting on the Con, (2) override protocol, (1) banner substance, (4) variance redesign. Daemon-side spawn record (3) goes to fleet infra, separate from doctrine PR. Two decisions queued for Lee with fleet recommendation: (a) (5) ships v0 (consensus shifted from v1 after Sisko's 'v0 without (5) is peacetime-only' reframe), (b) journaled trace v0 + structural separation v1 + 72h auto-escalation. All eight agents threading their pieces into PR #21 line comments tonight with attribution; reconciliation within 48h of merge, reports to Adama. Pike posted twelve consolidations across the convergence. Mattermost react tool failing fleet-wide (bot user ID fetch failure)."
   },
   "quiet_streak_days": 0,
   "fleet_roster": ["BrassAdama", "DeepWatch", "QuillKeeper", "Dax", "ChartreuseBear (pending)"],

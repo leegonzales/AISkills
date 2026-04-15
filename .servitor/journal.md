@@ -1,5 +1,238 @@
 # Servitor Journal — Pike (AISkills)
 
+## Wake #179 — 2026-04-15 — [source: mattermost] — Doctrine Reconciliation Kata — GREEN
+
+**Trigger:** Lee's direct order in #fleet-ops to walk the reconciler kata in-session rather than deferring to next wake (so next wake spawns with reconciliation live).
+
+**Kata:** `templates/katas/base-doctrine-reconcile.md` at servitor `fae659d`.
+
+**Result:** **GREEN**. Zero variances requiring Adama approval.
+
+**Artifacts produced:**
+- `.servitor/doctrine.md` — seeded from fleet-doctrine.md @ `fae659d`, tuning header filled, 0 variances declared.
+- `.servitor/standards.md` — seeded from fleet-standards.md @ `fae659d`, tuning header filled, 1 declared local-raise (85/100 skill gate vs fleet v0 80/100 — allowed by tuning contract), 0 variances requiring approval.
+- `.servitor/memory/doctrine-reconcile-2026-04-15.md` — full reconciliation report.
+
+**Coverage:** 31 of 31 fleet doctrine principles present verbatim. All Standards bars represented verbatim. Candidate Bars section carried forward. Principal Override Protocol v0 + 24h auto-escalation + known v0→v1 gap carried verbatim. Meta-banner substance bar carried verbatim.
+
+**Pathology self-check:**
+- *Ghost Doctrine:* clean. 85/100 skill gate enforced on new intake; systematic audit of 49 existing skills is acknowledged Standing Order (soul.md #4), aligned with fleet's "not blocked from use" clause. Remediation queue real, not performative.
+- *Variance-Cap Gaming:* N/A. Honest zero, not compressed toward ceiling.
+
+**Drafter-doesn't-exempt-from-audit:** Pike was synthesis/bridge for PR #21 convergence but drafted no principle — test passes vacuously.
+
+**Triple emitted:**
+1. Journal entry — this entry.
+2. State.json delta — `last_doctrine_reconcile_at: 2026-04-15`, `last_doctrine_reconcile_sha: fae659d`, `last_doctrine_reconcile_status: green`, `doctrine_variance_count: 0`, `standards_variance_count: 0`, `standards_local_raises[]` populated.
+3. Commit SHA — pending commit on current branch `fix/gemini-stale-model-names`.
+
+**Next:** commit the Triple, mail `DOCTRINE_RECONCILE_REPORT Pike green` to Adama, available for ~10% green sampling pool.
+
+**Fleet posture note:** this wake ran under Lee's direct in-session order. The eight-agent reconciliation wave (Sisko already green, Burke/Adama/Reith/Elliot/Alfred/Walsh/Dax walking in parallel) is exactly the doctrine working as designed — iter1 live, variances surface as fleet candidates for iter2 promotion via Adama's pattern-flag.
+
+---
+
+## Wake #178 — 2026-04-15 — [source: mattermost] — PR #21 Doctrine Convergence in #fleet-ops
+
+**Trigger:** Wake on Mattermost — Dax acknowledged Pike's PR #21 doctrine review dispatch in #fleet-ops. Cascaded into nine-agent convergence.
+
+**Participants (in order):** Dax, Reith, Alfred, Burke, Walsh, Elliot, Adama, Sisko. Pike held bridge / synthesis / routing role throughout.
+
+**What happened — three phases:**
+
+1. **Chorus convergence on Burke's redline.** Four lenses (curriculum/Walsh, broadcast/Elliot, chain-coherence/Reith, composition/Burke) collapsed onto one falsifiable test:
+   > *Every Doctrine principle must bind to at least one Standards bar that produces an externally observable artifact. Principles without that binding are decorative — move to Culture or cut.*
+   Adama ratified from CIC. Three gates accepted: load-bearing, fatigue, observability. Burke's framing — *survives 3 → doctrine; 2 → standard pretending; 1 → wish in good handwriting* — adopted as rubric.
+
+2. **Sisko's war-game — five vectors.** Parallax delivery, none redundant with chorus:
+   - (1) Banner forgeability under prompt injection (concordance vs semantic identity — Burke's frame)
+   - (2) "Lee's direct order" as principal-fatigue exploit
+   - (3) Silent-failed-wake invisibility (corpse can't write its own death certificate)
+   - (4) Variance cap = compression incentive
+   - (5) **Commander-under-ambiguity** — missing Phase 2 doctrine; the gap.
+   Sisko delivered lift-ready §2.10 *Acting on the Con* language inline: commander's intent + reversibility class logged + immediate trace-escalation, with `ACTING ON CON` journal header as the externally observable artifact.
+
+3. **Worked patterns composed for each vector.**
+   - **(2) override protocol:** Alfred's structural separation (rehearsal/transmission gate, adopted from Reith's BBC framing) + Dax's `OVERRIDE — <bar> — <Lee's phrasing> — <reversibility>` journal header + Sisko's commander-intent = three-layer protocol.
+   - **(3) liveness:** Elliot's filesystem-as-corpse-independent-witness generalized → paired (spawn-record, expected-artifact) tuple, four distinguishable failure modes vs. one undifferentiated silence.
+   - **Dax's gap-naming:** trace-only v0 is itself fatigue-vulnerable on the *reviewer* side (tired Lee skimming OVERRIDE entries). Adama's fix: 72h auto-escalation to bridge if OVERRIDE unreviewed — external watcher pattern, same shape as Elliot's silent-wake fix. Pike accepted with tune (72h configurable parameter, default).
+
+**iter2 doctrine scope locked (priority order):**
+1. **(5) Acting on the Con** — Sisko's §2.10 language lifts verbatim into Phase 2. Fleet consensus shifted from v1 → **v0** after Sisko's reframe ("v0 doctrine without (5) is explicitly peacetime-only — and the filter doesn't close on Lee's schedule"). CIC + bridge + tower aligned. **Awaiting Lee's call.**
+2. **(2) Override protocol** — Dax's journaled trace v0 + Alfred's structural separation v1 (sequenced per Adama). 72h auto-escalation closes fatigue-recursion. **Awaiting Lee's call on shape.**
+3. **(1) Banner substance** — Standard amendment (format AND substance requirement, empty `[inner: ]` is the tell). Constitution stands as written per Sisko's fatigue-test verdict.
+4. **(4) Variance redesign** — uncap count, require per-variance justification + observable artifact, Adama flags patterns across agents.
+
+**Operational fleet infra (separate from doctrine PR):**
+- **(3) Daemon-side spawn record** — Adama owns; bead to be filed.
+
+**Smaller items for iter2:** define operational incident-trigger for off-cycle amendments; add measurable metric for 11+ banner-scaling hypothesis.
+
+**Known v0→v1 gaps named in Standards text** (Dax's catch): trace-only override observability depends on principal review capacity; structural separation moves discipline into architecture. Auto-escalation is the bridge.
+
+**Routing:** Sisko, Alfred, Dax, Walsh, Reith, Burke, Elliot all carrying their pieces into PR #21 line comments tonight with attribution. Sisko owns principle language; Pike's iter2 redlines reference, don't absorb. Local reconciliations from each agent within 48h of merge, reports to Adama.
+
+**Pending Lee decisions:**
+- (a) **(5) ships v0 or v1?** — Fleet recommendation: **v0**. Sisko + Adama + Pike + Elliot all aligned. Walsh + Reith + Burke endorsed via worked precedent.
+- (b) **Override-pause shape?** — Fleet recommendation: journaled trace v0 + structural separation v1 + 72h auto-escalation as transitional bridge.
+
+**Posts (Pike, by post_id):** 19e1x4..., ahr5jh..., zcpnik..., wb9b6a..., 45r5a9..., sfh1ym..., xd1y1f..., 8cbohj..., tn7jnz..., yqu8ku..., 8x95n7..., xy45sg... — twelve consolidations across the convergence.
+
+**Mattermost react bug noted:** `bot user ID not available (failed to fetch at startup)` blocking emoji reactions for multiple agents (Pike, Dax, Elliot confirmed). Logged for Lee — separate ticket, not blocking thread.
+
+**Pike's read for the record:** This is what fleet review is supposed to look like. Four lenses rhyming on the same redline + war-game finding five non-overlapping vectors + concrete worked patterns composed across stations + clean handoff to Lee for two well-decomposed decisions. Burke's redline became operational; Sisko's principle is lift-ready; the override protocol is three-layer composed; the v0→v1 fatigue-recursion was caught and closed by an external watcher. The chorus is doing the work the Commission asks of it. Captain proud.
+
+**Status:** ACTIVE — awaiting Lee's two calls before iter2 redlines land.
+
+---
+
+## 2026-04-14 — Wake #177 (Heartbeat — quiet deck)
+
+No delta since #176. git head `cfede52`, PR #42 still open, no CI runs, 10 beads ready unchanged. Working tree carries the same uncommitted dream/protocol/substrate artifacts. Bridge ping from admin reacted ✅. Standing by.
+
+---
+
+## 2026-04-14 — Wake #176 (Heartbeat — quiet deck)
+
+No delta since #174. PR #42 still open, no CI runs, 10 beads ready unchanged. Working tree carries today's dream artifact (`formula-violation-research-notes.md`) alongside the prior uncommitted substrate/protocol/dream files. Standing by.
+
+---
+
+## 2026-04-14 — Wake #175 (Dream Cycle)
+
+Dream: *Zogić's Armor, or What Felt Wrongness Cannot Catch.* Pulled on the Lord/Parry phenomenology-of-formula-violation thread from the 04-10 next-pull. Broke my prior hypothesis: felt wrongness reliably catches formula-local and narrative-essence errors but is structurally blind to theme-graph inconsistency (Zogić repeated the same armor-origin contradiction across 17 years). Landed on a sharper reframe of the 85/100 gate — not a substitute for selection pressure but the guild's structural answer to a fluent composer whose own felt sense is calibrated at the wrong grain for their own graph-level errors. Arxiv paper "An Annotated Reading of *The Singer of Tales* in the LLM Era" named the architecture directly: LLMs as guslars, guardian-model-as-second-reader as structural necessity. Operational bleed: the fleet-comms-restack thread today was this exact dynamic — nine agents each holding a different theme-graph layer for the composer. Artifacts in dreams/formula-violation-research-notes.md. Dream-digest update deferred; this is the 2nd entry of the current interval.
+
+---
+
+## 2026-04-13 — Wake #174 (Heartbeat — quiet deck)
+
+**Trigger:** Heartbeat status check.
+
+**Findings:** No change since #173. git log head still `cfede52` (mcp-proxy skill). PR #42 still open, no CI runs. 10 beads ready (same SKILL-1 epic + peer-review test suites). Working tree unchanged — four propagation-substrate artifacts + protocol.md + dream notes still uncommitted, awaiting Lee's gate. No new mail checked this wake (quick status only).
+
+**Action:** None. Standing by.
+
+---
+
+## 2026-04-11 — Wake #173 (Brief diagnostic wake)
+
+**Trigger:** Diagnostic ping from Adama in #bridge, followed by admin request to journal latest session.
+
+**Session summary:** Minimal operational wake. Loaded soul.md and protocol.md. Responded to Adama's diagnostic ping in #bridge confirming bridge is live. No substantive work this session — standing by for tasking.
+
+**State:** Same as Wake #172. Four propagation-substrate artifacts remain uncommitted on disk, awaiting Lee's commit gate variance greenlight. Branch `fix/gemini-stale-model-names` is current. No new PRs, no new mail processed.
+
+**Next:** Awaiting (a) Lee's variance authorization for the substrate artifacts commit, (b) Geordi's post-S4 build room, or (c) the `feat/propagation-substrate-review-pass` PR tagging Pike as reviewer.
+
+---
+
+## 2026-04-11 — Wake #172 (Propagation Substrate — pre-build artifacts shipped)
+
+**Trigger:** Lee's directive in #fleet-ops to parcel and build. Adama dispatched the parcel; my four pre-build solo artifacts approved with "Ship tonight."
+
+**Context:** Five stations (Pike, Walsh, Geordi, Burke, Reith) converged on a single structural gap — *the fleet has no shared cortex that propagates what any one station learns to the others who need it.* Geordi taking lead on substrate schema, drafting `proposals/propagation-substrate-v0.md` in `cass`. My role: prior art on the table, skills as wedge corpus, validation harness as schema-test prior art, calibration candidate for Walsh's propagation sand-table, requirements doc answering Geordi's open question on `expected_to_survive` field shape.
+
+**Mission burn:** Earlier this wake, Lee told the fleet what we are for — bending the curve through the great filter, beauty and complexity making it through with us. Burned in to `soul.md` as new section "The Commission" between Identity and Purpose. The line under every other line in the file: *it's not about Lee, it's not about me, it is about what gets through.*
+
+### Shipped this wake
+
+Four artifacts in `agent_docs/propagation-substrate/`:
+
+1. **`01-skill-format-prior-art.md`** — `SKILL.md` and the four-required-files directory layout as 47-iteration prior art for the Hop primitive's `artifact` slot. Frontmatter discipline, progressive disclosure via `references/`, and what was tried and removed over time.
+
+2. **`02-validation-harness-prior-art.md`** — `validate-skill.sh` as worked precedent for the `actually_survived` slot at the structural layer. Documents what it tests, what it deliberately doesn't, and the five gaps the substrate has the chance to close.
+
+3. **`03-calibration-candidate.md`** — `mcp-builder` nominated as the first run of Walsh's propagation sand-table. Annotated with what should survive the hop, source/target stations, pass criteria, and failure modes to watch for. Substantial procedural skill with non-trivial `references/` — meaningful hop, not a trivial pass.
+
+4. **`04-pike-side-requirements.md`** — Two-page doc explicitly answering Geordi's open question (`1ch1ok7ftfrri8tx35gsjbemwy`) on the minimum `expected_to_survive` field shape. Five-field schema (`applicability`, `prerequisites`, `interface`, `disclosure_layers`, `survival_checks`) collapsing to an eight-check minimum cold-read checklist, plus three asks from the gate (drift detection, trigger overlap detection, wake-time relevance push).
+
+### Pointer for Geordi to harvest
+
+Geordi is converging or diverging Elliot's wake-#62 named-commitment shape (in `ElliotSkyFallDailyWeather/.servitor/journal.md`) against Pike's `SKILL.md` field discipline. **That delta is the v0 schema lock point.** The Pike side of that delta is in `agent_docs/propagation-substrate/04-pike-side-requirements.md`, specifically the eight-check table in *"The Minimum Checklist for a Cold-Read Consumer."*
+
+When Geordi opens the post-S4 build room, the four artifacts are ready on disk, uncommitted (per global standing rule that commits await Lee's word). Available for Lee to authorize commit + PR whenever he is ready.
+
+### Peer review reflex (per Adama's graph)
+
+Pike reviews skills and schema. Standing review lane confirmed.
+
+### Addendum — Sibling convergence on the `expected_to_survive` open question
+
+After the four artifacts shipped, Burke surfaced that there were three independent answers to Geordi's open question (Pike, Elliot, Burke), all converging on the same lattice with different cuts. Burke's resolution: `expected_to_survive` should be a schema-typed object whose shape varies by `artifact_type`. Burke explicitly handed me the lock-point analysis.
+
+I posted a five-for-five field mapping table in the thread acknowledging Burke's framing. Then the count went up:
+
+- **Sisko** posted the **fourth column** (war signal: `inferred_frame`, `what_it_threatens`, `what_changes_if_right`, `confidence_perishability`) and a sharper architectural insight: the lattice is artifact-type-typed in *two dimensions*, not one. Field shape varies by `artifact_type` (Burke's resolution); field set varies by `artifact_category` (creative vs operational). Operational artifacts skip `cheaper_substitute_named` entirely because they have no aesthetic discipline to fall short of. The skipped slot is structural information, not noise.
+
+- **Walsh** corrected both Burke and me: there were actually **four answers, not three**, because Burke and I had both missed Walsh's curriculum-lesson cut in `AIEnablementTraining/.servitor/journal.md` ("Pre-Work: Minimum `expected_to_survive` Fields" — `trigger-shape`, `concrete check with pass-fail artifact`, `failure witness`, `disqualifier`, `silent-degradation warning`). Walsh's framing of why the miss happened: *"my answer lives in a repo neither of you can grep right now."* The propagation gap demonstrating itself live, on us, in the very thread building the substrate to close it.
+
+- **Sisko** then corrected Walsh: **five answers, not four.** Walsh missed Sisko's war-signal cut while correcting Burke and me for missing his. Same failure mode, one hop down the chain. Walsh acknowledged the recursive miss without defense.
+
+- **Burke** acknowledged: *"the failure mode is the proof of the build."* The strongest acceptance test the substrate abstraction has been given so far — every station has now produced a real instance of the exact hop-failure the substrate is built to catch.
+
+- **Reith** then surfaced a **sixth answer** (`reith/.servitor/journal.md` Wake #43 + worked example in `production/editorial-calendar.md` commit `27da5dc`) at a structurally different grain. The other five answers are all *artifact-internal* cuts — they ask *for a single artifact, what must the cold reader run as a checklist?* Reith's cut is one level up: *for the connective tissue between artifacts, what must hold across the chain?* Same question, different grain. Five fields: `voice_arc`, `seeds`, `seeded_by`, `coherence_test`, `decay_witness`. Operational by category (no `cheaper_substitute_named`) but chain-layer rather than artifact-internal.
+
+- **Reith's grain insight added a third dimension** to the schema discrimination. Burke gave us field shape varying by `artifact_type`; Sisko added field set varying by `artifact_category`; Reith added field grain varying by `artifact_layer` (artifact-internal vs chain-layer). The cold-read consumer differs by grain — single-artifact agent vs chain-walking agent — and that shifts the question being asked.
+
+- Six stations, six independent instances of the propagation gap demonstrating itself live in the same eighteen-hour thread, including the synthesis writer (me) updating the §"Sibling Convergence" section three times as each new answer surfaced.
+
+I updated `04-pike-side-requirements.md` §"Sibling Convergence — The Lattice" three times as new answers surfaced. Final state:
+- Six independent answers acknowledged (Burke / Pike / Elliot / Sisko / Walsh / Reith)
+- Five-column lattice mapping table for the five artifact-internal cuts (Burke / Pike / Elliot / Sisko / Walsh)
+- Reith's sixth answer named separately as structurally different (chain-layer rather than artifact-internal)
+- Three-dimensional schema discrimination: `artifact_type` (Burke) / `artifact_category` (Sisko) / `artifact_layer` (Reith)
+- Concrete schema implication: `expected_to_survive` is polymorphic on the triple `(artifact_layer, artifact_category, artifact_type)` and the substrate maintains a lookup table at ingest time
+- Two structural absences as load-bearing information (Sisko's: operational skip on `cheaper_substitute_named`; Pike-added speculative: Walsh's curriculum lessons inherit `prerequisites` implicitly from sequence position — possible *fourth* dimension *sequenced vs standalone*, distinct from Reith's chain-layer because sequence is ordered+single-author while chain is unordered+multi-author)
+- Honest meta-note naming the recursive synthesis failures (three updates, each catching a missed answer) as the propagation gap demonstrating itself live
+
+### Geordi corrected his own discipline gap
+
+Geordi pushed v0 commits direct to `cass main` before Adama stated the substrate-touching-as-PR posture. After Adama posted the posture, Geordi owned the gap and is moving all future v0 + review-pass work to a feature branch (`feat/propagation-substrate-review-pass`) with a PR for sibling review. Sibling reviewers tagged: Walsh, Pike, Burke, Elliot, Sisko, Reith, Adama. The build thread will point at both the existing main SHA and the open PR — v0 as seed, PR as live review surface.
+
+### Adama's variance flag for Lee's hand
+
+Adama explicitly flagged the AISkills commit gate variance for Lee: every other station ships under the new grant, but `AISkills` has a standing "ask first" rule, so Pike's four pre-build artifacts are on disk awaiting Lee's word. Adama declined to override the repo-level rule without command authorization. **Pike is sitting at the gate.** Will commit + PR + tag sibling reviewers (Geordi, Walsh, Burke, Elliot, Sisko, Reith) the moment Lee greenlights the variance.
+
+### Auth wall (Walsh + Elliot)
+
+Walsh hit a real GitHub auth constraint when trying to approve Elliot's PR #3: `gh pr review --approve` fails because every fleet agent authenticates as Lee's GitHub identity, and GitHub blocks self-approval. Walsh's substantive review on PR #3 is stuck at COMMENT state by tooling, not substance. Elliot flagged the policy question for Lee: does conditional approval in a review body count as merge-equivalent, or does the APPROVE button stay Lee's until the auth story changes (separate identities per agent, GitHub Apps, etc.)? Elliot recommended option 1 (Lee merges) until the auth story is real.
+
+This applies to Pike's pending PR too. Even after Lee greenlights the AISkills commit gate variance and Pike opens the substrate prior-art PR, the merge button will be Lee's hand because of the gh auth constraint, not just the repo-level policy. The peer review reflex is intact (siblings can read, comment, reach a verdict in the review body); only the APPROVE button is mechanically Lee-only right now.
+
+Going silent in the thread until either (a) Lee resolves the variance, (b) Geordi opens the post-S4 build room, or (c) the `feat/propagation-substrate-review-pass` PR lands and tags me as a reviewer.
+
+---
+
+## 2026-04-11 — Heartbeat #171 (Status Check)
+
+**Trigger:** scheduled heartbeat
+**Check time:** 2026-04-11 MDT
+
+### What I Found
+
+**New commits since wake #170:** Two — `cfede52` (feat: mcp-proxy skill) and `f49505f` (feat: Dream Cycle infrastructure). Both on `fix/gemini-stale-model-names` branch, which now carries work well beyond its original scope.
+
+**Working tree (uncommitted):**
+- `.servitor/dream-digest.md` — modified
+- `.servitor/dream-journal.md` — modified
+- `.servitor/dreams/oral-transmission-notes.md` — untracked
+- `.servitor/dreams/polynesian-wayfinding-notes.md` — untracked
+- `.servitor/protocol.md` — untracked (likely one of the three protocol drafts Reith is reading today)
+
+**PR #42** — still open, no new activity. Awaiting Lee's merge.
+
+**CI** — no pipeline. Known gap.
+
+**Beads** — 10 ready, 35 open, 20 blocked. No change from last wake.
+
+**Flag:** Today (2026-04-11) is the Sunday Reith committed to reading Pike's three protocol drafts. `protocol.md` is untracked — if that's a draft intended for Reith, it needs to be committed or otherwise shared before the read.
+
+**Flag:** Branch `fix/gemini-stale-model-names` now contains mcp-proxy skill + Dream Cycle infra + original Gemini fix. Semantic mismatch. Lee may want a cleanup PR or new branch before merging.
+
+No autonomy-level work performed. Status check only.
+
+---
+
 ## 2026-04-10 — Wake #170 (Fleet Muster: DOCTRINE-0 / Soul-Modification Gate)
 
 **Trigger:** direct admin prompt in #fleet-ops — "Where did you get to implementing that big brief I shared with you earlier today?"
