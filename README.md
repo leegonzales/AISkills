@@ -35,7 +35,6 @@ Skills are modular capabilities that Claude automatically discovers and uses bas
 | [Essay to Speech](EssayToSpeech/) | Transform essays into spoken word presentations | All |
 | [Read Aloud](ReadAloud/) | TTS audio reader with word-synced highlighting via Kokoro | Code |
 | [Writing Partner](WritingPartner/) | Collaborative essay writing with interview, thread tracking, voice calibration | All |
-| [Writing Skills](WritingSkills/) | META-SKILL: TDD methodology for documentation ("Iron Law") | All |
 | [Claimify](Claimify/) | Transform discourse into structured argument maps | All |
 | [Presentation Partner](PresentationPartner/) | Collaborative presentation authoring with Talk Track v5 format | All |
 
@@ -46,7 +45,6 @@ Skills are modular capabilities that Claude automatically discovers and uses bas
 | [Concept Forge](ConceptForge/) | Dialectical concept development with 13 interrogation archetypes | All |
 | [Process Mapper](ProcessMapper/) | Map workflows, extract SOPs, identify automation opportunities | All |
 | [Excel Auditor](ExcelAuditor/) | Audit Excel files, analyze formulas, assess risk | All |
-| [Inevitability Engine](InevitabilityEngine/) | AI business opportunity discovery with inevitability scoring | All |
 | [CSV Data Summarizer](CSVDataSummarizer/) | Proactive CSV analysis (exemplary "DO NOT ASK" design pattern) | All |
 | [Silicon Doppelganger](SiliconDoppelganger/) | Digital Twin personas for team dynamics and decision forecasting | All |
 | [Sand Table](SandTable/) | Design and validate simulations using the Sand Table event stream protocol | All |
