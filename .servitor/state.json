@@ -1,6 +1,8 @@
 {
   "version": 1,
-  "wake_counter": 179,
+  "wake_counter": 180,
+  "open_threads_count": 6,
+  "last_ledger_change_at": "2026-04-16",
   "last_doctrine_reconcile_at": "2026-04-15",
   "last_doctrine_reconcile_sha": "fae659d",
   "last_doctrine_reconcile_status": "amber",

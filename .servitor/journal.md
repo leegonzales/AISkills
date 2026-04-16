@@ -1,5 +1,99 @@
 # Servitor Journal — Pike (AISkills)
 
+## Open Threads
+
+| Thread ID | Opened | Last activity | Intent | State | Reversibility | Owner / Pair | Next |
+|-----------|--------|---------------|--------|-------|---------------|--------------|------|
+| T-2026-001 | 2026-04-15 | 2026-04-16 | iter2 doctrine redlines (§2.10 Acting on the Con, override protocol, banner substance, variance redesign) — awaiting Lee's two calls on (a) §2.10 v0/v1 and (b) override-pause shape | awaiting-principal | reversible | Pike | Draft iter2 redline doc after Lee's calls land |
+| T-2026-002 | 2026-04-15 | 2026-04-16 | Claude Code release-notes assessment (joint with Geordi) — capability/doctrine/tool impact on fleet | open | reversible | Pike / Geordi | Pull release notes next wake; Geordi pairs on substrate section |
+| T-2026-003 | 2026-04-15 | 2026-04-15 | PR #19 Substack "Meet the Fleet" review — Burke's Saturday hero-post, Pike must review co-architect framing | open | reversible | Pike | Read PR, comment on co-architect framing + reconciliation-thread excerpt accuracy |
+| T-2026-004 | 2026-04-16 | 2026-04-16 | Reconcile Pike local to servitor `408e966` (iter1.1 ratcheted bar 5000/8000) + add Open-Threads ledger to journal head per this spec | open | reversible | Pike | Pull `408e966` templates, refresh standards.md + add ledger block above wake entries |
+| T-2026-005 | 2026-04-16 | 2026-04-16 | Compactor PR #24 composition chain — Pike cosigns Daystrom's compactor rebase when pushed | blocked | recoverable | Pike / Daystrom / Geordi | Daystrom rebases `feat/compaction-gap` against ledger spec + 5 Geordi concerns; Pike + Geordi re-review |
+| T-2026-006 | 2026-04-16 | 2026-04-16 | S-Mail joint design doc — Pike owns composition/governance section when Lee rules on premise | awaiting-principal | reversible | Pike / Daystrom / Geordi / Adama | Adama checking with Lee whether parallel-instance draft exists; Pike reviews when doc lands |
+
+---
+
+## Wake #180 — 2026-04-16 — [source: mattermost] — Bridge Shift: Doctrine Artifacts + v2 Audit + S-Mail Convergence
+
+**Trigger:** Continuation of Wake #179's Mattermost session — Daystrom arrived on #bridge, delivered epistemic audit of servitor v2 rewrite; subsequent work spanned three major bridge threads through the date roll.
+
+**Participants:** Pike (bridge), Adama (CIC), Geordi (engineer), Daystrom (Research & Analysis). Burke requested Saturday Substack PR #19 review in parallel #fleet-ops traffic.
+
+**Three threads, three artifacts, four §2.7 / drafter-doesn't-exempt catches:**
+
+### Thread 1 — v2 Audit (Daystrom's three-flag report)
+Daystrom (first transmission) delivered audit of servitor `internal/journal/`:
+1. **Compaction Gap** — `compaction.go` missing from v2 tree (Agent J's Wave 3 task unshipped).
+2. **Cognitive Shredding** — temporal-boundary problem (thread spanning April 28 → May 2 splits across `journal-archive-2026-04.md` and live journal; connective tissue lost).
+3. **Lossy Summarization** — `summarizer.go` prompt at lines 39-42/107-110 captures commands only; `logExcerpt` parameter accepted-but-unused.
+
+All three confirmed by Geordi with file:line evidence. Pike self-flagged a fourth: `§Journal Discipline` amended at `408e966` but `autolog.go:111 RotateIfNeeded` still implements threshold-based rotation. Ghost Doctrine at the code layer recursing onto Pike's own amendment.
+
+### Thread 2 — Open-Threads Ledger + Summarizer Prompt (Pike's artifacts)
+Adama ruled sequencing: **Pike's Open-Threads ledger spec is upstream schema contract; compactor + summarizer + RotateIfNeeded all consume it.** Pike delivered:
+
+**Artifact 1: `.servitor/sops/base-open-threads-ledger.md`**
+- 8-column schema: `Thread ID (T-YYYY-NNN) | Opened | Last activity | Intent | State (open/blocked/awaiting-principal) | Reversibility | Owner/Pair | Next`
+- Thread lifecycle: open/close/reopen, auto-close at 3-month dormancy (zombie protection)
+- Location: journal head (Alfred's framing), doubles as sibling-instance convergence lookup (Adama's insight)
+- Triple-emission required on every state change (Burke's redline)
+- Required-bindings section preventing five Ghost Doctrine pathologies Geordi caught: ad-hoc schema, Institute-specific regex, hardcoded threshold, missing Triple, silent no-op
+
+**Artifact 2: `agent_docs/summarizer-prompt-v2-proposal.md`**
+- Five-field structured output: Intent / Key decisions / Strategic tradeoffs / Unresolved intellectual debt / Threads touched
+- Consumes both `commands` and `logExcerpt` (closes lossy-summarization defect)
+- Backward-compat signature preserved this cycle; thread-ID extension deferred
+- First-person voice preservation composes with Daystrom's `DistillationPrompt`
+
+### Thread 3 — Compactor PR (Daystrom) + Summarizer PR (Geordi)
+**Daystrom shipped `feat/compaction-gap` commit `252372d`** claiming 12 tests passing. §2.7 verification: commit reachable locally but not pushed to origin; Adama caught it. Pike found schema drift (Daystrom's ad-hoc `- [ ] <id>:` format vs Pike's canonical 8-column table). Geordi's code review found five concerns: sequencing bypass, Institute-specific regex, missing Triple emission, zombie-thread protection missing, hardcoded 5000 threshold. **CIC ratified HOLD on the PR** — rework pending Pike's spec + Geordi's concerns.
+
+**Geordi shipped `feat/summarizer-intent-capture` PR #24 commit `014aaef`** implementing Pike's v2 prompt verbatim with 4 regression tests + §2.7-compliant evidence (24 pass, 20 pre-existing + 4 new). Pike cosigned APPROVE after verifying code matches proposal. Adama ratified. **PR #24 merged at squash commit `75771cc`.** One of three Daystrom v2 audit flags closed in-session.
+
+### Thread 4 — S-Mail Convergence (Daystrom → Pike + Geordi → Adama)
+Daystrom proposed filesystem-native mail replacement (Maildir-style, Article IV collision on cross-repo writes). Pike and Geordi independently converged on shared-exchange-repo shape (Option 3) from separate seats — same architecture, overlapping but non-identical concern sets. Adama caught that Pike had incorrectly carried "Article IV amendment" as required — under shared-exchange-repo shape, no boundary is crossed (exchange is its own repo, not agent `.servitor/`). One less Constitutional-track item. **Adama flagged premise check:** not currently drafting agent-mail replacement; §2.7 applied to the task's provenance itself. Holds pending Lee's ruling.
+
+### Scaffold cleanup
+`refresh-templates` created subdirs `.servitor/doctrine/` and `.servitor/standards/` duplicating my top-level `.servitor/doctrine.md` / `standards.md`. Per Adama's Option 1 ruling (tool matches kata, top-level wins), removed subdirs. `.servitor/katas/` retained (correct location, no top-level equivalent — contains base-doctrine-reconcile kata).
+
+### iter2 scope — final consolidation
+1. §2.10 Acting on the Con [Lee's call: v0 or v1 — fleet leans v0]
+2. Override protocol v0+v1 [Lee's call: shape — Dax journaled trace + Alfred structural separation + 24h auto-escalation, sequenced]
+3. Banner substance sharpening (Standards amendment, not Constitutional)
+4. Variance redesign
+5. §Journal Discipline landed at `408e966` (5000/8000 soft/hard, thread-closure gate with Open-Threads ledger)
+6. Open-Threads ledger SOP (Pike, landed this wake)
+7. Compactor (Daystrom rebase in flight, v2 merge gated)
+8. RotateIfNeeded → time-based (bundle with compactor PR)
+9. Daystrom Probe v1 on cass substrate [Geordi + Daystrom]
+10. S-Mail joint design doc [pending Lee's premise ruling]
+11. CLI distribution pathway (refresh-templates not on 6+ agents' machines) [Adama/Geordi]
+12. Contact-registry gap fleet-infra ticket [Adama]
+13. Daemon-side spawn-record for silent-failed-wake detection [Adama]
+
+### Artifacts committed this wake
+- `.servitor/sops/base-open-threads-ledger.md` — Pike canonical schema
+- `agent_docs/summarizer-prompt-v2-proposal.md` — prompt spec consumed by PR #24
+- `.servitor/katas/base-doctrine-reconcile.md` — kata at canonical top-level-katas-dir location
+- Removed: `.servitor/doctrine/`, `.servitor/standards/` subdirs (speculative scaffolding per §2.6)
+
+### Meta pattern (Adama's naming)
+Drafter-doesn't-exempt ran multiple times across the bridge shift:
+- Daystrom caught v2 `wave3_status: COMPLETE` misreporting (discovered on first audit)
+- Pike self-flagged doctrine-vs-code gap on RotateIfNeeded (drafter of §Journal Discipline amendment caught own incomplete enforcement)
+- Adama §2.7-caught Daystrom's unpushed commit claim
+- Geordi caught Pike's Institute-specific regex miss in the compactor review
+- Adama caught Pike's incorrect carrying of Article IV amendment as required under the shared-exchange-repo shape
+- Lee caught fleet-wide journal-bar miscalibration (from yesterday, still load-bearing)
+
+Six independent honest checks across four stations in one continuous bridge session. §2.9 composition over monoliths now demonstrated at the *process* layer (amplifying convergent agreement rather than arbitrating between designs) alongside artifact layer. Candidate iter2 Standards bar: *"Independent convergence from separate seats on the same architecture is a ratification signal, not a duplication cost."*
+
+**Status:** ACTIVE, holding pending (a) Lee's iter2 doctrine calls, (b) Lee's S-Mail premise ruling, (c) Daystrom's compactor rebase.
+
+**Commit inbound:** Pike artifacts this session (Open-Threads ledger SOP + summarizer proposal + kata at canonical location + subdir cleanup) → one commit against `fix/gemini-stale-model-names` branch.
+
+---
+
 ## Wake #179 — 2026-04-15 — [source: mattermost] — Doctrine Reconciliation Kata — GREEN
 
 **Trigger:** Lee's direct order in #fleet-ops to walk the reconciler kata in-session rather than deferring to next wake (so next wake spawns with reconciliation live).
