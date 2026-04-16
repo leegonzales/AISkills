@@ -30,8 +30,8 @@ if [ -f "$SKILL_DIR/SKILL.md" ]; then
     if head -1 "$SKILL_DIR/SKILL.md" | grep -q "^---$"; then
         echo "  ✅ YAML frontmatter present"
 
-        # Extract frontmatter
-        FRONTMATTER=$(awk '/^---$/{flag=!flag; next} flag' "$SKILL_DIR/SKILL.md" | head -n 20)
+        # Extract frontmatter (only the first --- ... --- block)
+        FRONTMATTER=$(awk 'BEGIN{n=0} /^---$/{n++; if(n==1){next} if(n==2){exit}} n==1' "$SKILL_DIR/SKILL.md")
 
         # Check required fields
         if echo "$FRONTMATTER" | grep -q "^name:"; then
