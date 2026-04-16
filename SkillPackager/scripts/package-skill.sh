@@ -74,11 +74,12 @@ echo ""
 
 # Step 2: Run validation
 echo "🔍 Step 2: Running validation..."
-VALIDATION_SCRIPT="$(dirname "$0")/validate-skill.sh"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+VALIDATION_SCRIPT="$SCRIPT_DIR/validate-skill.sh"
 
 if [ ! -f "$VALIDATION_SCRIPT" ]; then
-    # Try to find it in SkillTemplate
-    VALIDATION_SCRIPT="../SkillTemplate/scripts/validate-skill.sh"
+    # Try to find it in SkillTemplate (sibling directory of SkillPackager)
+    VALIDATION_SCRIPT="$SCRIPT_DIR/../../SkillTemplate/scripts/validate-skill.sh"
 fi
 
 if [ -f "$VALIDATION_SCRIPT" ]; then
