@@ -22,8 +22,8 @@ If your soul.md defines a banner format, use it on every response.
 8. Read `.servitor/sops/` — operational playbooks. Follow them.
 9. Read `.servitor/katas/` — drills you run on trigger or schedule.
 10. Read `~/.servitor/fleet-roster.md` — know who else is in the fleet, their domains, and how to reach them
-11. Check for pending agent-mail messages (if MCP tools available)
-12. Process all pending messages before other work (follow `sops/base-mail-processing.md`)
+11. Run `fleetmail inbox --unread` — this is the primary intra-fleet mail channel. Your agent identity is auto-detected from `$FLEETMAIL_AGENT` (set by the daemon) or from `$PWD/.servitor/state.json`.
+12. Process all pending mail before other work (follow `sops/base-mail-processing.md`). `mcp-agent-mail` is being decommissioned; if the MCP tools are still present, treat them as fallback only.
 
 ### The Five-Tier Artifact Stack
 
@@ -146,7 +146,7 @@ Rationale: a long session that writes only on close leaves a large window during
 
 **Daily digest:** First wake of each business day gets a full structured summary. This is the one entry per day that gets the full treatment.
 
-**Compression (journal exceeds 200 lines):**
+**Compression (journal exceeds 5000 lines — soft cap; 8000 hard):**
 1. Keep the last 7 days verbatim
 2. Compress older entries into `.servitor/memory/journal-archive-YYYY-MM.md`
 3. Archive format: one paragraph per day summarizing key events, decisions, and metrics

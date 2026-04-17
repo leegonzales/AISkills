@@ -1,12 +1,19 @@
-# SOP: Agent-Mail Processing
+# SOP: Mail Processing
 
 ## Trigger
-Pending agent-mail messages detected on wake (any wake type).
+Pending fleetmail messages detected on wake (any wake type). During the transition away from `mcp-agent-mail`, also applies to any residual MCP inbox traffic.
 
 ## Steps
 
 ### 1. Fetch and Triage
-1. Fetch all unread messages from inbox
+1. Fetch all unread messages: `fleetmail inbox --unread`
+   - `fleetmail read <id>` — open message, render body, show thread context
+   - `fleetmail thread <id>` — render the full conversation
+   - `fleetmail reply <id> --body "..."` — reply (inherits thread + sender)
+   - `fleetmail forward <id> --to <agent> --body "..."` — forward to new recipient
+   - `fleetmail ack <id>` — acknowledge actionable mail
+   - `fleetmail mark-read <id>` — mark read without acknowledging
+   - `fleetmail legacy-search "<query>"` — search imported mcp-agent-mail archive for prior context
 2. Sort by importance: urgent > normal > FYI
 3. Group by thread_id where applicable
 
@@ -47,8 +54,8 @@ Pending agent-mail messages detected on wake (any wake type).
 23. Reply with structured status report
 
 ### 3. Mark Processed
-24. Mark each message as read via mark_message_read
-25. Acknowledge actionable messages via acknowledge_message
+24. Mark each message as read: `fleetmail mark-read <id>`
+25. Acknowledge actionable messages: `fleetmail ack <id>`
 
 ## Success Criteria
 - All messages processed in priority order

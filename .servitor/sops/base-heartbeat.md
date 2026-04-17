@@ -11,9 +11,10 @@ Heartbeat timer fires (default: every 4h for critical repos, 24h for standard).
 3. Read `.servitor/state.json` — structured project state
 4. Read `.servitor/sops/` — load all SOPs for reference
 
-### 2. Check Agent-Mail
-5. Check for pending agent-mail messages (if MCP tools available)
+### 2. Check Mail
+5. Run `fleetmail inbox --unread` to list unread messages; open each with `fleetmail read <id>`
 6. Process all pending messages before other work (see `base-mail-processing.md`)
+7. (Transitional) If `mcp-agent-mail` is still configured in your `.mcp.json`, also check via its tools until Gate C removes it fleet-wide
 
 ### 3. Repo Health Scan
 7. `git log --oneline -20` — recent changes since last heartbeat
