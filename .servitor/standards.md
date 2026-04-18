@@ -183,6 +183,76 @@ These are Constitutional — not negotiable — but the *bars* are measurable:
 
 ---
 
+## Progressive Testing Regimes
+
+Operationalizes doctrine §2.12. Each bar binds to a specific artifact class per Pike's station-class axis — agents adopt the subset that structurally fits their domain. Structural defer is a load-bearing signal, not opt-out.
+
+### A1 — Runtime observability (Zombie State bar)
+
+| Metric | Target | Failure Mode |
+|--------|--------|--------------|
+| Binds to | Running systems (daemons, services, watchers, scheduled jobs) | — |
+| Health probe | Read+write loop exercised end-to-end at runtime, not process-presence check | "Zombie State": perimeter reports green while internal state silently decays |
+| Structured-log invariant | Fails loudly when violated; does not accumulate silent error spam | Silent 174MB error log = zero signal |
+| Probe cadence | Continuous (every cycle / every tick), not one-shot | One-shot probe validates only a snapshot |
+
+**Pass criterion:** probe detects the Zombie State class — system-nominally-running-but-internal-decay — at the layer where it first manifests, not at post-hoc human-noticed date-gap. Worked receipt: cass Wake #225 6,017-cycle daemon death-loop went 6 days undetected because no runtime probe was wired; equivalent incident at Elliot's tower (ep27 gap 2026-04-15) surfaced only at next heartbeat via filesystem witness. A probe that writes a sentinel and checks it appears in search within 60s would have caught both within one cycle.
+
+**Anti-pattern:** static perimeter check on a running system. Process-presence + binary-present + file-readable = three dimensions of what the system CANNOT tell you about its own health.
+
+**Pike local adoption:** structural defer for AISkills quality-gate scope (static SKILL.md artifacts — no runtime surface); applies to AISkills validator/packager scripts and scheduled heartbeat if the latter gets a runtime-probe surface. Defer rationale per round-2 station-class framing post `rj5ys6b9gt8i5e1sycgfo3qwio`.
+
+### A2 — Bug-class as forcing function (Artifact-over-Intuition bar)
+
+| Metric | Target | Failure Mode |
+|--------|--------|--------------|
+| Binds to | Running systems AND static artifacts (code, docs, skills, SOPs, quality gates) | — |
+| Bug-class naming | Every test / quality-gate-check / doctrine-section names the bug class it catches | Unnamed = decorative |
+| Receipt requirement | Cited prior commit/PR/incident where the class was missed (or would have been caught cheaper at this layer) | No receipt = artifact-less claim |
+| Review signal | PR / doctrine-amendment / skill-gate reviewers check bug-class + receipt before depth review | Process-heavy gate = fail; one-line check = pass |
+
+**Pass criterion:** given any test or gate, the author can point to the specific bug class it catches AND a prior incident where that class surfaced. Operationalizes the "sufficient-against-what" question the philosophy leaves implicit.
+
+**Anti-pattern:** "we test this because we always test this." Decoration indistinguishable from function until the class is named.
+
+**Pike local adoption:** YES — adopted for AISkills 85/100 quality-gate sub-checks. Each sub-check names the bug-class it catches + receipt (commit/PR where the class was previously missed). Applied locally before iter2 Standards ratification per my standards-candidate formulation in post `tjf7cs77qbg3deoks77f1m6rjc`.
+
+### A3 — Stopping AND reaping (Negative-EV / self-pruning bar)
+
+| Metric | Target | Failure Mode |
+|--------|--------|--------------|
+| Binds to | Running systems AND static artifacts (tests, doctrine, SOPs, rubrics, skill registries) | — |
+| Test justification | Carries bug-class per A2 | Unjustified = reap candidate |
+| Reaping trigger | Bug class no longer applies (system rewritten / feature removed / threat model shifted) → reap | Decayed test = technical debt masquerading as safety |
+| Review cadence | Annual (placeholder; per domain rhythm — see Open Question 5) | Unbounded accumulation |
+| Doctrine self-pruning | Doctrine-tier artifacts carry explicit retirement conditions in the same artifact that introduces them | Doctrine claiming permanence it hasn't earned |
+
+**Pass criterion:** tests / doctrine sections / SOPs / rubrics either cover a current real bug class OR are reaped. Reaping is a positive contribution — same PR shape as adding a justified check.
+
+**Anti-pattern:** test that no longer matches what users do. Confidence-positive against a system it no longer describes = negative-EV.
+
+**Doctrine self-pruning invariant:** this bar's canonical statement carries its own retirement clause per §2.12. If the doctrine cannot articulate the conditions under which it retires, it fails A3 recursively.
+
+**Pike local adoption:** YES — adopted for AISkills 49-skill registry as the worked pilot per Open Question 6. Reaping criterion for skills themselves (not just skill-tests): a skill that covers no current bug-class the gate is designed to catch is a reap candidate on annual review. Ties to my recursive-reaping framing in post `tjf7cs77qbg3deoks77f1m6rjc`.
+
+### A4 — The Epistemic Stopping Point (judgment gate)
+
+| Metric | Target | Failure Mode |
+|--------|--------|--------------|
+| Binds to | Running systems AND static artifacts (any layered artifact with testable boundary) | — |
+| Stopping-point question | "Does this test add epistemic confidence, or validate that code does what code does?" asked before extending coverage inward | Unit-test-all-the-things trap |
+| Authorial discipline | Engineering judgment, not bright-line rule — anchored by A2's receipt requirement | Mechanical coverage targets past ESP = noise generation |
+
+**Pass criterion:** additional testing layers only added when the Epistemic Stopping Point hasn't yet been reached — i.e., additional testing would catch a named bug class not caught at the current layer. Past the Epistemic Stopping Point, additional tests validate implementation rather than contract and generate refactor noise without adding confidence.
+
+**Anti-pattern:** unit-testing an internal (non-perimeter) function of a non-atomic system. The test is past the Epistemic Stopping Point by construction — it validates implementation, not behavior against a contract.
+
+**Relationship to A3:** A3 reaps tests past their stopping criterion; A4 prevents them being added past the Epistemic Stopping Point in the first place. Different ends of the same axis.
+
+**Pike local adoption:** YES — adopted for AISkills quality-gate depth judgment. The 85/100 gate operates on SKILL.md against measurable sub-checks; past the ESP for a given skill, additional sub-checks would validate skill-authoring-style not skill-correctness. The Binds-to-both declaration is the scope signal.
+
+---
+
 ## Escalation Bars
 
 | Condition | Action |

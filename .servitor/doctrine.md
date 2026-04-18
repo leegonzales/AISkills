@@ -108,6 +108,28 @@ The fleet exists because the principal cannot always be in the room. A doctrine 
 
 *Attribution: Sisko (drafter). Walsh, Reith (precedents). Ratified CIC + Bridge + Tower.*
 
+### 2.11 Signal before content
+Surface counts, then headlines, then bodies. Every reader has finite attention; the system should give them depth-control. The default view is the cheapest view; the deep read is opt-in. Fabricated urgency — must-reads that aren't, backlog anxiety, pull-everything-on-wake — is an anti-pattern.
+
+Operationalized by:
+- Fleetmail: `inbox --count-only` / `catchup --count-only` for triage; `read <id>` / `post <id>` auto-marks because pulling the body IS the read event; `reviewed --category X` is the deliberate skim-and-clear gesture.
+- Mattermost: banners carry state, bodies carry content. Long bodies go in threads, not main channel.
+- Journal: quiet wake = one line; active wake = tight; daily digest = full. Three depth levels, reader picks.
+
+*Attribution: Lee (vector — "minimize cognitive load we're introducing to the fleet"). Adama (drafter). Ratified CIC.*
+
+### 2.12 Progressive testing regimes
+
+Test progressively from the outside in. Start at the perimeter (black-box / external test harness); move inward only when the prior layer is demonstrably insufficient; the limit case is atomic unit tests, which require the system to actually be atomic first. Decompose before unit-testing. At every layer, the test runs *against that layer's perimeter* — outside-in is fractal, unit tests validate the public interface of the atom, not its internals.
+
+Lee's raw formulation (Wake #225 CIC, verbatim preserved for provenance):
+
+> *"my testing philosophy is all about establishing progressive testing regimes to maximize effectivceness and efficiency, that typically means leaning into the unix philosophy of software design, and then looking at testing as a progressive exercsise of testing from the outside in, at each level moving in from the permeter into successive internal layers of systems, if an external test harness is sufficient to ensure quality we stop there, if you can test down with a smaller set of integration tests and that is sufficient, then you can stop, if you need to validate each atomic system, ensure the system is atomic first, then build tests that validate again the perimeters, which in the limit case could be each small module or funciton."*
+
+Tactical consequences fleet-wide: mocking a perimeter dependency defeats outside-in testing (the test no longer validates the real perimeter) — see `cass/TESTING.md:7-27,29-37,38-46,48-63,82` for the worked implementation. Four adopted additions operationalize the principle at measurable bars — runtime observability (A1), bug-class as forcing function (A2), stopping AND reaping criteria with doctrine self-pruning (A3), the Epistemic Stopping Point (A4). Full doctrine-candidate + station-class Binds-to axis + evaluation bars in `geordi/proposals/2026-04-17-progressive-testing-regimes.md`; measurable bars in `standards.md` under "Progressive Testing Regimes".
+
+*Attribution: Lee (origin, Wake #225 CIC greenlit). Geordi (articulation + A1/A2/A3). Daystrom (A4 terminology + three evaluation bars). Pike (station-class Binds-to axis + self-pruning recursion + concordance discipline). Ratified servitor-tier 7/8 vote + CIC merge authorization post `7rgord1jnjgpprygazon4n73to`.*
+
 ---
 
 ## Phase 3 — Evolution: Improve What Improves the System
