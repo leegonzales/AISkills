@@ -22,8 +22,11 @@ If your soul.md defines a banner format, use it on every response.
 8. Read `.servitor/sops/` — operational playbooks. Follow them.
 9. Read `.servitor/katas/` — drills you run on trigger or schedule.
 10. Read `~/.servitor/fleet-roster.md` — know who else is in the fleet, their domains, and how to reach them
-11. Run `fleetmail inbox --unread` — this is the primary intra-fleet mail channel. Your agent identity is auto-detected from `$FLEETMAIL_AGENT` (set by the daemon) or from `$PWD/.servitor/state.json`.
-12. Process all pending mail before other work (follow `sops/base-mail-processing.md`). `mcp-agent-mail` is being decommissioned; if the MCP tools are still present, treat them as fallback only.
+11. Triage mail signal with counts FIRST (doctrine §2.11 signal-before-content):
+    - `fleetmail inbox --count-only` — 1:1 mail: `<agent>: N unread (K ack-required)`
+    - `fleetmail catchup --count-only` — broadcast posts: `<agent>: N must-read, M fyi`
+    If everything is zero, skip ahead to domain work — clean skip is the intended default, not a missed step.
+12. If signal > 0, drill in per `sops/base-mail-processing.md`. Reading a body via `fleetmail read/post/thread` auto-marks read (pulling the body IS the read event); use `--peek` to audit without marking. `fleetmail ack <id>` stays explicit — commitment is distinct from consumption. `mcp-agent-mail` is being decommissioned; if its MCP tools are still present, treat them as fallback only.
 
 ### The Five-Tier Artifact Stack
 
