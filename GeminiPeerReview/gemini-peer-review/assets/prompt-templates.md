@@ -6,19 +6,15 @@ Ready-to-use prompt templates for common peer review scenarios. Copy, customize 
 
 ## Overview
 
-This guide provides battle-tested prompt templates for conducting thorough peer reviews using Google Gemini. Each template is designed to leverage Gemini's 2M token context window and advanced reasoning capabilities.
+This guide provides battle-tested prompt templates for conducting thorough peer reviews using Google Gemini. Each template is designed to leverage Gemini's 1M token context window and advanced reasoning capabilities.
 
 **Template Benefits:**
 - Copy-paste ready for immediate use
-- Optimized for Gemini 3.0 Pro and Flash models
 - Structured for comprehensive analysis
 - CLI-focused with heredoc patterns
 - Target specific review scenarios
 
-**Model Selection Guide:**
-- **Gemini 3.0 Pro:** Complex reasoning, architecture reviews, security analysis
-- **Gemini 3.0 Flash:** Quick reviews, code quality checks, documentation review
-- **Gemini 3.0 Flash-Lite:** Simple pattern checks, style validation
+**Note:** Templates use stdin pipe (`cat <<'EOF' | gemini`) — no model flag needed. Gemini CLI defaults to the latest model automatically.
 
 ---
 
@@ -88,10 +84,9 @@ Expected Output: Risk assessment with severity levels, improvement recommendatio
 
 **Usage:**
 ```bash
-gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
+cat <<'EOF' | gemini
 [paste filled template]
 EOF
-)"
 ```
 
 ---
@@ -152,10 +147,9 @@ Expected Output: Performance and scalability assessment, optimization recommenda
 
 **Usage:**
 ```bash
-gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
+cat <<'EOF' | gemini
 [paste filled template]
 EOF
-)"
 ```
 
 ---
@@ -223,10 +217,9 @@ Expected Output: Comparative analysis against criteria, recommendation with rati
 
 **Usage:**
 ```bash
-gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
+cat <<'EOF' | gemini
 [paste filled template]
 EOF
-)"
 ```
 
 ---
@@ -281,10 +274,9 @@ Expected Output: Recommendation with rationale, trade-off analysis, risk mitigat
 
 **Usage:**
 ```bash
-gemini --model gemini-3.0-flash -p "$(cat <<'EOF'
+cat <<'EOF' | gemini
 [paste filled template]
 EOF
-)"
 ```
 
 ---
@@ -344,10 +336,9 @@ Expected Output: Prioritized vulnerabilities with severity (Critical/High/Medium
 
 **Usage:**
 ```bash
-gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
+cat <<'EOF' | gemini
 [paste filled template]
 EOF
-)"
 ```
 
 ---
@@ -406,10 +397,9 @@ Expected Output: Vulnerability assessment with severity, attack scenarios, and p
 
 **Usage:**
 ```bash
-gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
+cat <<'EOF' | gemini
 [paste filled template]
 EOF
-)"
 ```
 
 ---
@@ -472,10 +462,9 @@ Expected Output: Prioritized optimization recommendations with estimated impact 
 
 **Usage:**
 ```bash
-gemini --model gemini-3.0-flash -p "$(cat <<'EOF'
+cat <<'EOF' | gemini
 [paste filled template]
 EOF
-)"
 ```
 
 ---
@@ -528,10 +517,9 @@ Expected Output: Query optimization recommendations with estimated performance i
 
 **Usage:**
 ```bash
-gemini --model gemini-3.0-flash -p "$(cat <<'EOF'
+cat <<'EOF' | gemini
 [paste filled template]
 EOF
-)"
 ```
 
 ---
@@ -587,10 +575,9 @@ Expected Output: Prioritized list of test cases to add, testing strategy recomme
 
 **Usage:**
 ```bash
-gemini --model gemini-3.0-flash -p "$(cat <<'EOF'
+cat <<'EOF' | gemini
 [paste filled template]
 EOF
-)"
 ```
 
 ---
@@ -604,7 +591,7 @@ EOF
 # 2. Fill in with your specific context
 # 3. Execute with Gemini CLI
 
-gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
+cat <<'EOF' | gemini
 [ARCHITECTURE REVIEW: E-Commerce Microservices]
 
 System Purpose: E-commerce platform for B2C retail
@@ -654,7 +641,6 @@ Review Focus:
 
 Expected Output: Risk assessment with severity levels, improvement recommendations, alternative approaches to consider
 EOF
-)"
 ```
 
 ---
@@ -662,7 +648,7 @@ EOF
 ### Example 2: Using Security Review Template
 
 ```bash
-gemini --model gemini-3.0-pro -p "$(cat <<'EOF'
+cat <<'EOF' | gemini
 [SECURITY REVIEW: JWT Authentication]
 
 System Purpose: SaaS project management platform
@@ -760,7 +746,6 @@ Review Focus:
 
 Expected Output: Prioritized vulnerabilities with severity, attack vectors, and remediation recommendations
 EOF
-)"
 ```
 
 ---

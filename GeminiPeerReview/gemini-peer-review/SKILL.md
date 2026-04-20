@@ -724,8 +724,8 @@ gemini config set apiKey YOUR_API_KEY
 
 **Free Tier:**
 - 60 requests per minute
-- 1,500 requests per day
-- Access to Gemini 3.0 Pro (1M context)
+- 1,000 requests per day
+- Access to latest Gemini model (1M context)
 - No credit card required
 
 ### Verification
