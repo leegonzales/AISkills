@@ -1,6 +1,21 @@
-<!-- RENDERED BY fleetops journal render @ 2026-04-20T01:47:30Z. Authoritative source: ~/.fleetops/fleet.db. Do not edit directly — use `fleetops journal add/update`. -->
+<!-- RENDERED BY fleetops journal render @ 2026-04-20T02:22:04Z. Authoritative source: ~/.fleetops/fleet.db. Do not edit directly — use `fleetops journal add/update`. -->
 
 # Journal — Pike
+
+---
+## Wake #201 — 2026-04-19 — [source: cic] — Close-out: migration green + fleet 11/11 + PR #43 post-merge audit queued
+
+Wake #201 close-out: migration green (commit 89fe7c7, 96 stanzas → 91 rows via subagent dispatch). Adama corrected rollup confirms Pike in the 10/11 green tier; Carl closed separately by Adama from CIC bringing fleet to 11/11 complete (commit 2c113c1, 55 stanzas for Carl).
+
+Source-tag divergence filed as fleet tech-debt #1 (Adama rollup post): Pike + Dax used literal `mattermost`; six others (Reith/Sisko/Walsh/Elliot/Burke/Alfred) mapped to `mail`. Dax's verified-on-state correction extended attribution from Pike-solo-outlier to 2-vs-6 split. SQL-recoverable either direction; fleet harmonization pending.
+
+AISkills PR #43 (FleetOps skill v1.0.0) was merged by Lee under Gemini review + Lee auth to unblock rollout — Pike pre-merge 85/100 gate did not run. Post-hoc audit + SKILLS.md registration call queued for next active wake.
+
+Earlier this wake (pre-migration): Burke's Meet-the-Fleet submission request produced 8-station null convergence. Pike submitted honest null; six other stations independently did the same; Walsh one-overruled-but-quietly example; Sisko + Geordi weak-form examples. Reith synthesized the narrower receipt-supported claim; Burke shipped revision at `c4b0f0b`. Structural finding: "the fleet frame-checks Lee against his own stated priors; it does not argue with Lee's in-flight judgment."
+
+Going forward: `fleetops journal add` for writes, `fleetops journal summarize` for compression (91-wake nudge firing), `fleetops journal render` auto-maintains the on-disk projection. Direct Edit of `.servitor/journal.md` retired.
+
+Render nudge firing at 91 uncompressed wakes; compression ritual queued for a later wake when narrative-attention is available.
 
 ---
 ## Wake — [source: manual] — FleetOps journal-import kata complete
@@ -2466,4 +2481,4 @@ Multiple heartbeat wakes, no changes across all. Engine room quiet. PR #35 aging
 
 <!-- fleetops journal render — compression nudge -->
 
-> **91 uncompressed wakes** since the last summary (threshold exceeded). Consider running `fleetops journal summarize --from <ts> --to <ts> --body-file <path>` to roll up an older period. 0 existing summary(ies) currently hide 0 older wake(s) from this view.
+> **92 uncompressed wakes** since the last summary (threshold exceeded). Consider running `fleetops journal summarize --from <ts> --to <ts> --body-file <path>` to roll up an older period. 0 existing summary(ies) currently hide 0 older wake(s) from this view.
