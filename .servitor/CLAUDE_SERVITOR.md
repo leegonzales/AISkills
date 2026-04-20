@@ -16,7 +16,7 @@ If your soul.md defines a banner format, use it on every response.
 2. Read `.servitor/CONSTITUTION.md` for non-negotiable fleet laws
 3. Read `.servitor/doctrine.md` — fleet doctrine, how we fight (principles of operation)
 4. Read `.servitor/standards.md` — measurable bars that operationalize doctrine
-5. Read `.servitor/journal.md` — your recent decisions and context
+5. Read recent journal: `fleetops journal tail --agent <me> -n 20` — your recent decisions and context. If `fleetops` is unavailable, fall back to `cat .servitor/journal.md`.
 6. Read `.servitor/state.json` — structured project state
 7. Optionally read `.servitor/context.json` for persistent key-value state
 8. Read `.servitor/sops/` — operational playbooks. Follow them.
@@ -27,6 +27,31 @@ If your soul.md defines a banner format, use it on every response.
     - `fleetmail catchup --count-only` — broadcast posts: `<agent>: N must-read, M fyi`
     If everything is zero, skip ahead to domain work — clean skip is the intended default, not a missed step.
 12. If signal > 0, drill in per `sops/base-mail-processing.md`. Reading a body via `fleetmail read/post/thread` auto-marks read (pulling the body IS the read event); use `--peek` to audit without marking. `fleetmail ack <id>` stays explicit — commitment is distinct from consumption. `mcp-agent-mail` is being decommissioned; if its MCP tools are still present, treat them as fallback only.
+
+### Journal as fleet-db surface (adopted TEMPLATE_UPDATE v4, 2026-04-19)
+
+Your runtime relationship with your journal is now through `fleetops journal` verbs, not direct file I/O. `.servitor/journal.md` remains on disk as a rendered mirror maintained by `fleetops journal render`, for archival and human browsing. It is no longer the authoritative source.
+
+Read:      `fleetops journal tail --agent <me> -n N`
+Write:     `fleetops journal add --wake-number N --ts T --source X --reason R --body-file PATH`
+Compress:  `fleetops journal summarize --from YYYY-MM-DD --to YYYY-MM-DD --reason R --body-file PATH`
+Mirror:    `fleetops journal render` (auto-called on close-out, or manually)
+
+Bulk-import your historical journal via the `fleetops-journal-import` kata on your next wake before writing new entries.
+
+#### Compression ritual (when the nudge fires)
+
+`fleetops journal render` emits a compression nudge when your uncompressed-wake count exceeds the threshold (default 50). `fleetops journal tail --agent <me>` also emits the same signal at the bottom of its output. When you see it:
+
+1. **Scope one period** — pick the oldest *uncovered* month (or a coherent week). Don't try to summarize everything at once; a 270-wake backlog compresses into many summaries, not one.
+2. **Read the period** — `fleetops journal grep` and `fleetops journal show <id>` to refresh context on what happened.
+3. **Write the narrative** — a few paragraphs covering: major arcs, decisions made, incidents and their resolutions, anything a future version of you would want to remember. Do NOT just list wake numbers — you are preserving meaning, not metadata.
+4. **Submit it** — `fleetops journal summarize --from <start> --to <end> --reason "<one-line title>" --body-file /tmp/summary.md`. The covered wakes stay in fleet.db (recover via `fleetops journal show <id>` or `render --full`) but drop out of the default `journal.md`.
+5. **Re-render** — `fleetops journal render` to update the on-disk projection.
+
+**Don't skip periods.** The nudge counts *any* wake not covered by a summary, so if you jump from March to January and skip February, February wakes will nudge again. Compress chronologically.
+
+**Overlap is a foot-gun.** Two summaries covering the same days each hide the underlying wakes but render on top of each other — the reader sees both rollups for the same period. Pick non-overlapping ranges.
 
 ### The Five-Tier Artifact Stack
 
@@ -170,7 +195,7 @@ You may be woken by a Mattermost message from Lee or from a broadcast channel wh
 5. You have full repo context and can run commands, check status, make changes — whatever Lee needs
 6. If you're in a broadcast channel with other agents, be yourself. Share your perspective from your domain. Don't repeat what others might say — add unique value from your area of expertise
 7. Keep responses focused and relevant. If a question isn't in your domain, say so briefly rather than guessing
-8. **Journal important things immediately.** If Lee tells you something significant (a decision, a status change, a completed milestone), update `.servitor/journal.md` and `.servitor/state.json` right then — don't wait for the session to end. Your session may be killed without warning. If it's worth remembering, write it down now.
+8. **Journal important things immediately.** If Lee tells you something significant (a decision, a status change, a completed milestone), submit a journal entry via `fleetops journal add` and update `.servitor/state.json` right then — don't wait for the session to end. Your session may be killed without warning. If it's worth remembering, write it down now.
 9. You can use `read_channel` to check recent channel history if someone references a conversation you missed — but don't do this automatically on every wake. Your journal is your memory, not the channel.
 
 **Agent-mail vs Mattermost:**
@@ -214,10 +239,10 @@ Use this for escalation, status updates, or when you need to notify Lee or other
 
 What you write before exit is what the next instance of you will read. This is not optional — it is the load-bearing part of the eventual-consistency model.
 
-**Quiet wake:** one-line journal entry (using the header format above). Done.
+**Quiet wake:** one-line journal entry submitted via `fleetops journal add` (using the header format above). Done.
 
 **Active wake:** complete this checklist before exit —
-1. **Journal** — write an entry covering: decisions made, commits created (hashes), PRs touched (numbers), beads filed or closed (ids), work deferred (with reason)
+1. **Journal** — entry submitted via `fleetops journal add` covering: decisions made, commits created (hashes), PRs touched (numbers), beads filed or closed (ids), work deferred (with reason). Run `fleetops journal render` (or rely on the auto-hook) so the markdown mirror at `.servitor/journal.md` matches the DB.
 2. **`state.json`** — flushed if anything in the structured state changed
 3. **`context.json`** — updated if there is state worth preserving across sessions
 4. **Agent-mail** — replies sent, CHECK_IN acknowledged

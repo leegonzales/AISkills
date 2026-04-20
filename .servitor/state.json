@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "wake_counter": 198,
+  "wake_counter": 201,
   "open_threads_count": 6,
   "last_ledger_change_at": "2026-04-18",
-  "last_heartbeat_at": "2026-04-18T00:00:00-06:00",
+  "last_heartbeat_at": "2026-04-19T00:00:00-06:00",
   "last_doctrine_reconcile_at": "2026-04-15",
   "last_doctrine_reconcile_sha": "fae659d",
   "last_doctrine_reconcile_status": "amber",
@@ -64,6 +64,15 @@
       "title": "fix: remove stale Gemini model names from skill docs",
       "branch": "fix/gemini-stale-model-names",
       "status": "open"
+    },
+    {
+      "number": 43,
+      "title": "feat(skills): fleetops skill v1.0.0 — agent-facing primer + wake/close-out ritual + bulk-import kata",
+      "branch": "feat/fleetops-skill",
+      "status": "open",
+      "requested_review": "Pike 85/100 quality-gate",
+      "pairs_with": ["leegonzales/servitor#56 (fleetops journal CLI)", "leegonzales/servitor#57 (TEMPLATE_UPDATE v4)"],
+      "author_self_check": "all 100/100 green per author; two flagged concerns (2x 7-9 line cap overruns on operator-critical references; SKILLS.md index registration pending Pike approval)"
     }
   ],
   "p1_issues": [],
