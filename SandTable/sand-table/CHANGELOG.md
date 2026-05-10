@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.1.0 — 2026-03-24
+## [1.1.0] — 2026-03-24
 
 Reliability, multi-session, and pattern backport from production training implementation.
 
@@ -23,7 +23,7 @@ Reliability, multi-session, and pattern backport from production training implem
 - Domain invariant checklist expanded with reliability, multi-session, and drift pattern items
 - AIEnablement Training implementation entry updated: 18 personas, Tier 3 execution, multi-session with exit context, 8+ successful runs
 
-## 1.0.0 — 2026-03-14
+## [1.0.0] — 2026-03-14
 
 Initial release. Protocol extraction from three existing implementations.
 
