@@ -5,9 +5,10 @@ Implements the 5 signals from references/reliability.md that catch
 "single-author" patterns in multi-agent output (one LLM writing all voices
 instead of independent agents).
 
-Conservative by design — flags only when a roster name appears within ~6 words
-of a trigger phrase, to keep false positives low. The doc treats 1-5 warnings
-as "minor leakage, likely still valid"; 6+ as "INTEGRITY CONCERN".
+Conservative by design — flags only when a roster name appears within
+~40 characters (≈8 words) of a trigger phrase, to keep false positives low.
+The doc treats 1-5 warnings as "minor leakage, likely still valid";
+6+ as "INTEGRITY CONCERN".
 
 Usage as library:
     from narrative_check import scan
@@ -77,8 +78,21 @@ class Flag(NamedTuple):
 # Helpers
 # ---------------------------------------------------------------------------
 
-# Free-text fields scanned for signals 1-4.
+# Free-text fields scanned for signals 1-4 at the top level of an event.
+# Nested dict/list payloads (payload.speech, content.body, message.text, etc.) are
+# also scanned via _collect_text() recursion — see _NON_PROSE_KEYS denylist below.
 TEXT_FIELDS = ("internal_monologue", "text", "spoken", "narrative", "reflection")
+
+# Keys that should NOT be scanned as prose, even when they contain strings.
+# Add to this set if a new structural/metadata field starts producing false flags.
+_NON_PROSE_KEYS = frozenset({
+    "id", "agent", "persona", "from_persona", "to_persona", "from", "to",
+    "recipient", "timestamp", "time", "time_offset", "duration_min", "type",
+    "status", "scores", "rating", "score", "module", "section", "unit",
+    "module_id", "section_id", "unit_id", "persona_id", "agent_id", "run", "ttl",
+})
+
+_MAX_RECURSION_DEPTH = 4  # bound nested-dict walk; events should never need more
 
 # Stopword 3-grams for signal 5 (drop these from "shared rare n-grams" count).
 _STOPWORD_NGRAMS = frozenset({
@@ -88,6 +102,34 @@ _STOPWORD_NGRAMS = frozenset({
 })
 
 _MAX_TEXT_LEN = 4000  # truncate long fields to bound regex work
+
+
+def _collect_text(obj, depth: int = 0) -> list[str]:
+    """Recursively pull every prose string out of an event, capped depth.
+
+    Skips structural/metadata keys (see _NON_PROSE_KEYS) so IDs, timestamps,
+    and numeric scores never reach the regex scanners. Catches dialogue/prose
+    nested under payload, content, message, body, and similar wrappers — closes
+    the nested-payload smuggling gap where flat TEXT_FIELDS scanning misses
+    the real text.
+    """
+    if depth > _MAX_RECURSION_DEPTH:
+        return []
+    if isinstance(obj, str):
+        return [obj[:_MAX_TEXT_LEN]] if obj else []
+    if isinstance(obj, dict):
+        out: list[str] = []
+        for k, v in obj.items():
+            if k in _NON_PROSE_KEYS:
+                continue
+            out.extend(_collect_text(v, depth + 1))
+        return out
+    if isinstance(obj, list):
+        out = []
+        for v in obj:
+            out.extend(_collect_text(v, depth + 1))
+        return out
+    return []
 
 
 def _first_token(name) -> str:
@@ -186,8 +228,8 @@ def _scan_signal_5_pairs(events: list[dict]) -> list[Flag]:
         if not (a_from == b_to and a_to == b_from):
             continue
 
-        a_text = " ".join(str(a.get(f, "")) for f in TEXT_FIELDS)
-        b_text = " ".join(str(b.get(f, "")) for f in TEXT_FIELDS)
+        a_text = " ".join(_collect_text(a))
+        b_text = " ".join(_collect_text(b))
         if len(a_text) + len(b_text) < 200:
             continue
 
@@ -234,11 +276,7 @@ def scan(data: dict) -> dict:
         agent_id = ev.get("agent") or ev.get("persona") or ev.get("from_persona") or ""
         if not agent_id:
             continue
-        text_parts = []
-        for f in TEXT_FIELDS:
-            v = ev.get(f)
-            if isinstance(v, str) and v:
-                text_parts.append(v[:_MAX_TEXT_LEN])
+        text_parts = _collect_text(ev)
         if not text_parts:
             continue
         text = "\n".join(text_parts)

@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.3.0] - 2026-05-10
+
+Round 2 of the subagent-panel-driven hardening: same 4 personas re-audited the v1.2.0 changes and surfaced 4 fresh substantive findings, all patched here.
+
+### Added
+- `narrative_check.py` `_collect_text()` — recursively walks each event's nested dict/list values and pulls every prose string for scanning, with a `_NON_PROSE_KEYS` denylist (IDs, timestamps, scores, structural fields). Closes the **nested-payload smuggling gap**: previously, single-author tells written under `payload.speech`, `content.body`, `message.text`, etc., bypassed all 5 signals because the flat-field `TEXT_FIELDS` loop never reached them. Now scanned with bounded recursion (depth 4)
+- Pattern 7 `bid_arbitration` roster field — declared allocation rule (`fifo` / `equity_weighted` / `persona_weighted` / `facilitator_select` / custom). Without this, the orchestrator silently encodes its own rule and stipulated dominance returns through the back door
+- Pattern 7 "Format-Specific Variants" sub-section — explicit support for IRE/IRF (teacher-fronted Socratic) via an `evaluation` third-turn event, and Harkness peer-discussion via `equity_weighted` + omit evaluation
+
+### Changed
+- `narrative_check.py` `scan()` and `_scan_signal_5_pairs()` now use `_collect_text()` instead of flat `TEXT_FIELDS` iteration — the legacy `TEXT_FIELDS` constant is retained for backward reference but no longer the scan boundary
+- SKILL.md `What is a Sand Table?` opener rewritten in plainer prose: removed jargon ("stream of typed events", "narrative integrity", "no premature merging") from the intro paragraph; added a tiny shown-output snippet (the 4-line restaurant log) so non-technical readers can see what a run produces; removed the "structured ensemble protocol" alternative naming (it backfired in user testing — added more confusion than it removed)
+
+### Fixed
+- `narrative_check.py` module docstring: "~6 words" corrected to "~40 characters (≈8 words)" — matches the actual `_GAP = r"[^.!?\n]{0,40}"` regex bound
+
 ## [1.2.0] - 2026-05-10
 
 Subagent-panel-driven hardening: 4 personas (novice, skeptic, educator, adversarial) audited the skill in parallel and each surfaced one substantive issue, all patched in this release.

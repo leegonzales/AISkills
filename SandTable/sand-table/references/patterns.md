@@ -232,6 +232,17 @@ Layer a turn-bid grammar onto the existing event envelope. Three concrete additi
 
 3. **Scoring dimension — `participation_equity`**: a derived metric (e.g., Gini coefficient over per-agent floor-time) that the validator can compute deterministically from the event stream, surfacing dominance/silence as numbers rather than vibes.
 
+4. **Roster-level field — `bid_arbitration`**: declared allocation rule when multiple agents bid for the floor simultaneously. Without this declared on the invariant, the orchestrator silently encodes whatever rule it likes — and stipulated dominance returns through the back door. Required values:
+   - `fifo` — first-bid-wins (timestamp order)
+   - `equity_weighted` — agent with lowest current floor-time wins (favors silent participants)
+   - `persona_weighted` — declared bias from agent traits (e.g., `eagerness: 0.8`); the orchestrator must surface the weights it used per arbitration
+   - `facilitator_select` — orchestrator picks per turn but must log the rationale on the resulting `bid` event
+   - or a custom string the orchestrator interprets and documents
+
+### Format-Specific Variants
+
+For *teacher-fronted* discussion (Socratic seminar, IRE/IRF lessons), add a third event type after the response: `evaluation` — the facilitator's third-turn move (acceptance, follow-up, redirection). This makes the IRE/IRF triplet explicit and auditable. For *Harkness*-style peer discussion, set `bid_arbitration: equity_weighted` and omit the evaluation move.
+
 ### Why It's Not in the Base Protocol
 
 The protocol stays minimal so it generalizes. Curriculum modules don't bid for the floor; agent-ops traces don't withdraw. Discussion-style domains should add this layer in their domain invariant rather than expecting the base to carry it.

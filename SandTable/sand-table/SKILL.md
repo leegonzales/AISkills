@@ -9,11 +9,18 @@ Design new sand tables, scaffold project-local skills, extract agent-ops traces,
 
 ## What is a Sand Table?
 
-A *sand table* is a small, structured simulation of a group of distinct units interacting over time. You define **who** the units are (a roster of personas, agents, students, modules, customers — whatever the domain calls them), **what** the situation is (a scenario or sequence to play through), and **what counts as a valid move** (an event schema and scoring rubric). The skill plays the scene out as a stream of typed events — one per move — and then validates the stream for narrative integrity (each unit stayed in its own voice, no drift, no premature merging).
+A *sand table* is a small simulation of a group interacting. You describe **who is in the room** (a list of people, characters, or units), **what situation they're in**, and **what kinds of things they can do** (e.g., propose, object, concede). The skill plays the scene out one move at a time and then checks that each person stayed in their own voice — no one drifted into sounding like someone else, no two characters silently merged.
 
-Use it to rehearse a meeting before it happens, predict how a cohort will react to a curriculum change, audit how an agent crew handles a scenario, or stress-test a discussion design. **Tiny example:** three friends — Maya, Rita, Sam — picking a restaurant. You enumerate the three friends in a roster, define event types like `propose`, `object`, `concede`, run the simulation, and inspect the resulting event log to see whose preferences dominated and where the group converged.
+**Tiny example.** Three friends — Maya, Rita, Sam — picking a restaurant. You list the three friends, name the moves they're allowed (propose, object, concede), and run it. The output is a log of moves like:
 
-The "table" metaphor is loose. If `sand table` doesn't land for your team, think of this as a **structured ensemble protocol** or a **discussion instrumentation framework** — a controlled-vocabulary observation scheme paired with independent role-players.
+```
+1. Maya proposes:    "Let's do sushi at Komo."
+2. Rita objects:     "I'm allergic to fish — can we try the new ramen place?"
+3. Sam concedes:     "Ramen works. Maya, want to try it next week instead?"
+4. Maya concedes:    "Fine. Ramen tonight, sushi next Friday."
+```
+
+You can inspect that log to see who proposed first, whose preferences dominated, and where the group converged. Use it to rehearse a meeting before it happens, predict how a cohort might react to news, or audit how an agent crew handles a scenario.
 
 ## When to Use
 
