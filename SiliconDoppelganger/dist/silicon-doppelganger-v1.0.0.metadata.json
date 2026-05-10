@@ -1,0 +1,10 @@
+{
+  "name": "silicon-doppelganger",
+  "version": "1.0.0",
+  "package": "silicon-doppelganger-v1.0.0.skill",
+  "size": 28922,
+  "size_human": "32K",
+  "sha256": "8e833d5b3dbac5257efa070f211aded9e546b69c5d50f30553d521dde632f759",
+  "packaged_at": "2026-05-10T22:38:41Z",
+  "packager": "SKILL-9 Automation v1.1"
+}

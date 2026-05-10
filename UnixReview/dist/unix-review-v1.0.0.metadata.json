@@ -1,0 +1,10 @@
+{
+  "name": "unix-review",
+  "version": "1.0.0",
+  "package": "unix-review-v1.0.0.skill",
+  "size": 22339,
+  "size_human": "24K",
+  "sha256": "2fa1ad31e7aa90b5ae04fcb7fed34fe730b927695345396a119dc02cac7c4131",
+  "packaged_at": "2026-05-10T22:38:41Z",
+  "packager": "SKILL-9 Automation v1.1"
+}

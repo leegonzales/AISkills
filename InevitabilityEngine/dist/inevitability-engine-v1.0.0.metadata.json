@@ -2,8 +2,9 @@
   "name": "inevitability-engine",
   "version": "1.0.0",
   "package": "inevitability-engine-v1.0.0.skill",
-  "size": "56K",
-  "sha256": "6dc09ad5af1ac5fefa5e23df798fe906ff2149cdfb2db222e7d2b28d97ba451e",
-  "packaged_at": "2026-01-29T04:07:14Z",
-  "packager": "SKILL-9 Automation v1.0"
+  "size": 57289,
+  "size_human": "56K",
+  "sha256": "af1e8bb9119f1f40440c724b41880b1ecf92bcbe915fb565fa078094f2051910",
+  "packaged_at": "2026-05-10T22:38:37Z",
+  "packager": "SKILL-9 Automation v1.1"
 }

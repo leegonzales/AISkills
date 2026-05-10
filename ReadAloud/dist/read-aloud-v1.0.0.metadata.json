@@ -1,0 +1,10 @@
+{
+  "name": "read-aloud",
+  "version": "1.0.0",
+  "package": "read-aloud-v1.0.0.skill",
+  "size": 25550,
+  "size_human": "28K",
+  "sha256": "4bb4c916807e1c44d874d9927c3ce3ff5f228623a19b02aa17866303096f6077",
+  "packaged_at": "2026-05-10T22:38:38Z",
+  "packager": "SKILL-9 Automation v1.1"
+}

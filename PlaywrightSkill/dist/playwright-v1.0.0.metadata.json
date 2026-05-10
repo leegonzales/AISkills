@@ -2,8 +2,9 @@
   "name": "playwright",
   "version": "1.0.0",
   "package": "playwright-v1.0.0.skill",
-  "size": "32K",
-  "sha256": "6895f607de7fbd48f7e7ae82a46897d185e037268d06a6f08980c2e0cb8ed3a0",
-  "packaged_at": "2025-11-17T03:57:57Z",
-  "packager": "SKILL-9 Automation v1.0"
+  "size": 32266,
+  "size_human": "32K",
+  "sha256": "03e49d097e464a3ada78bfb93c013acedb38c768b807d66fe4d20922940fded8",
+  "packaged_at": "2026-05-10T22:38:37Z",
+  "packager": "SKILL-9 Automation v1.1"
 }

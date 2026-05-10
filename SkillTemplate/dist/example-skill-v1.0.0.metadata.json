@@ -1,0 +1,10 @@
+{
+  "name": "example-skill",
+  "version": "1.0.0",
+  "package": "example-skill-v1.0.0.skill",
+  "size": 4813,
+  "size_human": "8.0K",
+  "sha256": "2b86c1bcf112de8093530c3d57f3361015de747a115cd6853e6774b53da11e4a",
+  "packaged_at": "2026-05-10T22:38:40Z",
+  "packager": "SKILL-9 Automation v1.1"
+}
