@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.4.0] - 2026-05-10
+
+Round 3 of the subagent-panel-driven hardening: focused Adversary + Skeptic sweep against v1.3.0 surfaced 4 fresh substantive issues (2 each), all patched here. Calling the recursive sand-table-of-sand-table loop done at this round — marginal severity per round is dropping cleanly (R1, R2, R3 each found 4 issues, but R3's are edge-case hardening rather than core correctness).
+
+### Added
+- `narrative_check.py` `_agent_name_variants()` — pulls additional name tokens from each agent's optional `aliases` field. Closes the **nickname/alias gap**: previously, if the roster had `name: "Robert"` but the LLM wrote "Bob will fold", `_first_token` only knew "Robert" and all signals 1-3 silently missed the prediction. Now `aliases: ["Bob"]` on the roster entry makes "Bob" a tracked variant
+- `narrative_check.py` `_MAX_TOTAL_TEXT = 200_000` byte cap in `_collect_text` — prevents adversarial breadth-bombing inputs (e.g. `{"payload":[{"x":"a"*4000}]*100000}` previously fed ~400 MB joined string to regex). `_MAX_TEXT_LEN` only capped per-string; total joined output is now also bounded. Test confirms 1000 × 4000-char payload caps cleanly at 200 KB in 0.1 ms
+- `references/reliability.md` "What Gets Scanned" — honest description of the broadened scan surface (every string field except `_NON_PROSE_KEYS`, bounded depth 4, 200 KB cap), explaining the v1.3.0 widening and how to extend the denylist for domain-specific structural fields
+
+### Changed
+- `references/patterns.md` Layer 1 description: "Catches ~80% of drift at generation time" rewritten as "Design intent: catch most drift at generation time. (Catch rate is not measured by this skill — treat as defense-in-depth, not a guarantee.)" The 80% figure had no measurement backing
+- `_build_other_agents_map` rewritten around `_agent_name_variants` — alias-aware tracking, preserved first-token-collision disambiguation behavior
+
+### Verified (R3 audit confirmed working as advertised)
+- Nested-payload smuggling fix (v1.3.0) confirmed: `payload.narration.speech` correctly scanned at depth 3, Signal 1 fires for "Bob will fold" with Bob in roster
+- `_first_token` crash fix (v1.2.0) still safe against `None`, non-string, list inputs
+
 ## [1.3.0] - 2026-05-10
 
 Round 2 of the subagent-panel-driven hardening: same 4 personas re-audited the v1.2.0 changes and surfaced 4 fresh substantive findings, all patched here.

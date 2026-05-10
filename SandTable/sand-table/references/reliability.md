@@ -16,7 +16,7 @@ A single agent controlling all personas produces creative writing, not simulatio
 
 ### The 5 Signals
 
-Scan all agent events with free-text fields (internal monologue, spoken dialogue, narrative text) for these patterns:
+Scan all agent events for these patterns. The implementation (`scripts/narrative_check.py`) walks every string field on each event recursively (bounded depth 4, 200 KB total per event), skipping a denylist of structural/metadata keys (`id`, `agent`, `persona`, `from`, `to`, `timestamp`, `scores`, `module`, `unit`, etc. — see `_NON_PROSE_KEYS`). The historical free-text contract was "internal monologue, spoken dialogue, narrative text" only; the broader recursive scan was added in v1.3.0 to close a smuggling gap where prose nested under `payload`, `content`, `message`, etc. silently bypassed all signals. Domain-specific prose fields like `note`, `rationale`, `description`, `summary` are now in scope — declare structural fields explicitly in your domain invariant if they should be skipped (extend `_NON_PROSE_KEYS`).
 
 **1. Other-Agent Predictions**
 

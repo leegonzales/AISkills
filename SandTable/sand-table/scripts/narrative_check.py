@@ -93,6 +93,9 @@ _NON_PROSE_KEYS = frozenset({
 })
 
 _MAX_RECURSION_DEPTH = 4  # bound nested-dict walk; events should never need more
+_MAX_TOTAL_TEXT = 200_000  # cap total bytes pulled per event — prevents adversarial
+                           # `[{"x":"a"*4000}]*100000`-style breadth bombs from feeding
+                           # ~400 MB strings to the regex scanners
 
 # Stopword 3-grams for signal 5 (drop these from "shared rare n-grams" count).
 _STOPWORD_NGRAMS = frozenset({
@@ -104,30 +107,50 @@ _STOPWORD_NGRAMS = frozenset({
 _MAX_TEXT_LEN = 4000  # truncate long fields to bound regex work
 
 
-def _collect_text(obj, depth: int = 0) -> list[str]:
-    """Recursively pull every prose string out of an event, capped depth.
+def _collect_text(obj, depth: int = 0, accumulated: int = 0) -> list[str]:
+    """Recursively pull every prose string out of an event, capped depth + total bytes.
 
     Skips structural/metadata keys (see _NON_PROSE_KEYS) so IDs, timestamps,
     and numeric scores never reach the regex scanners. Catches dialogue/prose
     nested under payload, content, message, body, and similar wrappers — closes
     the nested-payload smuggling gap where flat TEXT_FIELDS scanning misses
-    the real text.
+    the real text. Bounded by `_MAX_RECURSION_DEPTH` (depth-bombing) and
+    `_MAX_TOTAL_TEXT` (breadth-bombing).
+
+    Note: scope intentionally broad (every string field except _NON_PROSE_KEYS)
+    rather than narrow allowlist — broader is more smuggling-resistant. Trade-off
+    is that domain-specific prose fields like `note`, `rationale`, `description`
+    are now scanned. See `references/reliability.md` §"What Gets Scanned" for the
+    user-facing contract.
     """
-    if depth > _MAX_RECURSION_DEPTH:
+    if depth > _MAX_RECURSION_DEPTH or accumulated >= _MAX_TOTAL_TEXT:
         return []
     if isinstance(obj, str):
-        return [obj[:_MAX_TEXT_LEN]] if obj else []
+        if not obj:
+            return []
+        remaining = max(0, _MAX_TOTAL_TEXT - accumulated)
+        return [obj[: min(_MAX_TEXT_LEN, remaining)]]
     if isinstance(obj, dict):
         out: list[str] = []
+        running = accumulated
         for k, v in obj.items():
+            if running >= _MAX_TOTAL_TEXT:
+                break
             if k in _NON_PROSE_KEYS:
                 continue
-            out.extend(_collect_text(v, depth + 1))
+            chunk = _collect_text(v, depth + 1, running)
+            out.extend(chunk)
+            running += sum(len(s) for s in chunk)
         return out
     if isinstance(obj, list):
         out = []
+        running = accumulated
         for v in obj:
-            out.extend(_collect_text(v, depth + 1))
+            if running >= _MAX_TOTAL_TEXT:
+                break
+            chunk = _collect_text(v, depth + 1, running)
+            out.extend(chunk)
+            running += sum(len(s) for s in chunk)
         return out
     return []
 
@@ -139,32 +162,53 @@ def _first_token(name) -> str:
     return stripped.split()[0] if stripped else ""
 
 
+def _agent_name_variants(agent: dict) -> list[str]:
+    """Return all known name tokens for an agent: first-token of `name` plus
+    any `aliases`. Each alias is itself first-token reduced — so an alias
+    "Bob Smith" contributes "Bob". Aliases close the nickname gap (roster
+    "Robert" with LLM-spoken "Bob" otherwise slipped past all signals 1-3)."""
+    variants = []
+    primary = _first_token(agent.get("name", ""))
+    if primary:
+        variants.append(primary)
+    for alias in agent.get("aliases", []) or []:
+        token = _first_token(alias)
+        if token and token not in variants:
+            variants.append(token)
+    return variants
+
+
 def _build_other_agents_map(agents: list[dict]) -> dict[str, list[str]]:
     """Map each agent_id -> list of name tokens for OTHER agents.
 
-    Use first-token matching (LLMs say 'Maria' not 'Maria Chen'). On first-token
-    collision (two agents share a first name), fall back to including the full
-    name as well so disambiguation is possible.
+    Use first-token matching (LLMs say 'Maria' not 'Maria Chen') extended with
+    any declared `aliases` on each agent (closes the nickname gap). On
+    first-token collision (two agents share a first name), fall back to
+    including the full name as well so disambiguation is possible.
     """
-    by_id = {a.get("id", ""): a.get("name", "") for a in agents if a.get("id")}
+    by_id = {a.get("id", ""): a for a in agents if a.get("id")}
     first_tokens: dict[str, list[str]] = {}
-    for aid, name in by_id.items():
-        ft = _first_token(name).lower()
-        first_tokens.setdefault(ft, []).append(aid)
+    for aid, agent in by_id.items():
+        for variant in _agent_name_variants(agent):
+            first_tokens.setdefault(variant.lower(), []).append(aid)
 
     result: dict[str, list[str]] = {}
     for aid in by_id:
-        own_first = _first_token(by_id[aid]).lower()
-        others = []
-        for other_id, other_name in by_id.items():
+        own_variants = {v.lower() for v in _agent_name_variants(by_id[aid])}
+        others: list[str] = []
+        for other_id, other_agent in by_id.items():
             if other_id == aid:
                 continue
-            ot = _first_token(other_name).lower()
-            if ot and ot != own_first:
-                others.append(other_name.split()[0])
-                # If first-token collision exists for this other agent, also add full name.
-                if len(first_tokens.get(ot, [])) > 1:
-                    others.append(other_name)
+            for variant in _agent_name_variants(other_agent):
+                if variant.lower() in own_variants:
+                    continue
+                if variant not in others:
+                    others.append(variant)
+            other_full = other_agent.get("name", "")
+            other_first = _first_token(other_full).lower()
+            if other_first and len(first_tokens.get(other_first, [])) > 1:
+                if other_full and other_full not in others:
+                    others.append(other_full)
         result[aid] = others
     return result
 

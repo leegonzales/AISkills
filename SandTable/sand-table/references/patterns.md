@@ -115,7 +115,8 @@ Production simulations use three defense layers:
 ```
 Layer 1: Prompt Hardening
   Put a WRONG-to-RIGHT field name table directly in the orchestrator prompt.
-  Catches ~80% of drift at generation time.
+  Design intent: catch most drift at generation time. (Catch rate is not
+  measured by this skill — treat as defense-in-depth, not a guarantee.)
 
 Layer 2: Validator Agent
   Reads schema + invariant, validates every event post-simulation.
