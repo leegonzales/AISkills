@@ -71,36 +71,46 @@ python <skill-root>/scripts/validate_stream.py <output.json>
 
 ### `validate <json-path>`
 
+Run the full validation pipeline (structural + drift + clamping + narrative):
+
 ```bash
-python <skill-root>/scripts/validate_stream.py <json-path>
+python <skill-root>/scripts/validate_full.py <json-path> \
+    [--mappings drift-mappings.json] \
+    [--write-normalized <output.json>] \
+    [--no-narrative]
 ```
 
-Validation includes:
-- Schema compliance (required fields, valid types, enum values)
-- Drift correction using domain `drift-mappings.json` (see known drift catalog in `references/patterns.md`)
-- Impossible narrative detection for multi-agent simulations (see `references/reliability.md`)
-- Score range clamping and derived field computation
+The pipeline runs five stages, each with its own report section:
+- **Structural** — envelope shape, required `meta` fields, agent ID cross-refs, timestamp ordering (delegates to `validate_stream.py`)
+- **Drift** — applies `drift-mappings.json` to fix LLM field-name drift (delegates to `normalize.py`)
+- **Score Clamping** — clamps numeric `scores` values to `mappings.score_range` or `--score-range` (default `[0, 5]`)
+- **Derived Fields** — stamps `meta.event_count` and `meta.agent_count` if absent
+- **Narrative** — runs impossible-narrative scan (delegates to `narrative_check.py`); advisory only, never fails the build
 
-For legacy-format files (pre-protocol), normalize first:
+Exit code: `0` on pass, `1` if structural violations exist. Narrative warnings never fail.
+
+For envelope-only checks use `validate_stream.py` directly. For legacy formats normalize first:
 
 ```bash
-python <skill-root>/scripts/normalize.py \
-    --wrap-legacy <json-path> -o <output.json>
+python <skill-root>/scripts/normalize.py --wrap-legacy <json-path> -o <output.json>
 ```
 
 ### `reliability <json-path>`
 
-Run the full reliability analysis on a simulation output:
+Run the reliability report — narrative integrity, data completeness, optional context-chain validation, and a deterministic recommendation:
 
-1. Read `references/reliability.md` for the detection patterns
-2. Scan all agent events for impossible narrative signals (5 checks)
-3. Check for timeout/NR events and assess simulation completeness
-4. If multi-session: validate exit context files against schema (from `references/multi-session.md`)
-5. Output a reliability report:
-   - Narrative integrity status (CLEAN / N warnings / INTEGRITY CONCERN)
-   - Data completeness (NR count, missing events)
-   - Context chain validity (multi-session only)
-   - Recommendations (re-run, accept, investigate specific agents)
+```bash
+python <skill-root>/scripts/reliability_report.py <json-path> \
+    [--context-dir <dir>] \
+    [--prior s1-run5,s2-run6]
+```
+
+Output sections (matches `references/reliability.md` format):
+
+1. **Narrative Integrity** — CLEAN / WARNING (1-5 flags) / INTEGRITY CONCERN (6+); per-signal counts and snippets (delegates to `narrative_check.py`)
+2. **Data Completeness** — NR/timeout count, affected agents and units. Only counts events with explicit NR markers (`type: timeout`, `status: NR`, `nr: true`) — never inferred from missing fields.
+3. **Context Chain** — multi-session validation (only when `--context-dir`/`--prior` given). For each prior run, loads `<dir>/<run-id>/context/<agent>-exit-context.json`, validates required keys (`agent_id`, `scores` are hard-required; `growth_narrative`, `headline_quote`, `behavioral_markers` are recommended), checks cohort match against current roster.
+4. **Recommendation** — deterministic rule output: `ACCEPT` / `REVIEW` / `RE-RUN` / `HALT`. Always exits `0`; callers wanting a hard gate should grep for `RECOMMENDATION: HALT`.
 
 ## Key Principle
 
