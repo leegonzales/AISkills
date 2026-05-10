@@ -18,7 +18,7 @@ for file in "${REQUIRED_FILES[@]}"; do
         echo "  ✅ $file exists"
     else
         echo "  ❌ $file missing"
-        ((ERRORS++))
+        ERRORS=$((ERRORS + 1))
     fi
 done
 echo ""
@@ -43,11 +43,11 @@ if [ -f "$SKILL_DIR/SKILL.md" ]; then
                 echo "  ✅ name format valid"
             else
                 echo "  ❌ name format invalid (use lowercase, numbers, hyphens only)"
-                ((ERRORS++))
+                ERRORS=$((ERRORS + 1))
             fi
         else
             echo "  ❌ name field missing"
-            ((ERRORS++))
+            ERRORS=$((ERRORS + 1))
         fi
 
         if echo "$FRONTMATTER" | grep -q "^description:"; then
@@ -57,34 +57,45 @@ if [ -f "$SKILL_DIR/SKILL.md" ]; then
 
             if [ $DESC_LEN -gt 1024 ]; then
                 echo "  ⚠️  description exceeds 1024 chars"
-                ((ERRORS++))
+                ERRORS=$((ERRORS + 1))
             fi
         else
             echo "  ❌ description field missing"
-            ((ERRORS++))
+            ERRORS=$((ERRORS + 1))
         fi
 
         # Check for invalid fields
         if echo "$FRONTMATTER" | grep -qE "^version:"; then
             echo "  ❌ Invalid field 'version' in frontmatter (not supported)"
-            ((ERRORS++))
+            ERRORS=$((ERRORS + 1))
         fi
     else
         echo "  ❌ YAML frontmatter missing (must start with ---)"
-        ((ERRORS++))
+        ERRORS=$((ERRORS + 1))
     fi
 fi
 echo ""
 
 # Check for unfilled placeholders
+# Allowlist documented protocol/API placeholders that legitimately appear in skill docs.
+# Skills can extend this via .validate-allowlist (one regex per line) at the skill root.
 echo "🔧 Checking for unfilled placeholders..."
-PLACEHOLDERS=$(grep -r "{{" "$SKILL_DIR" --include="*.md" 2>/dev/null || true)
+ALLOWLIST_PATTERN='\{\{(SIMULATION_DATA|SKILL_NAME|SKILL_SLUG|VERSION|DOMAIN|TODO_REPLACE_ME|EXAMPLE_PLACEHOLDER)\}\}'
+if [ -f "$SKILL_DIR/.validate-allowlist" ]; then
+    while IFS= read -r line; do
+        [ -z "$line" ] && continue
+        case "$line" in \#*) continue;; esac
+        ALLOWLIST_PATTERN="${ALLOWLIST_PATTERN}|${line}"
+    done < "$SKILL_DIR/.validate-allowlist"
+fi
+PLACEHOLDERS=$(grep -rE "\{\{" "$SKILL_DIR" --include="*.md" 2>/dev/null \
+    | grep -vE "$ALLOWLIST_PATTERN" || true)
 if [ -z "$PLACEHOLDERS" ]; then
-    echo "  ✅ No placeholders found"
+    echo "  ✅ No unfilled placeholders found"
 else
     echo "  ❌ Unfilled placeholders detected:"
     echo "$PLACEHOLDERS" | sed 's/^/    /'
-    ((ERRORS++))
+    ERRORS=$((ERRORS + 1))
 fi
 echo ""
 
@@ -96,7 +107,7 @@ for file in "$SKILL_DIR"/*.md; do
             echo "  ✅ $(basename "$file") is valid UTF-8"
         else
             echo "  ❌ $(basename "$file") has encoding issues"
-            ((ERRORS++))
+            ERRORS=$((ERRORS + 1))
         fi
     fi
 done
@@ -110,10 +121,10 @@ if [ -d "$SKILL_DIR/assets" ]; then
         if [ -f "$json_file" ]; then
             if python3 -m json.tool "$json_file" >/dev/null 2>&1; then
                 echo "  ✅ $(basename "$json_file") is valid JSON"
-                ((JSON_COUNT++))
+                JSON_COUNT=$((JSON_COUNT + 1))
             else
                 echo "  ❌ $(basename "$json_file") is invalid JSON"
-                ((ERRORS++))
+                ERRORS=$((ERRORS + 1))
             fi
         fi
     done
@@ -131,10 +142,10 @@ if [ -d "$SKILL_DIR/scripts" ]; then
         if [ -f "$py_file" ]; then
             if python3 -m py_compile "$py_file" 2>/dev/null; then
                 echo "  ✅ $(basename "$py_file") syntax valid"
-                ((PY_COUNT++))
+                PY_COUNT=$((PY_COUNT + 1))
             else
                 echo "  ❌ $(basename "$py_file") has syntax errors"
-                ((ERRORS++))
+                ERRORS=$((ERRORS + 1))
             fi
         fi
     done

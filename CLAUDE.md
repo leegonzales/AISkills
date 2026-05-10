@@ -37,10 +37,13 @@ A collection of Claude Skills - specialized system prompts that extend AI capabi
 
 ```bash
 # Validate skill structure
-./SkillPackager/scripts/validate-skill.sh {SkillName}/{skill-slug}
+./SkillTemplate/scripts/validate-skill.sh {SkillName}/{skill-slug}
 
-# Package for distribution
+# Package for distribution (also runs validation)
 ./SkillPackager/scripts/package-skill.sh {SkillName}/{skill-slug}
+
+# Test installation of a packaged skill
+./SkillPackager/scripts/test-skill-installation.sh <path-to-package>
 ```
 
 ## Creating Skills

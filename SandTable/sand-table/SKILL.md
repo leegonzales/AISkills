@@ -32,6 +32,8 @@ Design new sand tables, scaffold project-local skills, extract agent-ops traces,
 
 ## Commands
 
+> All script invocations below use `<skill-root>` as a placeholder for the skill directory (`SandTable/sand-table/` in this repo). Substitute your install path or `cd` into the skill directory before running.
+
 ### `design <use-case>`
 
 1. Read `references/protocol-spec.md`, `references/domain-invariant-template.md`, and `references/patterns.md`
@@ -57,20 +59,20 @@ Design new sand tables, scaffold project-local skills, extract agent-ops traces,
 Run the shared extractor:
 
 ```bash
-python ~/Projects/leegonzales/AISkills/SandTable/sand-table/scripts/extract_agent_ops.py \
+python <skill-root>/scripts/extract_agent_ops.py \
     --project <project-path> --since <date> -o <output.json>
 ```
 
 Then validate the output:
 
 ```bash
-python ~/Projects/leegonzales/AISkills/SandTable/sand-table/scripts/validate_stream.py <output.json>
+python <skill-root>/scripts/validate_stream.py <output.json>
 ```
 
 ### `validate <json-path>`
 
 ```bash
-python ~/Projects/leegonzales/AISkills/SandTable/sand-table/scripts/validate_stream.py <json-path>
+python <skill-root>/scripts/validate_stream.py <json-path>
 ```
 
 Validation includes:
@@ -82,7 +84,7 @@ Validation includes:
 For legacy-format files (pre-protocol), normalize first:
 
 ```bash
-python ~/Projects/leegonzales/AISkills/SandTable/sand-table/scripts/normalize.py \
+python <skill-root>/scripts/normalize.py \
     --wrap-legacy <json-path> -o <output.json>
 ```
 

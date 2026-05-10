@@ -77,8 +77,8 @@ echo "🔍 Step 2: Running validation..."
 VALIDATION_SCRIPT="$(dirname "$0")/validate-skill.sh"
 
 if [ ! -f "$VALIDATION_SCRIPT" ]; then
-    # Try to find it in SkillTemplate
-    VALIDATION_SCRIPT="../SkillTemplate/scripts/validate-skill.sh"
+    # Fallback: SkillTemplate sibling (resolved relative to this script, not cwd)
+    VALIDATION_SCRIPT="$(dirname "$0")/../../SkillTemplate/scripts/validate-skill.sh"
 fi
 
 if [ -f "$VALIDATION_SCRIPT" ]; then
