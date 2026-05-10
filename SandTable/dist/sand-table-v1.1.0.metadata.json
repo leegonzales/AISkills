@@ -2,9 +2,9 @@
   "name": "sand-table",
   "version": "1.1.0",
   "package": "sand-table-v1.1.0.skill",
-  "size": 42433,
-  "size_human": "44K",
-  "sha256": "56a9cd474fef68723064525ceefc93d66ac56e409fa3eccdded5f5f2a42f0988",
-  "packaged_at": "2026-05-10T22:23:23Z",
+  "size": 60945,
+  "size_human": "60K",
+  "sha256": "4be219f57b6a85d2743f9cde7ac73dda8a81cb171342e448d1d42c9ffdfeca8b",
+  "packaged_at": "2026-05-10T22:32:40Z",
   "packager": "SKILL-9 Automation v1.1"
 }
