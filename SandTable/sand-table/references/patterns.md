@@ -128,7 +128,7 @@ Layer 3: Replay Generator Normalization
 
 ### 3.2 Known LLM Drift Patterns
 
-These field name substitutions are reliably produced by LLMs across domains. Any simulation using structured events will encounter them:
+These field name substitutions were observed during development of the implementations registered in `references/implementations.md` and are pre-seeded into `drift-mappings.json` by `scripts/scaffold.py`. Frequency across domains is **not measured** by this skill — treat the list as a starting baseline, not a validated cross-domain prior. New implementations should extend the list as new patterns appear:
 
 | LLM Generates | Schema Expects | Why It Happens |
 |---------------|----------------|----------------|
@@ -210,3 +210,28 @@ Runs are keyed by `meta.id` + `meta.run` (see `protocol-spec.md`). The replay ge
 - Score inflation across runs (the LLM "learns" to score higher — reset agent context between runs)
 - Narrative convergence (later runs produce suspiciously similar text — reset all agent state)
 - Trajectory matching (scores match the persona's predetermined arc rather than reflecting actual output quality — see `reliability.md` for impossible narrative detection)
+
+## Pattern 7: Interaction-Order Modeling (for Discussion-Style Domains)
+
+The base protocol describes **who** is speaking and **what** category their utterance falls into, but is intentionally silent on the **sequencing layer** between units — turn allocation, bidding, interruption, latching, the third-turn evaluation slot. For domains where dominance, silence, gatekeeping, or floor-management is a primary phenomenon (classroom seminars, panel discussions, meeting facilitation, jury deliberation), the default `events[]` stream stipulates these dynamics rather than letting them emerge.
+
+### When You Need This
+
+- Your domain centrally cares about *who gets to speak when*, not just what they say
+- A primary outcome is **participation equity** — measuring who dominates and who is suppressed
+- The phenomenon you're modeling (e.g., a quiet student withdrawing further after being interrupted) is a function of conversational pressure, not character description
+- You want emergence rather than scripted outcomes
+
+### Extension Pattern
+
+Layer a turn-bid grammar onto the existing event envelope. Three concrete additions:
+
+1. **Roster field — `floor_time_budget`**: per-unit numeric budget (in seconds, words, or turns) that the facilitator agent must honor or visibly violate. Surfaces as a cross-event invariant the validator can audit.
+
+2. **Event types — `bid`, `hold`, `yield`, `interrupt`, `pass`, `withdraw`**: lightweight pre-utterance events that establish floor state before the substantive `text` event. Cheap to enforce: every substantive event must be preceded by a `bid` (granted) or an `interrupt` from the same agent.
+
+3. **Scoring dimension — `participation_equity`**: a derived metric (e.g., Gini coefficient over per-agent floor-time) that the validator can compute deterministically from the event stream, surfacing dominance/silence as numbers rather than vibes.
+
+### Why It's Not in the Base Protocol
+
+The protocol stays minimal so it generalizes. Curriculum modules don't bid for the floor; agent-ops traces don't withdraw. Discussion-style domains should add this layer in their domain invariant rather than expecting the base to carry it.

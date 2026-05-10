@@ -7,6 +7,14 @@ description: Design, scaffold, extract, and validate Sand Table simulations and 
 
 Design new sand tables, scaffold project-local skills, extract agent-ops traces, and validate event streams. This skill knows the protocol and all existing implementations.
 
+## What is a Sand Table?
+
+A *sand table* is a small, structured simulation of a group of distinct units interacting over time. You define **who** the units are (a roster of personas, agents, students, modules, customers — whatever the domain calls them), **what** the situation is (a scenario or sequence to play through), and **what counts as a valid move** (an event schema and scoring rubric). The skill plays the scene out as a stream of typed events — one per move — and then validates the stream for narrative integrity (each unit stayed in its own voice, no drift, no premature merging).
+
+Use it to rehearse a meeting before it happens, predict how a cohort will react to a curriculum change, audit how an agent crew handles a scenario, or stress-test a discussion design. **Tiny example:** three friends — Maya, Rita, Sam — picking a restaurant. You enumerate the three friends in a roster, define event types like `propose`, `object`, `concede`, run the simulation, and inspect the resulting event log to see whose preferences dominated and where the group converged.
+
+The "table" metaphor is loose. If `sand table` doesn't land for your team, think of this as a **structured ensemble protocol** or a **discussion instrumentation framework** — a controlled-vocabulary observation scheme paired with independent role-players.
+
 ## When to Use
 
 - `/sand-table design <use-case>` — Design a sand table for a new domain
@@ -123,7 +131,7 @@ python <skill-root>/scripts/reliability_report.py <json-path> \
 
 Output sections (matches `references/reliability.md` format):
 
-1. **Narrative Integrity** — CLEAN / WARNING (1-5 flags) / INTEGRITY CONCERN (6+); per-signal counts and snippets (delegates to `narrative_check.py`)
+1. **Narrative Integrity** — CLEAN / WARNING (1-5 flags) / INTEGRITY CONCERN (6+); per-signal counts and snippets (delegates to `narrative_check.py`). **Scope:** heuristic regex scan for 5 specific single-author tells (other-agent predictions, internal-state knowledge, meta-commentary, scoring awareness, synchronized exchanges). Does NOT parse dialogue or strip quoted speech, does NOT detect self-name third-person dissociation, and uses Anglo first-token name matching. Treat `CLEAN` as "no patterns matched", not "narrative is sound" — a smoke alarm, not a fire inspector.
 2. **Data Completeness** — NR/timeout count, affected agents and units. Only counts events with explicit NR markers (`type: timeout`, `status: NR`, `nr: true`) — never inferred from missing fields.
 3. **Context Chain** — multi-session validation (only when `--context-dir`/`--prior` given). For each prior run, loads `<dir>/<run-id>/context/<agent>-exit-context.json`, validates required keys (`agent_id`, `scores` are hard-required; `growth_narrative`, `headline_quote`, `behavioral_markers` are recommended), checks cohort match against current roster.
 4. **Recommendation** — deterministic rule output: `ACCEPT` / `REVIEW` / `RE-RUN` / `HALT`. Always exits `0`; callers wanting a hard gate should grep for `RECOMMENDATION: HALT`.

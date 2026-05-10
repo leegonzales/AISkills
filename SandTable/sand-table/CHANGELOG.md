@@ -1,6 +1,19 @@
 # Changelog
 
-## [1.1.0] — 2026-03-24
+## [1.2.0] - 2026-05-10
+
+Subagent-panel-driven hardening: 4 personas (novice, skeptic, educator, adversarial) audited the skill in parallel and each surfaced one substantive issue, all patched in this release.
+
+### Added
+- `## What is a Sand Table?` opener in `SKILL.md` — plain-language explanation of the concept (what units, what events, what the output looks like) with a tiny restaurant-pickers example, plus an explicit metaphor escape-hatch ("structured ensemble protocol") for teams allergic to the sand-table image
+- Pattern 7 in `references/patterns.md` — Interaction-Order Modeling extension pattern for discussion-style domains (turn-bid grammar, `floor_time_budget` field, `participation_equity` derived metric); explains why it's not in the base protocol and how to layer it into a domain invariant
+
+### Fixed
+- `narrative_check.py` `_first_token` no longer crashes with `AttributeError` when an agent roster entry is missing `name` or has a non-string name (returns empty string, lets downstream loops continue)
+- `SKILL.md` `Narrative Integrity` description now honestly scopes what `narrative_check.py` catches (5 specific regex signals; does not parse dialogue, strip quotes, or detect self-name dissociation; CLEAN means "no patterns matched", not "narrative is sound")
+- `references/patterns.md` §3.2 no longer claims drift mappings are "reliably produced across domains" — clarified as observed-during-development, not measured, and invites extension
+
+## [1.1.0] - 2026-03-24
 
 Reliability, multi-session, and pattern backport from production training implementation.
 

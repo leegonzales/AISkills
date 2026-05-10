@@ -90,8 +90,11 @@ _STOPWORD_NGRAMS = frozenset({
 _MAX_TEXT_LEN = 4000  # truncate long fields to bound regex work
 
 
-def _first_token(name: str) -> str:
-    return name.strip().split()[0] if name.strip() else ""
+def _first_token(name) -> str:
+    if not isinstance(name, str):
+        return ""
+    stripped = name.strip()
+    return stripped.split()[0] if stripped else ""
 
 
 def _build_other_agents_map(agents: list[dict]) -> dict[str, list[str]]:
