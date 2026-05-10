@@ -1,0 +1,97 @@
+{
+  "meta": {
+    "domain": "readership",
+    "id": "sand-table-substack-intro",
+    "title": "Sand Table on Sand Table — predicted readers + triers of the Pike Substack intro",
+    "created": "2026-05-10T22:50:00Z",
+    "source": "simulation",
+    "run": 1,
+    "notes": "Mixed cohort: 6 readers + 3 skill-triers, encountering the 5-paragraph Substack guest post + (for triers) attempting first-touch installation. Turn 1-3 = read intro/body/closing; Turn 4 = decide whether to try; Turn 5 = first-touch experience."
+  },
+  "agents": [
+    {"id": "alex", "name": "Alex Park", "role": "Senior IC engineer, time-constrained skeptic"},
+    {"id": "sanjay", "name": "Sanjay Patel", "role": "Multi-agent systems researcher, citation-hungry"},
+    {"id": "maya", "name": "Maya Singh", "role": "B2B SaaS PM, validates copy pre-ship"},
+    {"id": "rosa", "name": "Rosa Lin", "role": "Curriculum designer, training-domain match"},
+    {"id": "jamie", "name": "Jamie Cole", "role": "Indie Substacker, 10K readers"},
+    {"id": "elena", "name": "Dr. Elena Vasquez", "role": "HCI professor, simulation-pathology skeptic"},
+    {"id": "theo", "name": "Theo Brand", "role": "Trier — pre-coffee skim, low patience"},
+    {"id": "priya", "name": "Priya Mehra", "role": "Trier — careful reader, has a real domain in mind"},
+    {"id": "marcus", "name": "Marcus Kane", "role": "Trier — DevOps, validate streams from existing sim"}
+  ],
+  "events": [
+    {"type": "reader", "agent": "alex", "turn": 1, "engagement": "passive", "internal_monologue": "Military metaphor. I can almost predict where this is going. The author had better get to the point in the next paragraph or I am closing the tab."},
+    {"type": "reader", "agent": "sanjay", "turn": 1, "engagement": "active", "internal_monologue": "Yes, this is a war-game framing. I want to know if the author has read the literature on simulation validity. So far it sounds like rhetoric, not engineering."},
+    {"type": "reader", "agent": "maya", "turn": 1, "engagement": "active", "internal_monologue": "I can picture my team around a table with proxy readers. The metaphor lands. I want to know what part of this can replace our copy reviews."},
+    {"type": "reader", "agent": "rosa", "turn": 1, "engagement": "active", "internal_monologue": "The phrase 'place pieces, argue' is exactly how I run my facilitation training. This is my world."},
+    {"type": "reader", "agent": "jamie", "turn": 1, "engagement": "leading", "internal_monologue": "The line about the green ensign doing the wrong thing at the worst moment — I am stealing that. This author can write."},
+    {"type": "reader", "agent": "elena", "turn": 1, "engagement": "passive", "internal_monologue": "Wargames have a long, well-documented record of producing confidence that does not survive contact with reality. I will give this five more paragraphs to demonstrate awareness of that."},
+    {"type": "reader", "agent": "theo", "turn": 1, "engagement": "disengaged", "internal_monologue": "Scrolling. Looking for a code block."},
+    {"type": "reader", "agent": "priya", "turn": 1, "engagement": "active", "internal_monologue": "'Protocol — a small, opinionated standard.' Good. I have been burned by frameworks. A protocol I can adopt incrementally."},
+    {"type": "reader", "agent": "marcus", "turn": 1, "engagement": "disengaged", "internal_monologue": "Skipping. Where are the inputs and outputs."},
+
+    {"type": "reader", "agent": "alex", "turn": 2, "engagement": "active", "internal_monologue": "Three concrete use cases. That is a useful structure. Reader simulation, training cohort, dev session extraction. The third one is interesting — that is a real telemetry problem."},
+    {"type": "reader", "agent": "sanjay", "turn": 2, "engagement": "active", "internal_monologue": "Cross-domain envelope is the ambitious claim. Are the event schemas actually compatible across these three, or is it a shared shape with three incompatible payloads underneath? The post does not say."},
+    {"type": "reader", "agent": "maya", "turn": 2, "engagement": "leading", "internal_monologue": "'Where attention drifts, where conviction shifts' — that is the literal language we use in copy reviews. I would pay for this if it works on landing pages."},
+    {"type": "reader", "agent": "rosa", "turn": 2, "engagement": "active", "internal_monologue": "Six personas through coaching modules. I want to see one. The post is good at the abstract but I need a sample event before I can evaluate."},
+    {"type": "reader", "agent": "jamie", "turn": 2, "engagement": "active", "internal_monologue": "Section by section is exactly how I want feedback. Right now I get full-essay reactions a week late."},
+    {"type": "reader", "agent": "elena", "turn": 2, "engagement": "passive", "internal_monologue": "Three faces. Who chose these three? What is being left out? Therapy sessions? Negotiation? The post is not yet defending its own ontology."},
+    {"type": "reader", "agent": "theo", "turn": 2, "engagement": "disengaged", "internal_monologue": "Still no commands."},
+    {"type": "reader", "agent": "priya", "turn": 2, "engagement": "active", "internal_monologue": "I am noting the abstraction. My domain is annotated PDFs. Does that fit one of the three faces, or is it a fourth?"},
+    {"type": "reader", "agent": "marcus", "turn": 2, "engagement": "active", "internal_monologue": "'Extraction from session logs' — that is exactly the surface I care about. Where is the script."},
+
+    {"type": "reader", "agent": "alex", "turn": 3, "engagement": "leading", "internal_monologue": "The independence constraint is the strongest thing in this post. 'One LLM wearing six wigs is not a sand table' — that is a clean line. I am bookmarking."},
+    {"type": "reader", "agent": "sanjay", "turn": 3, "engagement": "leading", "internal_monologue": "Five detection signals. I want the false-positive rate on a benchmark. The post claims they exist; the engineering question is calibration. Going to GitHub after this."},
+    {"type": "reader", "agent": "maya", "turn": 3, "engagement": "passive", "internal_monologue": "'Impossible narrative detection' — the language is getting technical. I am worried this section is for someone other than me."},
+    {"type": "reader", "agent": "rosa", "turn": 3, "engagement": "leading", "internal_monologue": "I have run cohort simulations where one persona predicted what another would say, and I did not have language for why that was wrong. This post gives me the language."},
+    {"type": "reader", "agent": "jamie", "turn": 3, "engagement": "leading", "internal_monologue": "If I run this on my own essay and the personas all sound like me, the data is worthless. Now I know what to look for."},
+    {"type": "reader", "agent": "elena", "turn": 3, "engagement": "active", "internal_monologue": "First moment of approval. The author has named the failure mode and shipped a detector. This is what good engineering against your own enthusiasm looks like."},
+    {"type": "reader", "agent": "theo", "turn": 3, "engagement": "disengaged", "internal_monologue": "Done. Closing."},
+    {"type": "reader", "agent": "priya", "turn": 3, "engagement": "leading", "internal_monologue": "This section earned my trust. Going to install."},
+    {"type": "reader", "agent": "marcus", "turn": 3, "engagement": "passive", "internal_monologue": "Less relevant for extraction. Skimming."},
+
+    {"type": "reader", "agent": "alex", "turn": 4, "engagement": "active", "internal_monologue": "'A guide, not a gatekeeper.' I appreciate the modesty. I would actually try this on a small project."},
+    {"type": "reader", "agent": "sanjay", "turn": 4, "engagement": "active", "internal_monologue": "'Variance, deltas, trajectories instead of vibes' is an accurate description of what protocol-driven simulation buys you. Good."},
+    {"type": "reader", "agent": "maya", "turn": 4, "engagement": "passive", "internal_monologue": "'Does not promise prediction' — wait, then what am I getting? I need a sentence that says specifically what I get for my time."},
+    {"type": "reader", "agent": "rosa", "turn": 4, "engagement": "active", "internal_monologue": "This matches my facilitation philosophy. A rehearsal makes you honest."},
+    {"type": "reader", "agent": "jamie", "turn": 4, "engagement": "active", "internal_monologue": "I want a one-liner I can share that captures the essay. The 'honest about what it is' line is close."},
+    {"type": "reader", "agent": "elena", "turn": 4, "engagement": "leading", "internal_monologue": "The author understands what they do not know. This is the most credible AI-tools post I have read this quarter."},
+
+    {"type": "reader", "agent": "alex", "turn": 5, "engagement": "active", "internal_monologue": "Looking for a link. I do not see a clear next-step button. I would have clicked 'try it on a paragraph of your own writing.'"},
+    {"type": "reader", "agent": "sanjay", "turn": 5, "engagement": "active", "internal_monologue": "Going to file an issue requesting the false-positive benchmark on the narrative detector."},
+    {"type": "reader", "agent": "maya", "turn": 5, "engagement": "passive", "internal_monologue": "Will message a colleague who runs reader research. Not sure if I can use this without her."},
+    {"type": "reader", "agent": "rosa", "turn": 5, "engagement": "leading", "internal_monologue": "Sharing with two colleagues immediately. This is the curriculum-evaluation tool I have been hand-rolling for two years."},
+    {"type": "reader", "agent": "jamie", "turn": 5, "engagement": "leading", "internal_monologue": "Going to try it on my last essay. Wish there were a 'paste your essay here' demo on the post."},
+    {"type": "reader", "agent": "elena", "turn": 5, "engagement": "active", "internal_monologue": "Adding to my next paper's reference list."},
+
+    {"type": "reader", "agent": "priya", "turn": 5, "engagement": "active", "internal_monologue": "Ran scaffold.py interactively. It worked. Now it is asking me to choose a temporal model. I do not know what 'bracket' means in this context. The post never used that word. Going to read references/protocol-spec.md."},
+    {"type": "reader", "agent": "marcus", "turn": 5, "engagement": "active", "internal_monologue": "Validated a stream I had lying around. Got a clamp warning — my scores are 0-100, not 0-5. The default range surprised me. I would have wanted a sentence in the README warning me to set score_range in mappings.json."},
+
+    {"type": "section_scores", "turn": 1, "scores": {"avg_engagement": 0.55, "conviction_shift": 0.0}, "notes": "Opening landed for 5/9; lost 2 readers (theo, marcus) entirely; elena withholding judgment."},
+    {"type": "section_scores", "turn": 2, "scores": {"avg_engagement": 0.65, "conviction_shift": 0.10}, "notes": "Three-use-cases section earned engagement from skeptics (alex, marcus). Elena flagged ontological gap."},
+    {"type": "section_scores", "turn": 3, "scores": {"avg_engagement": 0.75, "conviction_shift": 0.45}, "notes": "Pivotal section. Independence constraint + 5-signal detector earned strongest reactions. Maya disengaged here."},
+    {"type": "section_scores", "turn": 4, "scores": {"avg_engagement": 0.70, "conviction_shift": 0.20}, "notes": "Modesty landed for everyone except Maya, who needed a clearer value statement."},
+    {"type": "section_scores", "turn": 5, "scores": {"avg_engagement": 0.65, "conviction_shift": 0.10}, "notes": "Closing missed an actionable next step. Triers hit two friction points (Priya: bracket terminology not defined; Marcus: score_range default surprise)."}
+  ],
+  "summary": {
+    "cohort_size": 9,
+    "predicted_share_rate": 4,
+    "predicted_install_rate": 2,
+    "predicted_abandon_rate": 1,
+    "strongest_section": "turn 3 (independence + impossible-narrative detection)",
+    "weakest_section": "turn 4 for Maya specifically; turn 5 for actionability",
+    "convergent_findings": [
+      "The independence constraint is the strongest claim in the post; it earned trust from technical skeptics (Sanjay, Elena) and validated practitioners (Rosa, Jamie).",
+      "Maya represents a reader the post may be losing: she wants concrete value statements ('what do I get for my time'), not philosophy.",
+      "Theo is unreachable — pre-coffee skim readers will not engage with a metaphor-heavy intro. This may be intentional triage.",
+      "Trier friction is concentrated in two specific places: (1) the post never defines 'bracket' temporal model but scaffold.py asks for it, (2) the score_range default of [0,5] surprises users with different scoring conventions."
+    ],
+    "improvement_recommendations": [
+      "Add a 'what you get' sentence to paragraph 4 — concrete, not philosophical (e.g., 'a comparable second opinion from six imagined readers in five minutes').",
+      "Add an actionable next step to paragraph 5 — a link, a starter command, or a 'paste your essay' demo.",
+      "Either define 'bracket' in the post or have scaffold.py print a one-line definition when it asks for the temporal model.",
+      "Add a README note on score_range defaults — surface the [0,5] assumption and how to override.",
+      "Consider a one-line callout for Sanjay-type readers: link to the false-positive characterization for the 5-signal detector (or document its absence and call it future work)."
+    ]
+  }
+}
