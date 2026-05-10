@@ -46,13 +46,29 @@ Design new sand tables, scaffold project-local skills, extract agent-ops traces,
 
 ### `scaffold`
 
-1. Ask which domain invariant to use (or design one first)
-2. Generate into the current project:
-   - A project-local skill (`.claude/skills/sand-table.md` or similar)
-   - A `drift-mappings.json` for the domain
-   - A replay generator stub
-3. Register in `references/implementations.md`
-4. Optionally generate a `manifest.json` for discovery
+Generate a project-local Sand Table installation into a target project:
+
+```bash
+python <skill-root>/scripts/scaffold.py \
+    --target /path/to/project \
+    --domain my-sim --name "My Sim" \
+    --description "What it simulates" \
+    --source-type simulation --temporal-model turn \
+    --tier 1 --agent-count 6 --event-types reader,section_scores \
+    --register --non-interactive
+```
+
+In a TTY, omit any of those flags to be prompted interactively. Use `--dry-run` to preview without writing.
+
+Generated files (refused if they exist; pass `--force` to overwrite):
+- `.claude/skills/sand-table-{domain}.md` — project-local skill stub
+- `drift-mappings.json` — seeded with the cross-domain field-rename baseline (10+ known LLM drift patterns from `references/patterns.md` §3.2) plus per-event-type `type_conditional_field_renames` stubs
+- `replay/generate_replay.py` + `replay/replay_template.html` — minimal replay generator with `{{SIMULATION_DATA}}` placeholder (skipped for `--source-type extraction` or `--no-replay-stub`)
+- `manifest.json` — protocol v1.1 discovery manifest
+- `domain-invariant.md` — copy of `references/domain-invariant-template.md` with the Identity block lightly filled (`--no-invariant` to skip)
+- `.sand-table/registry-row.md` — markdown row to paste into the meta-skill's `references/implementations.md` (only with `--register`); also printed to stdout
+
+Atomic writes via temp + replace; refuses any planned write that would resolve outside `--target` (symlink safety).
 
 ### `extract <project-path>`
 
