@@ -2,8 +2,9 @@
   "name": "command-center-builder",
   "version": "1.0.0",
   "package": "command-center-builder-v1.0.0.skill",
-  "size": "28K",
-  "sha256": "5dce31a816176924ad80b2920948105a83357cdd6428d9cd482de224e59c186e",
-  "packaged_at": "2026-04-02T02:21:23Z",
-  "packager": "SKILL-9 Automation v1.0"
+  "size": 26468,
+  "size_human": "28K",
+  "sha256": "dfbe92d834919724dc74945d9832119394b44130c3a2a8f58ead129f9780351d",
+  "packaged_at": "2026-05-10T22:38:37Z",
+  "packager": "SKILL-9 Automation v1.1"
 }

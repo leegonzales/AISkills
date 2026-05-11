@@ -14,9 +14,9 @@ A post-simulation scan that detects when an LLM "breaks character" by having one
 
 A single agent controlling all personas produces creative writing, not simulation. It cannot surprise itself. The diagnostic value of a sand table comes from emergent behavior — friction, unexpected responses, and failure modes that only appear when independent processes interact. Impossible narratives indicate the simulation data is unreliable.
 
-### The 5 Signals
+### The 6 Signals
 
-Scan all agent events with free-text fields (internal monologue, spoken dialogue, narrative text) for these patterns:
+Scan all agent events for these patterns. The implementation (`scripts/narrative_check.py`) walks every string field on each event recursively (bounded depth 4, 200 KB total per event), skipping a denylist of structural/metadata keys (`id`, `agent`, `persona`, `from`, `to`, `timestamp`, `scores`, `module`, `unit`, etc. — see `_NON_PROSE_KEYS`). The historical free-text contract was "internal monologue, spoken dialogue, narrative text" only; the broader recursive scan was added in v1.3.0 to close a smuggling gap where prose nested under `payload`, `content`, `message`, etc. silently bypassed all signals. Domain-specific prose fields like `note`, `rationale`, `description`, `summary` are now in scope — declare structural fields explicitly in your domain invariant if they should be skipped (extend `_NON_PROSE_KEYS`).
 
 **1. Other-Agent Predictions**
 
@@ -48,16 +48,25 @@ In pair/exchange events, check if both sides use complementary vocabulary, mirro
 
 Why suspicious: Independent agents responding to each other produce messy, asymmetric exchanges. Perfectly complementary responses suggest one mind wrote both sides.
 
+**6. Self-Name Third-Person Dissociation**
+
+Patterns: "{Own Name} knew exactly...", "{Own Name} thinks...", "{Own Name} believed...", "{Own Name} is going to..." — agent narrating themselves by name with a cognitive or predictive verb instead of speaking in first person.
+
+Why impossible: A first-person participant says "I knew" or "I'll probably". A third-person narrator says "Maria knew" or "Maria will". When an agent refers to themselves by name in the third person with a mental-state or predictive verb, that's a classic ghostwriter tell — a single author dropping out of voice. Note that quoted speech (the agent quoting someone else saying their name) is stripped before this scan and does not trigger Signal 6.
+
 ### How to Implement
 
 Add a post-simulation validation step that scans all agent output text:
 
 ```
 For each agent event with free-text content:
-  1. Extract internal_monologue, text, spoken fields
-  2. Scan for patterns matching signals 1-4 (regex or keyword matching)
-  3. For exchange events, run signal 5 (structural similarity analysis)
-  4. Collect all flagged instances with: event index, agent ID, signal type, flagged text
+  1. Recursively collect all string fields (bounded depth, total bytes capped),
+     skipping structural keys (id, agent, timestamp, scores, ...)
+  2. Strip double-quoted speech before name-aware scans (signals 1/2/3/6)
+  3. Scan for patterns matching signals 1-4 and signal 6 (regex; name-aware
+     for 1/2/3/6, standalone for 4)
+  4. For exchange events, run signal 5 (structural similarity analysis)
+  5. Collect all flagged instances with: event index, agent ID, signal type, flagged text
 
 Report:
   - CLEAN: 0 warnings

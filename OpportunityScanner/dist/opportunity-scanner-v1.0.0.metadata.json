@@ -2,8 +2,9 @@
   "name": "opportunity-scanner",
   "version": "1.0.0",
   "package": "opportunity-scanner-v1.0.0.skill",
-  "size": "24K",
-  "sha256": "a1080bf5fcf53559690133daacd53f78b5b9a45c575e6c76b86467a270281cb2",
-  "packaged_at": "2026-04-02T02:24:15Z",
-  "packager": "SKILL-9 Automation v1.0"
+  "size": 20693,
+  "size_human": "24K",
+  "sha256": "a8faeafad5972b564d7ae093c188c03fdc0fd88889615d4e28b32792734e0566",
+  "packaged_at": "2026-05-10T22:38:39Z",
+  "packager": "SKILL-9 Automation v1.1"
 }

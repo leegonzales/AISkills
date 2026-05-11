@@ -1,9 +1,13 @@
 {
-  "sand_table_protocol": "1.0",
+  "sand_table_protocol": "1.1",
   "domain": "",
   "source_type": "",
   "temporal_model": "",
+  "execution_tier": 1,
   "event_types": [],
+  "agent_count": 0,
+  "multi_run": false,
+  "multi_session": false,
   "paths": {
     "skill": "",
     "replay_generator": "",

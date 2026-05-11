@@ -2,8 +2,9 @@
   "name": "aws-serverless-eda",
   "version": "1.0.0",
   "package": "aws-serverless-eda-v1.0.0.skill",
-  "size": "56K",
-  "sha256": "ceabff402352e5c841c03cec8529090555ee7366c80a296f2e35cf9918a1bb12",
-  "packaged_at": "2025-11-17T01:19:24Z",
-  "packager": "SKILL-9 Automation v1.0"
+  "size": 55897,
+  "size_human": "56K",
+  "sha256": "9a09e1203eab5edb283726e6d1a72a47d2af186f82d0f6a9df769bf513ca3807",
+  "packaged_at": "2026-05-10T22:38:38Z",
+  "packager": "SKILL-9 Automation v1.1"
 }

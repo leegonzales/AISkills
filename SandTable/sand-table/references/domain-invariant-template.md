@@ -8,10 +8,58 @@ Use this template to define a new sand table domain. Fill in each section, then 
 
 ```yaml
 domain_id: your-domain-slug
-name: "Human-Readable Domain Name"
+domain_name: "Human-Readable Domain Name"
 description: "One sentence: what is being simulated or extracted?"
 source_type: simulation | extraction
 temporal_model: turn | bracket | timestamp
+execution_tier: 1 | 2 | 3        # 1=narrated, 2=scripted, 3=real agent interaction
+session_count: 1                 # Number of sessions (1 for single-session)
+closest_implementation: ""       # ID from references/implementations.md (e.g., "readership", "training", "agent-ops")
+```
+
+---
+
+## Session Map
+
+For multi-session domains, list every session. Single-session domains list one entry.
+
+```yaml
+sessions:
+  - id: S1
+    title: "Session 1: Foundations"
+    duration: "90 min"
+    source_path: "path/to/facilitator-guide-s1.md"
+    unit_code_range: "M01-M06"
+  # - id: S2
+  #   title: "Session 2: Application"
+  #   duration: "120 min"
+  #   source_path: "path/to/facilitator-guide-s2.md"
+  #   unit_code_range: "M07-M12"
+```
+
+The `unit_code_range` is the hard boundary for which unit codes the session may produce.
+
+---
+
+## Unit Enumeration
+
+Every valid unit code with its title and session assignment. **This is the hard boundary** — any unit code in simulation events that does not appear here is a schema violation.
+
+```yaml
+units:
+  - code: M01
+    title: "Introduction"
+    session: S1
+  - code: M02
+    title: "Core Concept"
+    session: S1
+  # ... list every unit code the simulation may emit
+```
+
+For extraction domains where units are discovered (not enumerated), document the discovery rule instead:
+
+```yaml
+unit_discovery: "Phases inferred from > 30min gaps between events"
 ```
 
 ---
@@ -55,6 +103,8 @@ agents:
   - id: agent-slug
     name: "Display Name"
     role: "Role or archetype"
+    color: "#7B61FF"             # Hex color for replay rendering (optional)
+    file: "personas/agent-slug.md"  # Path to persona/agent definition file (simulations)
     # Add domain-specific fields:
     background: "Optional background/personality description"
     biases: ["Optional list of analytical biases"]
@@ -119,9 +169,36 @@ scoring:
 
 ---
 
+## Valid Enum Values
+
+Exhaustive lists of valid values for every enum field in the event schema. **This is the hard boundary for enum drift** — any value not listed here will trigger a validator warning.
+
+```yaml
+valid_enums:
+  energy:        ["low", "medium", "high"]
+  engagement:    ["disengaged", "passive", "active", "leading"]
+  status:        ["responsive", "non_responsive", "absent"]
+  conviction:    ["resistant", "skeptical", "open", "convinced"]
+  # Add one block per enum field your domain uses
+```
+
+For type-conditional enums (different valid values per event type):
+
+```yaml
+type_conditional_valid_enums:
+  module_scores:
+    status: ["pass", "flag", "fail"]
+  module_end:
+    completion: ["complete", "partial", "skipped"]
+```
+
+These values are also written into `drift-mappings.json` (see next section) so the validator and normalizer share a single source of truth.
+
+---
+
 ## Drift Mappings
 
-Path to the domain-specific `drift-mappings.json` file, or inline the mappings here.
+Path to the domain-specific `drift-mappings.json` file, or inline the mappings here. The `valid_enums` block above is the canonical list — `drift-mappings.json` mirrors it for the normalizer.
 
 ```yaml
 drift_mappings: path/to/drift-mappings.json
@@ -130,7 +207,7 @@ drift_mappings: path/to/drift-mappings.json
 At minimum, define:
 - `type_renames`: Wrong event type names the LLM might produce
 - `field_renames`: Wrong field names
-- `valid_enums`: Valid values for enum fields
+- `valid_enums`: Mirrors the Valid Enum Values section above
 
 For simulation domains, also consider:
 - `synonyms`: Value aliases (e.g., `"persuaded"` → `"convinced"`)
@@ -238,10 +315,14 @@ The first 2-3 runs of any new sand table will surface additional drift patterns.
 
 Before using this domain invariant:
 
-- [ ] All event types documented with field definitions
+- [ ] Identity block complete (domain_id, domain_name, source_type, temporal_model, execution_tier, session_count, closest_implementation)
+- [ ] Session Map filled (one entry per session)
+- [ ] Unit Enumeration exhaustive (every valid unit code listed) OR unit_discovery rule documented
 - [ ] Agent roster complete (or discovery rules defined for extraction)
-- [ ] Drift mappings account for known LLM synonyms and field aliases
+- [ ] All event types documented with field definitions
 - [ ] Scoring dimensions defined (if applicable)
+- [ ] Valid Enum Values listed for every enum field used in events
+- [ ] Drift mappings account for known LLM synonyms and field aliases
 - [ ] At least one example event per type exists in `references/examples.md`
 - [ ] Reliability configuration defined (timeout, abort, narrative integrity)
 - [ ] Multi-session configuration defined (if applicable)

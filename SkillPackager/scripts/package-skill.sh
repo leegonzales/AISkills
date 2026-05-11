@@ -77,8 +77,8 @@ echo "🔍 Step 2: Running validation..."
 VALIDATION_SCRIPT="$(dirname "$0")/validate-skill.sh"
 
 if [ ! -f "$VALIDATION_SCRIPT" ]; then
-    # Try to find it in SkillTemplate
-    VALIDATION_SCRIPT="../SkillTemplate/scripts/validate-skill.sh"
+    # Fallback: SkillTemplate sibling (resolved relative to this script, not cwd)
+    VALIDATION_SCRIPT="$(dirname "$0")/../../SkillTemplate/scripts/validate-skill.sh"
 fi
 
 if [ -f "$VALIDATION_SCRIPT" ]; then
@@ -133,8 +133,10 @@ if [ ! -f "$PACKAGE_PATH" ]; then
     error "Failed to create package"
 fi
 
-PACKAGE_SIZE=$(du -h "$PACKAGE_PATH" | awk '{print $1}')
-success "Package created: $PACKAGE_NAME ($PACKAGE_SIZE)"
+# Portable byte count: wc -c works identically on macOS BSD and GNU coreutils.
+PACKAGE_SIZE_BYTES=$(wc -c < "$PACKAGE_PATH" | tr -d ' ')
+PACKAGE_SIZE_HUMAN=$(du -h "$PACKAGE_PATH" | awk '{print $1}')
+success "Package created: $PACKAGE_NAME (${PACKAGE_SIZE_HUMAN}, ${PACKAGE_SIZE_BYTES} bytes)"
 echo ""
 
 # Step 5: Generate SHA256 checksum
@@ -194,10 +196,11 @@ cat > "$METADATA_FILE" <<EOF
   "name": "$SKILL_NAME",
   "version": "$VERSION",
   "package": "$PACKAGE_NAME",
-  "size": "$PACKAGE_SIZE",
+  "size": $PACKAGE_SIZE_BYTES,
+  "size_human": "$PACKAGE_SIZE_HUMAN",
   "sha256": "$CHECKSUM",
   "packaged_at": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")",
-  "packager": "SKILL-9 Automation v1.0"
+  "packager": "SKILL-9 Automation v1.1"
 }
 EOF
 
@@ -209,7 +212,7 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 echo "✅ PACKAGING COMPLETE"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
-echo "📦 Package:  $PACKAGE_NAME ($PACKAGE_SIZE)"
+echo "📦 Package:  $PACKAGE_NAME ($PACKAGE_SIZE_HUMAN, $PACKAGE_SIZE_BYTES bytes)"
 echo "🔐 Checksum: $(basename "$PACKAGE_NAME.sha256")"
 echo "📊 Metadata: $(basename "$METADATA_FILE")"
 echo ""

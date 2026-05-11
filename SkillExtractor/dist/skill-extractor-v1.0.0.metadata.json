@@ -2,8 +2,9 @@
   "name": "skill-extractor",
   "version": "1.0.0",
   "package": "skill-extractor-v1.0.0.skill",
-  "size": "12K",
-  "sha256": "6bdda32711a467227b826203afae9fcf7ecdb21380c9faac1747c197ec23c23f",
-  "packaged_at": "2026-01-24T23:02:48Z",
-  "packager": "SKILL-9 Automation v1.0"
+  "size": 8541,
+  "size_human": "12K",
+  "sha256": "c17132671f3000e2a44740dc6334fbd158111e54a85ff272be5efc2b6ceca078",
+  "packaged_at": "2026-05-10T22:38:37Z",
+  "packager": "SKILL-9 Automation v1.1"
 }

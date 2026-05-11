@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.0 (2026-03-13)
+## [1.0.0] - 2026-03-13
 - Initial release
 - Conversation log parsing (.jsonl)
 - Git history correlation

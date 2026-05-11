@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.0.0 — 2026-02-16
+## [1.0.0] - 2026-02-16
 
 Initial release. Generic read-aloud skill extracted from substack-specific tooling.
 

@@ -1,11 +1,46 @@
 ---
 name: sand-table
-description: Design, scaffold, extract, and validate Sand Table simulations and event streams across domains. Meta skill that knows the protocol and all existing implementations.
+description: Meta-skill for using Claude Code (or any agentic coding assistant) to generate a bespoke multi-agent LLM simulator for a niche general-purpose frameworks (TinyTroupe, AutoGen, CrewAI) don't fit. Ships the discipline — patterns, drift defenses, narrative audit, multi-session continuity — not a runtime.
 ---
 
-# Sand Table — Protocol Meta Skill
+# Sand Table — Meta-Skill for Bespoke LLM Simulators
 
-Design new sand tables, scaffold project-local skills, extract agent-ops traces, and validate event streams. This skill knows the protocol and all existing implementations.
+## What this is (and is not)
+
+**Sand Table is a meta-skill, not a runtime.** It is the discipline kit you use *with Claude Code* (or any agentic coding assistant) to generate a domain-specific multi-agent simulator for a niche off-the-shelf tools don't reach.
+
+- **The runtime is Claude Code itself.** Orchestration happens via the CLI, `Bash`, and subagents. There is no separate framework to install or compete with.
+- **The skill ships discipline.** Pattern catalog, domain-invariant template, drift normalization, narrative-integrity audit, multi-session lineage tracking — all the things that turn "Claude, build me a multi-agent sim" from vibe-coded slop into a rigorously specified instrument.
+- **The output is a project-local simulator**: a `domain-invariant.md` declaring your roster, event types, and scoring rubric; a small skill that Claude Code reads when running the sim; an event-stream JSON the included scripts can validate.
+
+### Why not just use TinyTroupe / AutoGen / CrewAI?
+
+You should — for general-purpose persona simulation, ad copy A/B'ing, or stock multi-agent orchestration, those tools win on polish and adoption. Reach for Sand Table when your domain doesn't fit anyone else's abstractions: a substack readership where archetypes are paid/lurker/ICP and you care which essay caused churn; a curriculum simulator where the unit of analysis is a 90-minute training module; an agent-ops trace replayer that knows where a Claude Code session went off the rails. See `references/comparison.md` for a fuller landscape read.
+
+## What gets simulated
+
+A *sand table* is a small simulation of a group interacting. You describe **who is in the room** (roster), **what situation they're in** (scenario), and **what kinds of moves they can make** (event schema). The simulator plays the scene out one move at a time and the validation pipeline checks that each unit stayed in its own voice — no drift, no premature merging, no ghostwriter tells.
+
+**Tiny example.** Three friends — Maya, Rita, Sam — picking a restaurant. Roster lists three friends; event schema names the moves (propose, object, concede); a run produces:
+
+```
+1. Maya proposes:    "Let's do sushi at Komo."
+2. Rita objects:     "I'm allergic to fish — can we try the new ramen place?"
+3. Sam concedes:     "Ramen works. Maya, want to try it next week instead?"
+4. Maya concedes:    "Fine. Ramen tonight, sushi next Friday."
+```
+
+You can audit that log to see who proposed first, whose preferences dominated, and where the group converged. Use it to rehearse a meeting before it happens, predict how a cohort reacts to news, or audit how an agent crew handles a scenario.
+
+## Proof the meta-pattern transfers
+
+Three completely different niches built with the same Sand Table discipline — and zero shared domain code:
+
+- **Substack readership** (predicted-reaction simulator): personas = reader archetypes, events = paragraph-level reactions, scoring = engagement dimensions
+- **AI Enablement training** (curriculum simulator): personas = student personas, events = per-module experience, scoring = learning-objective coverage
+- **Agent-Ops trace replay** (debugging simulator): personas = agent roles, events = tool calls + decisions, scoring = trajectory correctness
+
+Same protocol envelope, same drift catalog, same narrative-integrity scan, three different domains. The registry is in `references/implementations.md`.
 
 ## When to Use
 
@@ -32,6 +67,8 @@ Design new sand tables, scaffold project-local skills, extract agent-ops traces,
 
 ## Commands
 
+> All script invocations below use `<skill-root>` as a placeholder for the skill directory (`SandTable/sand-table/` in this repo). Substitute your install path or `cd` into the skill directory before running.
+
 ### `design <use-case>`
 
 1. Read `references/protocol-spec.md`, `references/domain-invariant-template.md`, and `references/patterns.md`
@@ -44,61 +81,87 @@ Design new sand tables, scaffold project-local skills, extract agent-ops traces,
 
 ### `scaffold`
 
-1. Ask which domain invariant to use (or design one first)
-2. Generate into the current project:
-   - A project-local skill (`.claude/skills/sand-table.md` or similar)
-   - A `drift-mappings.json` for the domain
-   - A replay generator stub
-3. Register in `references/implementations.md`
-4. Optionally generate a `manifest.json` for discovery
+Generate a project-local Sand Table installation into a target project:
+
+```bash
+python <skill-root>/scripts/scaffold.py \
+    --target /path/to/project \
+    --domain my-sim --name "My Sim" \
+    --description "What it simulates" \
+    --source-type simulation --temporal-model turn \
+    --tier 1 --agent-count 6 --event-types reader,section_scores \
+    --register --non-interactive
+```
+
+In a TTY, omit any of those flags to be prompted interactively. Use `--dry-run` to preview without writing.
+
+Generated files (refused if they exist; pass `--force` to overwrite):
+- `.claude/skills/sand-table-{domain}.md` — project-local skill stub
+- `drift-mappings.json` — seeded with the cross-domain field-rename baseline (10+ known LLM drift patterns from `references/patterns.md` §3.2) plus per-event-type `type_conditional_field_renames` stubs
+- `replay/generate_replay.py` + `replay/replay_template.html` — minimal replay generator with `{{SIMULATION_DATA}}` placeholder (skipped for `--source-type extraction` or `--no-replay-stub`)
+- `manifest.json` — protocol v1.1 discovery manifest
+- `domain-invariant.md` — copy of `references/domain-invariant-template.md` with the Identity block lightly filled (`--no-invariant` to skip)
+- `.sand-table/registry-row.md` — markdown row to paste into the meta-skill's `references/implementations.md` (only with `--register`); also printed to stdout
+
+Atomic writes via temp + replace; refuses any planned write that would resolve outside `--target` (symlink safety).
 
 ### `extract <project-path>`
 
 Run the shared extractor:
 
 ```bash
-python ~/Projects/leegonzales/AISkills/SandTable/sand-table/scripts/extract_agent_ops.py \
+python <skill-root>/scripts/extract_agent_ops.py \
     --project <project-path> --since <date> -o <output.json>
 ```
 
 Then validate the output:
 
 ```bash
-python ~/Projects/leegonzales/AISkills/SandTable/sand-table/scripts/validate_stream.py <output.json>
+python <skill-root>/scripts/validate_stream.py <output.json>
 ```
 
 ### `validate <json-path>`
 
+Run the full validation pipeline (structural + drift + clamping + narrative):
+
 ```bash
-python ~/Projects/leegonzales/AISkills/SandTable/sand-table/scripts/validate_stream.py <json-path>
+python <skill-root>/scripts/validate_full.py <json-path> \
+    [--mappings drift-mappings.json] \
+    [--write-normalized <output.json>] \
+    [--no-narrative]
 ```
 
-Validation includes:
-- Schema compliance (required fields, valid types, enum values)
-- Drift correction using domain `drift-mappings.json` (see known drift catalog in `references/patterns.md`)
-- Impossible narrative detection for multi-agent simulations (see `references/reliability.md`)
-- Score range clamping and derived field computation
+The pipeline runs five stages, each with its own report section:
+- **Structural** — envelope shape, required `meta` fields, agent ID cross-refs, timestamp ordering (delegates to `validate_stream.py`)
+- **Drift** — applies `drift-mappings.json` to fix LLM field-name drift (delegates to `normalize.py`)
+- **Score Clamping** — clamps numeric `scores` values to `mappings.score_range` or `--score-range` (default `[0, 5]`)
+- **Derived Fields** — stamps `meta.event_count` and `meta.agent_count` if absent
+- **Narrative** — runs impossible-narrative scan (delegates to `narrative_check.py`); advisory only, never fails the build
 
-For legacy-format files (pre-protocol), normalize first:
+Exit code: `0` on pass, `1` if structural violations exist. Narrative warnings never fail.
+
+For envelope-only checks use `validate_stream.py` directly. For legacy formats normalize first:
 
 ```bash
-python ~/Projects/leegonzales/AISkills/SandTable/sand-table/scripts/normalize.py \
-    --wrap-legacy <json-path> -o <output.json>
+python <skill-root>/scripts/normalize.py --wrap-legacy <json-path> -o <output.json>
 ```
 
 ### `reliability <json-path>`
 
-Run the full reliability analysis on a simulation output:
+Run the reliability report — narrative integrity, data completeness, optional context-chain validation, and a deterministic recommendation:
 
-1. Read `references/reliability.md` for the detection patterns
-2. Scan all agent events for impossible narrative signals (5 checks)
-3. Check for timeout/NR events and assess simulation completeness
-4. If multi-session: validate exit context files against schema (from `references/multi-session.md`)
-5. Output a reliability report:
-   - Narrative integrity status (CLEAN / N warnings / INTEGRITY CONCERN)
-   - Data completeness (NR count, missing events)
-   - Context chain validity (multi-session only)
-   - Recommendations (re-run, accept, investigate specific agents)
+```bash
+python <skill-root>/scripts/reliability_report.py <json-path> \
+    [--context-dir <dir>] \
+    [--prior s1-run5,s2-run6]
+```
+
+Output sections (matches `references/reliability.md` format):
+
+1. **Narrative Integrity** — CLEAN / WARNING (1-5 flags) / INTEGRITY CONCERN (6+); per-signal counts and snippets (delegates to `narrative_check.py`). **Scope:** heuristic regex scan for 6 single-author tells: other-agent predictions, internal-state knowledge, meta-commentary, scoring awareness, synchronized exchanges, self-name third-person dissociation. Pre-strips double-quoted speech (regular + smart quotes) before name-aware signals so quoted dialogue doesn't trigger false positives. Caveats: uses Anglo first-token name matching (declare `aliases` on roster entries for nicknames); does not strip single quotes (apostrophe ambiguity); does not detect semantic violations (only the 6 surface patterns). Treat `CLEAN` as "no patterns matched", not "narrative is sound" — a smoke alarm, not a fire inspector.
+2. **Data Completeness** — NR/timeout count, affected agents and units. Only counts events with explicit NR markers (`type: timeout`, `status: NR`, `nr: true`) — never inferred from missing fields.
+3. **Context Chain** — multi-session validation (only when `--context-dir`/`--prior` given). For each prior run, loads `<dir>/<run-id>/context/<agent>-exit-context.json`, validates required keys (`agent_id`, `scores` are hard-required; `growth_narrative`, `headline_quote`, `behavioral_markers` are recommended), checks cohort match against current roster.
+4. **Recommendation** — deterministic rule output: `ACCEPT` / `REVIEW` / `RE-RUN` / `HALT`. Always exits `0`; callers wanting a hard gate should grep for `RECOMMENDATION: HALT`.
 
 ## Key Principle
 

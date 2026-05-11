@@ -1,6 +1,67 @@
 # Changelog
 
-## 1.1.0 — 2026-03-24
+## [1.5.0] - 2026-05-10
+
+Repositioning + three technical hardenings + first test suite. This release accepts the user's reframe of the skill: Sand Table is a *meta-skill for using Claude Code to generate bespoke LLM simulators*, not a runtime competitor to TinyTroupe / AutoGen / CrewAI. SKILL.md prose now matches what the skill has always done in practice.
+
+### Added
+- `SKILL.md` lead reframed around the meta-skill positioning: Claude Code is the runtime, Sand Table ships discipline (patterns, drift defenses, narrative audit, multi-session continuity), bespoke-niche use cases that off-the-shelf frameworks don't fit
+- `references/comparison.md` — honest landscape read covering AutoGen / CrewAI / TinyTroupe / Concordia / mesa / Outlines / Guardrails / LangSmith. Names where each adjacent system actually wins, where Sand Table is genuinely novel (4 artifacts), and how to use Sand Table with rather than against them
+- `SKILL.md` "Proof the meta-pattern transfers" section — reframes the three reference implementations from "examples" to "cross-domain transfer evidence"
+- **Signal 6: self-name dissociation** in `narrative_check.py` — detects when an agent narrates themselves by name in third person with a cognitive/predictive verb (`Maria knew exactly...`, `Bob believed...`). Closes the R1 Adversary gap where Signals 1-3 exclude the agent's own name by design
+- **Quote-stripping** in `narrative_check.py` (`_strip_quoted_speech`) — strips double-quoted (regular + smart) speech before Signals 1/2/3/6 fire. Closes the R1 Adversary false-positive case where `"compared to Alex"` inside customer-quoted dialogue tripped Signal 3 against the agent's own name. Single quotes intentionally preserved (apostrophe ambiguity)
+- `scripts/test_narrative_check.py` — 36-test unittest suite covering every R1-R3 fix plus the v1.5.0 additions. Runs with `python3 -m unittest test_narrative_check.py` in the scripts directory
+
+### Fixed
+- `validate_full.py` `clamp_scores` no longer silently coerces booleans. `bool` is a subclass of `int` in Python, so `scores: {clarity: True}` previously passed the numeric check and was treated as `1`. Now booleans are rejected (flagged as non-numeric, left untouched for the structural validator to catch)
+
+## [1.4.0] - 2026-05-10
+
+Round 3 of the subagent-panel-driven hardening: focused Adversary + Skeptic sweep against v1.3.0 surfaced 4 fresh substantive issues (2 each), all patched here. Calling the recursive sand-table-of-sand-table loop done at this round — marginal severity per round is dropping cleanly (R1, R2, R3 each found 4 issues, but R3's are edge-case hardening rather than core correctness).
+
+### Added
+- `narrative_check.py` `_agent_name_variants()` — pulls additional name tokens from each agent's optional `aliases` field. Closes the **nickname/alias gap**: previously, if the roster had `name: "Robert"` but the LLM wrote "Bob will fold", `_first_token` only knew "Robert" and all signals 1-3 silently missed the prediction. Now `aliases: ["Bob"]` on the roster entry makes "Bob" a tracked variant
+- `narrative_check.py` `_MAX_TOTAL_TEXT = 200_000` byte cap in `_collect_text` — prevents adversarial breadth-bombing inputs (e.g. `{"payload":[{"x":"a"*4000}]*100000}` previously fed ~400 MB joined string to regex). `_MAX_TEXT_LEN` only capped per-string; total joined output is now also bounded. Test confirms 1000 × 4000-char payload caps cleanly at 200 KB in 0.1 ms
+- `references/reliability.md` "What Gets Scanned" — honest description of the broadened scan surface (every string field except `_NON_PROSE_KEYS`, bounded depth 4, 200 KB cap), explaining the v1.3.0 widening and how to extend the denylist for domain-specific structural fields
+
+### Changed
+- `references/patterns.md` Layer 1 description: "Catches ~80% of drift at generation time" rewritten as "Design intent: catch most drift at generation time. (Catch rate is not measured by this skill — treat as defense-in-depth, not a guarantee.)" The 80% figure had no measurement backing
+- `_build_other_agents_map` rewritten around `_agent_name_variants` — alias-aware tracking, preserved first-token-collision disambiguation behavior
+
+### Verified (R3 audit confirmed working as advertised)
+- Nested-payload smuggling fix (v1.3.0) confirmed: `payload.narration.speech` correctly scanned at depth 3, Signal 1 fires for "Bob will fold" with Bob in roster
+- `_first_token` crash fix (v1.2.0) still safe against `None`, non-string, list inputs
+
+## [1.3.0] - 2026-05-10
+
+Round 2 of the subagent-panel-driven hardening: same 4 personas re-audited the v1.2.0 changes and surfaced 4 fresh substantive findings, all patched here.
+
+### Added
+- `narrative_check.py` `_collect_text()` — recursively walks each event's nested dict/list values and pulls every prose string for scanning, with a `_NON_PROSE_KEYS` denylist (IDs, timestamps, scores, structural fields). Closes the **nested-payload smuggling gap**: previously, single-author tells written under `payload.speech`, `content.body`, `message.text`, etc., bypassed all 5 signals because the flat-field `TEXT_FIELDS` loop never reached them. Now scanned with bounded recursion (depth 4)
+- Pattern 7 `bid_arbitration` roster field — declared allocation rule (`fifo` / `equity_weighted` / `persona_weighted` / `facilitator_select` / custom). Without this, the orchestrator silently encodes its own rule and stipulated dominance returns through the back door
+- Pattern 7 "Format-Specific Variants" sub-section — explicit support for IRE/IRF (teacher-fronted Socratic) via an `evaluation` third-turn event, and Harkness peer-discussion via `equity_weighted` + omit evaluation
+
+### Changed
+- `narrative_check.py` `scan()` and `_scan_signal_5_pairs()` now use `_collect_text()` instead of flat `TEXT_FIELDS` iteration — the legacy `TEXT_FIELDS` constant is retained for backward reference but no longer the scan boundary
+- SKILL.md `What is a Sand Table?` opener rewritten in plainer prose: removed jargon ("stream of typed events", "narrative integrity", "no premature merging") from the intro paragraph; added a tiny shown-output snippet (the 4-line restaurant log) so non-technical readers can see what a run produces; removed the "structured ensemble protocol" alternative naming (it backfired in user testing — added more confusion than it removed)
+
+### Fixed
+- `narrative_check.py` module docstring: "~6 words" corrected to "~40 characters (≈8 words)" — matches the actual `_GAP = r"[^.!?\n]{0,40}"` regex bound
+
+## [1.2.0] - 2026-05-10
+
+Subagent-panel-driven hardening: 4 personas (novice, skeptic, educator, adversarial) audited the skill in parallel and each surfaced one substantive issue, all patched in this release.
+
+### Added
+- `## What is a Sand Table?` opener in `SKILL.md` — plain-language explanation of the concept (what units, what events, what the output looks like) with a tiny restaurant-pickers example, plus an explicit metaphor escape-hatch ("structured ensemble protocol") for teams allergic to the sand-table image
+- Pattern 7 in `references/patterns.md` — Interaction-Order Modeling extension pattern for discussion-style domains (turn-bid grammar, `floor_time_budget` field, `participation_equity` derived metric); explains why it's not in the base protocol and how to layer it into a domain invariant
+
+### Fixed
+- `narrative_check.py` `_first_token` no longer crashes with `AttributeError` when an agent roster entry is missing `name` or has a non-string name (returns empty string, lets downstream loops continue)
+- `SKILL.md` `Narrative Integrity` description now honestly scopes what `narrative_check.py` catches (5 specific regex signals; does not parse dialogue, strip quotes, or detect self-name dissociation; CLEAN means "no patterns matched", not "narrative is sound")
+- `references/patterns.md` §3.2 no longer claims drift mappings are "reliably produced across domains" — clarified as observed-during-development, not measured, and invites extension
+
+## [1.1.0] - 2026-03-24
 
 Reliability, multi-session, and pattern backport from production training implementation.
 
@@ -23,7 +84,7 @@ Reliability, multi-session, and pattern backport from production training implem
 - Domain invariant checklist expanded with reliability, multi-session, and drift pattern items
 - AIEnablement Training implementation entry updated: 18 personas, Tier 3 execution, multi-session with exit context, 8+ successful runs
 
-## 1.0.0 — 2026-03-14
+## [1.0.0] — 2026-03-14
 
 Initial release. Protocol extraction from three existing implementations.
 

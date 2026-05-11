@@ -59,9 +59,9 @@ for skill_dir in "${SKILL_DIRS[@]}"; do
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
     if bash "$PACKAGE_SCRIPT" "$skill_dir"; then
-        ((SUCCESS_COUNT++))
+        SUCCESS_COUNT=$((SUCCESS_COUNT + 1))
     else
-        ((FAIL_COUNT++))
+        FAIL_COUNT=$((FAIL_COUNT + 1))
         FAILED_SKILLS+=("$skill_name")
     fi
 
