@@ -62,6 +62,15 @@ SIGNAL_4_SCORING_AWARENESS = [
     r"\bthis should (count|register) as\b",
 ]
 
+# Signal 6: self-name third-person dissociation. {OWN_NAME} is substituted per
+# event-agent at scan time. Fires when an agent refers to themselves by name
+# with a third-person cognitive/predictive verb — classic ghostwriter tell
+# (Maria narrating: "Maria knew exactly..." rather than "I knew exactly...").
+# Verb list intentionally narrow — cognitive/predictive only, not generic say/do.
+SIGNAL_6_SELF_DISSOCIATION = [
+    r"\b{OWN_NAME}\b" + _GAP + r"\b(knew|knows|thinks|thought|believes|believed|realizes|realized|wonders|wondered|feels|felt|hopes|hoped|will probably|is going to|won'?t)\b",
+]
+
 # Pre-compile signals 1-3 templates and signal 4 patterns.
 _SIG4_COMPILED = [re.compile(p, re.IGNORECASE) for p in SIGNAL_4_SCORING_AWARENESS]
 
@@ -105,6 +114,22 @@ _STOPWORD_NGRAMS = frozenset({
 })
 
 _MAX_TEXT_LEN = 4000  # truncate long fields to bound regex work
+
+# Pre-compiled quote-stripping regex. Matches double-quoted segments (regular,
+# smart left/right) up to a sentence boundary or closing quote. Quoted speech
+# inside an event's prose is OUT-OF-VOICE — the agent is reporting someone
+# else's words, not narrating their own thoughts — so it should not feed the
+# name-detection signals (closes the "compared to Alex" false-positive from
+# customer-quoted dialogue). Single quotes are intentionally NOT stripped to
+# avoid mangling apostrophes ("won't", "it's").
+_QUOTE_RE = re.compile(r'"[^"\n]{0,500}"|“[^”\n]{0,500}”')
+
+
+def _strip_quoted_speech(text: str) -> str:
+    """Replace quoted speech with whitespace placeholders, preserving offsets."""
+    if not text or '"' not in text and "“" not in text:
+        return text
+    return _QUOTE_RE.sub(lambda m: " " * len(m.group(0)), text)
 
 
 def _collect_text(obj, depth: int = 0, accumulated: int = 0) -> list[str]:
@@ -249,6 +274,24 @@ def _scan_signal_4(text: str, agent_id: str, idx: int) -> list[Flag]:
     return flags
 
 
+def _scan_signal_6(text: str, own_variants: list[str], agent_id: str, idx: int) -> list[Flag]:
+    """Self-name third-person dissociation — agent narrating themselves by name."""
+    flags: list[Flag] = []
+    if not own_variants:
+        return flags
+    for name in own_variants:
+        name_re = re.escape(name)
+        for tmpl in SIGNAL_6_SELF_DISSOCIATION:
+            pat = tmpl.replace("{OWN_NAME}", name_re)
+            try:
+                rx = re.compile(pat, re.IGNORECASE)
+            except re.error:
+                continue
+            for m in rx.finditer(text):
+                flags.append(Flag(idx, agent_id, 6, m.group(0), _snippet(text, m)))
+    return flags
+
+
 def _ngrams(text: str, n: int = 3) -> list[str]:
     words = re.findall(r"[a-z']+", text.lower())
     return [" ".join(words[i:i + n]) for i in range(len(words) - n + 1)]
@@ -296,6 +339,7 @@ SIGNAL_NAMES = {
     3: "meta-commentary",
     4: "scoring awareness",
     5: "synchronized exchanges",
+    6: "self-name dissociation",
 }
 
 
@@ -313,6 +357,7 @@ def scan(data: dict) -> dict:
     agents = data.get("agents", [])
     events = data.get("events", [])
     other_names_map = _build_other_agents_map(agents)
+    own_variants_map = {a.get("id", ""): _agent_name_variants(a) for a in agents if a.get("id")}
 
     all_flags: list[Flag] = []
 
@@ -323,15 +368,22 @@ def scan(data: dict) -> dict:
         text_parts = _collect_text(ev)
         if not text_parts:
             continue
-        text = "\n".join(text_parts)
+        raw_text = "\n".join(text_parts)
+        # Strip quoted speech before name-aware signals — quoted dialogue is
+        # out-of-voice and should not feed Signals 1/2/3/6.
+        text = _strip_quoted_speech(raw_text)
 
         other_names = other_names_map.get(agent_id, [])
+        own_variants = own_variants_map.get(agent_id, [])
         all_flags.extend(_scan_signals_1_to_3(text, other_names, agent_id, idx))
-        all_flags.extend(_scan_signal_4(text, agent_id, idx))
+        # Signal 4 uses raw text — scoring-awareness phrases inside quotes are
+        # still suspect (the agent chose to quote them).
+        all_flags.extend(_scan_signal_4(raw_text, agent_id, idx))
+        all_flags.extend(_scan_signal_6(text, own_variants, agent_id, idx))
 
     all_flags.extend(_scan_signal_5_pairs(events))
 
-    by_signal: dict[int, int] = {i: 0 for i in range(1, 6)}
+    by_signal: dict[int, int] = {i: 0 for i in range(1, 7)}
     for f in all_flags:
         by_signal[f.signal] += 1
 
@@ -359,7 +411,7 @@ def format_report(report: dict, max_examples: int = 5) -> str:
         "",
         "By signal:",
     ]
-    for sig_id in range(1, 6):
+    for sig_id in range(1, 7):
         count = report["by_signal"][sig_id]
         marker = "•" if count else "·"
         lines.append(f"  {marker} Signal {sig_id} ({SIGNAL_NAMES[sig_id]}): {count}")

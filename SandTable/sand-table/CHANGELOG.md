@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.5.0] - 2026-05-10
+
+Repositioning + three technical hardenings + first test suite. This release accepts the user's reframe of the skill: Sand Table is a *meta-skill for using Claude Code to generate bespoke LLM simulators*, not a runtime competitor to TinyTroupe / AutoGen / CrewAI. SKILL.md prose now matches what the skill has always done in practice.
+
+### Added
+- `SKILL.md` lead reframed around the meta-skill positioning: Claude Code is the runtime, Sand Table ships discipline (patterns, drift defenses, narrative audit, multi-session continuity), bespoke-niche use cases that off-the-shelf frameworks don't fit
+- `references/comparison.md` — honest landscape read covering AutoGen / CrewAI / TinyTroupe / Concordia / mesa / Outlines / Guardrails / LangSmith. Names where each adjacent system actually wins, where Sand Table is genuinely novel (4 artifacts), and how to use Sand Table with rather than against them
+- `SKILL.md` "Proof the meta-pattern transfers" section — reframes the three reference implementations from "examples" to "cross-domain transfer evidence"
+- **Signal 6: self-name dissociation** in `narrative_check.py` — detects when an agent narrates themselves by name in third person with a cognitive/predictive verb (`Maria knew exactly...`, `Bob believed...`). Closes the R1 Adversary gap where Signals 1-3 exclude the agent's own name by design
+- **Quote-stripping** in `narrative_check.py` (`_strip_quoted_speech`) — strips double-quoted (regular + smart) speech before Signals 1/2/3/6 fire. Closes the R1 Adversary false-positive case where `"compared to Alex"` inside customer-quoted dialogue tripped Signal 3 against the agent's own name. Single quotes intentionally preserved (apostrophe ambiguity)
+- `scripts/test_narrative_check.py` — 36-test unittest suite covering every R1-R3 fix plus the v1.5.0 additions. Runs with `python3 -m unittest test_narrative_check.py` in the scripts directory
+
+### Fixed
+- `validate_full.py` `clamp_scores` no longer silently coerces booleans. `bool` is a subclass of `int` in Python, so `scores: {clarity: True}` previously passed the numeric check and was treated as `1`. Now booleans are rejected (flagged as non-numeric, left untouched for the structural validator to catch)
+
 ## [1.4.0] - 2026-05-10
 
 Round 3 of the subagent-panel-driven hardening: focused Adversary + Skeptic sweep against v1.3.0 surfaced 4 fresh substantive issues (2 each), all patched here. Calling the recursive sand-table-of-sand-table loop done at this round — marginal severity per round is dropping cleanly (R1, R2, R3 each found 4 issues, but R3's are edge-case hardening rather than core correctness).

@@ -41,7 +41,10 @@ def clamp_scores(data: dict, score_range: tuple[float, float]) -> list[str]:
         if not isinstance(scores, dict):
             continue
         for k, v in list(scores.items()):
-            if not isinstance(v, (int, float)):
+            # bool is a subclass of int in Python — exclude explicitly so
+            # `scores: {clarity: True}` is rejected instead of silently
+            # coerced to 1.
+            if isinstance(v, bool) or not isinstance(v, (int, float)):
                 continue
             if v < lo:
                 actions.append(f"events[{idx}].scores.{k}: {v} -> {lo}")
