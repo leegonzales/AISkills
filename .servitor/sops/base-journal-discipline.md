@@ -40,12 +40,12 @@ No new activity. Concerns unchanged. Next wake: [time].
 13. Do not batch significant events — your session may be killed without warning
 
 ### 4. Compression Check
-14. If journal.md exceeds 200 lines:
+14. If journal.md exceeds 5000 lines (soft cap):
     - Keep the last 7 days verbatim
     - Compress older entries into `.servitor/memory/journal-archive-YYYY-MM.md`
     - Archive format: one paragraph per day summarizing key events, decisions, metrics
     - Replace compressed entries with: `> Wakes #X-#Y archived to memory/journal-archive-YYYY-MM.md`
-15. Hard gate: do NOT let journal exceed 300 lines. Compress immediately.
+15. Hard gate: do NOT let journal exceed 8000 lines. Compress immediately.
 
 ### 5. Update State
 16. Update `.servitor/state.json` with current wake number, timestamp, reason
@@ -54,7 +54,7 @@ No new activity. Concerns unchanged. Next wake: [time].
 ## Success Criteria
 - Every wake produces a journal entry (no silent wakes)
 - Entry type matches wake activity (quiet wakes are 1 line, not 20)
-- Journal stays under 200 lines (300 hard max)
+- Journal stays under 5000 lines (8000 hard max)
 - Significant events are journaled immediately, not batched
 
 ## Eval
@@ -62,7 +62,7 @@ No new activity. Concerns unchanged. Next wake: [time].
 |--------|--------|-------------|
 | Coverage | 100% of wakes have journal entries | Compare wake count to entry count |
 | Conciseness | Quiet wakes avg <3 lines | Measure quiet wake entry length |
-| Compression timeliness | Journal never exceeds 300 lines | Check max journal length over time |
+| Compression timeliness | Journal never exceeds 8000 lines | Check max journal length over time |
 | Immediacy | Significant events journaled within same session | Audit event-to-journal latency |
 
 ## Escalation
