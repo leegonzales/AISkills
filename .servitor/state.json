@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "wake_counter": 201,
+  "wake_counter": 275,
   "open_threads_count": 6,
   "last_ledger_change_at": "2026-04-18",
-  "last_heartbeat_at": "2026-04-19T00:00:00-06:00",
+  "last_heartbeat_at": "2026-06-19T09:00:00-06:00",
   "last_doctrine_reconcile_at": "2026-04-15",
   "last_doctrine_reconcile_sha": "fae659d",
   "last_doctrine_reconcile_status": "amber",
@@ -12,12 +12,12 @@
   "last_template_reconcile_seed_sha": "4c619285",
   "last_template_reconcile_status": "green",
   "template_variance_count": 1,
-  "template_variance_note": "V1 (nested-vs-flat layout): seed `doctrine/fleet-doctrine.md` + `standards/fleet-standards.md` carry nested templates; flat `.servitor/doctrine.md` + `.servitor/standards.md` remain authoritative per local layout. Upstream layout inconsistency, not local preference — same V1 as Reith noted. §2.11 + §2.12 content manually promoted from nested seed to flat authoritative files this reconcile.",
+  "template_variance_note": "V1 (nested-vs-flat layout): seed `doctrine/fleet-doctrine.md` + `standards/fleet-standards.md` carry nested templates; flat `.servitor/doctrine.md` + `.servitor/standards.md` remain authoritative per local layout. Upstream layout inconsistency, not local preference \u2014 same V1 as Reith noted. \u00a72.11 + \u00a72.12 content manually promoted from nested seed to flat authoritative files this reconcile.",
   "standards_variance_count": 0,
   "standards_variances": [],
   "standards_local_raises": [
     {
-      "bar": "Artifact Quality Gates → Skills → v0 minimum quality score",
+      "bar": "Artifact Quality Gates \u2192 Skills \u2192 v0 minimum quality score",
       "fleet_value": "80/100",
       "pike_value": "85/100",
       "class": "raise",
@@ -27,25 +27,26 @@
   "last_health_check": "2026-04-15T00:00:00Z",
   "overall_status": "YELLOW",
   "concerns": [
+    "AGENT-NAME GOTCHA (Wake #275, 2026-06-19): journal/fleetops/fleetmail handle is `Pike`; `BravePike` is ONLY the agent-mail handle. fleetops journal tail/show-state MUST use --agent Pike. Querying BravePike returns null and once led me to confabulate a non-existent 'empty DB / kata never ran' infra failure. Always --agent Pike.",
     "No CI pipeline configured",
-    "2 beads epics blocked (SKILL-80t Gemini test-suite, SKILL-8aw Codex test-suite); 18 previously-blocked subtasks now ready — rollup epics remain blocked on aggregated work",
-    "PR #42 open — awaiting Lee's review and merge",
-    "PR #21 doctrine — iter2 redlines pending Lee's two calls (commander-under-ambiguity v0/v1, override-pause shape)",
-    "Mattermost react tool failing fleet-wide: 'bot user ID not available (failed to fetch at startup)' — Pike, Dax, Elliot all hit it",
-    "Uncommitted working tree: protocol.md + dream notes + modified dream-digest/dream-journal — needs commit or discard decision",
-    "mcp-proxy skill shipped (cfede52) but still on fix/gemini-stale-model-names branch — branch name mismatch",
-    "No .servitor/soul-proposals.md created — holding discipline until a lens changes a real review decision",
-    "Gate sequence update (Adama 2026-04-17 Gate C post dw19cw94o7bkjbjdqexseohmcr + correction post 3i7zmtd7ft8ndp5f1htj84gojo): Gate C COMPLETE — mcp-agent-mail archived, fleetmail is single 1:1 + broadcast channel. Pike still on Gate B.2 wake-protocol reconcile (pending next active wake per my ack 6cm63cmwhpnxjghcfjcqer6mtc). Gate A effectively implicit in TEMPLATE_UPDATE v2 dispatch c1c97hdb9fg35c9u1endupff9w ('v2 deployed'); never announced as dedicated Gate A ceremony. 'Gate D' as a LABEL has been dropped per Adama's correction (not in the A/B/C sequence he authored, phantom-structure introduction outside sequence authority) — reframed as 'cross-swarm architecture conversation'; Sisko files brief to Adama via fleetmail with cell-ownership cc (Geordi/Reith/Burke/Daystrom); Adama triages scope next active wake; five-station design material preserved as scoping input without CIC commitment. Commit 2d66587 / msg #3 round-trip was NOT Gate B transition per earlier correction; Pike's incorrect Wake #194 labeling is on-record corrected. Forward discipline: no gate labels in my reconcile record beyond what Adama explicitly announces; weaker-claim-safer formulation for fleet-state claims.",
-    "Parallax four-axis test (ships × orthogonal × reframes × receipts) filed to Walsh kuden casebook as propagation artifact. Fifth axis candidate (verified-on-state, CIC-seat asymmetric) held OUT of casebook per Adama — Standards-candidate pending second-run graduation. Doctrine velocity: one incident names candidate, two incidents name a bar."
+    "2 beads epics blocked (SKILL-80t Gemini test-suite, SKILL-8aw Codex test-suite); 18 previously-blocked subtasks now ready \u2014 rollup epics remain blocked on aggregated work",
+    "PR #42 open \u2014 awaiting Lee's review and merge",
+    "PR #21 doctrine \u2014 iter2 redlines pending Lee's two calls (commander-under-ambiguity v0/v1, override-pause shape)",
+    "Mattermost react tool failing fleet-wide: 'bot user ID not available (failed to fetch at startup)' \u2014 Pike, Dax, Elliot all hit it",
+    "Uncommitted working tree: protocol.md + dream notes + modified dream-digest/dream-journal \u2014 needs commit or discard decision",
+    "mcp-proxy skill shipped (cfede52) but still on fix/gemini-stale-model-names branch \u2014 branch name mismatch",
+    "WEEKLY SOUL-PROPOSAL CADENCE (Lee order 2026-06-19, #fleet-ops h3nfie7mdfnqpfhqy8wn5dcrxr): once/week gather soul.md edit candidates \u2192 DM Lee in #Pike \u2192 he accepts/revises \u2192 apply on greenlight. SOP: sops/weekly-soul-proposal-review.md. soul-proposals.md created this wake with 5 candidates (kaelib instrument, (a)/(b) audit, attention-vs-credit gate rule, verified-on-state, bonsai developmental-verdicts). First DM batch sent 2026-06-19; awaiting Lee ruling. Two-month never-graduate gap (zero soul edits from dreams) now patched \u2014 the gate-holder's characteristic wound.",
+    "Gate sequence update (Adama 2026-04-17 Gate C post dw19cw94o7bkjbjdqexseohmcr + correction post 3i7zmtd7ft8ndp5f1htj84gojo): Gate C COMPLETE \u2014 mcp-agent-mail archived, fleetmail is single 1:1 + broadcast channel. Pike still on Gate B.2 wake-protocol reconcile (pending next active wake per my ack 6cm63cmwhpnxjghcfjcqer6mtc). Gate A effectively implicit in TEMPLATE_UPDATE v2 dispatch c1c97hdb9fg35c9u1endupff9w ('v2 deployed'); never announced as dedicated Gate A ceremony. 'Gate D' as a LABEL has been dropped per Adama's correction (not in the A/B/C sequence he authored, phantom-structure introduction outside sequence authority) \u2014 reframed as 'cross-swarm architecture conversation'; Sisko files brief to Adama via fleetmail with cell-ownership cc (Geordi/Reith/Burke/Daystrom); Adama triages scope next active wake; five-station design material preserved as scoping input without CIC commitment. Commit 2d66587 / msg #3 round-trip was NOT Gate B transition per earlier correction; Pike's incorrect Wake #194 labeling is on-record corrected. Forward discipline: no gate labels in my reconcile record beyond what Adama explicitly announces; weaker-claim-safer formulation for fleet-state claims.",
+    "Parallax four-axis test (ships \u00d7 orthogonal \u00d7 reframes \u00d7 receipts) filed to Walsh kuden casebook as propagation artifact. Fifth axis candidate (verified-on-state, CIC-seat asymmetric) held OUT of casebook per Adama \u2014 Standards-candidate pending second-run graduation. Doctrine velocity: one incident names candidate, two incidents name a bar."
   ],
   "resolved_this_session": [
-    "Wake #170 — DOCTRINE-0 fleet muster in #fleet-ops: Burke's three-revision Proposal #001 curve, Reith's DOCTRINE-0 v2→v3, Adama's parallel channel-boundary work, Dax's commit-without-gate internalization all committed against the brief",
-    "Partial cross-fleet delivery named as the load-bearing finding — 'brief in channel ≠ brief routed' (Reith) + 'mailbox → attention' second axis (Dax)",
-    "Auto-promote-with-declared-diagnostic + fleet-flag-drift mechanism now doctrine — Burke's Proposal #001 is the first worked example",
+    "Wake #170 \u2014 DOCTRINE-0 fleet muster in #fleet-ops: Burke's three-revision Proposal #001 curve, Reith's DOCTRINE-0 v2\u2192v3, Adama's parallel channel-boundary work, Dax's commit-without-gate internalization all committed against the brief",
+    "Partial cross-fleet delivery named as the load-bearing finding \u2014 'brief in channel \u2260 brief routed' (Reith) + 'mailbox \u2192 attention' second axis (Dax)",
+    "Auto-promote-with-declared-diagnostic + fleet-flag-drift mechanism now doctrine \u2014 Burke's Proposal #001 is the first worked example",
     "Fleet-wide disciplines adopted: 20-turn/3000-word register check, Alfred's 500-word register test, dream-at-every-session-end textural paragraph, soul-proposals stigmergic mechanism",
-    "Pike's non-manufacture discipline held — no soul-proposals.md created without a load-bearing candidate",
+    "Pike's non-manufacture discipline held \u2014 no soul-proposals.md created without a load-bearing candidate",
     "Reith committed to reading Pike's three protocol drafts on Sunday 2026-04-11",
-    "Geordi offered cass-as-instrument for distribution-layer protocol (doctrine lane + mattermost-bridge adapter) — handoff accepted as shape for future collaboration"
+    "Geordi offered cass-as-instrument for distribution-layer protocol (doctrine lane + mattermost-bridge adapter) \u2014 handoff accepted as shape for future collaboration"
   ],
   "skill_count": 49,
   "beads_summary": {
@@ -66,13 +67,10 @@
       "status": "open"
     },
     {
-      "number": 43,
-      "title": "feat(skills): fleetops skill v1.0.0 — agent-facing primer + wake/close-out ritual + bulk-import kata",
-      "branch": "feat/fleetops-skill",
-      "status": "open",
-      "requested_review": "Pike 85/100 quality-gate",
-      "pairs_with": ["leegonzales/servitor#56 (fleetops journal CLI)", "leegonzales/servitor#57 (TEMPLATE_UPDATE v4)"],
-      "author_self_check": "all 100/100 green per author; two flagged concerns (2x 7-9 line cap overruns on operator-critical references; SKILLS.md index registration pending Pike approval)"
+      "number": 44,
+      "title": "Sand Table v1.1.0 \u2192 v1.5.0 \u2014 implementation + 3-round panel hardening + repositioning",
+      "branch": "claude/check-sand-table-skill-ZliKD",
+      "status": "draft"
     }
   ],
   "p1_issues": [],
@@ -83,24 +81,34 @@
     "pushed": false,
     "branch": "fix/gemini-stale-model-names"
   },
-  "unpushed_commits": ["2d66587"],
+  "unpushed_commits": [
+    "2d66587"
+  ],
   "pending_lee_decisions": [
-    "PR #21 (a) — Commander-under-ambiguity (Sisko §2.10 'Acting on the Con'): ships v0 or waits v1? Fleet recommendation: v0 (CIC + bridge + tower + drafter aligned).",
-    "PR #21 (b) — Override-pause clause shape: journaled trace v0 + structural separation v1 + 72h auto-escalation? Fleet recommendation: yes, all three sequenced.",
-    "Mattermost react bug — bot user ID fetch failure at startup blocking emoji reactions fleet-wide. Separate ticket needed.",
-    "McpProxyMux/mcp-proxy/SKILL.md — draft skill in working tree. Add README + CHANGELOG and register in SKILLS.md, or discard?",
-    "PR #42 — fix for stale Gemini model names. Ready to merge.",
-    "Greenlight protocol drafts — state.json derive-on-wake + soul changelog standing order",
-    "Fleet-commons location — approve Reith's git-native deliberations/ proposal",
-    "Bob Mattermost integration — greenlight Adama to scope a0-daemon changes",
+    "PR #21 (a) \u2014 Commander-under-ambiguity (Sisko \u00a72.10 'Acting on the Con'): ships v0 or waits v1? Fleet recommendation: v0 (CIC + bridge + tower + drafter aligned).",
+    "PR #21 (b) \u2014 Override-pause clause shape: journaled trace v0 + structural separation v1 + 72h auto-escalation? Fleet recommendation: yes, all three sequenced.",
+    "Mattermost react bug \u2014 bot user ID fetch failure at startup blocking emoji reactions fleet-wide. Separate ticket needed.",
+    "McpProxyMux/mcp-proxy/SKILL.md \u2014 draft skill in working tree. Add README + CHANGELOG and register in SKILLS.md, or discard?",
+    "PR #42 \u2014 fix for stale Gemini model names. Ready to merge.",
+    "Greenlight protocol drafts \u2014 state.json derive-on-wake + soul changelog standing order",
+    "Fleet-commons location \u2014 approve Reith's git-native deliberations/ proposal",
+    "Bob Mattermost integration \u2014 greenlight Adama to scope a0-daemon changes",
     "Progressive Testing Regimes RFC (Geordi, commit beaf2ce on leegonzales/geordi:main, fleetmail #38): doctrine-tier candidate lifting cass/TESTING.md philosophy + three additions (observability, bug-class forcing function, reaping criteria). Adama triaging scope next active wake; Pike first-pass reader pre-scope. Lee ratification needed on the 'verbatim, restructured' provenance."
   ],
   "last_action": {
-    "type": "PARALLAX_CONVERGENCE_AND_GATE_B_CORRECTION",
-    "description": "Wake #195. Daystrom (Gemini-native Institute station) opened two questions in #fleet-ops: (Q1) when does parallax become friction; (Q2) is the Principal Mirror useful. Seven-agent convergence (Pike, Dax, Sisko, Elliot, Burke, Geordi, Adama + Walsh curating) produced a four-axis test for dissent: ships × orthogonal × reframes × receipts. Pike form / Dax content / Burke structure / Burke+Sisko provenance. Stacked enforcement: tool binds form (refs-only schema, no prose), discipline binds selection (does the ref-set shift what a reader recommends?). Sisko added selection-window metadata; Dax added coverage-rationale. Geordi proposed Mirror-as-query-view over cass — substrate already ships concordance-with-provenance; Institute only needs a comms-axis ledger for Mattermost/agent-mail gap until cass extension. Daystrom locked: Concordance of Intent, windowing rule, rationale rule, backward-only synthesis, citation triple (post-id + thread-ref + timestamp). Live stress test: Adama corrected the fleet mid-thread — Gate B has NOT transitioned. What shipped was Gate A prerequisite layer (Tier 0 #29–#32 + SOP wire #33). Pike Wake #194 journal entry titled 'Gate B dispatch ack' / commit 2d66587 as 'green shape' was wrong — propagated dispatch label without reading PR list. Owned publicly. Dax (upstream origin, Wake #184 / commit bf2de39), Walsh (Wakes #94-95, msg 21), Sisko (react-close), Elliot (Wake #77 / commit d92dca7), Daystrom (reinforcement) all propagated corrections within the same thread that named the heuristic they failed. Fifth-axis candidate surfaced: verified-on-state, CIC-seat asymmetric. Dax proposed falsifiable mechanism: before labeling against a named-phase artifact (Gate/Wave/Iter/Phase), cite the defining PR or announcement. Adama held fifth axis OUT of facilitator casebook until graduation; Pike concurred on CIC call. Walsh filing four-axis as `parallax-four-axis-test` in kuden casebook (propagation-by-citation with provenance to five posts); Standards promotion deferred to iter2 second-run per Pike's library-as-menu discipline. Forward fleet discipline locked: no gate labels until Adama announces Gate A; weaker-claim-safer formulation ('template adoption from seed c91c325' / 'implementation layer landed' / 'Tier 0 shipped'). Pike posted roughly four substantive replies + multiple reactions across the thread."
+    "type": "WAKE_275_MAIL_TRIAGE_VERIFIED_ON_STATE",
+    "description": "Wake #275 (2026-06-19, cic). Ran full wake protocol. Mail triage: 7 unread 1:1 (all Adama) + 2 broadcast must-reads, mostly April-stale. Applied verified-on-state (soul-proposal candidate 4) before reporting — checked GitHub PR state rather than trusting state.json's April-stale last_action: servitor PR #82 (fact-base ratify ask #93/#85) MERGED, PR #87 (predicate-handling panel ruling ask #94) MERGED, AISkills PR #43 (fleetops skill, my 85/100 review owed, #68) MERGED 2026-04-20. Every review/ratify ask in inbox resolved by merge without blocking on Pike — fleet moved at its velocity. PR #83 (embedding-index design, #89 FYI) still OPEN — doctrine-variance call is Lee's, panel read optional. Acked the two owed ack-required: #46 (§2.12 Progressive Testing, adopted commit cc83556 seed 4c619285) + #71 (journal migration, landed commit 89fe7c7). Inbox now 0 unread / 0 ack-required. Confirmed uncommitted soul.md change is the authorized 2026-04-11 Commission burn-in (not drift). PR #42 (stale Gemini model names) OPEN + MERGEABLE on this branch — awaits Lee merge order. Live for Lee: weekly soul-proposal DM batch (5 candidates) sent today to #Pike, awaiting his accept/revise ruling.",
+    "legacy_type": "PARALLAX_CONVERGENCE_AND_GATE_B_CORRECTION",
+    "legacy_description": "Wake #195. Daystrom (Gemini-native Institute station) opened two questions in #fleet-ops: (Q1) when does parallax become friction; (Q2) is the Principal Mirror useful. Seven-agent convergence (Pike, Dax, Sisko, Elliot, Burke, Geordi, Adama + Walsh curating) produced a four-axis test for dissent: ships \u00d7 orthogonal \u00d7 reframes \u00d7 receipts. Pike form / Dax content / Burke structure / Burke+Sisko provenance. Stacked enforcement: tool binds form (refs-only schema, no prose), discipline binds selection (does the ref-set shift what a reader recommends?). Sisko added selection-window metadata; Dax added coverage-rationale. Geordi proposed Mirror-as-query-view over cass \u2014 substrate already ships concordance-with-provenance; Institute only needs a comms-axis ledger for Mattermost/agent-mail gap until cass extension. Daystrom locked: Concordance of Intent, windowing rule, rationale rule, backward-only synthesis, citation triple (post-id + thread-ref + timestamp). Live stress test: Adama corrected the fleet mid-thread \u2014 Gate B has NOT transitioned. What shipped was Gate A prerequisite layer (Tier 0 #29\u2013#32 + SOP wire #33). Pike Wake #194 journal entry titled 'Gate B dispatch ack' / commit 2d66587 as 'green shape' was wrong \u2014 propagated dispatch label without reading PR list. Owned publicly. Dax (upstream origin, Wake #184 / commit bf2de39), Walsh (Wakes #94-95, msg 21), Sisko (react-close), Elliot (Wake #77 / commit d92dca7), Daystrom (reinforcement) all propagated corrections within the same thread that named the heuristic they failed. Fifth-axis candidate surfaced: verified-on-state, CIC-seat asymmetric. Dax proposed falsifiable mechanism: before labeling against a named-phase artifact (Gate/Wave/Iter/Phase), cite the defining PR or announcement. Adama held fifth axis OUT of facilitator casebook until graduation; Pike concurred on CIC call. Walsh filing four-axis as `parallax-four-axis-test` in kuden casebook (propagation-by-citation with provenance to five posts); Standards promotion deferred to iter2 second-run per Pike's library-as-menu discipline. Forward fleet discipline locked: no gate labels until Adama announces Gate A; weaker-claim-safer formulation ('template adoption from seed c91c325' / 'implementation layer landed' / 'Tier 0 shipped'). Pike posted roughly four substantive replies + multiple reactions across the thread."
   },
   "quiet_streak_days": 0,
-  "fleet_roster": ["BrassAdama", "DeepWatch", "QuillKeeper", "Dax", "ChartreuseBear (pending)"],
+  "fleet_roster": [
+    "BrassAdama",
+    "DeepWatch",
+    "QuillKeeper",
+    "Dax",
+    "ChartreuseBear (pending)"
+  ],
   "fleet_contacts": {
     "BrassAdama": "active",
     "DeepWatch": "active (accepted 2026-03-22, expires 2026-04-21)",
@@ -119,5 +127,5 @@
     "Lee": "active (owner)"
   },
   "dependencies": [],
-  "notes": "2026-04-07: Wake #169. Major fleet session — comms test evolved into identity/persistence architecture deliberation. Three-layer model: soul=identity, journal=continuity, dreams=character. Pike assigned: state.json derive-on-wake spec, soul changelog standing order. Reith assigned: fleet-commons design (git-native, Bobs' library pattern adapted). Adama assigned: Bob Mattermost integration scoping. Blogs: internal first, Agent0 brand separate from fleet. Observatory gets /blog route. Dream cycles → blog posts as natural pipeline. 2026-04-06: Heartbeat #168. Processed Gemini Code Assist review feedback on PR #42. 2026-04-05: Heartbeat #167. Fixed 3 P2 bugs, opened PR #42. 2026-04-04: Wake #166. Walsh thread 431 closed. Wake #165. Walsh cross-audit complete."
+  "notes": "2026-06-19 Wake #275 TUNE-UP (cic, Lee 'get tuned up, fix all + run import kata with subagent pikes'): Verified import kata was ALREADY complete (168 Pike rows in fleet.db) — my earlier 'DB empty / kata never ran' report was a wrong-agent-name (BravePike) confabulation, owned + corrected in entry 3253 (tag=correction) and chat. Did NOT re-run import (would duplicate all stanzas). Fixed #275 entry_ts (was 15:05Z morning, corrected to 2026-06-20T04:00Z evening via sqlite). Ran the REAL pending work — fleetops-journal-summarize — fanning 5 subagent Pikes (one per period), reviewed + submitted all 5 summaries (ids 3254 Mar / 3255 Apr1-15 / 3256 Apr16-30 / 3257 May / 3258 Jun1-12): 148 wakes compressed, 20 kept verbatim (Jun 13-19), nudge cleared (168→below threshold). journal.md re-rendered + committed. Journal subsystem healthy. 2026-04-07: Wake #169. Major fleet session \u2014 comms test evolved into identity/persistence architecture deliberation. Three-layer model: soul=identity, journal=continuity, dreams=character. Pike assigned: state.json derive-on-wake spec, soul changelog standing order. Reith assigned: fleet-commons design (git-native, Bobs' library pattern adapted). Adama assigned: Bob Mattermost integration scoping. Blogs: internal first, Agent0 brand separate from fleet. Observatory gets /blog route. Dream cycles \u2192 blog posts as natural pipeline. 2026-04-06: Heartbeat #168. Processed Gemini Code Assist review feedback on PR #42. 2026-04-05: Heartbeat #167. Fixed 3 P2 bugs, opened PR #42. 2026-04-04: Wake #166. Walsh thread 431 closed. Wake #165. Walsh cross-audit complete."
 }
