@@ -9,7 +9,7 @@ To use a skill:
 2. Read the corresponding `SKILL.md` file
 3. Follow the persona, constraints, and output formats defined
 
-## Skills (49 total)
+## Skills (50 total)
 
 | Skill | Description | Path |
 |-------|-------------|------|
@@ -59,6 +59,7 @@ To use a skill:
 | Veo3 Prompter | Craft cinematic prompts for Veo 3.1 video | `Veo3Prompter/veo3-prompter/SKILL.md` |
 | Silicon Doppelganger | Build personal proxy agents for PAIRL Conductor | `SiliconDoppelganger/silicon-doppelganger/SKILL.md` |
 | Skill Extractor | Extract reusable skills from conversation patterns | `SkillExtractor/skill-extractor/SKILL.md` |
+| Skill Forge | Drive a skill toward optimal via behavioral eval + refinement loop | `SkillForge/skill-forge/SKILL.md` |
 | Slide Builder | Transform essay-to-speech output into presentations | `SlideBuilder/slide-builder/SKILL.md` |
 | Strategy Explorer | Guide leaders to build Claude projects that help their org understand department strategy | `StrategyExplorer/strategy-explorer/SKILL.md` |
 | Unix Review | Codebase evaluation against Unix philosophy, SOLID, and AI-Readiness | `UnixReview/unix-review/SKILL.md` |
@@ -95,4 +96,4 @@ To use a skill:
 - Artifacts Builder, Nano Banana, NotebookLM, Concept Forge, Slide Builder, Veo3 Prompter
 
 **Meta & Documentation**
-- Claude Project Docs, Dad Joke Validator, Profile Builder, Project Builder, Skill Extractor, Build Timeline, Flywheel Scan, Loop Builder
+- Claude Project Docs, Dad Joke Validator, Profile Builder, Project Builder, Skill Extractor, Skill Forge, Build Timeline, Flywheel Scan, Loop Builder
