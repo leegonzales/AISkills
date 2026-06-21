@@ -9,7 +9,7 @@ To use a skill:
 2. Read the corresponding `SKILL.md` file
 3. Follow the persona, constraints, and output formats defined
 
-## Skills (47 total)
+## Skills (48 total)
 
 | Skill | Description | Path |
 |-------|-------------|------|
@@ -36,6 +36,7 @@ To use a skill:
 | Flywheel Scan | Cross-project roadmap discovery with parallel domain scouts | `FlywheelScan/flywheel-scan/SKILL.md` |
 | Gemini Peer Review | AI peer review via Gemini CLI | `GeminiPeerReview/gemini-peer-review/SKILL.md` |
 | MCP Builder | Build Model Context Protocol servers | `MCPBuilder/mcp-builder/SKILL.md` |
+| MCP Proxy | Manage the MCP proxy multiplexer — health checks, status, config, troubleshooting | `McpProxyMux/mcp-proxy/SKILL.md` |
 | Git Secure | Transparent repo encryption with git-crypt + age snapshots | `git-secure/SKILL.md` |
 | Moltbook Enclave | Secure, air-gapped interface for Moltbook social network | `MoltbookEnclave/moltbook-enclave/SKILL.md` |
 | Nano Banana | AI image generation via Gemini | `NanoBananaSkill/nano-banana/SKILL.md` |
@@ -84,7 +85,7 @@ To use a skill:
 - CSV Summarizer, Excel Auditor, Process Mapper, Sand Table
 
 **AI & Automation**
-- Context Continuity, Context Continuity Code, Agent Mail, Silicon Doppelganger, Claude Speak, Second Brain, Fabric Patterns
+- Context Continuity, Context Continuity Code, Agent Mail, MCP Proxy, Silicon Doppelganger, Claude Speak, Second Brain, Fabric Patterns
 
 **Security & Isolation**
 - Git Secure, Moltbook Enclave
