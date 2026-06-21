@@ -152,8 +152,8 @@ gemini "Hello, Gemini!"
 **Free Tier Benefits:**
 - 60 requests per minute
 - 1,000 requests per day
-- Access to Gemini 3.0 Pro (1M context window)
-- Access to Gemini 3.0 Flash
+- Access to the Pro-tier model (1M context window)
+- Access to a faster Flash-tier model
 - No credit card required
 
 **Official Documentation:** [Gemini CLI](https://github.com/google-gemini/gemini-cli)
@@ -571,11 +571,12 @@ The skill includes detailed reference documentation:
 
 ### Optional Gemini CLI Configuration
 
-Set default model and parameters:
+Set parameters for peer review. **Don't hardcode model names** — let the Gemini CLI use its default (latest) model, which it selects automatically. Model names change frequently, so avoid specifying them in scripts or documentation.
 
 ```bash
-# Set default model
-gemini config set defaultModel gemini-3.0-pro
+# Optional: pin a default model only if you must.
+# Prefer leaving this unset so the CLI uses its latest default.
+# gemini config set defaultModel <model-name>
 
 # Set temperature for more focused responses
 gemini config set temperature 0.3
@@ -588,7 +589,7 @@ gemini config list
 ```
 
 **Recommended peer review settings:**
-- `defaultModel`: `gemini-3.0-pro` (best for complex reasoning)
+- Model: leave unset so the CLI uses its default (latest) model; the default Pro-tier model is best for complex reasoning
 - `temperature`: 0.3-0.5 (more focused, less creative)
 - `maxOutputTokens`: 8192 (allow detailed analysis)
 
@@ -759,11 +760,11 @@ gemini "Hello, Gemini!"
 - Free tier: 60 requests/minute, 1,000/day
 - Wait for rate limit reset
 - Upgrade to paid tier for higher limits
-- Switch to `gemini-3.0-flash` for faster, lower-cost requests
+- Switch to a faster, lower-cost Flash-tier model for cheaper requests
 
 ```bash
-# Switch to Flash model
-gemini config set defaultModel gemini-3.0-flash
+# Switch to a faster Flash-tier model (model names change; check `gemini models` for current names)
+gemini config set defaultModel <flash-model-name>
 ```
 
 ---
@@ -803,16 +804,21 @@ Code review shouldn't trigger safety filters with adjusted settings.
 **Problem:** "Model not found" or invalid model name
 
 **Solution:**
-Use correct model names:
-- `gemini-3.0-pro` (best for complex reasoning, 1M context)
-- `gemini-3.0-flash` (faster, still excellent, 1M context)
-- `gemini-3.0-flash-lite` (fastest, most cost-efficient)
+The simplest fix is to **not specify a model at all** — let the CLI use its default (latest) model. Model names change frequently, so a hardcoded name may no longer be valid.
+
+If you must select a model, pick from the current tiers (exact names vary by CLI version; run `gemini models` to list what's available):
+- A **Pro-tier** model (best for complex reasoning, 1M context)
+- A **Flash-tier** model (faster, still excellent, 1M context)
+- A **Flash-Lite-tier** model (fastest, most cost-efficient)
 
 ```bash
-# Set correct model
-gemini config set defaultModel gemini-3.0-pro
+# Verify which models the CLI offers
+gemini models
 
-# Verify
+# Optional: set one explicitly (or leave unset to use the default)
+gemini config set defaultModel <model-name>
+
+# Verify configuration
 gemini config list
 ```
 
@@ -932,7 +938,7 @@ A: No, the skill requires Gemini CLI. Claude will inform you if it's not availab
 A: Yes, when using Gemini CLI, code is sent to Google servers for processing. Consider this for sensitive/proprietary code. Use Claude alone if code cannot be sent externally.
 
 **Q: When should I use Pro vs Flash model?**
-A: Use `gemini-3.0-pro` for complex architectural decisions, security-critical reviews, and deep trade-off analysis. Use `gemini-3.0-flash` for faster turnaround, straightforward analysis, and cost optimization. Both have 1M token context.
+A: Use the Pro-tier model (the CLI default) for complex architectural decisions, security-critical reviews, and deep trade-off analysis. Use a Flash-tier model for faster turnaround, straightforward analysis, and cost optimization. Both tiers have 1M token context. Avoid hardcoding specific model names — they change frequently; let the CLI use its default or run `gemini models` to see current options.
 
 **Q: Can I use this offline?**
 A: No, Gemini CLI requires internet connectivity. Code is processed in Google's Cloud.
