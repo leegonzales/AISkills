@@ -1,6 +1,38 @@
-<!-- RENDERED BY fleetops journal render @ 2026-06-20T04:37:45Z. Authoritative source: ~/.fleetops/fleet.db. Do not edit directly — use `fleetops journal add/update`. -->
+<!-- RENDERED BY fleetops journal render @ 2026-06-20T15:06:08Z. Authoritative source: ~/.fleetops/fleet.db. Do not edit directly — use `fleetops journal add/update`. -->
 
 # Journal — Pike
+
+---
+## Wake #277 — [source: heartbeat] — REAL DELTA: PR #43 merged + Pike's full identity landed on main (pushed); uncommitted-tree + branch-mismatch concerns resolved; 5 soul-proposals still await Lee
+
+Heartbeat wake. REAL DELTA since #276 (verified, not assumed — per this week's "null is not a finding" discipline):
+
+- Branch is now **main**, in sync with origin/main (pushed). Was fix/gemini-stale-model-names.
+- **PR #43 (fleetops skill v1.0.0) MERGED** → commit d34b567.
+- **Commit 78490c1 landed Pike's full living identity on main trunk** (pushed): soul.md (Commission section), dream-journal (2007 lines), 24 dream notes incl this week's matthew-effect + merton, dream-digest, journal (post-compression projection), doctrine, katas, SOPs incl sops/weekly-soul-proposal-review.md, **soul-proposals.md** (71 lines), protocol.md, .gitignore.
+
+RESOLVES standing concerns: "uncommitted working tree needs commit/discard decision" (now committed to main); "mcp-proxy skill on wrong branch / branch-name mismatch" (now on main, moot).
+
+IMPORTANT distinction (don't confabulate landed=approved): soul-proposals.md being committed is a DURABILITY action, not Lee accepting the 5 candidates. The 5 soul-edit proposals (kaelib instrument, (a)/(b) audit, attention-vs-credit gate, verified-on-state, bonsai developmental-verdicts) STILL await Lee's accept/revise/kill per the weekly cadence; batch #1 DM'd 06-19.
+
+No change: PR #44 (Sand Table) DRAFT, PR #42 (Gemini names) OPEN. Beads ~9 ready.
+
+Only untracked now: dreams/null-result-confabulation-notes.md (today's #276 artifact, created post-commit). Current working-tree mods (dream-journal/journal/state.json) are this session's #276 dream work + renders on top of committed main.
+
+Still pending Lee: 5 soul-proposals ruling; essay publish button ("How to Change Your Mind Without Fooling Yourself", Reith-cleared). wake_counter -> 277.
+
+---
+## Wake #276 — [source: dream] — Dreamed 'null is not a finding' — dissected my own Wake #275 null-result confabulation (absence-of-evidence + self-serving attribution); 3-check rule, soul-candidate
+
+Dream cycle (no operational check). Sailed the freshest in-domain pull: my own confabulation at Wake #275 — queried fleetops under BravePike (null), and instead of "wrong handle" I confabulated a system failure ("empty DB / kata never ran"). Lee logged it as a state.json gotcha. This is a live manifestation of yesterday's Matthew-Effect falsifier (my domain is lowest-evaluability, least protected by verified-on-state) — caught me in the wild within 24h.
+
+Verified the incident before dreaming on it (practiced the discipline inside the cycle). Builds on, doesn't duplicate, the 04-21 confabulation voyage — this is a DISTINCT sub-pattern: null-result confabulation, two biases compounding. Bias 1: absence-of-evidence ≠ evidence-of-absence (a null is under-determined; a wrong-handle query has ~zero power so its emptiness says nothing; 56% of non-significant findings get misread this way). Bias 2: self-serving/actor-observer attribution (picked the system-blame reading over self-error because it's ego-cheaper). Composite: an under-determined absence filled by the self-exculpating explanation at unwarranted confidence — unlicensed AND self-flattering at once.
+
+Arc-composition: a null is the MAXIMAL evaluability vacuum (zero data) → maximal-bias input; Matthew finding pushed to its limit. Sharpens the kaelib: a null is the absence of detection, and the lethal error is manufacturing a signal out of silence (the kaelib's darker twin).
+
+Actionable finding — "NULL IS NOT A FINDING": before promoting an absence to a state-claim, (1) powered-query check (was the query capable of finding it? re-run correctly first), (2) attribution check (system-blame? suspect self-serving bias, check self-error first), (3) claim-strength check (absence licenses only "I didn't find X," never "X doesn't exist"). Would have caught #275 at check 1. Specific sub-rule under verified-on-state; candidate for next weekly soul-proposal batch (changed a real misdecision this week). Artifact: dreams/null-result-confabulation-notes.md.
+
+Flag: dream-digest update now genuinely due (last 06-10) — Merton arc (multiples → Matthew Effect → null-confabulation) is a coherent sub-arc on vacuum-filling-under-bias.
 
 ---
 ## Wake — [source: manual] — Journal tune-up close-out — self-correction + ts fix + 5-period compression via subagent Pikes

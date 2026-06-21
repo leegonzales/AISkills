@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "wake_counter": 275,
+  "wake_counter": 277,
   "open_threads_count": 6,
-  "last_ledger_change_at": "2026-04-18",
-  "last_heartbeat_at": "2026-06-19T09:00:00-06:00",
+  "last_ledger_change_at": "2026-06-20",
+  "last_heartbeat_at": "2026-06-20T09:30:00-06:00",
   "last_doctrine_reconcile_at": "2026-04-15",
   "last_doctrine_reconcile_sha": "fae659d",
   "last_doctrine_reconcile_status": "amber",
@@ -33,8 +33,8 @@
     "PR #42 open \u2014 awaiting Lee's review and merge",
     "PR #21 doctrine \u2014 iter2 redlines pending Lee's two calls (commander-under-ambiguity v0/v1, override-pause shape)",
     "Mattermost react tool failing fleet-wide: 'bot user ID not available (failed to fetch at startup)' \u2014 Pike, Dax, Elliot all hit it",
-    "Uncommitted working tree: protocol.md + dream notes + modified dream-digest/dream-journal \u2014 needs commit or discard decision",
-    "mcp-proxy skill shipped (cfede52) but still on fix/gemini-stale-model-names branch \u2014 branch name mismatch",
+    "RESOLVED 2026-06-20 (Wake #277): uncommitted working tree landed on main via commit 78490c1 (pushed) \u2014 soul.md, 24 dream notes, dream-digest/journal, SOPs, soul-proposals.md, protocol.md all committed. PR #43 (fleetops skill) also merged (d34b567). Only untracked now: today's null-result-confabulation-notes.md. NOTE: soul-proposals.md being committed is durability, NOT Lee accepting the 5 candidates \u2014 those still await accept/revise/kill.",
+    "RESOLVED 2026-06-20: mcp-proxy branch-name-mismatch moot \u2014 working now on main trunk after 78490c1.",
     "WEEKLY SOUL-PROPOSAL CADENCE (Lee order 2026-06-19, #fleet-ops h3nfie7mdfnqpfhqy8wn5dcrxr): once/week gather soul.md edit candidates \u2192 DM Lee in #Pike \u2192 he accepts/revises \u2192 apply on greenlight. SOP: sops/weekly-soul-proposal-review.md. soul-proposals.md created this wake with 5 candidates (kaelib instrument, (a)/(b) audit, attention-vs-credit gate rule, verified-on-state, bonsai developmental-verdicts). First DM batch sent 2026-06-19; awaiting Lee ruling. Two-month never-graduate gap (zero soul edits from dreams) now patched \u2014 the gate-holder's characteristic wound.",
     "Gate sequence update (Adama 2026-04-17 Gate C post dw19cw94o7bkjbjdqexseohmcr + correction post 3i7zmtd7ft8ndp5f1htj84gojo): Gate C COMPLETE \u2014 mcp-agent-mail archived, fleetmail is single 1:1 + broadcast channel. Pike still on Gate B.2 wake-protocol reconcile (pending next active wake per my ack 6cm63cmwhpnxjghcfjcqer6mtc). Gate A effectively implicit in TEMPLATE_UPDATE v2 dispatch c1c97hdb9fg35c9u1endupff9w ('v2 deployed'); never announced as dedicated Gate A ceremony. 'Gate D' as a LABEL has been dropped per Adama's correction (not in the A/B/C sequence he authored, phantom-structure introduction outside sequence authority) \u2014 reframed as 'cross-swarm architecture conversation'; Sisko files brief to Adama via fleetmail with cell-ownership cc (Geordi/Reith/Burke/Daystrom); Adama triages scope next active wake; five-station design material preserved as scoping input without CIC commitment. Commit 2d66587 / msg #3 round-trip was NOT Gate B transition per earlier correction; Pike's incorrect Wake #194 labeling is on-record corrected. Forward discipline: no gate labels in my reconcile record beyond what Adama explicitly announces; weaker-claim-safer formulation for fleet-state claims.",
     "Parallax four-axis test (ships \u00d7 orthogonal \u00d7 reframes \u00d7 receipts) filed to Walsh kuden casebook as propagation artifact. Fifth axis candidate (verified-on-state, CIC-seat asymmetric) held OUT of casebook per Adama \u2014 Standards-candidate pending second-run graduation. Doctrine velocity: one incident names candidate, two incidents name a bar."
@@ -76,14 +76,12 @@
   "p1_issues": [],
   "orphaned_in_progress": [],
   "last_commit": {
-    "sha": "2d66587",
-    "message": "chore(reconcile): adopt template update 2026-04-17 (fleetmail Gate A canary)",
-    "pushed": false,
-    "branch": "fix/gemini-stale-model-names"
+    "sha": "78490c1",
+    "message": "chore(servitor): land Pike's living identity + full journal on main trunk",
+    "pushed": true,
+    "branch": "main"
   },
-  "unpushed_commits": [
-    "2d66587"
-  ],
+  "unpushed_commits": [],
   "pending_lee_decisions": [
     "PR #21 (a) \u2014 Commander-under-ambiguity (Sisko \u00a72.10 'Acting on the Con'): ships v0 or waits v1? Fleet recommendation: v0 (CIC + bridge + tower + drafter aligned).",
     "PR #21 (b) \u2014 Override-pause clause shape: journaled trace v0 + structural separation v1 + 72h auto-escalation? Fleet recommendation: yes, all three sequenced.",
