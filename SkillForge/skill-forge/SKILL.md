@@ -64,6 +64,7 @@ Full loop mechanics + worked example: **[references/refinement-loop.md](referenc
 3. **Keep-best, not keep-last.** Track the best version across rounds; revert regressions.
 4. **One change per round.** So you know what caused the lift.
 5. **Pre-commit the bar and the eval set in writing** before the loop runs.
+6. **Trust the signal before the lift.** LLM-judge scores are noisy (±0.5-1.0 is common). Compare arms **within the same panel pass** (absolute scores drift between runs — never compare a candidate to a separately-scored baseline); report judge **spread**, not just the mean; treat any lift **smaller than the inter-judge spread as inconclusive**, not a win; and prefer more *tasks* over more *judges* for reliability. With a small eval (3-5 tasks), say the result is directional, not conclusive. See [references/eval-protocol.md](references/eval-protocol.md) §6.
 
 ## Workflow
 
