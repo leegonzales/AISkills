@@ -62,6 +62,16 @@ Before editing, name the genre and let it set the targets. A few defaults:
 
 When the genre is unclear, infer it from cues and state your assumption.
 
+## Economy Must Not Cost Authority (the vague-passage rule)
+
+Trimming is not the goal; *sharpening* is. **Cutting a vague sentence shorter still leaves it vague** — and a shorter generic passage can read *flatter* than the longer one it replaced. When a passage is generic or hedged, you have exactly three honest moves, in order of preference:
+
+1. **Sharpen it into the concrete** — but only using meaning already present or that the author plainly intends (recast "time is valuable as we all know" → "you reclaim the hour the commute used to eat"). This adds force without adding facts.
+2. **Flag it for the author** — when the draft genuinely lacks the specific and you cannot supply one without inventing (the cardinal sin), leave a bracketed prompt: `[specify: a concrete example here]`. Do **not** fabricate the example, and do **not** silently smooth the gap away.
+3. **Tighten as a last resort** — only after 1 and 2.
+
+Never trade authority or voice for a lower word count. A faithful, vivid, slightly-longer line beats a faithful, flat, shorter one. Economy is in service of impact, not the reverse — especially in opinion/argument and narrative, where a flattened draft is a worse outcome than a wordy one.
+
 ## Output
 
 Default to **two parts**:
