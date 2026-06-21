@@ -14,13 +14,18 @@ The flywheel that turns a measured eval (see [eval-protocol.md](eval-protocol.md
 2. REVISE        make ONE targeted change to the skill addressing that weakness
                  (one hypothesis per round — so the lift is attributable)
 
-3. RE-EVAL       run Tier B on the candidate over the frozen tuning set + FRESH holdouts;
-                 score externally (panel, blind where possible)
+3. RE-EVAL       run Tier B on the candidate over the frozen TUNING set, score externally.
+                 Touch FRESH holdouts only at a PROMOTE check (step 4), never as routine
+                 round feedback — holdout results must NOT feed DIAGNOSE, or the holdout
+                 leaks into the loop. (Diagnose from tuning-set + adversarial findings only.)
 
-4. PROMOTE?      keep the candidate ONLY if:
-                   • it beats `best` by ≥ margin on the holdout, AND
-                   • it regresses NO must-pass check
-                 else REVERT to `best` and try a different/narrower change
+4. PROMOTE?      re-score `best` AND the candidate in the SAME panel pass (absolute scores
+                 drift between runs — only a within-pass delta is trustworthy; see
+                 eval-protocol §6). On a fresh holdout batch, keep the candidate ONLY if:
+                   • it beats `best` by ≥ a margin that EXCEEDS the inter-judge noise band, AND
+                   • it regresses NO must-pass check (this gates independently of the average —
+                     a higher mean does NOT excuse a broken must-pass)
+                 else REVERT to `best` and try a different/narrower change.
 
 5. ADVERSARIAL   red-team the promoted version: a separate agent tries to make it fail or
                  rationalize around its instructions (the writing-skills test).
@@ -33,7 +38,7 @@ The flywheel that turns a measured eval (see [eval-protocol.md](eval-protocol.md
 
 | Stop | Fires when |
 |------|-----------|
-| **self-improving champion** | candidate beats baseline on *fresh* holdouts without weakening a must-pass |
+| **self-improving champion** | candidate beats baseline by a clear margin **sustained across ≥2 separate fresh-holdout batches** (a single promotion is the gate, not this stop) |
 | **quality streak** | N consecutive holdout tasks clear the bar (counter resets on any miss) |
 | **multi-LLM convergence** | two independent reviewers approve the *same unchanged* version |
 | **diminishing returns** | last K rounds each produced < threshold lift (with a minimum-rounds floor) |
@@ -56,7 +61,7 @@ Compose them: a typical run stops on *champion + streak*, with *diminishing-retu
 > **Freeze:** 8 real product briefs (5 tuning, 3 holdout) + the PRD rubric + must-pass {"every metric has baseline+direction+deadline", "non-goals always present"}. Bar: holdout mean ≥ 4.0/5, win-rate ≥ 0.8.
 > **Baseline:** skill arm 3.4 vs no-skill 2.9. Weakest dimension: *success metrics* (2.6) — vanity metrics with no baseline.
 > **Round 1 — Revise:** add a clarify-gate that refuses to emit a metric without baseline+direction+deadline. **Re-eval:** metrics 2.6→4.1, others flat, no must-pass regression → **PROMOTE**.
-> **Round 2 — Diagnose:** *non-goals* thin (3.1). **Revise:** require an explicit "Out of scope (and why)" block. **Re-eval:** non-goals 3.1→4.0 but *traceability* dropped 4.2→3.6 → must-pass intact but net wobble → **keep (net +), flag traceability for next round**.
+> **Round 2 — Diagnose:** *non-goals* thin (3.1). **Revise:** require an explicit "Out of scope (and why)" block. **Re-eval:** non-goals 3.1→4.0 but *traceability* dropped 4.2→3.6. Even though traceability isn't a named must-pass, a 0.6 drop is a real regression the average would hide → **REVERT, and re-revise more narrowly** (add the non-goals block *without* the change that displaced traceability). Re-eval: non-goals 3.1→3.9, traceability holds 4.2 → **PROMOTE**. *(Lesson: don't let a net-positive mean excuse a real per-dimension regression — narrow the change until both hold.)*
 > **Round 3 — Adversarial:** red-teamer feeds a brief with no baseline data; skill estimates one silently (must-pass violation). **Revise:** skill must mark it `TBD` and ask, never fabricate. **Re-eval:** holds.
 > **Stop:** rounds 4-5 yield <0.1 lift on holdout AND two independent reviewers approve the same version → *diminishing-returns + convergence*. **Ship.** Lift curve: holdout 3.4 → 4.3, win-rate 0.6 → 0.9.
 

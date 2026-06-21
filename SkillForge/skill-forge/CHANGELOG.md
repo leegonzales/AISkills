@@ -5,6 +5,24 @@ All notable changes to the Skill Forge skill will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-06-21
+
+### Added (adversarial hardening from skill-forge's own forge run)
+- **Value-shape classification (workflow step 1):** declare how the skill's value shows up — (a) artifact-quality lift, (b) reliability/variance reduction, (c) gating/refusal/correctness, (d) routing/selection, (e) interaction/process — and design the eval per type. Fixes a CRITICAL hole: the default mean-lift artifact eval mis-measures safety/gate/variance skills and the loop would "improve" away a safety gate.
+- **Baseline-contamination guidance (workflow step 3):** build eval tasks where the base model genuinely struggles; read near-zero lift correctly (skill-useless vs base-already-competent), don't assume 0 lift = worthless. (CRITICAL — empirically seen as strong baselines in both 2026-06-21 forge runs.)
+
+### Fixed
+- **Contradiction:** holdout was "sacred, only at promotion" (eval-protocol) but "re-eval every round" (SKILL.md). Reconciled: diagnose from tuning-set + adversarial findings only; touch fresh holdouts only at the promote check; holdout results never feed diagnosis.
+- **Illusory stop:** `self-improving champion` was identical to the per-round promote gate. Now distinct: the stop requires a clear margin sustained across ≥2 separate fresh-holdout batches.
+- **within-round vs keep-best collision:** promotion now re-scores `best` + candidate in the SAME panel pass (only within-pass deltas are trustworthy), with the margin required to exceed the noise band.
+- **Worked example** no longer keeps a per-dimension regression on a net-positive average (the anti-pattern the skill warns against) — it reverts and re-revises narrowly.
+
+### Known backlog (deferred MAJOR findings)
+- No cost/length axis; blind panels are length-biased toward the skill arm.
+- "External/holdout/bar" asserted not verified — no judge-correlation measurement, no leak/distribution-distance check on holdouts, no floor forcing the pre-committed bar above baseline.
+- Selecting-on-noise: diagnosing the weakest of 6+ dimensions at n=5 chases noise (multiple-comparisons).
+- No guidance for tool/state/environment-dependent skills; no explicit "skill is net-negative — don't ship at all" exit.
+
 ## [1.1.0] - 2026-06-21
 
 ### Added
