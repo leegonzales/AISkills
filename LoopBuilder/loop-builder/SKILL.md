@@ -23,7 +23,7 @@ Two kinds of stop:
 ## Build workflow
 
 1. **State the goal as a stop, not a body.** Write the sentence "this loop is done when ___." If you can't finish it, you don't understand the loop yet.
-2. **Classify the stop.** Is "done" a predicate (deterministic) or a judgment (non-deterministic)? If deterministic — write the predicate, add a budget cap, done. If non-deterministic — continue.
+2. **Classify the stop.** Is "done" a predicate (deterministic) or a judgment (non-deterministic)? If deterministic — write the predicate, add a budget cap, done. If non-deterministic — continue. *Discovery/coverage cue:* if the work to do is **enumerable** ("can I list the things to check?" — files, endpoints, rows), it's **worklist-exhaustion (deterministic)**, not saturation; only genuinely unlistable spaces need a judgment stop.
 3. **Pick a stop family** (see taxonomy below) — judge-gate, convergence, mutual-approval, diminishing-returns, streak, saturation, holdout-generalization, human-checkpoint, epistemic-stopping-point. Often compose 2-3.
 4. **Pick or adapt a loop shape** from **[references/loop-library.md](references/loop-library.md)** (57 cataloged loops by category, each tagged deterministic vs non-deterministic with its stop family). Don't invent what's cataloged.
 5. **Add the mandatory guardrails** (below).
@@ -38,7 +38,8 @@ Two kinds of stop:
 | **mutual-approval** | 2+ *independent* reviewers approve the same unchanged version |
 | **diminishing-returns** | marginal gain per round drops below threshold (with a minimum-rounds floor) |
 | **streak** | N consecutive successes (counter resets on any failure) |
-| **saturation (loop-until-dry)** | K consecutive rounds find nothing new |
+| **coverage / worklist-exhaustion** | an *enumerable* work set is fully processed — *deterministic*; prefer this whenever the discovery space is finite/listable |
+| **saturation (loop-until-dry)** | K consecutive rounds find nothing new — only for *unbounded/unlistable* discovery |
 | **holdout-generalization** | the gain holds on fresh, unseen cases (anti-overfit) |
 | **human-checkpoint** | a person decides continue/stop at a gate or on a signal |
 | **epistemic-stopping-point** | one more round wouldn't change the downstream decision |

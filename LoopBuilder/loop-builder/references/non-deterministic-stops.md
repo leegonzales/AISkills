@@ -53,10 +53,11 @@ Pick one (or compose several). Each: what it is · when to use · how to impleme
 - **Fails via:** N too small (luck passes as proof). **Mitigate:** size N to the confidence you need; diversify the cases so a streak means generalization, not repetition.
 
 ### 6. Saturation (loop-until-dry)
-- **What:** stop after K consecutive rounds surface **nothing new** (no new bugs/findings/ideas).
-- **When:** discovery/coverage of unknown size (bug hunts, audits, ideation).
+- **FIRST, classify the discovery space — this is the most-missed call.** Is the space **enumerable** (a finite, prioritizable work set: the files in a repo, the endpoints in an API, the rows in a table)? Then you don't have a non-deterministic stop at all — you have **coverage / worklist-exhaustion**, a *deterministic* stop: build the worklist, process until empty, done. Reach for saturation **only** when the space is genuinely *unbounded or unknown-size* (open-ended ideation, "what else could break?" with no enumerable surface). Misclassifying an enumerable problem as saturation is a real and common error: it swaps a clean, complete, deterministic exhaustion for a fuzzy "K dry rounds" guess that can false-saturate on the easy tail. When in doubt, ask: *can I list the things to check?* If yes → worklist-exhaustion (deterministic), optionally with a budget cap and a priority order so you cover highest-value items first. Use saturation only for the genuinely unlistable remainder.
+- **What (saturation proper):** stop after K consecutive rounds surface **nothing new** (no new findings/ideas) over a space you *cannot* enumerate.
+- **When:** open-ended discovery of unknown size where no worklist exists.
 - **Implement:** dedup each round's output against a `seen` set; count consecutive empty rounds; stop at K.
-- **Fails via:** stopping at the easy tail; correlated searchers all missing a whole modality (so "dry" is false). **Mitigate:** diverse search angles each round; a final completeness-critic pass ("what modality did we never try?").
+- **Fails via:** stopping at the easy tail; correlated searchers all missing a whole modality (so "dry" is false); **and being used at all when the space was actually enumerable.** **Mitigate:** classify enumerable-vs-unbounded first; diverse search angles each round; a final completeness-critic pass ("what modality did we never try?").
 
 ### 7. Holdout generalization
 - **What:** promote/stop only when the gain holds on **fresh cases unseen during iteration**.
