@@ -23,7 +23,7 @@ Two kinds of stop:
 ## Build workflow
 
 1. **State the goal as a stop, not a body.** Write the sentence "this loop is done when ___." If you can't finish it, you don't understand the loop yet.
-2. **Classify the stop.** Is "done" a predicate (deterministic) or a judgment (non-deterministic)? If deterministic — write the predicate, add a budget cap, done. If non-deterministic — continue. *Discovery/coverage cue:* if the work to do is **enumerable** ("can I list the things to check?" — files, endpoints, rows), it's **worklist-exhaustion (deterministic)**, not saturation; only genuinely unlistable spaces need a judgment stop.
+2. **Classify the stop.** Is "done" a predicate (deterministic) or a judgment (non-deterministic)? If deterministic — write the predicate, add a budget cap, done. If non-deterministic — continue. *Discovery/coverage cue:* classify on the **search territory, not the findings**, then ask **is the territory static or regenerating?** Static + listable (files, rows) → **coverage/worklist-exhaustion** (deterministic, process until empty). Regenerating + listable (logs, queues) → **loop-until-dry with a budget as the *primary* stop** (process-until-empty runs forever if it refills). Only a space with *no listable surface* needs pure **saturation**.
 3. **Pick a stop family** (see taxonomy below) — judge-gate, convergence, mutual-approval, diminishing-returns, streak, saturation, holdout-generalization, human-checkpoint, epistemic-stopping-point. Often compose 2-3.
 4. **Pick or adapt a loop shape** from **[references/loop-library.md](references/loop-library.md)** (57 cataloged loops by category, each tagged deterministic vs non-deterministic with its stop family). Don't invent what's cataloged.
 5. **Add the mandatory guardrails** (below).
@@ -38,8 +38,9 @@ Two kinds of stop:
 | **mutual-approval** | 2+ *independent* reviewers approve the same unchanged version |
 | **diminishing-returns** | marginal gain per round drops below threshold (with a minimum-rounds floor) |
 | **streak** | N consecutive successes (counter resets on any failure) |
-| **coverage / worklist-exhaustion** | an *enumerable* work set is fully processed — *deterministic*; prefer this whenever the discovery space is finite/listable |
-| **saturation (loop-until-dry)** | K consecutive rounds find nothing new — only for *unbounded/unlistable* discovery |
+| **coverage / worklist-exhaustion** | a *static* enumerable work set is fully processed — *deterministic*; the default for any listable, non-changing territory |
+| **loop-until-dry + re-scan** | a *regenerating* enumerable territory (logs, queues) is drained — here the **budget is the primary stop**, not a backstop (process-until-empty runs forever if it refills) |
+| **saturation** | K consecutive rounds find nothing new — only for *non-enumerable* discovery (no listable surface at all) |
 | **holdout-generalization** | the gain holds on fresh, unseen cases (anti-overfit) |
 | **human-checkpoint** | a person decides continue/stop at a gate or on a signal |
 | **epistemic-stopping-point** | one more round wouldn't change the downstream decision |
@@ -53,6 +54,7 @@ Full detail, implementation, and per-family failure modes: **[references/non-det
 3. **Keep-best, not keep-last.** Track and return the best artifact across rounds; non-deterministic loops can degrade — don't assume the latest is the best.
 4. **Diverse > redundant judges.** Correlated reviewers give false confidence; two copies of one judge ≈ one judge (effective-n).
 5. **Pre-commit the bar in writing.** A bar you can move mid-loop isn't a bar.
+6. **Side effects break keep-best.** If the body acts irreversibly each round (deletes, sends, deploys), you can't "ship the best earlier version." Loop to a *decision* then act once, or checkpoint/dry-run each action, or gate it behind a human. keep-best only protects *pure* loops. (See references/non-deterministic-stops.md.)
 
 The canonical robust shape:
 ```

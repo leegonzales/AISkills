@@ -53,7 +53,12 @@ Pick one (or compose several). Each: what it is · when to use · how to impleme
 - **Fails via:** N too small (luck passes as proof). **Mitigate:** size N to the confidence you need; diversify the cases so a streak means generalization, not repetition.
 
 ### 6. Saturation (loop-until-dry)
-- **FIRST, classify the discovery space — this is the most-missed call.** Is the space **enumerable** (a finite, prioritizable work set: the files in a repo, the endpoints in an API, the rows in a table)? Then you don't have a non-deterministic stop at all — you have **coverage / worklist-exhaustion**, a *deterministic* stop: build the worklist, process until empty, done. Reach for saturation **only** when the space is genuinely *unbounded or unknown-size* (open-ended ideation, "what else could break?" with no enumerable surface). Misclassifying an enumerable problem as saturation is a real and common error: it swaps a clean, complete, deterministic exhaustion for a fuzzy "K dry rounds" guess that can false-saturate on the easy tail. When in doubt, ask: *can I list the things to check?* If yes → worklist-exhaustion (deterministic), optionally with a budget cap and a priority order so you cover highest-value items first. Use saturation only for the genuinely unlistable remainder.
+- **FIRST, classify the discovery space — this is the most-missed call, and the trap is subtle.** Separate the **search territory** (the surface you sweep) from the **findings** (what you're looking for). The findings are often unbounded ("all the bugs", "every edge case"). Classify on the **territory**, and on a *second* axis — **is the territory static or regenerating during the sweep?** Three cases, three different stops:
+  - **Static enumerable territory** (files in a repo at HEAD, rows in a fixed table, endpoints in a spec) → **coverage / worklist-exhaustion**, a *deterministic* stop: build the prioritized worklist, process every item until empty, done. Budget is a backstop.
+  - **Regenerating / streaming enumerable territory** (error logs, a live queue, lint on a changing tree, a self-feeding codegen worklist) → **loop-until-dry *with a re-scan*** — and here the **budget ceiling is the PRIMARY termination guarantee, not a backstop**, because "process until empty" can run forever when items refill as fast as you clear them. A regeneration detector (is the inflow rate ≥ the clear rate?) is mandatory; if it is, you're draining an ocean — switch to a time-boxed/rate-based stop, not exhaustion.
+  - **Non-enumerable space** (open-ended ideation, "what else could possibly break?" with no listable surface) → **true saturation**: K consecutive dry rounds.
+  The classic error: seeing unbounded *findings* → reaching for saturation → throwing away the clean deterministic coverage you could have had over a static territory. The *dangerous* error: seeing a listable territory → "process until empty" → **runaway** on a regenerating queue. Ask both: *can I list the territory?* and *does it refill while I work?*
+  (Note: some `loop-library.md` entries are tagged "Det | saturation" — read those as the *static-coverage* or *regenerating-drain* cases above; the library label predates this three-way split.)
 - **What (saturation proper):** stop after K consecutive rounds surface **nothing new** (no new findings/ideas) over a space you *cannot* enumerate.
 - **When:** open-ended discovery of unknown size where no worklist exists.
 - **Implement:** dedup each round's output against a `seen` set; count consecutive empty rounds; stop at K.
@@ -104,6 +109,14 @@ return best                                  # ship the best, not the last
 Note **`keep-best`**: track and return the best artifact across iterations; never assume the latest round is the best — non-deterministic loops can degrade.
 
 ---
+
+## Side effects break keep-best — handle them explicitly
+
+The canonical shape assumes a **pure body**: each round produces a *candidate* you can score and discard. Many real loops **act on the world** each round — delete files, send email, open PRs, change prod config. For those, "keep-best, ship the best not the last" is a **dangerous illusion**: you cannot un-send round 3's email or un-delete its branch by selecting an earlier "best." When the body has irreversible side effects:
+
+- **Separate proposing from committing.** Loop to a *decision* (pure), then act once at the end — don't act every round.
+- If you must act each round: **dry-run / checkpoint / commit-per-round** so each action is individually reversible, and treat the loop as advancing real state (not producing a discardable candidate). keep-best does not apply; "best" is wherever you stopped.
+- **Gate irreversible actions behind a confirmation or a human checkpoint**, especially when the stop is a judgment.
 
 ## Design rules (the checklist)
 
