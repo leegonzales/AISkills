@@ -9,7 +9,7 @@ To use a skill:
 2. Read the corresponding `SKILL.md` file
 3. Follow the persona, constraints, and output formats defined
 
-## Skills (49 total)
+## Skills (47 total)
 
 | Skill | Description | Path |
 |-------|-------------|------|
@@ -35,7 +35,6 @@ To use a skill:
 | Fabric Patterns | Run danielmiessler/fabric CLI patterns for analysis, extraction, summarization | `FabricPatterns/fabric-patterns/SKILL.md` |
 | Flywheel Scan | Cross-project roadmap discovery with parallel domain scouts | `FlywheelScan/flywheel-scan/SKILL.md` |
 | Gemini Peer Review | AI peer review via Gemini CLI | `GeminiPeerReview/gemini-peer-review/SKILL.md` |
-| Inevitability Engine | AI business opportunity discovery | `InevitabilityEngine/inevitability-engine/SKILL.md` |
 | MCP Builder | Build Model Context Protocol servers | `MCPBuilder/mcp-builder/SKILL.md` |
 | Git Secure | Transparent repo encryption with git-crypt + age snapshots | `git-secure/SKILL.md` |
 | Moltbook Enclave | Secure, air-gapped interface for Moltbook social network | `MoltbookEnclave/moltbook-enclave/SKILL.md` |
@@ -54,7 +53,6 @@ To use a skill:
 | Research to Essay | Convert research notes to essays | `ResearchToEssay/research-to-essay/SKILL.md` |
 | Sand Table | Design and validate simulations using the Sand Table event stream protocol | `SandTable/sand-table/SKILL.md` |
 | Second Brain | Personal knowledge capture and management | `SecondBrain/second-brain/SKILL.md` |
-| Writing Skills | General writing assistance | `WritingSkills/writing-skills/SKILL.md` |
 | PR Review Loop | Manage PR feedback cycles with Gemini/Claude | `PRReviewLoop/pr-review-loop/SKILL.md` |
 | Veo3 Prompter | Craft cinematic prompts for Veo 3.1 video | `Veo3Prompter/veo3-prompter/SKILL.md` |
 | Silicon Doppelganger | Build personal proxy agents for PAIRL Conductor | `SiliconDoppelganger/silicon-doppelganger/SKILL.md` |
@@ -77,7 +75,7 @@ To use a skill:
 - Codex Peer Review, Gemini Peer Review, Codebase Navigator, MCP Builder, Playwright, PR Review Loop, Unix Review, Requesting Code Review
 
 **Writing & Content**
-- Prose Polish, Prose Polish Redline, Read Aloud, Research to Essay, Essay to Speech, Writing Skills, Claimify, Writing Partner, Presentation Partner
+- Prose Polish, Prose Polish Redline, Read Aloud, Research to Essay, Essay to Speech, Claimify, Writing Partner, Presentation Partner
 
 **AWS & Cloud**
 - AWS CDK, AWS Cost Ops, AWS Serverless
@@ -86,7 +84,7 @@ To use a skill:
 - CSV Summarizer, Excel Auditor, Process Mapper, Sand Table
 
 **AI & Automation**
-- Inevitability Engine, Context Continuity, Context Continuity Code, Agent Mail, Silicon Doppelganger, Claude Speak, Second Brain, Fabric Patterns
+- Context Continuity, Context Continuity Code, Agent Mail, Silicon Doppelganger, Claude Speak, Second Brain, Fabric Patterns
 
 **Security & Isolation**
 - Git Secure, Moltbook Enclave

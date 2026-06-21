@@ -269,7 +269,7 @@ This triggers the AI to:
 3. Maintain consistency with the commitment
 4. Resist deviating from the established pattern
 
-**Research Connection**: See WritingSkills/references/persuasion-principles.md - Commitment & Consistency principle.
+**Research Connection**: See the Commitment & Consistency principle (Cialdini, *Influence*).
 
 ### Mechanism 2: Authority (Expert Directive)
 
@@ -546,39 +546,39 @@ then determining what [actions] are most relevant.**
 
 ---
 
-## Connections to Writing Skills Research
+## Connections to Persuasion & Writing Research
 
-The CSV Data Summarizer's "DO NOT ASK" pattern aligns with persuasion principles from WritingSkills:
+The CSV Data Summarizer's "DO NOT ASK" pattern aligns with established persuasion and technical-writing principles:
 
 ### 1. Commitment & Consistency (Cialdini)
 - **Skill Application**: "THE USER WANTS A FULL ANALYSIS RIGHT AWAY"
 - **Mechanism**: Creates commitment through expectation framing
 - **Effect**: AI commits to fulfilling the stated expectation
-- **See**: WritingSkills/references/persuasion-principles.md
+- **Source**: Cialdini, *Influence* — Commitment & Consistency
 
 ### 2. Authority (Cialdini)
 - **Skill Application**: ⚠️ WARNING symbol and "CRITICAL" framing
 - **Mechanism**: Positions instruction as authoritative directive
 - **Effect**: Increases compliance and attention
-- **See**: WritingSkills/references/persuasion-principles.md
+- **Source**: Cialdini, *Influence* — Authority
 
 ### 3. Social Proof (Cialdini)
 - **Skill Application**: ✅ "CORRECT APPROACH" vs ❌ "NEVER SAY"
 - **Mechanism**: Models desired behavior explicitly
 - **Effect**: Creates clear social norm to follow
-- **See**: WritingSkills/references/persuasion-principles.md
+- **Source**: Cialdini, *Influence* — Social Proof
 
 ### 4. Direct Language (Plain Language Movement)
 - **Skill Application**: "JUST DO IT" - Simple, imperative
 - **Mechanism**: Eliminates ambiguity through direct command
 - **Effect**: Triggers immediate action
-- **See**: WritingSkills/references/plain-language-guide.md
+- **Source**: Plain Language Movement — direct, imperative phrasing
 
 ### 5. Visual Hierarchy (Technical Writing)
 - **Skill Application**: Bold, caps, emojis for prominence
 - **Mechanism**: Creates visual salience for critical instructions
 - **Effect**: Ensures key directives are noticed and prioritized
-- **See**: WritingSkills/references/technical-writing-best-practices.md
+- **Source**: Technical-writing best practices — visual hierarchy
 
 ---
 

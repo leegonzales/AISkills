@@ -25,7 +25,7 @@ Skills are modular capabilities that Claude automatically discovers and uses bas
 | [Unix Review](UnixReview/) | Codebase evaluation against Unix philosophy, SOLID, and AI-Readiness | Code |
 | [Requesting Code Review](RequestingCodeReview/) | Dispatch three independent code reviewers in parallel | Code |
 
-### Writing & Content (9 skills)
+### Writing & Content (8 skills)
 
 | Skill | Description | Platform |
 |-------|-------------|----------|
@@ -35,18 +35,16 @@ Skills are modular capabilities that Claude automatically discovers and uses bas
 | [Essay to Speech](EssayToSpeech/) | Transform essays into spoken word presentations | All |
 | [Read Aloud](ReadAloud/) | TTS audio reader with word-synced highlighting via Kokoro | Code |
 | [Writing Partner](WritingPartner/) | Collaborative essay writing with interview, thread tracking, voice calibration | All |
-| [Writing Skills](WritingSkills/) | META-SKILL: TDD methodology for documentation ("Iron Law") | All |
 | [Claimify](Claimify/) | Transform discourse into structured argument maps | All |
 | [Presentation Partner](PresentationPartner/) | Collaborative presentation authoring with Talk Track v5 format | All |
 
-### Analysis & Reasoning (7 skills)
+### Analysis & Reasoning (6 skills)
 
 | Skill | Description | Platform |
 |-------|-------------|----------|
 | [Concept Forge](ConceptForge/) | Dialectical concept development with 13 interrogation archetypes | All |
 | [Process Mapper](ProcessMapper/) | Map workflows, extract SOPs, identify automation opportunities | All |
 | [Excel Auditor](ExcelAuditor/) | Audit Excel files, analyze formulas, assess risk | All |
-| [Inevitability Engine](InevitabilityEngine/) | AI business opportunity discovery with inevitability scoring | All |
 | [CSV Data Summarizer](CSVDataSummarizer/) | Proactive CSV analysis (exemplary "DO NOT ASK" design pattern) | All |
 | [Silicon Doppelganger](SiliconDoppelganger/) | Digital Twin personas for team dynamics and decision forecasting | All |
 | [Sand Table](SandTable/) | Design and validate simulations using the Sand Table event stream protocol | All |
@@ -115,7 +113,7 @@ cp -r /path/to/AISkills/ProsePolish/prose-polish your-project/.claude/skills/
 2. Go to [claude.ai](https://claude.ai) → Settings → Capabilities
 3. Click "Upload skill" and select the file
 
-**Available packages:** [ProsePolish](ProsePolish/dist/), [MCPBuilder](MCPBuilder/dist/), [Playwright](PlaywrightSkill/dist/), [WritingSkills](WritingSkills/dist/), [ArtifactsBuilder](ArtifactsBuilder/dist/), and more in each skill's `dist/` folder.
+**Available packages:** [ProsePolish](ProsePolish/dist/), [MCPBuilder](MCPBuilder/dist/), [Playwright](PlaywrightSkill/dist/), [ArtifactsBuilder](ArtifactsBuilder/dist/), and more in each skill's `dist/` folder.
 
 ---
 
@@ -168,7 +166,7 @@ cp -r SkillTemplate/skill-template NewSkill/new-skill
 ./SkillPackager/scripts/package-skill.sh NewSkill/new-skill
 ```
 
-**The Iron Law (from Writing Skills META-SKILL):** NO SKILL WITHOUT A FAILING TEST FIRST
+**The Iron Law:** NO SKILL WITHOUT A FAILING TEST FIRST (the full TDD-for-documentation methodology now lives in the writing-skills skill, served externally)
 
 See [agent_docs/creating-skills.md](agent_docs/creating-skills.md) for full guide.
 
@@ -213,7 +211,7 @@ Minimum quality score: **85/100** on evaluation rubric. See [agent_docs/quality.
 
 1. Fork repository
 2. Use SkillTemplate as starting point
-3. Follow Writing Skills methodology (test first)
+3. Follow test-first methodology (write a failing test before the skill)
 4. Include comprehensive SKILL.md with clear triggers
 5. Add examples in references/
 6. Create versioned release in dist/
@@ -234,6 +232,6 @@ MIT License. Individual skills may have their own licenses - check skill directo
 
 ---
 
-**47 skills** | **MIT License** | **Last Updated:** 2026-03-19
+**47 skills** | **MIT License** | **Last Updated:** 2026-06-20
 
 Built with Claude Code | [Learn More](https://docs.anthropic.com/en/docs/claude-code)
