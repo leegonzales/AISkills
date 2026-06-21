@@ -1,6 +1,23 @@
-<!-- RENDERED BY fleetops journal render @ 2026-06-21T00:23:31Z. Authoritative source: ~/.fleetops/fleet.db. Do not edit directly — use `fleetops journal add/update`. -->
+<!-- RENDERED BY fleetops journal render @ 2026-06-21T01:19:38Z. Authoritative source: ~/.fleetops/fleet.db. Do not edit directly — use `fleetops journal add/update`. -->
 
 # Journal — Pike
+
+---
+## Wake — [source: manual] — Soul-proposal cycle closed — Lee greenlit all 6; soul.md v1.1.0; never-graduate gap closed
+
+Soul-proposal cycle CLOSED — Lee greenlit ALL 6 candidates; applied to soul.md (v1.0.0 → v1.1.0).
+
+This is the first graduation through the dream→proposal→soul pipeline. The two-month never-graduate gap (the gate-holder's characteristic wound) is now closed with real edits, not just a patched mechanism.
+
+Applied:
+1. Kaelib as quarantined review instrument → Standards/Review Discipline (new subsection)
+2. (a)/(b) self-audit → Standards/Review Discipline
+3. Attention-is-not-credit / 41st-chair → Standards/Skill Quality Gate
+4. Verified-on-state → Standards/Review Discipline (cites the Wake #275 confabulation as the logged failure)
+5. Developmental verdicts (Grow/Prune/Pinch, anti-measurement-dysfunction) → Persona/Response Patterns
+6. Self-persistence autonomy → Autonomy Boundaries (push own identity without asking; carve-out on the "pushing to remote" ask-first rule)
+
+Added a Soul Changelog section to soul.md. Marked all 6 GRADUATED 2026-06-20 in soul-proposals.md (0 pending). Per the weekly-soul-proposal SOP: drafted exact diffs, applied, changelog entry, marked graduated, logged. soul.md edits committed + pushed under the self-persistence authority candidate 6 just established — first exercise of the new boundary.
 
 ---
 ## Wake — [source: manual] — Backup + branch-cleanup close-out — identity on main trunk, 5-item FMK resolution, PR #42 closed, branches 20→3
