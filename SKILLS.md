@@ -9,7 +9,7 @@ To use a skill:
 2. Read the corresponding `SKILL.md` file
 3. Follow the persona, constraints, and output formats defined
 
-## Skills (48 total)
+## Skills (49 total)
 
 | Skill | Description | Path |
 |-------|-------------|------|
@@ -35,6 +35,7 @@ To use a skill:
 | Fabric Patterns | Run danielmiessler/fabric CLI patterns for analysis, extraction, summarization | `FabricPatterns/fabric-patterns/SKILL.md` |
 | Flywheel Scan | Cross-project roadmap discovery with parallel domain scouts | `FlywheelScan/flywheel-scan/SKILL.md` |
 | Gemini Peer Review | AI peer review via Gemini CLI | `GeminiPeerReview/gemini-peer-review/SKILL.md` |
+| Loop Builder | Design robust agent loops with sound stop conditions (esp. non-deterministic) | `LoopBuilder/loop-builder/SKILL.md` |
 | MCP Builder | Build Model Context Protocol servers | `MCPBuilder/mcp-builder/SKILL.md` |
 | MCP Proxy | Manage the MCP proxy multiplexer — health checks, status, config, troubleshooting | `McpProxyMux/mcp-proxy/SKILL.md` |
 | Git Secure | Transparent repo encryption with git-crypt + age snapshots | `git-secure/SKILL.md` |
@@ -94,4 +95,4 @@ To use a skill:
 - Artifacts Builder, Nano Banana, NotebookLM, Concept Forge, Slide Builder, Veo3 Prompter
 
 **Meta & Documentation**
-- Claude Project Docs, Dad Joke Validator, Profile Builder, Project Builder, Skill Extractor, Build Timeline, Flywheel Scan
+- Claude Project Docs, Dad Joke Validator, Profile Builder, Project Builder, Skill Extractor, Build Timeline, Flywheel Scan, Loop Builder
