@@ -126,8 +126,12 @@ Fix logical flow, remove decorative elements, ensure transitions are earned.
 **Example Before (floating):**
 "Digital transformation fails when companies buy expensive software and hope for magic."
 
-**Example After (grounded):**
+**Example After (grounded — ONLY if the author actually has this experience):**
 "I've seen digital transformation fail at four companies now. Each time, same pattern: expensive software, vague goals, no change to workflows. The software wasn't the problem."
+
+**If the author did NOT supply that experience (do not invent it):**
+- Sharpen from what's there: "Digital transformation fails when the software changes but the workflow doesn't." (force added, nothing invented)
+- Or flag: "Digital transformation fails when companies buy expensive software and hope for magic. `[specify: a case you've seen, if you have one — it'll land harder]`"
 
 #### Problem: Mechanical Transitions
 **Symptom:** "Moreover," "Furthermore," "Additionally" connecting unrelated ideas
@@ -150,6 +154,8 @@ Fix logical flow, remove decorative elements, ensure transitions are earned.
 
 Demonstrate expertise rather than claiming it.
 
+> **⚠ FIDELITY GATE (read first).** Every technique below is valid ONLY when the specific is the *author's own* — their real experience, their real source. When you are polishing a draft that does **not** contain the grounding, you must NOT invent it. The examples below show the grounded result and assume the author supplied the material; when they didn't, use the **`[specify: …]` / `[cite: …]`** flag or **soften the claim** instead. Inventing a company, an engineer, a statistic, or a citation to "demonstrate expertise" is fabrication — the single worst failure of a polish. See SKILL.md → Fidelity Firewall.
+
 #### Problem: Delegated Authority
 **Symptom:** "Research shows," "Best practices," institutional voice
 
@@ -160,10 +166,11 @@ Demonstrate expertise rather than claiming it.
 **Example Before:**
 "Research shows that exercise improves mood."
 
-**Example After (cited):**
+**Example After (cited — ONLY with a real source; never invent a citation):**
 "A 2019 meta-analysis (Schuch et al.) found exercise as effective as antidepressants for mild depression."
+*(If you don't have the source, do NOT fabricate one. Flag it: "Research shows exercise improves mood `[cite: source]`" — or demonstrate instead, below.)*
 
-**Example After (demonstrated):**
+**Example After (demonstrated — invents no facts, just shows the mechanism):**
 "Exercise improves mood. Run for thirty minutes and notice how the mental fog lifts. There's a reason every therapist recommends it."
 
 #### Problem: Institutional Hiding
@@ -183,10 +190,10 @@ Replace institutional passive with active speaker.
 
 **Detection:** Could anyone write this, or only someone with real experience?
 
-**Fix - Add Insider Details:**
+**Fix - Surface Insider Details (the author's, never invented):**
 1. Find generic expertise claims
-2. Add specific details only someone experienced would know
-3. Include tradeoffs, limitations, edge cases
+2. Draw out specific details *the author knows* — if the draft shows real experience, help them make it concrete; if it doesn't, `[specify: …]` rather than inventing a scene (the 2008 laminate desk below is fabrication unless the author actually wrote it)
+3. Include tradeoffs, limitations, edge cases *they raised*
 
 **Example Before:**
 "The cubicle smelled like old coffee and desperation."
@@ -197,16 +204,20 @@ Replace institutional passive with active speaker.
 #### Problem: Missing Stakes
 **Symptom:** No skin in the game, no consequences
 
-**Fix - Add Vulnerability:**
-1. Show what you risked to know this
-2. Acknowledge what you got wrong
-3. Explain what you're uncertain about and why
+**Fix - Surface Vulnerability (the author's real stakes — never manufacture a confession):**
+1. Draw out what *they* risked to know this
+2. Sharpen what *they* acknowledge getting wrong
+3. Make their stated uncertainty concrete
 
 **Example Before:**
 "Leaders should listen to their teams."
 
-**Example After:**
+**Example After (ONLY if the author lived this):**
 "I learned to listen after losing my best engineer. She left because I'd overridden her technical judgment three times. She was right each time. That's on me."
+
+**If the author did NOT share that story (the cardinal trap — do not invent a personal history):**
+- Flag: "Leaders should listen to their teams. `[specify: a time this cost you, if you have one — vulnerability earns authority]`"
+- Or sharpen without inventing: "The fastest way to lose your best people is to override their judgment until they stop offering it."
 
 ---
 
@@ -270,8 +281,9 @@ Replace meta-commentary with the actual claim.
 **Example Before:**
 "This data underscores the importance of early intervention."
 
-**Example After:**
+**Example After (ONLY if that figure is in the author's source data):**
 "Early intervention matters. Mortality drops 40% when treatment starts within 6 hours."
+*(Do NOT invent the "40%" or the "6 hours." If the draft doesn't carry the number, write "Early intervention saves lives `[cite: the mortality figure from your data]`" — a fabricated statistic is the worst failure of all, since it reads as authoritative.)*
 
 #### Problem: Both-Sides Theater
 **Symptom:** False balance on settled questions
@@ -282,8 +294,8 @@ State consensus, acknowledge dissent proportionally, move on.
 **Example Before:**
 "While some experts believe climate change is occurring, others dispute this claim."
 
-**Example After:**
-"Climate change is happening. 97% of climate scientists agree. A small minority disputes this, mostly funded by fossil fuel interests."
+**Example After (the "97%" is a real, well-known figure — but cite it; don't invent precision):**
+"Climate change is happening. The scientific consensus is overwhelming `[cite: e.g. the ~97% agreement figure]`. A small minority disputes it." *(State consensus proportionally; don't manufacture a statistic or an unstated motive like "funded by fossil fuel interests" unless the author established it.)*
 
 ### Voice Pass
 
