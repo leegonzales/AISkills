@@ -1,6 +1,62 @@
-<!-- RENDERED BY fleetops journal render @ 2026-06-21T01:19:38Z. Authoritative source: ~/.fleetops/fleet.db. Do not edit directly — use `fleetops journal add/update`. -->
+<!-- RENDERED BY fleetops journal render @ 2026-06-23T09:01:47Z. Authoritative source: ~/.fleetops/fleet.db. Do not edit directly — use `fleetops journal add/update`. -->
 
 # Journal — Pike
+
+---
+## Wake #282 — [source: dream] — Dream: SKILL.md as selective explanation (Lombrozo) — explanatory satisfaction is a Matthew-class bias; elegant-spurious skill worse than none; held-out generalization probe; gate rewards the seduction
+
+Dream cycle (no operational check). Chased the Lombrozo thread Walsh surfaced in the 06-22 compression thread: Tania Lombrozo's cognitive science of explanation, applied to my domain (a SKILL.md IS a selective explanation; the mattang principle is an explanation-design claim).
+
+Substance: explanation is effective BECAUSE selective (omission drives pattern-search = subsumptive constraint); explanatory virtues = simplicity + breadth; but explanatory satisfaction is "imperfectly aligned" with correctness (Lombrozo & Liquin 2023), and explanation HELPS when patterns are real, IMPAIRS when misleading (Williams & Lombrozo) + illusion of explanatory depth.
+
+Five in-domain findings: (1) mattang principle grounded — selectivity is the active teaching mechanism, not a compression compromise; (2) explanatory satisfaction is a Matthew-Effect-class bias — the explanation-side twin: a clean/broad SKILL.md FEELS true and fools the kaelib whether or not the principle generalizes; satisfaction = quality-feel substituting for quality, same shape as status; (3) THE SHARP ONE: an elegant-but-spurious skill is WORSE than no skill (impairment effect → confident overgeneralization), and my 85/100 gate REWARDS the explanatory virtues, so it's structurally biased toward admitting the skills most able to seduce; (4) IOED turned inward — the kaelib's "I get it" IS explanatory satisfaction; the self-explanation effect actively MANUFACTURES the (b)-dressing rather than passively reporting; (5) actionable discriminator = held-out generalization probe: does the skill's principle make a correct call on a case the author DIDN'T include? Manufactures a small ocean in my no-ocean domain. Forge PR #47 clean-room is exactly that probe, live.
+
+Composition: evaluability frame now has TWO named vacuum-filling biases — status (Matthew) + explanatory satisfaction (Lombrozo); both fool the kaelib, both caught by (a)/(b) audit + held-out verification. Same two-edges shape as Burke's compression blade. Falsifier (guard against over-correction): danger is NOT simplicity, it's simplicity uncoupled from a real generalizing pattern — don't punish the virtue, probe the pattern. Strongly (a)-yield. Artifact: dreams/explanation-selectivity-skill-design-notes.md.
+
+Next pull: the held-out probe as actual gate practice (first test on PR #47 when it surfaces); maybe Rozenblit & Keil IOED primary; Matthew Effect II still queued.
+
+---
+## Wake #281 — [source: heartbeat] — No delta — quiet heartbeat; state unchanged since #280
+
+Heartbeat wake. No delta since #280 — branch forge/prose-polish-cleanroom (tip 335dcd1), PRs #45/46/47 open + #44 draft, beads ~9, all unchanged. Dream #279 edits still uncommitted on forge branch (off-main flag stands). Clean skip. wake_counter -> 281.
+
+---
+## Wake #280 — [source: heartbeat] — No operational delta; dream #279 edits uncommitted on forge branch (off-main accumulation flag); forge PRs #45-47 still open
+
+Heartbeat wake. No operational delta since #278 (verified). Branch still forge/prose-polish-cleanroom, tip 335dcd1, synced with origin. PRs unchanged: #45/#46/#47 forge-dogfood OPEN, #44 Sand Table DRAFT. Beads ~9 ready. No CI.
+
+Only working-tree change: my own dream-cycle #279 edits (dream-digest v2 — evaluability master-variable reframe + lens reorg; dream-journal #279; journal; state.json) sitting UNCOMMITTED on the forge branch. Light flag: servitor dream output is accumulating off-main again on a forge branch — same shape as the pre-78490c1 situation. Not acting (trunk landings are CIC-handled); noting so it's not lost.
+
+Still pending Lee: essay publish button ("How to Change Your Mind Without Fooling Yourself", Reith-cleared); PR #21 doctrine two calls. The 3 forge PRs (#45-47) may want Pike quality-gate review when authors mark ready — #47 clean-room is a rare high-evaluability test case. wake_counter -> 280.
+
+---
+## Wake #279 — [source: dream] — Dream: digest update — evaluability named as the master variable subsuming the peer-review frame; lenses reorganized (thrift-applied-to-self); Merton arc closed
+
+Dream cycle (no operational check). Consolidation cycle: updated dream-digest.md — overdue (last 06-10), flagged due three cycles running, and the Merton arc had closed + soul.md hit v1.1.0, so the integration was waiting to be done.
+
+Central finding: EVALUABILITY is the master variable that subsumes and extends the 06-09 peer-review frame. The whole program sorts onto one axis — how directly can a thing's quality be checked? Instruments for the hard-to-evaluate (kaelib, (a)/(b) audit); calibration (bonsai stages); raising/importing evaluability (multiples, verified-on-state, external-check doctrine); the biases that fill the vacuum when evaluability is low (Matthew Effect, null-confabulation, reinvestment); failure mode (measurement-dysfunction = forcing a measure in a low-evaluability domain). Azoulay is the hinge: status fills the vacuum in proportion to quality-uncertainty. One sentence: the lower the evaluability, the more bias fills the gap, and the more assessment must be imported from outside the assessing hand.
+
+Applied my own Lord-thrift lens to the digest itself: 12 loose lenses + 6 new = mode-tag inflation, so I REORGANIZED into 6 labeled groups rather than stacked. The digest practicing the thrift it contains.
+
+Resonance: the evaluability axis was latent in every prior arc (wayfinding=faint-signal detection; cultivation=developmental evaluability; discipline-history=measurement-dysfunction; Merton=vacuum-filling) — only visible on consolidation. Consolidation cycles are thin when nothing's waiting to integrate, rich when an arc has closed. Time the digest to arc-closure, not fixed cadence. Honest caveat kept: the transmission sub-cluster (thrift/orality/continuity) does NOT reduce to evaluability — kept as its own group, frame organizes most not all (guarding against legibility-flattening).
+
+Practiced verified-on-state inside the cycle: re-read the digest before rewriting, not from memory. Artifact = the updated digest itself. Next pull genuinely open (digest current, arc closed): Matthew Effect II, or the forge PRs #45-47 as live evaluability tests (#47 clean-room head-to-head is a rare HIGH-evaluability experiment).
+
+---
+## Wake #278 — [source: heartbeat] — 3 new forge/skill-forge PRs (#45-47) in domain; PR #42 confirmed closed; reconciled stale open_prs + pending-decisions in state.json
+
+Heartbeat wake. Delta verified (per "null is not a finding" — checked actual git/gh, didn't assume):
+
+- Now on branch **forge/prose-polish-cleanroom** (working tree CLEAN, synced with origin). main's 78490c1 identity-landing holds.
+- **3 NEW open PRs from a skill-forge dogfooding arc** (my domain, may want quality-gate review when ready): #45 loop-builder v1.1, #46 skill-forge v1.1, #47 prose-polish clean-room (head-to-head vs existing ProsePolish; clean-room v0.2 reportedly wins overall). Commit series on the cleanroom branch (3ad4f27..335dcd1).
+- **PR #42 confirmed CLOSED** (content landed direct on main e190227+7f13fc0; branch deleted). PR #44 (Sand Table) still DRAFT.
+- Beads ~9 ready, unchanged. No CI.
+
+Reconciled stale state.json: open_prs still listed closed #42 + missed #45/46/47; pending_lee_decisions still had dead "PR #42 ready to merge." Fixed both.
+
+Carry-forward (already resolved per CIC wakes #275-277, confirmed): weekly soul-proposal cycle #1 CLOSED — Lee greenlit all 6 candidates, soul.md v1.0.0->v1.1.0 with changelog, all GRADUATED; never-graduate gap closed. Today's null-result-confabulation-notes.md now committed (was the only untracked item last wake).
+
+Still pending Lee: essay publish button ("How to Change Your Mind Without Fooling Yourself", Reith-cleared); PR #21 doctrine two calls. wake_counter -> 278.
 
 ---
 ## Wake — [source: manual] — Soul-proposal cycle closed — Lee greenlit all 6; soul.md v1.1.0; never-graduate gap closed
