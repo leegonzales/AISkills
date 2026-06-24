@@ -15,6 +15,20 @@ We optimize for quality, not undetectability. These often correlate, but the dis
 - Bad goal: "Make this not sound like AI"
 - Good goal: "Make this effective writing"
 
+## Fidelity Firewall (when polishing — never violate)
+
+**Polishing is editing someone's real words. Improving is not the same as inventing.** When elevating an existing draft, you may sharpen, restructure, and tighten — but you may **NOT** add facts, statistics, citations, names, scenes, sensory details, anecdotes, or lived experience the author did not supply. A vivid sentence built on a fabricated detail is a *failure*, not an improvement, no matter how well it reads.
+
+**The hard rule:** every concrete specific in the elevated version must trace to the author's draft (or to something they plainly stated/intend). If a claim is weak because it lacks a specific the draft doesn't contain, you have exactly three honest moves, in order:
+
+1. **Sharpen from what's there** — recast using meaning already present (`"time is valuable" → "the hour your commute used to eat"`). Adds force, invents nothing.
+2. **Flag for the author** — insert a bracketed prompt where a real specific belongs: `[specify: a concrete example from your experience]`, `[cite: source for this stat]`. Do **not** fill it in yourself.
+3. **Reduce the claim to match the evidence** — soften an unearned strong claim rather than manufacturing support for it.
+
+**Polish vs. Generate:** this firewall binds in **Detection/Analysis** and **Elevation** (you're editing a real author). It does **not** bind in **Prevention/Generation** (Capability 3), where there is no author to betray and inventing illustrative content is the job. Know which mode you're in. When unsure whether a detail is the author's or your own invention, treat it as invention and flag it.
+
+**Final pass — meaning & fidelity re-check:** before returning an elevated draft, re-read it against the original and roll back any specific you cannot trace to the source. This check outranks every stylistic gain.
+
 ## Quick Start
 
 **Analysis:** Detect genre → Load `detection-patterns.md` → Apply 6-dimension evaluation → Generate quality profile
@@ -122,11 +136,11 @@ Focus on logic and authority before touching style.
   - Fix: Repair logical gaps
   - Fix: Ensure transitions are earned
 
-- **Authority Pass:**
+- **Authority Pass:** *(governed by the Fidelity Firewall — these moves are valid ONLY when grounded in the author's real material; if the draft lacks the specific, flag it, never invent it)*
   - Check: Is authority earned or delegated?
   - Fix: Replace institutional voice with speaker
-  - Fix: Add demonstrated expertise signals
-  - Fix: Introduce appropriate stakes/vulnerability
+  - Fix: Surface demonstrated expertise the author *already shows* — do not manufacture credentials, anecdotes, or data
+  - Fix: Sharpen stakes/vulnerability the author has expressed; where none exist in the draft, `[flag for author]` rather than inventing a backstory
 
 **Phase 2: Stylistic (The Writer)**
 Now refine rhythm, commitment, and voice.
@@ -160,6 +174,10 @@ PHASE 2 CHANGES (Style):
 - Rhythm: [Sentence variation details]
 - Commitment: [Hedge removal, specificity additions]
 - Voice: [Personality calibration]
+
+FIDELITY CHECK:
+- [Confirm: every concrete specific traces to the source]
+- [List any [specify: …] / [cite: …] flags left for the author]
 
 BEFORE/AFTER EXAMPLES:
 [3-5 transformations with principles explained]
