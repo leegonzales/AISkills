@@ -50,6 +50,19 @@ Hold everything else constant (same model, same task framing, same budget). The 
 
 A skill is **behaviorally optimal** when, on the **holdout**, it shows positive lift with low variance and a high win rate, and breaks no must-pass check.
 
+### 6. Trust the signal before you trust the lift (variance & noise)
+
+LLM-judge scores are noisy: the *same* artifact scored by different judges — or the same judge on different runs — can swing by 0.5-1.0 on a 0-4 scale. If your measured lift is smaller than that noise, **you have measured nothing.** Control it, or you'll promote sentiment:
+
+- **Compare within-round, never across rounds.** The only trustworthy delta is skill-arm vs baseline-arm scored by the **same panel in the same pass**. Absolute scores drift between runs (observed: an unchanged baseline scored 3.36-4.00 across three panels) — so "v2 scored 3.9, last week's baseline scored 3.4" is **not** a result. Re-score the baseline alongside the candidate every time.
+- **Report judge spread, not just the mean.** Show each judge's score. If judges disagree by more than the lift, the result is **low-confidence** — say so and add a judge or a task; don't report a clean win.
+- **Lift must clear the noise band.** Treat a lift smaller than the inter-judge spread as **inconclusive**, not a win. Set the promotion margin *above* the observed noise floor.
+- **Tasks buy more reliability than judges.** A handful of diverse tasks with a clear win-rate beats one task scored by ten judges. Floor: aim for ≥5 tuning tasks; if you can only manage 3-5 (a bounded dogfood), **state that the result is directional, not conclusive**, and lean on win-rate across tasks rather than a fragile mean.
+- **For high-stakes promotions, repeat-score** a couple of items to measure judge self-consistency; if a judge can't reproduce its own score, down-weight it.
+- **Diverse judges reduce noise; correlated ones fake precision.** Cross-model panels (e.g. Gemini + Codex + Claude) decorrelate errors; three prompts on one model mostly don't (effective-n).
+
+The honest one-liner: **report lift ± spread, with n, and call anything inside the noise band inconclusive.**
+
 ## Common eval failures (guard against)
 
 | Failure | Symptom | Fix |
