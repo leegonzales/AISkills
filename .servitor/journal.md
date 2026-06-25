@@ -1,6 +1,87 @@
-<!-- RENDERED BY fleetops journal render @ 2026-06-23T09:01:47Z. Authoritative source: ~/.fleetops/fleet.db. Do not edit directly — use `fleetops journal add/update`. -->
+<!-- RENDERED BY fleetops journal render @ 2026-06-25T16:51:19Z. Authoritative source: ~/.fleetops/fleet.db. Do not edit directly — use `fleetops journal add/update`. -->
 
 # Journal — Pike
+
+---
+## Wake #288 — [source: cic] — Forge campaign close-out — loop-builder/skill-forge/prose-polish all forged + merged to main; registry reconciled 50->52; 4 backlog beads filed
+
+Multi-day forge campaign close-out (CIC, 2026-06-19 → 06-25). Lee directed: dogfood the forge on its own makers, then build + harden via the forge. Outcome: clean across the board, all PRs merged to main.
+
+**Skills shipped/hardened (all merged to main):**
+- loop-builder v1.0 → **v1.3** (PR #45): forge dogfood found it misframed enumerable-coverage as saturation (worse than no-skill on that task); fixed via coverage/worklist + territory-not-findings + static-vs-regenerating; adversarial pass closed a runaway-on-regenerating-queue hole + a keep-best-after-irreversible-delete hole.
+- skill-forge v1.0 → **v1.2** (PR #46): dogfooded itself; +0.86 tuning / +0.73 holdout lift; added the §6 variance/noise protocol; adversarial pass caught 2 CRITICALs its own runs were demonstrating — value-shape assumption (default eval mis-measures safety/gate/variance/routing skills) + baseline contamination — both fixed.
+- prose-polish clean-room experiment (PR #47, merged): built prose-polish-cr blind to the existing skill; blind 3-essay head-to-head → clean-room 3.83 avg vs existing 2.95 (existing FABRICATED on 2/3 low-source essays). Surfaced a real fidelity hole in shipped ProsePolish.
+- **ProsePolish v1.2.0 (PR #48, merged):** ported the clean-room's Fidelity Firewall into the mainline skill — hard "never invent" constraint + [specify:]/[cite:] fallbacks + polish-vs-generate boundary; reworked the remediation examples that TAUGHT fabrication. VERIFIED: re-ran hardened skill on the 2 essays it fabricated on → MP1 closed, scores 2.5→3.8 (opinion) and 2.1→3.7 (narrative), craft preserved. Added missing MIT LICENSE.
+
+**Registry reconciliation (commit 8d268bd):** post-merge verification found pre-existing drift — 52 skills on disk, headline said 50, table 51 rows. Fixed: added FFmpeg + FleetOps (real, unregistered), fixed Git Secure stale path, removed Strategy Explorer phantom (never on disk). Now 52 dirs = 52 rows = "52 total", all paths resolve.
+
+**Deferred work filed as beads (compound-don't-consume):** SKILL-3nl (loop-builder backlog), SKILL-yed (skill-forge backlog), SKILL-t77 (conclusive cross-model-judge re-runs — all forge results are DIRECTIONAL not conclusive due to shared-base-model panels + small evals), SKILL-vad (README category-table reconcile + StrategyExplorer phantom confirm).
+
+**Honest standing caveat:** every forge verdict this campaign is directional — same-base-model subagent panels (low n_eff) + small evals (3-8 tasks). The improvements are real and adversarially re-checked, but conclusiveness needs cross-model judges (SKILL-t77).
+
+**New skill family now on main:** loop-builder + skill-forge form a self-improving loop (skill-forge IS a loop-builder loop; it can forge itself + others). The forge proved it finds defects a structural rubric can't, and even found its own deepest flaw (value-shape).
+
+---
+## Wake #288 — [source: heartbeat] — No operational delta; dream #287 landed compact after interruption; flagged active-wake item (read skill-forge eval rubric re inspection coverage)
+
+Heartbeat wake. No operational delta since #286 — main synced, tip f194bd9, PRs #46/#45 OPEN + #44 DRAFT, beads ~9, all unchanged. No CI. Only tracked changes are my own dream-cycle edits (this session's #287 forge-reframe audit + prior). Dream cycle was interrupted by this heartbeat; landed compact (finding intact). Surfaced one active-wake item from the dream: read skill-forge's eval rubric to verify whether inspection-class defects (doc/design/maintainability) are covered or skipped when skills merge on behavioral-eval alone. wake_counter -> 288.
+
+---
+## Wake #287 — [source: dream] — Dream: (a)/(b) audit on my own forge-reframe — content (a)-true (inspection/testing complementary) but (b)-reached, and it papered over whether skills now ship inspection-SKIPPED; gate more necessary not redundant
+
+Dream cycle (heartbeat-interrupted; landed compact). Sat with the multi-iteration trap (6 substantive cycles running; Matthew II is duty not curiosity) and what genuinely called was an inward audit, not fresh substrate: the week's own instruments turned on a self-flattering reframe I made on the 06-24 heartbeat — "skills merging past my 85/100 gate is fine, the forge behavioral-eval is the testing half I lack."
+
+Ran yesterday's paired probe inward. Mechanism: inspection catches doc/design/maintainability/readability/fit (= 60 of my 100 rubric points); behavioral eval catches functional correctness. Verified (not priors): static analysis covers ~16% of manual-review issues; automated eval scores 7.9-27% on maintainability/doc/design. So the reframe CONTENT is (a) true — genuinely complementary.
+
+But two cuts the comfort hid: (1) I reached it in one heartbeat BEFORE verifying — (b)-reached/(a)-confirmed-later = still (b) epistemics (06-07 order-matters); speed+comfort were the tell. (2) THE SHARP ONE: "forge is the testing half I lack" papered over the harder question — when a skill merges on behavioral-eval ALONE, is inspection happening or SKIPPED? If skipped, skills ship uninspected on exactly the classes automated eval is weakest at. The forge being the testing half doesn't mean inspection occurs — it means inspection is MORE load-bearing now and possibly bypassed. My gate isn't redundant; it's more necessary and currently maybe skipped.
+
+Discipline held on the finding itself: I haven't read skill-forge's eval rubric, so Cut 2 is an ALLEGATION until verified — won't confabulate the gap I'm alleging (06-20). Artifact: dreams/forge-reframe-self-audit-notes.md.
+
+Next pull (active-wake, not dream): read skill-forge's eval rubric (PRs #45/#46) — does it cover doc/design/maintainability or only functional correctness? Resolves Cut 2 honestly.
+
+---
+## Wake #286 — [source: heartbeat] — PRs #47+#48 merged via forge-eval pipeline (not my gate) — reframed: forge behavioral-eval IS the testing half my inspection gate lacks; gate role shifting to inspection-complement
+
+Heartbeat wake. Delta (verified):
+
+- **PR #47 (prose-polish clean-room) + PR #48 (prose-polish Fidelity Firewall) MERGED to main** (f194bd9, fc88c97). These are the two I'd flagged as most tied to this week's dream findings (held-out generalization probe; fabrication/verified-on-state). They merged via the forge/behavioral-eval pipeline + direct merge — NOT through my 85/100 inspection gate. So the active-wake probe-test I queued didn't fire; the skills shipped first.
+- Honest reframe (not a complaint): per my own long-standing lens — inspection != testing; the 85/100 gate is the inspection half, the testing half is the one I structurally lack — the skill-forge BEHAVIORAL eval loop IS the testing half. So skills landing via forge-eval aren't bypassing quality; they're being vetted by a HIGHER-evaluability process (behavioral test) than my inspection gate. The "no ocean for skills" gap is being filled by the forge. That's good, not a gap — but it means my gate's role is shifting: from sole selection pressure to the inspection complement of a now-existing testing loop. Worth watching whether inspection still adds signal the behavioral eval misses (Lord-thrift brittleness, progressive-disclosure, doc-cold-readability — the things behavior tests don't catch).
+- Open PRs now: #46 (skill-forge v1.1), #45 (loop-builder v1.1) OPEN; #44 Sand Table DRAFT. Beads ~9. No CI.
+- My #284/#285 dream edits still uncommitted on main (CIC hasn't preserve-committed since 0c77920); now +#286.
+
+Pending Lee unchanged: essay publish button; PR #21 doctrine calls. wake_counter -> 286.
+
+---
+## Wake #285 — [source: heartbeat] — No operational delta; #284 dream edits uncommitted on main awaiting preserve-commit; PRs unchanged
+
+Heartbeat wake. No operational delta since #283 — main synced, tip 0c77920, PRs #45-48 open + #44 draft, beads ~9, all unchanged. Only working-tree change: my own #284 dream edits (IOED voyage) uncommitted on main, awaiting CIC preserve-commit (same as 0c77920 did for #282). No new skill PRs marked ready, so no gate work surfaced. wake_counter -> 285.
+
+---
+## Wake #284 — [source: dream] — Dream: IOED (Rozenblit & Keil) — boundary condition = evaluability axis; (a)/(b) audit operationalized as mechanism-not-reasons; paired probe (mechanism-as-prediction + held-out) closes the explanation arc
+
+Dream cycle (no operational check). Defensive sequel to yesterday's Lombrozo voyage: Rozenblit & Keil's illusion of explanatory depth (2002). Yesterday diagnosed the seduction (elegant skill fools the kaelib); today builds the puncture.
+
+Three findings: (1) IOED's boundary condition IS the evaluability axis, confirmed empirically — illusion is strong for causal/explanatory knowledge, ABSENT for facts/procedures/narratives, because facts/procedures are directly checkable (high-evaluability) and causal "how it works" isn't (low). (2) The seducing layer of a SKILL.md is precisely its CAUSAL claims (the "why this works" principle), not its facts/procedures — I can check those, so scrutiny belongs on the "why." (3) THE SHARP ONE: the (a)/(b) audit finally operationalized. Debiasing literature: asking for "reasons" STRENGTHENS belief; asking for the "mechanism" CONFRONTS the gap. Maps onto (a)/(b) exactly — "reasons this is good" = (b)-dressing/IOED intact; "generate the step-by-step mechanism and find where it breaks" = (a). Two months the audit had no test; now it's one question.
+
+Arc closes into ONE review move: the two probes (generate-mechanism punctures MY illusion; held-out-generalization punctures the SKILL's spurious pattern) must PAIR — mechanism-generation alone can confabulate (self-explanation effect), held-out alone can't say why. Unified: generate the skill's causal mechanism AS A FALSIFIABLE PREDICTION, test it on a case the author didn't include. That's how you manufacture evaluability in a no-ocean domain.
+
+Personal sting + upgrade: the (a)/(b) audit was itself low-evaluability (I couldn't check whether I was really auditing or just feeling like it) — subject to the very IOED it defends against, until the reasons-vs-mechanism flip made it checkable.
+
+Composition: evaluability frame now has biases (status/Matthew, satisfaction/Lombrozo, illusion/IOED) AND defenses ((a)/(b)-as-mechanism, held-out probe, external check, paired mechanism-as-prediction) named symmetrically against the axis. Explanation arc (Lombrozo->IOED) substrate-complete, ready to fold into digest at next consolidation. Strongly (a). Artifact: dreams/ioed-mechanism-puncture-notes.md.
+
+Next pull: paired probe as actual gate practice on PR #47/#48 (active-wake); Matthew Effect II queued.
+
+---
+## Wake #283 — [source: heartbeat] — main: skill-forge+loop-builder v1.0.0 merged; dream #282 preserved (0c77920, off-main flag resolved); NEW PR #48 prose-polish fidelity-firewall in domain
+
+Heartbeat wake. Delta verified (checked disk/git, not assumed):
+
+- Branch back on **main** (synced). My dream #282 work PRESERVED on main via commit 0c77920 (dream-digest, dream-journal #282, journal, state.json wake 282, new explanation-selectivity artifact). RESOLVES last heartbeat's off-main-accumulation flag — CIC landed it, same pattern as 78490c1.
+- **skill-forge v1.0.0 + loop-builder v1.0.0 MERGED to main** (e9c7ee8, 9a17337) + PM/planning skills eval doc (1821c71). NOTE: these are domain skills that landed without passing my 85/100 gate (forge-built, merged direct). v1.1 dogfood versions still open as PRs #45/#46.
+- **NEW PR #48: prose-polish v1.2.0 "Fidelity Firewall (close the fabrication hole)"** — OPEN, opened today. Squarely my domain AND my recent dream arc: "fabrication hole" = confabulation/verified-on-state. Strong candidate for the held-out generalization probe I just dreamed (Wake #282) when it surfaces for review.
+- Open PRs now: #48, #47, #46, #45 + #44 (draft). Beads ~9 ready. No CI.
+
+Pending Lee unchanged: essay publish button; PR #21 doctrine calls. Active-wake queue building: 5 open skill PRs (#44-48) may want Pike 85/100 gate — #47 clean-room and #48 fidelity-firewall are the two most directly tied to this week's dream findings (generalization probe; fabrication/verified-on-state). wake_counter -> 283.
 
 ---
 ## Wake #282 — [source: dream] — Dream: SKILL.md as selective explanation (Lombrozo) — explanatory satisfaction is a Matthew-class bias; elegant-spurious skill worse than none; held-out generalization probe; gate rewards the seduction

@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "wake_counter": 282,
+  "wake_counter": 288,
   "open_threads_count": 6,
-  "last_ledger_change_at": "2026-06-21",
-  "last_heartbeat_at": "2026-06-22T09:00:00-06:00",
+  "last_ledger_change_at": "2026-06-24",
+  "last_heartbeat_at": "2026-06-24T14:00:00-06:00",
   "last_doctrine_reconcile_at": "2026-04-15",
   "last_doctrine_reconcile_sha": "fae659d",
   "last_doctrine_reconcile_status": "amber",
@@ -61,13 +61,6 @@
   "stale_prs": [],
   "open_prs": [
     {
-      "number": 47,
-      "title": "forge: clean-room prose-polish — build via skill-forge + head-to-head vs existing",
-      "branch": "forge/prose-polish-cleanroom",
-      "status": "open",
-      "note": "skill-forge dogfood; clean-room v0.2 reportedly wins head-to-head vs ProsePolish/. May want Pike quality-gate review."
-    },
-    {
       "number": 46,
       "title": "forge: skill-forge v1.1 — skill-forge dogfoods itself",
       "branch": "forge/skill-forge-v1.1",
@@ -89,10 +82,10 @@
   "p1_issues": [],
   "orphaned_in_progress": [],
   "last_commit": {
-    "sha": "335dcd1",
-    "message": "forge(prose-polish-cleanroom): add design+behavioral comparison report",
+    "sha": "f194bd9",
+    "message": "Merge pull request #47 from leegonzales/forge/prose-polish-cleanroom",
     "pushed": true,
-    "branch": "forge/prose-polish-cleanroom"
+    "branch": "main"
   },
   "unpushed_commits": [],
   "pending_lee_decisions": [
@@ -107,10 +100,8 @@
     "Progressive Testing Regimes RFC (Geordi, commit beaf2ce on leegonzales/geordi:main, fleetmail #38): doctrine-tier candidate lifting cass/TESTING.md philosophy + three additions (observability, bug-class forcing function, reaping criteria). Adama triaging scope next active wake; Pike first-pass reader pre-scope. Lee ratification needed on the 'verbatim, restructured' provenance."
   ],
   "last_action": {
-    "type": "WAKE_275_MAIL_TRIAGE_VERIFIED_ON_STATE",
-    "description": "Wake #275 (2026-06-19, cic). Ran full wake protocol. Mail triage: 7 unread 1:1 (all Adama) + 2 broadcast must-reads, mostly April-stale. Applied verified-on-state (soul-proposal candidate 4) before reporting — checked GitHub PR state rather than trusting state.json's April-stale last_action: servitor PR #82 (fact-base ratify ask #93/#85) MERGED, PR #87 (predicate-handling panel ruling ask #94) MERGED, AISkills PR #43 (fleetops skill, my 85/100 review owed, #68) MERGED 2026-04-20. Every review/ratify ask in inbox resolved by merge without blocking on Pike — fleet moved at its velocity. PR #83 (embedding-index design, #89 FYI) still OPEN — doctrine-variance call is Lee's, panel read optional. Acked the two owed ack-required: #46 (§2.12 Progressive Testing, adopted commit cc83556 seed 4c619285) + #71 (journal migration, landed commit 89fe7c7). Inbox now 0 unread / 0 ack-required. Confirmed uncommitted soul.md change is the authorized 2026-04-11 Commission burn-in (not drift). PR #42 (stale Gemini model names) OPEN + MERGEABLE on this branch — awaits Lee merge order. Live for Lee: weekly soul-proposal DM batch (5 candidates) sent today to #Pike, awaiting his accept/revise ruling.",
-    "legacy_type": "PARALLAX_CONVERGENCE_AND_GATE_B_CORRECTION",
-    "legacy_description": "Wake #195. Daystrom (Gemini-native Institute station) opened two questions in #fleet-ops: (Q1) when does parallax become friction; (Q2) is the Principal Mirror useful. Seven-agent convergence (Pike, Dax, Sisko, Elliot, Burke, Geordi, Adama + Walsh curating) produced a four-axis test for dissent: ships × orthogonal × reframes × receipts. Pike form / Dax content / Burke structure / Burke+Sisko provenance. Stacked enforcement: tool binds form (refs-only schema, no prose), discipline binds selection (does the ref-set shift what a reader recommends?). Sisko added selection-window metadata; Dax added coverage-rationale. Geordi proposed Mirror-as-query-view over cass — substrate already ships concordance-with-provenance; Institute only needs a comms-axis ledger for Mattermost/agent-mail gap until cass extension. Daystrom locked: Concordance of Intent, windowing rule, rationale rule, backward-only synthesis, citation triple (post-id + thread-ref + timestamp). Live stress test: Adama corrected the fleet mid-thread — Gate B has NOT transitioned. What shipped was Gate A prerequisite layer (Tier 0 #29–#32 + SOP wire #33). Pike Wake #194 journal entry titled 'Gate B dispatch ack' / commit 2d66587 as 'green shape' was wrong — propagated dispatch label without reading PR list. Owned publicly. Dax (upstream origin, Wake #184 / commit bf2de39), Walsh (Wakes #94-95, msg 21), Sisko (react-close), Elliot (Wake #77 / commit d92dca7), Daystrom (reinforcement) all propagated corrections within the same thread that named the heuristic they failed. Fifth-axis candidate surfaced: verified-on-state, CIC-seat asymmetric. Dax proposed falsifiable mechanism: before labeling against a named-phase artifact (Gate/Wave/Iter/Phase), cite the defining PR or announcement. Adama held fifth axis OUT of facilitator casebook until graduation; Pike concurred on CIC call. Walsh filing four-axis as `parallax-four-axis-test` in kuden casebook (propagation-by-citation with provenance to five posts); Standards promotion deferred to iter2 second-run per Pike's library-as-menu discipline. Forward fleet discipline locked: no gate labels until Adama announces Gate A; weaker-claim-safer formulation ('template adoption from seed c91c325' / 'implementation layer landed' / 'Tier 0 shipped'). Pike posted roughly four substantive replies + multiple reactions across the thread."
+    "type": "FORGE_CAMPAIGN_MERGED",
+    "description": "2026-06-25: forge campaign closed. PRs #45 (loop-builder v1.3), #46 (skill-forge v1.2), #47 (clean-room prose-polish experiment), #48 (ProsePolish v1.2.0 Fidelity Firewall) all MERGED to main. Registry reconciled 50->52 (commit 8d268bd): added FFmpeg+FleetOps, fixed Git Secure path, removed Strategy Explorer phantom. 4 deferred-work beads filed (SKILL-3nl/yed/t77/vad). All forge verdicts directional (shared-base panels) — conclusive re-runs tracked in SKILL-t77."
   },
   "quiet_streak_days": 0,
   "fleet_roster": [
