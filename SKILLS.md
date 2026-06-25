@@ -9,7 +9,7 @@ To use a skill:
 2. Read the corresponding `SKILL.md` file
 3. Follow the persona, constraints, and output formats defined
 
-## Skills (50 total)
+## Skills (52 total)
 
 | Skill | Description | Path |
 |-------|-------------|------|
@@ -33,12 +33,14 @@ To use a skill:
 | Essay to Speech | Transform essays into spoken presentations | `EssayToSpeech/essay-to-speech/SKILL.md` |
 | Excel Auditor | Analyze Excel files, audit formulas | `ExcelAuditor/excel-auditor/SKILL.md` |
 | Fabric Patterns | Run danielmiessler/fabric CLI patterns for analysis, extraction, summarization | `FabricPatterns/fabric-patterns/SKILL.md` |
+| FFmpeg | Video/audio manipulation, analysis, and production toolkit | `FFmpeg/ffmpeg/SKILL.md` |
+| FleetOps | Agent-facing primer + wake/close-out ritual for the fleetops journal | `FleetOps/fleetops/SKILL.md` |
 | Flywheel Scan | Cross-project roadmap discovery with parallel domain scouts | `FlywheelScan/flywheel-scan/SKILL.md` |
 | Gemini Peer Review | AI peer review via Gemini CLI | `GeminiPeerReview/gemini-peer-review/SKILL.md` |
 | Loop Builder | Design robust agent loops with sound stop conditions (esp. non-deterministic) | `LoopBuilder/loop-builder/SKILL.md` |
 | MCP Builder | Build Model Context Protocol servers | `MCPBuilder/mcp-builder/SKILL.md` |
 | MCP Proxy | Manage the MCP proxy multiplexer — health checks, status, config, troubleshooting | `McpProxyMux/mcp-proxy/SKILL.md` |
-| Git Secure | Transparent repo encryption with git-crypt + age snapshots | `git-secure/SKILL.md` |
+| Git Secure | Transparent repo encryption with git-crypt + age snapshots | `GitSecure/git-secure/SKILL.md` |
 | Moltbook Enclave | Secure, air-gapped interface for Moltbook social network | `MoltbookEnclave/moltbook-enclave/SKILL.md` |
 | Nano Banana | AI image generation via Gemini | `NanoBananaSkill/nano-banana/SKILL.md` |
 | Opportunity Scanner | Deep-scan work tools to find high-ROI skills, projects, and artifacts to build | `OpportunityScanner/opportunity-scanner/SKILL.md` |
@@ -61,7 +63,6 @@ To use a skill:
 | Skill Extractor | Extract reusable skills from conversation patterns | `SkillExtractor/skill-extractor/SKILL.md` |
 | Skill Forge | Drive a skill toward optimal via behavioral eval + refinement loop | `SkillForge/skill-forge/SKILL.md` |
 | Slide Builder | Transform essay-to-speech output into presentations | `SlideBuilder/slide-builder/SKILL.md` |
-| Strategy Explorer | Guide leaders to build Claude projects that help their org understand department strategy | `StrategyExplorer/strategy-explorer/SKILL.md` |
 | Unix Review | Codebase evaluation against Unix philosophy, SOLID, and AI-Readiness | `UnixReview/unix-review/SKILL.md` |
 | Writing Partner | Collaborative fiction writing assistant | `WritingPartner/writing-partner/SKILL.md` |
 
@@ -93,7 +94,7 @@ To use a skill:
 - Git Secure, Moltbook Enclave
 
 **Creative & Media**
-- Artifacts Builder, Nano Banana, NotebookLM, Concept Forge, Slide Builder, Veo3 Prompter
+- Artifacts Builder, Nano Banana, NotebookLM, Concept Forge, Slide Builder, Veo3 Prompter, FFmpeg
 
 **Meta & Documentation**
-- Claude Project Docs, Dad Joke Validator, Profile Builder, Project Builder, Skill Extractor, Skill Forge, Build Timeline, Flywheel Scan, Loop Builder
+- Claude Project Docs, Dad Joke Validator, Profile Builder, Project Builder, Skill Extractor, Skill Forge, Build Timeline, Flywheel Scan, Loop Builder, FleetOps

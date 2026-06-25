@@ -1,6 +1,6 @@
 # AISkills
 
-A curated collection of **50 professional skills** for Claude Code and Claude web chat. Skills extend Claude's capabilities for development, analysis, writing, and specialized workflows.
+A curated collection of **52 professional skills** for Claude Code and Claude web chat. Skills extend Claude's capabilities for development, analysis, writing, and specialized workflows.
 
 ## What Are Claude Skills?
 
@@ -232,6 +232,6 @@ MIT License. Individual skills may have their own licenses - check skill directo
 
 ---
 
-**50 skills** | **MIT License** | **Last Updated:** 2026-06-20
+**52 skills** | **MIT License** | **Last Updated:** 2026-06-20
 
 Built with Claude Code | [Learn More](https://docs.anthropic.com/en/docs/claude-code)
