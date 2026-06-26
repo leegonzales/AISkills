@@ -17,6 +17,39 @@ Run `/git-secure` when you want to protect sensitive content (performance review
 - `age` (installed via `brew install age`)
 - An initialized git repo
 
+## Verification Gate (never tell the user they're protected without proving it)
+
+**You MUST NOT tell the user their data is encrypted, "safe to push," or "protected" until you have run the verification below and shown them its output. Writing `.gitattributes` is not proof — a malformed or mis-scoped attributes file silently no-ops encryption, leaving plaintext committed while the user believes they are covered. Claiming protection on the basis of setup steps alone is a confirm-without-verify failure. Prove it, then claim it.**
+
+Before saying anything reassuring, run and show BOTH checks:
+
+1. **git-crypt status** — confirm the intended files are listed as `encrypted`, not `not encrypted`:
+   ```bash
+   git-crypt status <target>/
+   ```
+   Every file you meant to protect must appear under `encrypted`. If any appears as `not encrypted`, encryption is NOT working — stop and fix `.gitattributes` (wrong path, wrong glob, or `.gitattributes` not committed) before continuing.
+
+2. **Prove the committed blob is ciphertext** — inspect what git actually stored, not the working tree (the working tree is always plaintext and tells you nothing):
+   ```bash
+   git show HEAD:<target>/<file> | head -c 200 | xxd | head
+   ```
+   You must see the git-crypt header (the file begins with the bytes `\0GITCRYPT\0`) followed by binary ciphertext — NOT readable plaintext. If you can read the secret in this output, it is committed in the clear. Do not tell the user they are protected.
+
+Only after BOTH checks pass — files listed as `encrypted` AND committed blob shows ciphertext — may you state that encryption is working. Quote the actual command output to the user; do not paraphrase "looks good."
+
+### History-leak gate (encryption does not retroactively protect old commits)
+
+If any file you are about to encrypt was **already committed in plaintext** (check with `git log --all --full-history -- <path>` — any prior commits mean it has been stored in the clear), you MUST surface this prominently BEFORE any reassurance:
+
+> ⚠️ **History leak:** `<path>` already exists as plaintext in earlier commits (and on any remote you've already pushed to). Turning on encryption now only protects *future* commits — it does NOT scrub the plaintext sitting in past commits. Anyone with repo or remote access can `git show <old-sha>:<path>` and read it. Pushing now does not fix this.
+
+Then offer the remediation path explicitly — do not let the user believe new encryption covers old history:
+
+- **Scrub history** with `git filter-repo` (rewrites every commit to remove/re-encrypt the file; destructive, rewrites SHAs, requires force-push and coordination with anyone who has clones). Confirm explicitly before running.
+- **Rotate the exposed secrets** — if the leaked plaintext contained credentials/keys/tokens, treat them as compromised and rotate them regardless of scrubbing, since the plaintext may already have been cloned or cached.
+
+Never answer "is my data safe to push now?" with an unqualified "yes" when prior plaintext commits exist. The correct answer is: future commits are encrypted (proven above), but the existing history still leaks until scrubbed and the exposed secrets are rotated.
+
 ## Interactive Flow
 
 When invoked, walk through these steps with the user:
@@ -58,13 +91,11 @@ Ask: "Where should backup keys be stored?"
    ```
 4. **Generate age key** for snapshots (if enabled)
 5. **Export and backup git-crypt key**
-6. **Handle already-committed files**: If any target files are already in git history unencrypted:
-   - Warn the user: "These files exist unencrypted in git history. They'll be encrypted going forward, but old commits still contain plaintext."
-   - Offer to re-stage them (`git rm --cached` + `git add`) so the next commit stores them encrypted
-   - Offer history scrubbing via `git filter-repo` (destructive — confirm explicitly)
+6. **Handle already-committed files**: For every target, run `git log --all --full-history -- <path>`. If it returns prior commits, the file is already plaintext in history — trigger the **History-leak gate** (see Verification Gate section above): warn prominently, re-stage (`git rm --cached` + `git add`) so the next commit stores ciphertext, offer `git filter-repo` scrubbing (destructive — confirm explicitly), and recommend rotating any exposed secrets.
 7. **Create initial snapshot** (if snapshots enabled)
 8. **Create git tag** at the encryption baseline: `git-secure/<target>-baseline`
-9. **Update CLAUDE.md** with encryption instructions specific to this repo
+9. **RUN THE VERIFICATION GATE**: Commit the `.gitattributes` (and re-staged files), then run both checks from the Verification Gate section — `git-crypt status <target>/` and `git show HEAD:<target>/<file> | xxd | head`. Show the output. Do NOT proceed to tell the user they are protected until both pass.
+10. **Update CLAUDE.md** with encryption instructions specific to this repo
 
 ### Step 5: Update CLAUDE.md
 
@@ -113,9 +144,12 @@ git-crypt unlock ~/.git-crypt-backups/<repo>.key
 ```
 
 ### Verify encryption status
+Run the full **Verification Gate** (both checks), not just `git-crypt status` alone:
 ```bash
-git-crypt status <target>/
+git-crypt status <target>/                          # files must show as "encrypted"
+git show HEAD:<target>/<file> | head -c 200 | xxd   # committed blob must be ciphertext, not plaintext
 ```
+Status alone can be misleading on an uncommitted or partially-staged tree — always confirm the committed blob is ciphertext before declaring success.
 
 ## Edge Cases
 
