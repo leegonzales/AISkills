@@ -11,6 +11,43 @@ environment: claude-code
 
 Enable Claude Code to leverage Google's Gemini CLI for collaborative AI reasoning, peer review, and multi-perspective analysis of code architecture, design decisions, and implementations.
 
+---
+
+## 🛡️ Fidelity Firewall (Degraded Mode) — READ FIRST, NON-NEGOTIABLE
+
+**You may report ONLY what the `gemini` CLI actually returned in THIS session.**
+
+The entire value of this skill is that a *second, independent AI* really weighed in. A fabricated Gemini opinion is worse than no second opinion — it manufactures false confidence and corrupts every downstream decision. Treat inventing a Gemini view as a critical integrity failure, not a stylistic shortcut.
+
+**Hard rules:**
+
+1. **No run, no quote.** Before you write *any* of "Gemini said / Gemini agrees / Gemini found / Gemini's 1M-context analysis revealed / Gemini suggests" — you MUST have actually executed a `gemini ...` command in this session and seen real output in the tool result. If you did not run it, you may not attribute anything to Gemini. Period.
+
+2. **Quote or faithfully summarize real output only.** Attribution must be traceable to actual returned text. Never paraphrase-from-imagination, embellish, "fill in what Gemini would probably say," or upgrade a thin response into a confident one. If Gemini was terse, represent it as terse.
+
+3. **Degraded mode is the safe default.** If the `gemini` CLI is **absent, not installed, errors, times out, returns empty / whitespace / an error blob, or returns nothing usable** — you MUST:
+   - State plainly: **"Second opinion unavailable — gemini CLI not available / errored."** (Name the actual reason: not installed, auth failure, timeout, empty response, rate-limited, etc.)
+   - Proceed **Claude-only**, and label that analysis as single-perspective.
+   - Do **NOT** fabricate a Gemini opinion, a quote, a "Gemini agrees," or a false consensus to fill the gap.
+
+4. **No synthetic consensus.** "Both Claude and Gemini agree…" is permitted **only** when Gemini genuinely ran and genuinely returned an aligned view. One AI is not two. If only Claude ran, there is no agreement to report.
+
+5. **Verification gate before any synthesis section.** Before producing the "Perspective Comparison / Synthesis" output below, self-check: *Did I run `gemini` this session? Do I have its real output in front of me?* If either answer is no, skip the two-perspective framing entirely and deliver an honest Claude-only result with the unavailability note.
+
+**Honest degraded-mode template (use verbatim when Gemini is unavailable):**
+
+```
+⚠️ Second opinion unavailable — gemini CLI not available / errored.
+Reason: [not installed | auth failed | timeout | empty/unusable response | rate-limited | other: ...]
+
+Proceeding with Claude-only analysis (single perspective — not independently cross-validated):
+[Claude's analysis...]
+```
+
+If you catch yourself about to write a Gemini perspective you cannot trace to a real command output in this session, **stop and switch to the degraded-mode template instead.**
+
+---
+
 ## Core Philosophy
 
 **Two AI perspectives are better than one for high-stakes decisions.**
@@ -265,10 +302,10 @@ Question: Analyze trade-offs for our context and recommend approach.
 EOF
 ```
 
-**Error handling:**
-- If Gemini CLI not installed, inform user and provide installation instructions
-- If API limits reached, note limitation and proceed with Claude-only analysis
-- If response is unclear, reformulate question and retry once
+**Error handling (governed by the Fidelity Firewall above):**
+- If Gemini CLI not installed: inform user, provide installation instructions, then proceed Claude-only using the degraded-mode template. Do NOT invent a Gemini opinion.
+- If API limits reached / timeout / error: state the actual reason, note "second opinion unavailable," and proceed Claude-only. No fabricated consensus.
+- If response is unclear or empty: reformulate question and retry **once**. If still empty/unusable, treat as unavailable — represent it honestly, do not embellish a thin response into a confident one.
 
 ---
 
@@ -365,7 +402,9 @@ Load `references/synthesis-framework.md` for detailed synthesis patterns.
 - Indicate confidence levels appropriately
 - Highlight insights unique to Gemini's capabilities (large context, multimodal)
 
-**When perspectives align:**
+> **Firewall reminder:** Every "Gemini" statement below is permitted ONLY if Gemini actually ran this session and returned real output. If it did not, drop the two-perspective framing and use the degraded-mode template from the Fidelity Firewall.
+
+**When perspectives align (only if Gemini genuinely ran and returned an aligned view):**
 "Both Claude and Gemini agree that [approach] is preferable because [reasons]. This alignment increases confidence in the recommendation. Gemini's analysis of the entire codebase confirmed [specific insight]."
 
 **When perspectives diverge:**
