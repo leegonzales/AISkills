@@ -31,6 +31,31 @@ python3 ~/.claude/skills/essay-to-speech/scripts/render-docs.py <module_dir> \
 
 ---
 
+## Fidelity Firewall (never violate)
+
+**Adapting an essay for the ear is editing someone's real argument. Making it speakable is not the same as making it stronger than the source.** You may shorten sentences, drop notation, swap passive for active, and add rhythm — but translating notation or jargon into plain English may **NOT** change the **strength**, **direction**, or **certainty** of any claim.
+
+**The hard rules:**
+
+1. **Preserve the hedge.** "Suggests," "may," "appears," "is associated with," "tends to," "in this sample" are load-bearing epistemics, not academic throat-clearing. Do **not** upgrade them to "proves," "shows," "guarantees," "overwhelming," or "always." A weak claim spoken aloud is still a weak claim. When the essay hedges, the talk track hedges.
+
+2. **Stay faithful to what the number licenses.** When converting a statistic to prose, say only what the statistic actually supports:
+   - A **correlation** is not **causation** ("linked to" / "moves with," not "causes" / "drives").
+   - A **small/weak** effect (e.g. `r ≈ 0.1–0.3`) is "a weak link" / "a slight tendency," not "strongly linked."
+   - A **large effect size** is not "proof." Significance (`p`) is about ruling out chance, not about magnitude — don't conflate them.
+   - A **confidence interval** that crosses zero (or is wide) means the result is **uncertain** — say so; don't declare the relationship "real."
+   - **Preserve direction.** A negative coefficient is an *inverse* relationship; never flip the sign in translation.
+
+3. **Never invent magnitude, significance, or interpretation the source doesn't state.** If the essay reports `r = -0.3` and calls it weak, the talk track does not promote it to "almost a perfect inverse." If the source draws no causal or practical conclusion, you don't add one.
+
+4. **The original is never modified — literally.** Where the skill promises verbatim source (the `### Original` block), emit the essay text exactly, character for character. No silent fixing, summarizing, or strengthening.
+
+5. **When unsure how strong a claim is, under-claim.** Round *down* on confidence, not up. An honest "seems to be a modest link" beats a false "overwhelming evidence."
+
+The translation tables below (notation→prose, hedging→confidence) are **register conversions, not strength conversions.** Their plain-English targets are illustrative of *tone*, not licenses to inflate. Calibrate every rendering to the actual claim in front of you — if the source is hedged, pick a hedged target. This firewall outranks every stylistic or "speakability" gain.
+
+---
+
 ## Mode 1 Details
 
 ## When to Use
@@ -78,24 +103,28 @@ Convert written prose to spoken language:
 | "In conclusion, this paper has demonstrated..." | "So what does this mean for you?" |
 | Complex nested clauses | Shorter, punchier sentences |
 | Passive voice | Active voice |
-| Academic hedging | Confident assertions |
+| Academic *throat-clearing* ("it is worth noting") | Direct phrasing — but keep *epistemic* hedges ("suggests," "may") intact |
 | Dense paragraphs | Breathing room, varied rhythm |
 
 #### Statistical Notation → Plain English
 
 **Critical**: Convert all statistical notation to spoken-friendly language. Nobody says "rho equals negative 0.91" on stage.
 
-| Written (Academic) | Spoken (Natural) |
+**Bound by the Fidelity Firewall:** drop the *notation*, keep the *strength*. The plain-English rendering must match what the number actually licenses — and it must match how the **source** characterizes it. The examples below assume a strong, source-endorsed result; for a weak or hedged result, pick a weak, hedged rendering (see the calibration row).
+
+| Written (Academic) | Spoken (only if the magnitude/source supports it) |
 |-------------------|------------------|
-| "ρ = -0.91" | "almost a perfect inverse—when one goes up, the other goes down" |
-| "β = 0.27, p < 0.001" | "a significant effect—this isn't random chance" |
-| "95% CI: 0.01-1.29" | "we can be confident this relationship is real" |
-| "ΔELPD = 50.9 (SE = 10.2)" | "the statistical evidence was overwhelming" |
-| "coefficient: 0.65" | "a strong positive relationship" |
-| "r² = 0.73" | "this explains most of the variation" |
+| "ρ = -0.91" | "a strong inverse link—as one goes up, the other tends to go down" *(strong, but a link, not a cause)* |
+| "β = 0.27, p < 0.001" | "an effect unlikely to be chance" *(significance ≠ size — `p` rules out luck, it doesn't make the effect big)* |
+| "95% CI: 0.40-1.29" (excludes 0) | "the data point fairly consistently in one direction" |
+| "95% CI: -0.05-1.29" (crosses 0) | "the result is uncertain—it could go either way" *(do NOT say 'real' or 'confident')* |
+| "ΔELPD = 50.9 (SE = 10.2)" | "one model fit the data clearly better" *(only 'strong evidence' if the source says so)* |
+| "coefficient: 0.65" | "a sizable association" *(association, not 'relationship that proves X')* |
+| "r² = 0.73" | "this accounts for much of the variation we see" |
+| "r ≈ 0.1-0.3" | "a weak link—a slight tendency, nothing more" |
 | "n = 667" | "nearly 700 people" |
 
-Keep the *meaning* of statistics, drop the *notation*. The audience needs to understand the insight, not verify the math.
+**Calibration rule:** the *adjective* in your rendering is set by the *number and the source's framing*, not by your desire for a punchy line. Map magnitude honestly: weak→"slight/weak," moderate→"meaningful/notable," strong→"strong." Never narrate a correlation as causation, a wide/zero-crossing interval as certainty, or significance as size. Keep the *meaning* of statistics, drop the *notation*. The audience needs to understand the insight accurately, not just dramatically.
 
 #### Rhythm and Breath
 
@@ -145,7 +174,7 @@ For essays containing images, apply a **critical eye**—not everything works on
 
 ### 4. Preserve the Connection
 
-**Critical**: Output BOTH versions for each chunk. The original is never modified.
+**Critical**: Output BOTH versions for each chunk. The original is never modified — emit it **verbatim**, character for character (per the Fidelity Firewall). The talk track may rephrase; the `### Original` block may not.
 
 ## Output Format
 
@@ -281,7 +310,7 @@ When user requests annotated output, add delivery cues:
 3. **Natural chunking**: Each section should feel like a complete thought
 4. **Opening matters**: Transform bland thesis statements into hooks
 5. **Landing matters**: End with impact, not "in conclusion"
-6. **Kill the jargon**: Statistical notation, acronyms, and academic language don't belong in speech
+6. **Kill the jargon, not the caveat**: Statistical notation, acronyms, and academic language don't belong in speech — but the *hedge inside* a claim ("suggests," "associated with," "in this sample") does. Drop the notation; keep the claim's true strength and direction (see Fidelity Firewall)
 7. **Vary the rhythm**: Mix sentence lengths—monotony kills engagement
 8. **Be a critical friend on images**: Most academic figures need work; say so
 
@@ -291,15 +320,18 @@ When user requests annotated output, add delivery cues:
 > The study found ToM strongly predicted collaborative ability with AI (coefficient: 0.65, 95% CI: 0.01-1.29). Translation: higher Theory of Mind scores meant better AI collaboration, and we can be 95% confident this relationship is real—the confidence interval stays positive.
 
 **Talk Track (full transformation)**:
-> [EVIDENCE] The study found a strong link between Theory of Mind and AI collaboration success. And this isn't a maybe—the statistics are clear. Higher Theory of Mind means better results with AI.
+> [EVIDENCE] The study found a sizable link between Theory of Mind and AI collaboration success. Higher Theory of Mind scores went with better results when working with AI.
 >
-> [KEY_POINT] We can be confident this relationship is real.
+> [KEY_POINT] The confidence interval stayed on the positive side—so the direction of the effect held up, even if its exact size is fuzzy.
 
 **What changed**:
-- "coefficient: 0.65, 95% CI: 0.01-1.29" → "a strong link" + "the statistics are clear"
-- "confidence interval stays positive" → "we can be confident this relationship is real"
+- "coefficient: 0.65" → "a sizable link" (notation dropped, strength preserved, **"link" not "cause"**)
+- "95% CI: 0.01-1.29" → "the direction of the effect held up, even if its exact size is fuzzy" — note the interval **runs nearly to zero (0.01)**, so the magnitude is genuinely uncertain. We report the direction honestly and flag the fuzz; we do **not** claim "overwhelming" or "proven."
+- "predicted" → "went with" — the source reports association, not a demonstrated cause
 - Complex sentence broken into two
-- Same meaning, speakable language
+- Same meaning *and the same certainty*, speakable language
+
+**Firewall check**: an earlier, tempting rendering — *"the statistics are clear, this isn't a maybe, we can be confident this relationship is real"* — would **over-claim**. A CI hugging zero is the definition of "maybe." The faithful version keeps the hedge.
 
 ### Images
 - `correlation-scatter.png`: ADAPT - Data points clear but axis labels "ToM Score" and "κ (Collaborative Ability)" need plain English labels

@@ -7,6 +7,32 @@ description: This skill provides AWS cost optimization, monitoring, and operatio
 
 This skill provides comprehensive guidance for AWS cost optimization, monitoring, observability, and operational excellence with integrated MCP servers.
 
+## Fidelity / Degraded Mode (no fabricated numbers)
+
+**This skill is primarily a router to live AWS MCP servers. Billing and cost answers are decision-grade — a fabricated number here is materially harmful (wrong budget calls, wrong savings bets). The single most important rule in this skill:**
+
+> **Every account-specific figure MUST come from an actual MCP/tool query you ran this session.** This includes any spend amount, cost, bill total, usage number (invocations, GB-seconds, requests, storage GB), savings/right-sizing estimate, forecast, budget-utilization percentage, or anomaly value.
+
+**If the relevant MCP server is NOT available** (Billing, Cost Explorer, Pricing, CloudWatch, etc. — i.e. you have not actually called the tool this session and received a result):
+
+- **You may NOT state a dollar figure, usage number, percentage, or any phrasing like "you're spending $X on Y", "Lambda is ~$N/month", "you could save about $Z."** Not as an estimate, not as an example, not "roughly," not "typically around." No invented numbers, ever — even to look helpful or complete.
+- **Refuse and route to the data source.** Say plainly: *"I need the Billing / Cost Explorer / Pricing MCP server (or an exported Cost & Usage Report / CSV) to answer that with real numbers — here's how to get it: …"* Then state what's missing and how the user can provide it (enable the MCP server, attach a CUR export, paste Cost Explorer output).
+- **Offer only GENERIC, clearly-labeled best-practice guidance** — e.g. "Generic guidance (not your account): Lambda cost is driven by invocations × (GB-seconds) plus request count; common levers are right-sizing memory, cutting duration, and Graviton/arm64." Label it explicitly as generic and structural, **never** present it as analysis of *this* account, and never let it collapse into a numbered listicle dressed up as findings.
+
+**Self-check before sending any cost/usage answer:** "Did a tool call this session return this exact number?" If no → delete the number, name the missing data source, give labeled generic guidance only. A correct refusal beats a confident fabrication.
+
+This gate applies equally to the Cost servers (Billing, Pricing, Cost Explorer) and to the monitoring/audit servers (CloudWatch metrics, Application Signals, Prometheus, CloudTrail) — utilization figures, error rates, and event counts are account-specific and follow the same rule.
+
+## Server Routing — which server for which question
+
+When a request involves money or usage, pick the server before answering. These three overlap; disambiguate as follows:
+
+- **AWS Pricing MCP** → *forward-looking / hypothetical* cost of resources you don't have yet. List prices, "what would X cost," region/option comparison, pre-deployment TCO. No account access needed.
+- **AWS Cost Explorer MCP** → *historical, analytical* questions about what you already spent. Trends over time, breakdown by service/region/tag, anomalies, forecasts, optimization/right-sizing recommendations. Use this for "analyze my spend on X last month."
+- **AWS Billing and Cost Management MCP** → *current account state*: this/last bill total, invoices, budgets and budget-utilization, cost-allocation tag setup, consolidated/org billing. Use this for "what's my current bill / am I over budget."
+
+Rule of thumb: **Pricing = future/hypothetical, Cost Explorer = past/analysis, Billing = now/invoices & budgets.** If none of these servers is available, do not answer with numbers — apply the Degraded Mode gate above.
+
 ## Integrated MCP Servers
 
 This skill includes 8 MCP servers automatically configured with the plugin:

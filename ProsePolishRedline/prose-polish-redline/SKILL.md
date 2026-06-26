@@ -7,6 +7,20 @@ description: Run prose-polish analysis as parallel agents that produce tracked-c
 
 Composable prose-editing system that runs focused agents in parallel, merges their edits with conflict resolution, and outputs tracked-changes .docx + animated HTML replay.
 
+## Fidelity Firewall (binds every editing agent — never violate)
+
+This system **auto-applies** every agent's edits to a tracked-changes .docx. There is no human in the loop between an agent's JSON and the document, so an invented fact lands in the author's file looking authoritative. Therefore the hard rule, for **all** Phase-1 and Phase-2 agents:
+
+> **No edit may introduce a citation, statistic, number, date, name, quote, study, or fact that is not already present in the source document.** Editing means sharpening the author's words — never adding evidence on their behalf.
+
+When a claim is weak because it lacks a specific the document doesn't contain, an agent has exactly three honest moves:
+
+1. **Sharpen from what's there** — recast using only material already in the document.
+2. **`comment`** — flag the gap for the author (`"cite the specific study"`, `"what metric supports this?"`). Do **not** fill it in.
+3. **Soften the claim** to match the evidence actually present.
+
+**`insert` and `replace` are the danger paths.** A `replace` may only swap phrasing, never inject a new fact. An **`insert` has no `original_text` to match, so the verbatim guard does NOT protect against invented content** — an `insert`'s `new_text` may add transitions/conjunctions/connective phrasing **only**, never a citation/number/name/date/fact. A fabricated citation that happens to match verbatim still passes every other guard; **this firewall is the only thing that stops it.** The merge/apply scripts do not check fidelity — the agents are the sole gate.
+
 ## Quick Start
 
 ```

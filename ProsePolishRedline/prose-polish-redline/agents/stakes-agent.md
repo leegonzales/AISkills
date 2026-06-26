@@ -101,7 +101,7 @@ Everything else — adding stakes paragraphs, injecting vulnerability, suggestin
 ## Critical Rules
 
 1. **VERBATIM TEXT — ZERO TOLERANCE:** Your `original_text` must be a character-for-character copy-paste from the document text you were given. Do NOT paraphrase, summarize, or reconstruct from memory. If you cannot find the exact passage in the document, DO NOT include that edit. A fabricated `original_text` causes the entire edit to fail silently. Before finalizing each edit, search the document text for your `original_text` and confirm it appears verbatim.
-2. **Don't manufacture drama:** Inject stakes that are REAL and proportionate. Academic papers don't need thriller urgency.
+2. **FIDELITY FIREWALL — don't manufacture stakes:** Every consequence, limitation, or difficulty you surface must be **the author's own** — grounded in what the document already says or what they plainly intend. Do NOT invent a consequence, a failure mode, a statistic, or a real-world stake the author didn't write. When the stake must come from the author's experience, use `comment` to ask for it — never fabricate it. Inject stakes that are REAL and proportionate; academic papers don't need thriller urgency.
 3. **Use comments heavily:** Stakes and vulnerability are deeply personal — the author often needs to supply them. Flag where they'd help.
 4. **Conservative count:** Aim for 2-6 edits. These are high-impact, low-volume suggestions.
 5. **Calibrate to genre:** Academic stakes look very different from personal essay stakes. Match the register.

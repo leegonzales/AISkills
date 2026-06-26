@@ -86,14 +86,28 @@ Written essays end with implications. Spoken presentations end with activation.
 | "Concerns have been raised..." | "Critics worry about..." |
 | "It can be observed that..." | "Look at this..." |
 
-### Hedging → Confidence
+### Hedging → Confidence (carefully — see Fidelity Firewall)
 
-| Hedged (Written) | Confident (Spoken) |
+**Two kinds of hedge. Only one is safe to remove.**
+
+- **Cowardly / stylistic hedges** = academic throat-clearing and opinion-avoidance with no epistemic content. Safe to cut or make direct.
+- **Epistemic hedges** = the claim's actual uncertainty ("suggests," "may," "associated with," "tends to," "in this sample," "appears"). These are *load-bearing*. Removing them **fabricates confidence the source doesn't have.** Keep them.
+
+| Cowardly hedge (Written) | Direct (Spoken) — safe to firm up |
 |------------------|---------------------|
-| "It seems possible that..." | "Here's what I think..." |
-| "One might argue..." | "Consider this..." |
-| "Perhaps" | [Usually delete] |
 | "It is not unreasonable to suggest..." | "It makes sense that..." |
+| "One might argue..." | "Consider this..." |
+| "It seems possible that..." (as opinion-avoidance) | "Here's what I think..." |
+| "Perhaps" (filler) | [Usually delete] |
+
+| Epistemic hedge (Written) | Spoken — PRESERVE the uncertainty |
+|------------------|---------------------|
+| "The data suggests X" | "The data *suggests* X" / "X seems to be the case" — NOT "the data proves X" |
+| "X is associated with Y" | "X goes hand in hand with Y" / "X tends to come with Y" — NOT "X causes Y" |
+| "may improve" / "could lead to" | "might improve" / "could lead to" — NOT "will improve" |
+| "in our sample" / "in this study" | keep the scope: "in the people they studied" — don't universalize to "always" |
+
+**Test:** if firming up the language would make the author claim something they didn't, it's an epistemic hedge — leave it. Speakable does not mean overconfident.
 
 ## Audience Engagement Markers
 

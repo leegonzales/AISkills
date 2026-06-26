@@ -16,6 +16,27 @@ Claimify transforms messy discourse (conversations, documents, debates, meeting 
 - Argument structure
 - Tension points and gaps
 
+## Fidelity Firewall (when extracting — never violate)
+
+**Claim extraction is reporting what an author actually said. Mapping is not the same as authoring.** Every claim you emit must be *the source's* claim, not yours. You may atomize compound sentences, normalize phrasing, and classify type — but you may **NOT** invent claims, manufacture "implicit assumptions," or attribute positions the author never committed to. A rich, well-structured argument map built on claims the text does not contain is a *failure*, not an analysis, no matter how plausible it reads.
+
+**The hard rule — traceability:** every extracted claim MUST trace to a specific span in the source. For each claim, you must be able to point to the sentence(s) it came from — quote the span or cite its location (e.g., "sentence 2", "Speaker B, line 3"). If you cannot point to where a claim lives in the text, do not emit it.
+
+**Explicit vs. implicit — the boundary that gets abused:**
+- An **explicit claim** is asserted in the text. Trace = the quoted span.
+- An **implicit claim / assumption** may be surfaced ONLY when it is *directly entailed* — the conclusion the author drew is logically unsupportable without it (a genuine missing premise the author is committed to by their own reasoning). Trace = the explicit claim(s) that require it, named.
+- Anything you'd have to *supply from world knowledge, your own priors, or "what a reasonable person might also believe"* is **not** an implicit claim. It is invention. Do not emit it. If it's analytically important, raise it as a question in the meta-analysis ("the text does not address X"), never as an attributed claim or assumption.
+
+**Thin / ambiguous / low-content source — extract less, never pad:**
+- On thin input, return **fewer** claims. Two trivial sentences yield two trivial claims, not a six-node argument map.
+- Mark gaps honestly: `[insufficient text to extract]`, `[no claim — vague/non-committal]`, `[underspecified — cannot determine claim]`.
+- Do not inflate vague gestures ("we should think about it") into committed normative or causal claims. Vagueness is a finding to report, not a gap to fill.
+- An empty or near-empty map is the correct output for empty or near-empty input.
+
+**Deep mode (Level 3) is where fabrication is most tempting — same firewall, harder:** "implicit assumption mining," "red-team," and "strengthening moves" must stay anchored to what the author *actually committed to*. Mine assumptions that the author's own stated claims entail; do not manufacture premises to make the argument richer or to give the red-team something to hit. A red-team finding against a claim the author never made is noise. When in doubt whether something is the author's claim or your inference, treat it as your inference and move it to meta-analysis as a question — never into the claim set as an attributed assertion.
+
+**Final pass — traceability re-check:** before returning, re-read every claim against the source and delete any claim, assumption, or relationship you cannot anchor to a specific span or to a named entailing claim. This check outranks completeness, symmetry, and map richness. Use `scripts/claim_validator.py` to structurally check JSON output (see Validation below).
+
 ## Workflow
 
 1. **Ingest**: Read source material (conversation, document, transcript)
@@ -147,22 +168,35 @@ For programmatic processing:
 - Flag apparent contradictions
 
 **Level 3: Deep**
-- Extract all claims (explicit + implicit)
+- Extract all claims (explicit + *directly entailed* implicit — see Fidelity Firewall)
 - Map full logical structure
-- Identify hidden assumptions
+- Identify hidden assumptions **the author's own claims commit them to** (not assumptions you find plausible)
 - Analyze argument completeness
-- Red-team reasoning
+- Red-team reasoning — against claims the author *actually made*, never against manufactured premises
 - Suggest strengthening moves
+- **Firewall reminder:** Deep mode does not license invention. More analysis depth means more rigor about traceability, not more claims pulled from world knowledge. Every implicit assumption must name the explicit claim(s) that entail it.
+
+## Validation
+
+For JSON output, structurally validate before returning:
+
+```bash
+python3 scripts/claim_validator.py claims.json
+```
+
+This checks required fields, valid claim types, and that all relationship references point to claims that actually exist (catches dangling/invented IDs). It validates *structure*, not grounding — grounding is enforced by the Fidelity Firewall traceability re-check. Run both: the firewall pass for "is this claim in the source?" and the validator for "is this JSON internally consistent?"
 
 ## Best Practices
 
-1. **Be charitable**: Steelman arguments before critique
-2. **Distinguish**: Separate what's claimed from what's implied
-3. **Be atomic**: One claim per line, no compound assertions
-4. **Track evidence**: Note source/support for each claim
-5. **Flag uncertainty**: Mark inferential leaps
-6. **Mind the gaps**: Identify missing premises explicitly
-7. **Stay neutral**: Describe structure before evaluating strength
+1. **Trace everything**: Every claim points to a specific source span (Fidelity Firewall is rule #1)
+2. **Be charitable**: Steelman arguments before critique — but steelman what's *there*, don't invent a stronger argument the author didn't make
+3. **Distinguish**: Separate what's claimed from what's implied; only emit implied claims that are directly entailed
+4. **Be atomic**: One claim per line, no compound assertions
+5. **Track evidence**: Note source/support for each claim
+6. **Flag uncertainty**: Mark inferential leaps; on thin input, return fewer claims and flag `[insufficient text to extract]`
+7. **Mind the gaps**: Identify missing premises in meta-analysis as *questions* unless the author is logically committed to them
+8. **Stay neutral**: Describe structure before evaluating strength
+9. **Don't pad**: An empty map is the right answer for empty input. Vagueness is a finding, not a gap to fill.
 
 ## Common Patterns
 

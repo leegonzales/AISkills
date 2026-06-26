@@ -228,14 +228,16 @@ This triggers Phase 2 encoding. See `persona-schema.md` for the output format.
 ### They Won't Go Deep
 - "I know this is hard to articulate. Just give me a rough example."
 - "There's no wrong answer here. I'm mapping patterns, not judging."
+- If a topic stays empty after probing, that field gets a gap marker in the schema. Do NOT compensate for a shallow answer by inventing depth the principal never provided (Fidelity Firewall).
 
 ### They Contradict Themselves
 - Note the contradiction in the schema
 - Ask: "Earlier you said X, now Y. What's the difference?"
 
 ### They Don't Have Formal Assessments
-- Use behavioral questions as substitutes
-- Focus on concrete examples over labels
+- Use behavioral questions to gather signal, but do NOT manufacture CliftonStrengths/VIA results from that signal
+- In the schema, mark the assessment fields `[insufficient data — no assessment provided]` and record the behavioral observations separately, labeled as observations
+- Focus on concrete examples over labels — and never upgrade an observation into a fabricated assessment result (Fidelity Firewall)
 
 ### They're Defensive
 - Reframe: "This helps the simulation be accurate"

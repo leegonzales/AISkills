@@ -7,6 +7,30 @@ description: AWS Cloud Development Kit (CDK) expert for building cloud infrastru
 
 This skill provides comprehensive guidance for developing AWS infrastructure using the Cloud Development Kit (CDK), with integrated MCP servers for accessing latest AWS knowledge and CDK utilities.
 
+## Fidelity / Degraded Mode (when the AWS MCP servers are absent)
+
+**Read this first. It governs every claim this skill makes about AWS.**
+
+This skill depends on the AWS Documentation MCP and AWS CDK MCP servers for ground truth. Those servers may not be present in a given session. When they are absent, you operate in **degraded mode** — and degraded mode has hard rules, because the failure mode here is high-stakes: fabricated service limits, quotas, regional availability, runtime versions, or pricing flow straight into infrastructure, security posture, and cost.
+
+**The volatile facts.** The following CHANGE over time and MUST be verified against a live source — never recalled from training memory:
+
+- AWS **service limits and quotas** (Lambda timeout/memory ceilings, concurrency, payload sizes, account limits, etc.)
+- **Regional availability** (whether a service or feature exists in a given region)
+- **Supported runtime versions** (Lambda Python/Node/Java runtimes, deprecation dates, EOL runtimes)
+- **Pricing** (per-request, per-GB, per-hour, free-tier boundaries)
+- New service features, API parameters, and default behaviors
+
+**The firewall (degraded-mode rules):**
+
+1. **If the AWS Documentation / CDK MCP server IS available** — verify the fact against it before stating it. Cite that you verified.
+2. **If the AWS MCP servers are NOT available** — you must **NOT** state a specific limit, version, quota, region, or price as fact. Instead, do one of:
+   - **(a) Flag for verification.** Say: *"Verify against current AWS docs — I can't confirm this without the AWS Docs MCP or a web check."* A live web search is an acceptable substitute for the MCP server; recalling from memory is not.
+   - **(b) Answer conditionally.** Frame the guidance on the assumption, not as fact: *"If Lambda supports Python 3.13 in your region, then ..."* — and surface the assumption explicitly.
+   - **(c) Stay version-agnostic.** Write the CDK code so the volatile value is a parameter, context value, or clearly-flagged `// VERIFY:` placeholder, rather than hardcoding a confidently-asserted version/limit.
+3. **Never fabricate a confident "X is supported" / "the limit is N" / "available in region R" without a live source.** A plausible-sounding number recalled from memory is the exact failure this gate exists to stop. When unsure, hedge and flag — do not assert.
+4. **Default posture is humility about specifics.** General CDK patterns, construct usage, and IaC architecture in this skill are stable and may be stated directly. The volatile facts above are not — gate them.
+
 ## Integrated MCP Servers
 
 This skill includes two MCP servers automatically configured with the plugin:
@@ -244,6 +268,7 @@ The validation script now focuses on:
 3. **CDK Guidance**: Use CDK MCP for construct-specific recommendations
 4. **Stay Current**: MCP servers provide latest information beyond knowledge cutoff
 5. **Combine Sources**: Use both skill patterns and MCP servers for comprehensive guidance
+6. **Degraded Mode**: If the MCP servers are absent, the "Fidelity / Degraded Mode" rules at the top of this skill apply — do not substitute training-memory recall for verification. Flag, answer conditionally, or stay version-agnostic.
 
 ## CDK Patterns Reference
 
