@@ -57,7 +57,7 @@ Claude Code stores conversation logs in `~/.claude/projects/`. The directory nam
 
 ```bash
 # Convert repo path to Claude's encoded format
-# /Users/lgonzales/Projects/foo → -Users-lgonzales-Projects-foo
+# /Users/leegonzales/Projects/foo → -Users-leegonzales-Projects-foo
 ENCODED_PATH=$(echo "$REPO_PATH" | tr '/' '-')
 LOG_DIR="$HOME/.claude/projects/$ENCODED_PATH"
 ```
@@ -269,7 +269,7 @@ Each event in the events array:
 
 Read the HTML template from:
 ```
-/Users/lgonzales/Projects/leegonzales/AISkills/BuildTimeline/build-timeline/references/html-template.html
+/Users/leegonzales/Projects/leegonzales/AISkills/BuildTimeline/build-timeline/references/html-template.html
 ```
 
 Replace these placeholders in the template with generated content:
@@ -466,7 +466,7 @@ Build Timeline generated:
 /build-timeline --since "1 day ago" --detailed
 
 # Specific repo with dark theme
-/build-timeline /Users/lgonzales/Projects/my-app --theme dark
+/build-timeline /Users/leegonzales/Projects/my-app --theme dark
 
 # Scoped time range with custom output
 /build-timeline --since "2026-03-12" --until "2026-03-13" --output build-report.html

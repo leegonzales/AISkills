@@ -5,6 +5,8 @@ description: Cross-project roadmap discovery scan — 4 domain scouts + 1 strate
 
 # Flywheel Scan
 
+> **⚠ DEPRECATED ORCHESTRATION — will not run as written.** This pipeline uses `TeamCreate`/`TeamDelete` and `team_name` on the `Task` tool, which no longer exist in the current harness. Migrate to the `Agent` tool (`subagent_type`) + `SendMessage` before running. Full rewrite tracked in bead **SKILL-2yd**.
+
 ## Invocation
 
 ```

@@ -22,7 +22,9 @@ Render a training module's facilitator artifacts (guides, prompts, skills) as a 
 
 **Usage:**
 ```bash
-python3 ~/.claude/skills/essay-to-speech/scripts/render-docs.py <module_dir> \
+# NOTE: the HTML doc-renderer (render-docs.py + catalyst-docs.html) is NOT bundled with this skill.
+# Mode 2 is documented for reference; supply your own renderer/template, or use Mode 1 (talk track).
+# python3 <your-render-docs.py> <module_dir> \
   --output <path.html> --title "Module Title"
 ```
 

@@ -116,10 +116,10 @@ fabric -y "URL" -p extract_wisdom | fabric -p create_micro_summary
 ## Model Selection
 
 ```bash
-# Use specific model
-fabric -p <pattern> -m claude-opus-4-5-20251101
-fabric -p <pattern> -m gpt-4o
-fabric -p <pattern> -m gemini-2.0-flash
+# Use a specific model (omit -m for fabric default; don't hardcode dated IDs)
+fabric -p <pattern> -m <model-name>
+fabric -p <pattern> -m <openai-model>
+fabric -p <pattern> -m <gemini-model>
 
 # Use specific vendor (for ambiguous model names)
 fabric -p <pattern> -V "LM Studio" -m openai/gpt-oss-20b

@@ -311,7 +311,7 @@ sb status                 # System health check
 node_id: "home"
 vault_path: "/path/to/vault"
 classification:
-  model: "claude-sonnet-4-20250514"
+  model: "claude-sonnet-latest"  # use the current Sonnet ID; don't pin a dated value
   confidence_threshold: 0.6
 ```
 

@@ -85,9 +85,9 @@ Once MCP is configured, these tools become available:
 
 | Model ID | Description |
 |----------|-------------|
-| `gemini-3-pro-image-preview` | **Default.** Highest quality, 4K support, best text rendering |
-| `gemini-2.0-flash-exp` | Faster generation, good quality, lower cost |
-| `gemini-2.0-flash-preview-image-generation` | Alternative 2.0 model |
+| `gemini-3-pro-image-preview` | **Default (current Nano Banana Pro).** Highest quality, 4K, best text. Verify the live model ID via the nanobanana MCP — don't hardcode dated/preview suffixes. |
+|  `<flash-tier model>` | Faster generation, good quality, lower cost |
+|  `<alternative flash model>` | Alternative 2.0 model |
 
 ### Image Size (Gemini 3 only)
 
@@ -126,7 +126,7 @@ Find images from previous sessions using `search_history`:
 search_history(query="sunset")
 
 # Search by date range
-search_history(startDate="2024-12-01", endDate="2024-12-31")
+search_history(startDate="2026-06-01", endDate="2026-06-30")
 
 # Search by model
 search_history(model="gemini-3")
@@ -140,7 +140,7 @@ search_history(query="portrait", model="gemini-3-pro", limit=10)
 Retrieve full metadata for any image by ID:
 
 ```
-get_image_by_id(imageId="generated-2024-12-13T20-12-45")
+get_image_by_id(imageId="generated-2026-06-13T20-12-45")
 ```
 
 Returns:
@@ -343,7 +343,7 @@ Naming format: `generated-[timestamp]-[id].png`
 | Model | Speed | Quality | Cost | Best For |
 |-------|-------|---------|------|----------|
 | `gemini-3-pro-image-preview` | Slower | Highest (4K) | Higher | Final assets, print, marketing |
-| `gemini-2.0-flash-exp` | Fast | Good | Lower | Prototyping, iteration, drafts |
+|  `<flash-tier model>` | Fast | Good | Lower | Prototyping, iteration, drafts |
 
 ## Prompting Philosophy: Conceptual Over Prescriptive
 

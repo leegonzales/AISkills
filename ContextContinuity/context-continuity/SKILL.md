@@ -145,7 +145,7 @@ Extract these elements **directly** (no file reads needed for standard cases):
 
 View the full template if you need detailed structure reference:
 ```bash
-view /home/claude/context-continuity/references/artifact-template.md
+Read references/artifact-template.md
 ```
 
 **But for most cases, the extraction checklist above is sufficient.**
@@ -164,7 +164,7 @@ This forces human review and catches errors early.
 
 If the human wants guidance for the receiving agent:
 ```bash
-view /home/claude/context-continuity/references/receiver-prompt.md
+Read references/receiver-prompt.md
 ```
 
 This is an optional prepend with instructions for processing the artifact.

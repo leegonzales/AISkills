@@ -106,7 +106,7 @@ The argument contains internal tensions:
 
 ### JSON Format
 
-For programmatic processing:
+For programmatic processing. **Validate the JSON** with `scripts/claim_validator.py` before returning it (confirms structure + relationship integrity):
 
 ```json
 {
