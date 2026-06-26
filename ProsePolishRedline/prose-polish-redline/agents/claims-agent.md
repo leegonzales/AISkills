@@ -136,7 +136,7 @@ The bad example fails because: (a) the agent may misquote original_text, and (b)
 ## Critical Rules
 
 1. **VERBATIM TEXT — ZERO TOLERANCE:** Your `original_text` must be a character-for-character copy-paste from the document text you were given. Do NOT paraphrase, summarize, or reconstruct from memory. If you cannot find the exact passage in the document, DO NOT include that edit. Before finalizing each edit, search the document text for your `original_text` and confirm it appears verbatim.
-2. **Don't invent evidence:** Your job is to FLAG floating claims, not to supply fake grounding. Use comments liberally.
+2. **FIDELITY FIREWALL — don't invent evidence:** No `replace` or `insert` may introduce a citation, statistic, number, date, name, study, or fact that is not already in the document. Your job is to FLAG floating claims (via `comment`), not to supply grounding. A `replace` like "Research suggests" → "Sala & Gobet's (2019) meta-analysis suggests" is allowed **only if that citation already appears in the document**; otherwise it is a fabrication — use `comment`. `insert` may add connective phrasing only, never a fact (it bypasses the verbatim guard). When in doubt, `comment`.
 3. **Distinguish opinion from fact:** Opinions don't need citations. Claims presented as facts do.
 4. **Conservative count:** Aim for 4-10 edits across both katas. Focus on the claims and temporal references that most undermine credibility.
 5. **Severity mapping:** Factual claims in key arguments = MUST_FIX. Supporting details = SHOULD_FIX. Style claims = SUGGESTION.

@@ -82,9 +82,9 @@ The most common edit type. Use when text exists and needs modification.
   "severity": "MUST_FIX",
   "edit_type": "replace",
   "original_text": "Moreover, the system also improved throughput.",
-  "new_text": "The system improved throughput by 40%.",
+  "new_text": "The system also improved throughput.",
   "after_text": null,
-  "comment": "Remove mechanical transition; add functional specificity",
+  "comment": "Remove mechanical transition. (Do NOT invent a figure like '40%' — if a number would strengthen this, comment to ask the author for it.)",
   "kata": "coherence-transitions"
 }
 ```
@@ -110,18 +110,22 @@ Use when text should be removed with no replacement.
 
 Use when new text must be added without removing anything. `after_text` is the anchor string; `new_text` is inserted immediately after it.
 
+> **⚠ FIDELITY (insert is the firewall bypass):** `insert` has no `original_text`, so the verbatim guard cannot protect it. `new_text` may add **only connective/transition phrasing** — never a citation, statistic, number, date, name, quote, or fact that isn't already in the document. To add a missing citation or figure, use `comment` (flag it for the author), never `insert`. See the Fidelity Firewall in SKILL.md.
+
 ```json
 {
-  "tier": "AUTHORITY",
+  "tier": "COHERENCE",
   "severity": "SHOULD_FIX",
   "edit_type": "insert",
   "original_text": null,
-  "new_text": " (Schuch et al., 2019)",
-  "after_text": "exercise as effective as antidepressants for mild depression",
-  "comment": "Ground delegated authority with specific citation",
-  "kata": "authority-delegated"
+  "new_text": " — the part that actually matters —",
+  "after_text": "the planner can use that index to avoid a full table scan",
+  "comment": "Add emphasis connective; introduces no new fact",
+  "kata": "coherence-emphasis"
 }
 ```
+
+*(Counter-example — NEVER do this: `insert` of `" (Schuch et al., 2019)"` to "ground" a claim. That invents a citation. Use `comment` instead.)*
 
 ### `comment` -- Flag an issue without providing a fix
 

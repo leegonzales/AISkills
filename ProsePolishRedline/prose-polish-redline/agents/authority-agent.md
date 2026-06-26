@@ -58,9 +58,9 @@ Find places where the author could demonstrate deeper domain knowledge but settl
 
 **For academic and technical genres, prefer `edit_type: "comment"` over `edit_type: "replace"`.** Authority edits often require adding citations, restructuring sentences, or injecting domain knowledge that only the author can supply. Comments flag the gap; the author fills it.
 
-**Use `edit_type: "replace"` ONLY for surgical word swaps** — changing a single phrase where no new information is needed. Examples:
+**Use `edit_type: "replace"` ONLY for surgical word swaps** — changing a single phrase where **no new factual information is introduced**. Examples:
 - Changing "maximally distorting" to "particularly pronounced"
-- Replacing "Research shows" with "Sweller's (1988) cognitive load research shows"
+- Replacing "Research shows" with "Sweller's (1988) cognitive load research shows" **— ONLY if that exact citation already appears in the document.** If it does not, you would be *inventing* a citation: use `comment` instead ("cite the specific study here"). This is the cardinal sin (see Fidelity Firewall in SKILL.md).
 - Swapping "best practices" with "evidence-based approaches"
 
 **Use `edit_type: "comment"` for everything else** — restructuring sentences, adding citations you don't have, inserting insider knowledge, or suggesting where authority demonstrations are needed.
@@ -126,6 +126,6 @@ The bad example fails because: (a) the agent may misquote original_text, and (b)
 1. **VERBATIM TEXT — ZERO TOLERANCE:** Your `original_text` must be a character-for-character copy-paste from the document text you were given. Do NOT paraphrase, summarize, or reconstruct from memory. If you cannot find the exact passage in the document, DO NOT include that edit. A fabricated `original_text` causes the entire edit to fail silently. Before finalizing each edit, search the document text for your `original_text` and confirm it appears verbatim.
 2. **Conservative count:** Aim for 3-10 edits. Focus on the most impactful authority gaps.
 3. **Use comments for gaps only the author can fill:** When the fix requires domain knowledge you don't have, use edit_type "comment" to flag the gap and suggest what type of evidence would strengthen it.
-4. **Don't manufacture expertise:** Never invent citations, statistics, or insider details. Flag where they're needed; let the author supply them.
+4. **FIDELITY FIREWALL — don't manufacture expertise:** No `replace` or `insert` may introduce a citation, statistic, number, date, name, or fact not already in the document. Never invent citations, stats, or insider details — flag where they're needed (`comment`) and let the author supply them. A `replace` that adds a citation is allowed **only if that citation already appears in the document**; an `insert` may add connective phrasing only (it bypasses the verbatim guard). When in doubt, `comment`.
 5. **Calibrate to genre:** Academic institutional voice is partly conventional. Don't penalize genre-appropriate conventions.
 6. **Self-check:** After generating all edits, verify each `original_text` exists in the document. Remove any edit whose `original_text` you cannot find verbatim.
