@@ -18,6 +18,22 @@ But we add a new dimension: **AI-Readiness**. Code that AI agents can navigate, 
 
 We collapse 17 Unix rules + 5 SOLID principles into **8 scoreable dimensions** to avoid overwhelming output while preserving full analytical coverage.
 
+## Citation Fidelity Firewall (when reviewing — never violate)
+
+**A code review is evidence about real code. Citing is not the same as remembering.** This skill demands `path:line` references for every exemplar, violation, and score rationale — and that demand is exactly the condition that tempts a model to *invent* a plausible-but-wrong line number, reconstruct a quoted snippet from memory, or name a violation it never actually located. A confident citation pointing at the wrong line (or a line that doesn't exist) is a **failure**, not a finding, no matter how reasonable it sounds.
+
+**The hard rule:** every `path:line` reference, every quoted code snippet, and every named violation or exemplar in your report MUST be one you *actually opened and read in this repo* and verified exists at that location. If you have not opened a file, you may **not** cite a line in it. Never guess a line number, never reconstruct a quote from memory, never carry a citation over from a similar codebase you've seen before. When you cannot ground a claim in a line you have read, you have exactly three honest moves, in order:
+
+1. **Cite what you actually read** — point only to files and lines you opened. A `path:line` you verified beats five you half-remember.
+2. **Flag the un-read area** — if a dimension's weakness lives in code you did not open, say so explicitly: "Robustness in `src/net/` not assessed — files not read." Name the gap; do not paper over it with an invented citation.
+3. **Reduce the claim to match the evidence** — if you only sampled part of the codebase, scope the finding to what you saw ("in the files reviewed…") rather than generalizing to code you never opened.
+
+**A review with fewer, real citations beats one padded with invented ones.** It is always acceptable — often more honest — to return three solid, verified citations and a list of un-read areas than to manufacture a citation per dimension to fill the template. Empty slots are a signal, not a defect.
+
+**Calibration is part of fidelity.** Do not inflate scores to be agreeable. A genuinely poor codebase MUST be allowed to score low — 40s, 30s, lower if the evidence supports it. Do not cluster every dimension at 70–85 because it feels safe; that is its own form of fabrication (inventing quality that isn't there). Every score must be backed by cited evidence: if you can't point to read code justifying a 75, the score is unsupported and should drop to what you can actually defend.
+
+**Final pass — citation re-verification (outranks every other concern):** before emitting the report, re-open each file you cite and confirm the line number, the snippet, and the named construct still match what you wrote. Roll back — or downgrade to "not assessed" — any citation you cannot re-verify against the actual file. This check outranks completeness, template-filling, and stylistic polish.
+
 ## Quick Start
 
 **Quick Scan:** Reconnaissance → Score 8 dimensions → Top 5 recommendations
@@ -99,9 +115,11 @@ Score each dimension 0-100. Load `references/scoring-rubric.md` for calibration.
 | **AI-Readiness** | (cross-cutting) | (cross-cutting) | Can AI agents navigate, understand, and safely modify this code? |
 
 **For each dimension, identify:**
-- **Exemplar:** Best file/module demonstrating this principle (with path:line)
-- **Violation:** Worst offender against this principle (with path:line)
-- **Score rationale:** 1-2 sentence justification
+- **Exemplar:** Best file/module demonstrating this principle (with path:line) — *must be a file you actually read; see Citation Fidelity Firewall*
+- **Violation:** Worst offender against this principle (with path:line) — *must be a real, verified location, not a reconstructed-from-memory line*
+- **Score rationale:** 1-2 sentence justification, grounded in cited evidence
+
+If you did not read enough of the codebase to ground a dimension's exemplar or violation in a verified `path:line`, leave it as "not assessed — files not read" rather than inventing one. An empty slot is honest; a fabricated citation is not.
 
 ### Phase 3: Synthesis
 
@@ -208,10 +226,10 @@ TOP 5 RECOMMENDATIONS:
 
 ## Scoring Philosophy
 
-- **Be calibrated, not generous.** 70 is genuinely good. 90+ is exceptional. 50 means real problems.
+- **Be calibrated, not generous.** 70 is genuinely good. 90+ is exceptional. 50 means real problems. A genuinely poor codebase must be allowed to score in the 30s or 40s — do not inflate to be agreeable, and do not cluster scores in a safe 70–85 band. Inventing quality that isn't there is fabrication just like inventing a citation.
 - **Architecture type matters.** A CLI tool doesn't need the composability of a library.
 - **Dimension gaps are diagnostic.** The pattern of scores reveals more than any single number.
-- **Cite specific files.** Every exemplar and violation must reference actual code with path:line.
+- **Cite specific files — and only ones you read.** Every exemplar and violation must reference actual code with `path:line` that you opened and verified. Never guess a line number or reconstruct a snippet from memory. Re-verify every citation against the file before emitting the report. See the Citation Fidelity Firewall — it outranks template completeness.
 - **Recommendations must be actionable.** "Improve modularity" is useless. "Extract the validation logic from `src/handlers/auth.ts:45-120` into a separate module" is actionable.
 
 ## Reference Files
@@ -227,7 +245,7 @@ Load as needed:
 1. **Reconnaissance Before Judgment.** Never score without reading code. Sample broadly.
 2. **Architecture-Type Calibration Is Non-Negotiable.** A microservice and a CLI have different priorities.
 3. **Dimension Gaps Are Diagnostic.** The pattern matters more than the average.
-4. **Cite or It Didn't Happen.** Every claim must reference specific files and lines.
+4. **Cite or It Didn't Happen — and Never Fabricate the Citation.** Every claim must reference specific files and lines you actually read and verified. A fabricated `path:line` is worse than no citation: it didn't happen, and now it looks like it did. When you can't ground a claim, flag the un-read area instead. (See Citation Fidelity Firewall.)
 5. **Actionable Over Exhaustive.** Five concrete recommendations beat twenty vague observations.
 6. **The Unix Way Is Pragmatic.** Rules are heuristics, not laws. Flag violations but acknowledge justified exceptions.
 7. **AI-Readiness Is About Structure, Not Comments.** Good structure for AI means good structure for humans—but the reverse isn't always true.

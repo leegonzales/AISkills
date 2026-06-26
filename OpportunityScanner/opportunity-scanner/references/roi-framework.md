@@ -2,6 +2,8 @@
 
 How to calculate and present return on investment for recommended builds.
 
+> **Bound by the Fidelity Firewall (SKILL.md).** The tables below are **labels and sanity-check ranges for the math — NOT a source of inputs.** Frequency must be a real count from the scan. Time-per-instance must be user-supplied or shown by a real artifact (e.g. a calendar event's actual duration). If you find yourself reaching into the "Time per Instance" table because you don't know the real number, STOP: that is the fabrication this framework forbids. Emit `ROI: unquantified (LOW confidence) — [missing input]` and ask the user, instead of pulling an estimate to fill the field. A fabricated ROI is a failure even if it looks reasonable.
+
 ---
 
 ## Core Formula
@@ -17,7 +19,9 @@ Impact Score = (Annual ROI hours × people_affected) / effort_hours
 
 ## Input Variables
 
-### Frequency (from scan data)
+### Frequency (MUST be a real count from scan data)
+This table only converts an **already-counted** cadence into a weekly number. It does not license guessing the cadence. You earn "daily" by counting roughly-daily occurrences in the scan, never by assuming the role "probably" does it daily.
+
 | Cadence | Weekly Frequency |
 |---------|-----------------|
 | Multiple times daily | 15-25 |
@@ -27,7 +31,9 @@ Impact Score = (Annual ROI hours × people_affected) / effort_hours
 | Biweekly | 0.5 |
 | Monthly | 0.25 |
 
-### Time per Instance (estimated by task type)
+### Time per Instance (sanity-check range ONLY — not an input source)
+Use this table to *sanity-check* a user-supplied or artifact-derived time, or to phrase a question ("does ~15-30 min sound right for these?"). Do NOT silently insert a value from this table into an ROI calculation — that produces a fabricated number. If you have no real time-per-instance, the ROI stays unquantified.
+
 | Task | Minutes |
 |------|---------|
 | Writing a status update | 15-30 |
@@ -66,6 +72,8 @@ Impact Score = (Annual ROI hours × people_affected) / effort_hours
 4. **Show the math briefly**: "You post status updates 3x/week, ~20 min each = ~1 hour/week"
 5. **Team multipliers**: "If 8 people on your team each save 1 hour/week, that's 8 hours/week recovered for the department."
 6. **Be honest about effort**: "This takes about 2 hours to set up" is more useful than "Low effort."
+7. **Show the source of every number**: "~1 hour/week (counted 31 emails / 30 days, you said ~10 min each)". If you can't name where the frequency and time came from, you can't show the hours — write `unquantified (LOW confidence)` instead.
+8. **Never reverse-engineer to hit a tier.** Don't pick inputs that make something land in "High ROI." Compute from real counts; let the tier fall where it falls.
 
 ---
 

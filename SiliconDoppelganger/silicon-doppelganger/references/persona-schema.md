@@ -13,7 +13,28 @@ structured block.
 
 **CRITICAL:** Do not summarize generic traits. Use specific quotes, observed
 biases, and strict rules based on what I told you.
+
+**FIDELITY FIREWALL (hard requirement):** Every field must trace to something
+I actually said in this interview. Do NOT invent quotes I did not say, do NOT
+assign CliftonStrengths/VIA strengths I did not report, and do NOT construct an
+origin story or shadow self I did not describe. For any field I gave you no data
+on, write exactly `[insufficient data — needs interview]` (name the missing
+question if you can). For anything you reasonably inferred rather than heard
+directly, tag it `[inferred — confirm with principal]`. A schema with honest
+gaps is correct; a plausible-but-fabricated schema is wrong.
 ```
+
+---
+
+## Gap-Marker Convention (Fidelity Firewall)
+
+Any field lacking source data is filled with a gap marker, never invented content:
+
+- `[insufficient data — needs interview]` — no data; needs collection
+- `[insufficient data — no assessment provided]` — for CliftonStrengths/VIA when the principal never took the assessment
+- `[inferred from <question> — confirm with principal]` — a reasonable inference from what they said, explicitly flagged as not-yet-confirmed
+
+A schema that ships with gap markers is honest and deployable-with-caveats. A schema padded with plausible fabrication is a defect. See the top-level Fidelity Firewall in `SKILL.md`.
 
 ---
 
@@ -72,13 +93,13 @@ Full name or identifier for the persona.
 
 ### `<psychometrics>`
 
-**`<clifton>`** - Top 5 CliftonStrengths in order
+**`<clifton>`** - Top 5 CliftonStrengths in order, **only if the principal reported them**
 - Example: "Strategic, Ideation, Futuristic, Command, Self-Assurance"
-- If not available, describe dominant thinking/feeling/behaving patterns
+- If not reported: write `[insufficient data — no assessment provided]`. You may separately note dominant thinking/feeling/behaving patterns the principal described, clearly labeled as behavioral observation rather than assessment results. Never present a guessed strength as a measured CliftonStrength.
 
-**`<via>`** - Top 5 VIA Character Strengths
+**`<via>`** - Top 5 VIA Character Strengths, **only if the principal reported them**
 - Example: "Creativity, Curiosity, Perspective, Leadership, Bravery"
-- If not available, describe core values from interview
+- If not reported: write `[insufficient data — no assessment provided]`. Capture stated values from the interview separately, labeled as such. Do not fabricate VIA results.
 
 ### `<linguistic_fingerprint>`
 
@@ -209,11 +230,14 @@ Will override concerns about polish in favor of speed.
 
 Before using a schema in simulation, verify:
 
+- [ ] **Traceability** - Every populated field traces to a specific interview answer
+- [ ] **Gaps Marked** - Fields without data carry a gap marker, not invented content
 - [ ] **Specificity** - No generic traits; all based on interview data
-- [ ] **Quotes Used** - Actual phrases from the person included
+- [ ] **Quotes Are Real** - Any quoted phrase is verbatim; missing quotes are gap-marked, not manufactured
+- [ ] **Inferences Tagged** - Inferred fields labeled `[inferred — confirm with principal]`
 - [ ] **Contradictions Noted** - Any observed conflicts documented
-- [ ] **Stress Behavior** - Shadow self clearly described
-- [ ] **Linguistic Detail** - Enough to generate realistic dialogue
+- [ ] **Stress Behavior** - Shadow self described from reported data (or gap-marked)
+- [ ] **Linguistic Detail** - Enough to generate realistic dialogue, from real samples
 - [ ] **Decision Rules** - Clear enough to predict choices
 
 ---

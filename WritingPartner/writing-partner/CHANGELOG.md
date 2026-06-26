@@ -5,6 +5,17 @@ All notable changes to Writing Partner will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-06-25
+
+### Added
+- **Fidelity Firewall (operational gate)**: top-level hard gate against fabrication. Never invent the author's anecdotes, examples, quotes, statistics, names, dates, scenes, sensory details, or lived experience. When the draft needs a specific the author hasn't supplied, only three honest moves are allowed: (a) ask for it in the interview, (b) leave a bracketed `[author: ...]` flag, (c) write around it without inventing.
+- Mandatory Interview → Drafting gate: no full draft until the angle is clear AND ground truth (real vs. hypothetical) is distinguished. "Just write it" / "just draft it" on thin input → return to interview, not fabrication.
+
+### Changed
+- Drafting Mode pre-flight checklist reframed as an enforced firewall gate.
+- Blocking transitions now explicitly forbid finalizing any draft containing invented specifics.
+- Success Criteria reordered: fidelity is the first test and outranks voice/artifact-quality — a thin-but-true draft is a success, a complete-but-fabricated draft is a failure.
+
 ## [1.0.0] - 2025-12-18
 
 ### Added

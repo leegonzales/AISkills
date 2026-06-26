@@ -26,6 +26,24 @@ A Silicon Doppelganger is NOT just a simulation for entertainment — it's a **f
 
 The persona schema acts as a "save file" that maintains fidelity across sessions and systems.
 
+## Fidelity Firewall (READ FIRST — non-negotiable)
+
+A proxy that confabulates is worse than no proxy: it misrepresents a real person to other agents and to the Conductor, with their name on it. The single most damaging failure mode of this skill is **inventing persona content the principal never gave you** — the persona equivalent of a fabricated citation. Treat thin interview data as a gap to flag, never a blank to fill.
+
+**Rule 1 — Every field traces to source data.** Every quote, CliftonStrength, VIA strength, value, core driver, fear, decision rule, blind spot, origin story, and biographical detail in the schema MUST trace to actual interview transcript or source material the principal provided. You may paraphrase and organize what they said; you may NOT:
+- Invent a quote the person never said (no fabricated "actual phrases").
+- Assign a CliftonStrength or VIA strength they did not report. If they did not take the assessment, the field is empty — do not guess "Strategic" from vibes and present it as a measured result.
+- Construct an origin story, formative failure, or shadow-self behavior they never described.
+- Infer a primary motivation/fear and state it as fact when the interview never surfaced it.
+
+**Rule 2 — On thin input, mark the gap; do not fill it.** When a field has no supporting data, write exactly `[insufficient data — needs interview]` (optionally naming the missing question, e.g. `[insufficient data — needs Q3.1 origin story]`). A sparse, honest schema with five filled fields and ten gap markers is a CORRECT output. A rich, plausible, fabricated schema is a FAILED output. Never pad a schema to look complete.
+
+**Rule 3 — Distinguish observed from inferred.** If you draw a reasonable inference from what the principal said (e.g., risk tolerance from a story), tag it as inference, not direct report: `[inferred from Q2.3 answer — confirm with principal]`. Inferences are allowed; inferences disguised as quotes or assessment results are not.
+
+**Rule 4 — No validation theater.** Do NOT state a validation accuracy percentage (e.g., "80%+ match," "92% accuracy") unless you have actually run a predict-vs-ground-truth question battery and counted the results. If no battery was run, the validation status is literally **"not yet validated."** A target ("aim for 80%+") is a goal, never a claim — never report an aspirational target as an achieved score.
+
+**Self-audit before output.** Before emitting any schema, scan every populated field and ask: *"Can I point to the exact interview answer this came from?"* If not, replace it with a gap marker. If asked to deploy a proxy that still contains gap markers in `must_reject`/`must_protect` or unvalidated status, surface that to the principal rather than proceeding silently.
+
 ## Core Workflow
 
 ### Phase 1: Extraction (Data Collection)
@@ -33,9 +51,10 @@ The persona schema acts as a "save file" that maintains fidelity across sessions
 Interview the principal individually (45-60 min):
 
 1. **Hardware** — Collect psychometrics
-   - CliftonStrengths (Top 5-10)
-   - VIA Character Strengths (Top 5-10)
+   - CliftonStrengths (Top 5-10) — record only if the principal reports them; do NOT infer
+   - VIA Character Strengths (Top 5-10) — record only if reported; do NOT infer
    - Communication samples (emails, Slack) for linguistic fingerprint
+   - If the principal has no formal assessments, leave those fields as `[insufficient data — no assessment provided]` and rely on behavioral signals instead. Never substitute a guessed strength for a reported one.
 
 2. **Operating System** — Map decision heuristics
    - "Good work" definition (profit vs. meaning)
@@ -97,7 +116,7 @@ Test the proxy against real principal behavior:
 3. **Ground Truth** — Principal answers independently
 4. **Refinement** — Mismatches reveal schema gaps → update schema
 
-Target: 80%+ accuracy on lenient match (correct answer OR acceptable alternative).
+**Target (a goal, not a claim): aim for 80%+ accuracy on lenient match** (correct answer OR acceptable alternative). This is the bar you are working toward — it is NOT a number you may report until you have actually run the battery and counted matches. Until a battery has been run and scored, the validation status is **"not yet validated."** See Fidelity Firewall Rule 4.
 
 See `references/simulation-guide.md` for validation methodology.
 
@@ -188,14 +207,17 @@ The schema is the source of truth. All behaviors derive from it.
 
 Before deploying a proxy:
 
+- [ ] **Traceability (Fidelity Firewall)** — Every populated field traces to a specific interview answer; no field is fabricated or inferred-as-fact
+- [ ] **Gaps Marked, Not Filled** — Fields without source data carry `[insufficient data — needs interview]`, not invented content
 - [ ] **Specificity** — No generic traits; all based on interview data
-- [ ] **Quotes Used** — Actual phrases from the principal included
+- [ ] **Quotes Are Real** — Any quoted phrase is verbatim from the principal; if none were captured, the quote fields are gap-marked (do NOT manufacture a quote to satisfy this item)
+- [ ] **Inferences Tagged** — Inferred fields are labeled `[inferred — confirm with principal]`, not presented as direct report
 - [ ] **Contradictions Noted** — Observed conflicts documented
-- [ ] **Stress Behavior** — Shadow self clearly described
-- [ ] **Linguistic Detail** — Enough to generate realistic dialogue
+- [ ] **Stress Behavior** — Shadow self described from what the principal reported (or gap-marked)
+- [ ] **Linguistic Detail** — Enough to generate realistic dialogue, derived from actual communication samples
 - [ ] **Decision Rules** — Clear enough to predict choices
-- [ ] **Agent Rules** — Must_reject, must_protect, should_prefer defined
-- [ ] **Validation** — 80%+ lenient match on question battery
+- [ ] **Agent Rules** — Must_reject, must_protect, should_prefer defined (gap-marked if interview did not cover them)
+- [ ] **Validation Status Honest** — Either a real battery was run and the score reported with its count, OR status reads "not yet validated." No aspirational percentages.
 
 ## Related Skills
 

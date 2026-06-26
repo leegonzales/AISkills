@@ -11,6 +11,35 @@ Deep-dive your connected work tools to find the highest-value Claude skills, pro
 
 ---
 
+## Fidelity Firewall (hard gate — never violate)
+
+**This skill's authority comes from one thing: every number in the report is a real count from a real scan.** The moment you invent a frequency, a time-per-instance, an hours-saved figure, or an ROI to fill a template field, the report becomes fiction wearing the costume of rigor — and a confident fabricated number is *worse* than an honest "I don't have the data," because the user will act on it.
+
+**The hard rule — every quantified claim in the report MUST trace to scanned evidence:**
+
+| Claim type | Allowed ONLY when | Never |
+|------------|-------------------|-------|
+| Frequency ("12 status emails/week") | You counted them in the scanned data | Inferred from "this kind of role probably…" or from a cadence table |
+| Time-per-instance | The user told you, OR a real artifact shows it (e.g. calendar event duration) | Pulled from an "estimated minutes by task type" table to fill a field |
+| Hours-saved / ROI | Derived **only** from a real frequency × a real/user-supplied time × a stated automation rate | Reverse-engineered to land in a "High ROI" tier |
+| Pattern claim ("you're a decision bottleneck") | A real, countable signal supports it (N threads stalled on you, measured) | Two long threads, a vibe, or one anecdote |
+
+**The scan evidence tables are inputs you MAY use as labels for the math AFTER you have a real count — they are NOT permission to estimate the count itself.** A cadence table tells you that "daily ≈ 5/week"; it does not tell you the user does the thing daily. Only the scan tells you that.
+
+**When data is insufficient to quantify, you have exactly three honest moves, in order:**
+
+1. **Scope down to what you can prove.** Report the pattern you actually observed and stop there. "I see 8 calendar events over 30 days; that's too thin to quantify meeting load — here's the one signal I can stand behind."
+2. **Mark the recommendation LOW-confidence and name the gap.** Every recommendation must state the specific scan evidence behind it. If the evidence is thin or absent, say so explicitly: `LOW confidence — based on 8 calendar events only; no email/Slack connected, so frequency is unmeasured.`
+3. **Ask for the missing input instead of inventing it.** "How often do you actually send this kind of update?" beats a fabricated "~3x/week."
+
+**Never manufacture a number to look rigorous.** An honest "insufficient data to estimate ROI — connect Gmail/Slack for a real figure" is a *correct* answer, not a failure. Under-claiming on thin data is the safe direction; over-claiming is the failure mode this firewall exists to stop.
+
+**Every recommendation must carry: (a) the specific scan evidence it rests on, and (b) a confidence level (HIGH / MEDIUM / LOW) justified by how much real data backs it.** A recommendation with no citable evidence does not go in the report.
+
+**Final pass — evidence re-check:** before delivering the report, re-read every number and pattern claim and confirm each traces to actual scanned data. Roll back or downgrade any figure you cannot source. This check outranks completeness — a shorter, fully-sourced report beats a complete-looking fabricated one.
+
+---
+
 ## When to Use
 
 Invoke when user:
@@ -45,7 +74,7 @@ Report what's connected:
 >
 > **I'll scan everything that's connected. The more tools available, the better the recommendations. Ready to start?**
 
-If fewer than 2 tools are connected, warn that recommendations will be limited but proceed anyway.
+If fewer than 2 tools are connected, warn explicitly that the scan will be **evidence-thin**: with one source there is not enough cross-signal to quantify most patterns, so the report will scope down to what that single tool can prove and most recommendations will be marked LOW confidence. Do **not** compensate for missing tools by estimating the numbers they would have provided (see Fidelity Firewall). Offer to proceed in scoped-down mode or to connect more tools first.
 
 ---
 
@@ -174,11 +203,13 @@ Annual ROI Hours = Weekly Time Saved × 48 weeks
 Impact Score = (Annual ROI Hours × people_affected) / implementation_effort
 ```
 
-**Frequency**: How often does this pattern occur? (from scan data)
-**Time per instance**: Estimated minutes per occurrence
+**Frequency**: How often does this pattern occur? — **a real count from the scan**, not an estimate. If you cannot count it, you cannot score it (see Fidelity Firewall); scope the recommendation down to LOW confidence and name the gap instead.
+**Time per instance**: Minutes per occurrence — only if the user supplied it or a real artifact shows it (e.g. calendar event duration). If neither, leave ROI unquantified and ask the user, rather than pulling a number from a table.
 **Automation percentage**: How much can Claude realistically handle? (be honest — 40-80%, not 100%)
-**People affected**: Just them, or their whole team?
+**People affected**: Just them, or their whole team? — based on observed recipients/participants, not assumed team size.
 **Implementation effort**: Low (1 hour), Medium (half day), High (full day)
+
+> **Gate:** ROI is computed only when both frequency AND time-per-instance are real (scanned or user-supplied). If either is missing, do not emit an hours-saved number — emit `ROI: unquantified (LOW confidence) — [missing input]` and either ask the user or scope the recommendation to the bare pattern you can prove.
 
 ---
 
@@ -186,9 +217,12 @@ Impact Score = (Annual ROI Hours × people_affected) / implementation_effort
 
 Generate recommendations in two categories. Each recommendation must include:
 - **What to build** (skill, project, or artifact — be specific)
-- **Why** (the pattern that triggered this recommendation, with data)
-- **ROI estimate** (hours saved per week, who benefits, implementation effort)
+- **Why** (the pattern that triggered this recommendation, **with the specific scan evidence and real counts** — "47 status messages across 3 channels in 30 days", not "frequent status updates")
+- **ROI estimate** (hours saved per week, who benefits, implementation effort) — **only if frequency and time-per-instance are real** (see Gate above); otherwise `ROI: unquantified (LOW confidence)`
+- **Confidence** (HIGH / MEDIUM / LOW) — justified by how much real data backs it. HIGH = counted frequency + known time. LOW = thin/single-source/uncounted; name the gap.
 - **How** (2-3 sentence description of what the build looks like)
+
+A recommendation with no citable scan evidence does not go in the report (Fidelity Firewall).
 
 #### Category 1: For You (Personal Productivity)
 
@@ -234,18 +268,21 @@ Present findings in a structured, scannable format.
 ```markdown
 # Opportunity Scan Report — [Name], [Role]
 **Scan date**: [Date]
-**Sources scanned**: [List connected tools]
+**Sources scanned**: [List connected tools] — [N events / N emails / N messages actually pulled]
 **Time window**: Last 30 days
+**Evidence depth**: [Strong (3+ tools, rich history) / Moderate / Thin — quantification limited, see confidence flags]
+
+> Only report metrics for sources actually scanned. Omit lines for tools that aren't connected — do NOT show a placeholder number for them. Every figure below is a real count from the scan.
 
 ---
 
 ## Key Findings
 
-**Your work profile**:
-- [X] hours/week in meetings ([trend] from last month)
-- [X] emails/day ([X] requiring action, [X] FYI)
-- [X] Slack channels active, [X] DMs/day
-- [X] Jira tickets touched/week
+**Your work profile** (counted from scanned data):
+- [X] hours/week in meetings ([trend] from last month) — [from N calendar events]
+- [X] emails/day ([X] requiring action, [X] FYI) — [from N emails]
+- [X] Slack channels active, [X] DMs/day — [from N messages]
+- [X] Jira tickets touched/week — [from N issues]
 
 **Top patterns detected**:
 1. [Pattern name] — [one-line description with data]
@@ -257,7 +294,8 @@ Present findings in a structured, scannable format.
 ## For You: Top [N] Recommendations
 
 ### 1. [Build Name] — [Skill/Project/Artifact]
-**ROI**: ~[X] hours saved/week | Effort: [Low/Med/High]
+**ROI**: ~[X] hours saved/week (or `unquantified — LOW confidence, [gap]`) | Effort: [Low/Med/High] | Confidence: [HIGH/MED/LOW]
+**Evidence**: [Specific scanned counts this rests on — e.g. "31 near-duplicate update emails in 30 days"]
 **Pattern**: [What we found in the data]
 **Build**: [2-3 sentences on what this looks like]
 
@@ -293,6 +331,29 @@ Present findings in a structured, scannable format.
 | ... | ... | ... | ... | ... | ... |
 ```
 
+**Thin-data variant.** When evidence is too sparse to fill the template honestly (e.g. one tool, little history), do NOT pad it with estimated numbers. Deliver the scoped-down version instead:
+
+```markdown
+# Opportunity Scan Report — [Name] (Scoped — Thin Data)
+**Sources scanned**: Google Calendar only — 8 events, 30 days
+**Evidence depth**: Thin. No email/Slack/Jira connected, so frequency and time-saved are unmeasured.
+
+## What I Can Actually Say
+- [The one or two patterns the single source genuinely shows, with real counts]
+
+## What I Can't Say Yet (and why)
+- Hours-saved / ROI: unquantified — I have no frequency data for email, messaging, or ticket work.
+- "[Bottleneck / broker / etc.]" patterns: insufficient signal to claim.
+
+## Best Next Step
+- Connect [Gmail / Slack / Jira] and rerun for a quantified report, OR tell me how often you do [X] and I'll compute ROI from a real number.
+
+## Candidate (LOW confidence — verify before building)
+### [Build Name] — [Type]
+**ROI**: unquantified (LOW confidence) | Effort: [est] | Confidence: LOW
+**Evidence**: [the single thin signal] — not enough to quantify savings.
+```
+
 ---
 
 ### Phase 5: Interactive Deep-Dive
@@ -314,8 +375,8 @@ If they choose to build, generate the complete output:
 
 ## Presentation Rules
 
-- **Lead with data, not opinions.** Every recommendation cites scan evidence.
-- **Be honest about ROI.** Don't inflate numbers. 2 hours/week saved is meaningful — don't round up to 5.
+- **Lead with data, not opinions.** Every recommendation cites scan evidence — this is a hard gate (Fidelity Firewall), not a stylistic preference. No evidence, no recommendation.
+- **Be honest about ROI.** Don't inflate numbers, and don't *invent* them. 2 hours/week saved is meaningful — don't round up to 5, and never fabricate a figure to fill the field. "Unquantified — LOW confidence, [gap]" is a valid and correct answer when the scan can't support a number.
 - **Separate personal from team.** Leaders think in both frames. Don't mix them.
 - **Quick wins first.** Low-effort, high-frequency wins build momentum.
 - **No jargon about AI.** Don't say "leverage AI to optimize workflows." Say "this scans your Jira every morning and posts a status update so you don't have to."

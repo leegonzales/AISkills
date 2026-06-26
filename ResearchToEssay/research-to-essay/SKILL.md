@@ -8,6 +8,26 @@ license: Complete terms in LICENSE.txt
 
 Systematic workflow for producing publication-grade essays from research. Handles multi-source synthesis, narrative construction, voice calibration, and citation management.
 
+## Citation Fidelity Firewall (HARD GATE — never violate)
+
+**Citing is reporting what a real source actually said. Writing persuasively is not the same as inventing the evidence.** Every citation, statistic, study name, author-year, institution, direct quote, finding, and URL in the essay MUST come from a `web_search` or `web_fetch` you **actually executed in this session** and whose result you **saw with your own eyes**. A fluent sentence resting on a fabricated source is a *fabrication*, not an essay — no matter how plausible it reads or how perfectly it fits the argument. This is the same failure class as fabricating an author's anecdote during prose polishing: persuasive surface, invented substance.
+
+**The hard rule: no retrieved source → no citation.** If you did not run a search/fetch that returned a given source, you may not cite it, name it, link to it, or attribute a claim to it. Before writing any citation, you must be able to point to the specific tool call in *this session* whose output contains that exact source. If you cannot, the citation does not exist.
+
+**You must STOP — not improvise — when research is thin.** If research was never run, or ran but returned too little to support the essay, you have exactly these honest moves, in order:
+
+1. **Run the searches now** — execute the `web_search`/`web_fetch` calls and cite only what comes back.
+2. **Tell the user you cannot cite responsibly** — say plainly that the available verified sources are insufficient, and ask whether to research further or proceed with explicitly uncited, clearly-hedged claims.
+3. **Reduce the claim to match the evidence** — soften or cut any assertion you cannot ground in a retrieved source, rather than manufacturing support for it.
+
+You may **NEVER** manufacture a citation, author name, author-year, institution, study title, statistic, finding, or link to satisfy a structural target. The "5-8 sources" / "8-12 sources" / "6-10 sources" minimums (see Step 2) are a **floor on VERIFIED sources actually retrieved this session — not a quota to pad toward.** If you have four real sources, you have four; invent a fifth and the whole essay is compromised. Falling short of the floor is a signal to research more or narrow the claim, never to fabricate.
+
+**Every URL must be one you actually retrieved.** Do not construct, guess, autocomplete, or "reconstruct from memory" plausible-looking URLs (e.g. a `stanford.edu/hai/...` path that *looks* right). A URL you did not see returned by a tool is a fabricated URL even if the domain is real. When in doubt about whether you actually retrieved a source, treat it as not retrieved and remove the citation.
+
+**This gate outranks every stylistic, structural, and completeness goal in this skill.** The "Evidence & citation check" in Step 5 and the "always cite empirical claims" rule in Step 4 presuppose this firewall: a citation only counts if it passed this gate first.
+
+**Final pass — provenance re-check:** before delivering, walk every citation, statistic, quote, and URL in the essay and confirm each traces to a tool result you saw this session. Roll back any you cannot trace. This check outranks every other quality signal.
+
 ## Core Workflow
 
 ### 1. Intake & Planning
@@ -34,7 +54,7 @@ Conduct systematic research following source credibility hierarchy:
 - Add **informed commentary** (practitioner Substacks, conference talks) for applied context
 - Avoid weak sources (social media speculation, content marketing, AI-generated farms)
 
-**Source quality requirements:**
+**Source quality requirements:** *(these minimums are a floor on VERIFIED sources you actually retrieved this session via `web_search`/`web_fetch` — see the Citation Fidelity Firewall above. Never pad toward a number by inventing sources; falling short means research more or narrow the claim.)*
 - Minimum 5-8 sources for persuasive essays
 - Minimum 8-12 sources for exploratory essays
 - Minimum 6-10 sources for diagnostic essays
@@ -144,12 +164,13 @@ Quality assurance checks before delivery:
 - [ ] Verify tone consistency throughout
 - [ ] Confirm readability for target audience
 
-**Evidence & citation check:**
+**Evidence & citation check:** *(presupposes the Citation Fidelity Firewall — a citation only counts if every author, statistic, quote, and URL traces to a `web_search`/`web_fetch` result you saw this session)*
+- [ ] **Provenance verified**: every citation, statistic, study name, quote, and URL traces to a tool call you actually executed this session — none manufactured, none reconstructed from memory
 - [ ] Every major claim has warrant (evidence or citation)
 - [ ] Primary sources used for factual claims
 - [ ] Counter-arguments acknowledged with credible sources
 - [ ] No citation decay (secondary sources when primary available)
-- [ ] Links functional, citations complete
+- [ ] Links functional and actually retrieved (not plausible-looking URLs you constructed), citations complete
 
 **Platform-specific polish:**
 - **LinkedIn**: Paragraph breaks every 2-3 sentences, key phrases bolded, CTA included
@@ -233,5 +254,6 @@ After delivering draft, typical refinement requests:
 - **Don't** write intro first—write it last after you know what you said
 - **Don't** ignore voice profile constraints—they prevent AI slop
 - **Don't** cite weak sources when primary available—tier matters
+- **Don't** EVER manufacture a citation, author, statistic, or URL to hit a source count—an invented Tier-1-looking source is the worst failure this skill can produce (see Citation Fidelity Firewall)
 - **Don't** pad length artificially—every paragraph must earn its keep
 - **Don't** summarize in conclusion—reframe or extrapolate instead
