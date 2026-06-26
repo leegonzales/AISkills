@@ -115,8 +115,8 @@ cat file.md | fabric -p extract_wisdom | fabric -p summarize
 ### Model and Options
 
 ```bash
-# Use specific model
-fabric -p <pattern> -m claude-opus-4-5-20251101
+# Use a specific model (omit -m for fabric default; don't hardcode dated IDs)
+fabric -p <pattern> -m <model-name>
 
 # Set temperature
 fabric -p <pattern> -t 0.3

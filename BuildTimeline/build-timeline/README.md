@@ -20,7 +20,7 @@ Symlink the slash command into your Claude Code commands directory:
 
 ```bash
 mkdir -p ~/.claude/commands
-ln -sf /Users/lgonzales/Projects/leegonzales/AISkills/BuildTimeline/dist/build-timeline.md ~/.claude/commands/build-timeline.md
+ln -sf /Users/leegonzales/Projects/leegonzales/AISkills/BuildTimeline/dist/build-timeline.md ~/.claude/commands/build-timeline.md
 ```
 
 ## Usage

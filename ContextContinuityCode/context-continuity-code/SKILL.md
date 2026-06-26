@@ -342,10 +342,10 @@ See `references/examples.md` for:
 
 ## Validation
 
-Use the Python validator to check artifact quality:
+Self-review the artifact against these checks (no automated validator is bundled):
 
 ```bash
-python context-continuity-code/scripts/validate_dev_transfer.py artifact.md
+# Manual review — confirm each item below is present and accurate in artifact.md
 ```
 
 Checks for:

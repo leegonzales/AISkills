@@ -134,7 +134,7 @@ Inbox:
 | `ANTHROPIC_API_KEY` | Claude API key | (required) |
 | `VAULT_PATH` | Path to Obsidian vault | ~/Obsidian |
 | `DATABASE_PATH` | Path to SQLite database | ~/.local/share/secondbrain/secondbrain.db |
-| `CLASSIFICATION_MODEL` | Claude model for classification | claude-sonnet-4-20250514 |
+| `CLASSIFICATION_MODEL` | Claude model for classification | latest Claude Sonnet (don't pin a dated ID) |
 | `CONFIDENCE_THRESHOLD` | Min confidence for auto-classification | 0.6 |
 | `LOG_LEVEL` | Logging verbosity | INFO |
 

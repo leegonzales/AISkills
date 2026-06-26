@@ -317,7 +317,7 @@ Validate your artifact before transfer:
 
 ```bash
 # Check artifact quality
-python context-continuity-code/scripts/validate_dev_transfer.py my-artifact.md
+# Manual review — confirm each item below is present and accurate
 
 # Checks for:
 # - Required sections present
