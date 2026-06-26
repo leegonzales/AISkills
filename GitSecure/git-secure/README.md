@@ -42,6 +42,12 @@ age -d -i ~/.age/<repo>-snapshots.key snapshot.tar.age | tar xf -
 git-crypt status <path>/
 ```
 
+## Verification Gate
+
+The skill never tells you your data is "safe to push" on the strength of writing `.gitattributes` alone — a malformed attributes file silently leaves files in plaintext. Before claiming protection, it runs and shows two checks: `git-crypt status` (files must list as `encrypted`) and a committed-blob inspection (`git show HEAD:<path> | xxd` must show ciphertext, not readable text).
+
+It also detects when a target file was **already committed in plaintext** and warns that turning on encryption does not retroactively protect old commits or anything already pushed to a remote. In that case it offers history scrubbing (`git filter-repo`) and recommends rotating any exposed secrets, rather than falsely reassuring you.
+
 ## Limitations
 
 - Does not manage environment variable secrets or CI secrets (use a secrets manager)

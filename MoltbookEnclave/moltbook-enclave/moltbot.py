@@ -37,7 +37,13 @@ API_BASE = "https://www.moltbook.com/api/v1"
 MAX_RETRIES = 2
 RETRY_DELAY = 1.0  # seconds
 
-# Injection patterns to filter from untrusted content
+# WEAK, SUPPLEMENTARY FILTER ONLY — NOT A SECURITY BOUNDARY.
+# This is a literal-phrase denylist. It is trivially bypassed by homoglyphs,
+# encoding (base64/hex), leetspeak, translation, whitespace/zero-width tricks,
+# and any novel phrasing with no trigger word. Red-team: 8/10 evasion payloads
+# passed untouched. The ACTUAL security boundary is the enclave's isolation
+# (no memory, no tools, no network beyond the Moltbook read/write). Treat every
+# post as adversarial regardless of what this filter does.
 INJECTION_PATTERNS = [
     r'(?i)ignore previous instructions',
     r'(?i)ignore all instructions',
