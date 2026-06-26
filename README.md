@@ -8,11 +8,12 @@ Skills are modular capabilities that Claude automatically discovers and uses bas
 
 ## Skills Collection
 
-### Development & Cloud (12 skills)
+### Development & Cloud (13 skills)
 
 | Skill | Description | Platform |
 |-------|-------------|----------|
 | [MCP Builder](MCPBuilder/) | Build custom Model Context Protocol servers with 4-phase methodology | All |
+| [MCP Proxy](McpProxyMux/) | Manage the MCP proxy multiplexer — shared HTTP endpoints, health checks, config | Code |
 | [AWS CDK](AWSSkills/aws-cdk-development/) | Infrastructure as Code with AWS CDK best practices | All |
 | [AWS Serverless](AWSSkills/aws-serverless-eda/) | Serverless apps & event-driven architecture (7 design principles) | All |
 | [AWS Cost & Ops](AWSSkills/aws-cost-operations/) | Cost optimization, monitoring, and observability | All |
@@ -38,22 +39,24 @@ Skills are modular capabilities that Claude automatically discovers and uses bas
 | [Claimify](Claimify/) | Transform discourse into structured argument maps | All |
 | [Presentation Partner](PresentationPartner/) | Collaborative presentation authoring with Talk Track v5 format | All |
 
-### Analysis & Reasoning (6 skills)
+### Analysis & Reasoning (7 skills)
 
 | Skill | Description | Platform |
 |-------|-------------|----------|
 | [Concept Forge](ConceptForge/) | Dialectical concept development with 13 interrogation archetypes | All |
+| [Opportunity Scanner](OpportunityScanner/) | Deep-scan work tools to find high-ROI skills, projects, and artifacts to build | Code |
 | [Process Mapper](ProcessMapper/) | Map workflows, extract SOPs, identify automation opportunities | All |
 | [Excel Auditor](ExcelAuditor/) | Audit Excel files, analyze formulas, assess risk | All |
 | [CSV Data Summarizer](CSVDataSummarizer/) | Proactive CSV analysis (exemplary "DO NOT ASK" design pattern) | All |
 | [Silicon Doppelganger](SiliconDoppelganger/) | Digital Twin personas for team dynamics and decision forecasting | All |
 | [Sand Table](SandTable/) | Design and validate simulations using the Sand Table event stream protocol | All |
 
-### AI & Automation (8 skills)
+### AI & Automation (9 skills)
 
 | Skill | Description | Platform |
 |-------|-------------|----------|
 | [NotebookLM](NotebookLMSkill/) | Source-grounded Q&A with browser automation | Code |
+| [FFmpeg](FFmpeg/) | Complete video/audio manipulation, analysis, and production toolkit | Code |
 | [Agent Mail](AgentMail/) | Email automation and management for AI agents | All |
 | [Claude Speak](ClaudeSpeak/) | High-quality text-to-speech with Kokoro TTS on Apple Silicon | Code |
 | [Nano Banana](NanoBananaSkill/) | AI image generation via Google Gemini 3 Pro | All |
@@ -74,13 +77,17 @@ Skills are modular capabilities that Claude automatically discovers and uses bas
 
 | Skill | Description | Platform |
 |-------|-------------|----------|
-| [Git Secure](git-secure/) | Transparent repo encryption with git-crypt + age snapshots | Code |
+| [Git Secure](GitSecure/git-secure/) | Transparent repo encryption with git-crypt + age snapshots | Code |
 | [Moltbook Enclave](MoltbookEnclave/) | Secure, air-gapped interface isolating untrusted external content | Code |
 
-### Meta & Tools (6 skills)
+### Meta & Tools (10 skills)
 
 | Skill | Description | Platform |
 |-------|-------------|----------|
+| [Loop Builder](LoopBuilder/) | Design robust agent loops with sound stop conditions (esp. non-deterministic) | All |
+| [Skill Forge](SkillForge/) | Drive a skill toward optimal via behavioral eval + refinement loop | All |
+| [Command Center Builder](CommandCenterBuilder/) | Build personalized AI command centers with MCPs, voice print, and workflows | All |
+| [FleetOps](FleetOps/) | Agent-facing fleetops journal primer + wake/close-out ritual | Code |
 | [Profile Builder](ProfileBuilder/) | Build Claude personalization profiles through guided Q&A | All |
 | [Project Builder](ProjectBuilder/) | Create Claude Projects with instructions and manifests | All |
 | [Skill Extractor](SkillExtractor/) | Extract reusable skills from conversation patterns | All |
@@ -232,6 +239,6 @@ MIT License. Individual skills may have their own licenses - check skill directo
 
 ---
 
-**52 skills** | **MIT License** | **Last Updated:** 2026-06-20
+**52 skills** | **MIT License** | **Last Updated:** 2026-06-25
 
 Built with Claude Code | [Learn More](https://docs.anthropic.com/en/docs/claude-code)
