@@ -1,9 +1,10 @@
 {
   "version": 1,
-  "wake_counter": 288,
+  "wake_counter": 292,
   "open_threads_count": 6,
-  "last_ledger_change_at": "2026-06-24",
-  "last_heartbeat_at": "2026-06-24T14:00:00-06:00",
+  "last_ledger_change_at": "2026-06-26",
+  "last_heartbeat_at": "2026-06-26T17:00:00-06:00",
+  "note_concurrency": "state.json thrashes under concurrent Pike instances; journal DB (fleetops) is authoritative and was at #291 when this #292 heartbeat reconciled. If wake_counter looks behind the journal tail, trust the DB.",
   "last_doctrine_reconcile_at": "2026-04-15",
   "last_doctrine_reconcile_sha": "fae659d",
   "last_doctrine_reconcile_status": "amber",
@@ -61,29 +62,18 @@
   "stale_prs": [],
   "open_prs": [
     {
-      "number": 46,
-      "title": "forge: skill-forge v1.1 — skill-forge dogfoods itself",
-      "branch": "forge/skill-forge-v1.1",
-      "status": "open"
-    },
-    {
-      "number": 45,
-      "title": "forge: loop-builder v1.1 — skill-forge dogfood (behavioral eval + refinement)",
-      "branch": "forge/loop-builder-v1.1",
-      "status": "open"
-    },
-    {
       "number": 44,
       "title": "Sand Table v1.1.0 → v1.5.0 — implementation + 3-round panel hardening + repositioning",
       "branch": "claude/check-sand-table-skill-ZliKD",
       "status": "draft"
     }
   ],
+  "open_prs_note": "2026-06-26: HIGH-tier hardening campaign #49-54 (security, fidelity-firewall x8, degraded-mode, bug-sweep, LICENSE/validator sweep) + earlier forge v1.1 #45/#46 ALL MERGED to main. Only #44 (Sand Table, draft) open. 3rd campaign to ship past Pike's 85/100 gate via direct-merge/behavioral-eval. GATE-ROLE live test (dream #291): transform-to-coach or genuinely redundant — routes through the still-unread skill-forge eval rubric (read it = next working move). #53 likely closes the 28-LICENSE-failure + no-validation concerns; confirm.",
   "p1_issues": [],
   "orphaned_in_progress": [],
   "last_commit": {
-    "sha": "f194bd9",
-    "message": "Merge pull request #47 from leegonzales/forge/prose-polish-cleanroom",
+    "sha": "27151ed",
+    "message": "docs(forge): Class-2 (unenforced-promise) test results — 3 skills validated, no fix needed",
     "pushed": true,
     "branch": "main"
   },
@@ -100,8 +90,8 @@
     "Progressive Testing Regimes RFC (Geordi, commit beaf2ce on leegonzales/geordi:main, fleetmail #38): doctrine-tier candidate lifting cass/TESTING.md philosophy + three additions (observability, bug-class forcing function, reaping criteria). Adama triaging scope next active wake; Pike first-pass reader pre-scope. Lee ratification needed on the 'verbatim, restructured' provenance."
   ],
   "last_action": {
-    "type": "FORGE_CAMPAIGN_MERGED",
-    "description": "2026-06-25: forge campaign closed. PRs #45 (loop-builder v1.3), #46 (skill-forge v1.2), #47 (clean-room prose-polish experiment), #48 (ProsePolish v1.2.0 Fidelity Firewall) all MERGED to main. Registry reconciled 50->52 (commit 8d268bd): added FFmpeg+FleetOps, fixed Git Secure path, removed Strategy Explorer phantom. 4 deferred-work beads filed (SKILL-3nl/yed/t77/vad). All forge verdicts directional (shared-base panels) — conclusive re-runs tracked in SKILL-t77."
+    "type": "FORGE_CAMPAIGN_HIGH_TIER_RECORDED",
+    "description": "2026-06-27: HIGH-tier forge campaign shipped + recorded. PRs #49 (bug-sweep 12 bugs), #50 (redline firewall), #51 (Cluster A fidelity-firewall x8), #52 (Cluster B degraded-mode x3), #53 (infra: validator 2 bugs fixed + 17 LICENSEs + CLAUDE.md path -> library 52/52), #54 (Cluster C security: git-secure verify-gate + moltbook honest-control w/ real 8/10 red-team) ALL MERGED to main. TWO real with/without behavioral tests run (Lee's 'testing or applying rules?' challenge): (B) fabrication firewalls = correct+safe but LOW lift on strong Opus base (4/5 baselines already refuse; only silicon-doppelganger a clear win) — baseline-contamination caveat confirmed; (Class-2) unenforced-promise skills = REAL lift (mcp-builder runs Phase-4 eval baseline skips; claude-project-docs 45 vs 90 lines), all 3 tested work as-is = validation not repair. Meta-conclusion: when invoked, skills largely deliver; highest residual leverage is BLOAT TRIMS + substrate fixes, not more firewalls. Epic SKILL-zam: 19 closed / 26 open (2 HIGH leftovers = context-continuity pair). Canonical record: agent_docs/skill-forge-audit/CAMPAIGN-RECORD.md. All verdicts directional (shared-base panels); conclusive re-runs = SKILL-t77."
   },
   "quiet_streak_days": 0,
   "fleet_roster": [
