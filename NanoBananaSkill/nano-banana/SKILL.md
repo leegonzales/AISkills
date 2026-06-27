@@ -5,7 +5,7 @@ description: Generate and edit high-quality AI images using Google's Gemini 3 Pr
 
 # Nano Banana Pro - AI Image Generation
 
-Generate stunning 4K images, edit photos, and create graphics with perfect text rendering using Google's latest Gemini 3 Pro Image model via MCP.
+Generate 4K images, edit photos, and create graphics with text rendering using Google's Gemini 3 Pro Image model via MCP.
 
 ## When to Use
 
@@ -20,17 +20,13 @@ Invoke when user:
 
 ### 1. Gemini API Key
 
-Get a free API key from [Google AI Studio](https://aistudio.google.com/):
-1. Sign in with Google account
-2. Click "Get API Key" → "Create API Key"
-3. Copy and save securely
+Get a free key from [Google AI Studio](https://aistudio.google.com/) → "Get API Key" → "Create API Key".
 
 ### 2. MCP Server Setup
 
-**Recommended: NanoBanana-MCP** (uses Gemini 3 Pro for highest quality)
+**Recommended: NanoBanana-MCP** (Gemini 3 Pro, highest quality):
 
 ```bash
-# Quick install via Claude Code CLI
 claude mcp add nano-banana --env GEMINI_API_KEY=your-key-here -- npx -y nanobanana-mcp
 ```
 
@@ -42,35 +38,17 @@ Or add to `~/.claude/settings.json` manually:
     "nano-banana": {
       "command": "npx",
       "args": ["-y", "nanobanana-mcp"],
-      "env": {
-        "GEMINI_API_KEY": "your-api-key-here"
-      }
+      "env": { "GEMINI_API_KEY": "your-api-key-here" }
     }
   }
 }
 ```
 
-**Alternative: Nano-Banana-MCP by ConechoAI** (Gemini 2.5 Flash - faster, lower cost)
-
-```json
-{
-  "mcpServers": {
-    "nano-banana": {
-      "command": "npx",
-      "args": ["nano-banana-mcp"],
-      "env": {
-        "GEMINI_API_KEY": "your-api-key-here"
-      }
-    }
-  }
-}
-```
+**Alternative: nano-banana-mcp by ConechoAI** (Gemini 2.5 Flash — faster, lower cost): same config with `"args": ["nano-banana-mcp"]`.
 
 ## Available Tools
 
 Once MCP is configured, these tools become available:
-
-### Core Tools
 
 | Tool | Purpose | Key Parameters |
 |------|---------|----------------|
@@ -78,160 +56,69 @@ Once MCP is configured, these tools become available:
 | `gemini_edit_image` | Modify existing images with instructions | `imagePath`, `instructions`, `model` |
 | `continue_editing` | Refine the last generated image | `instructions` |
 | `get_image_history` | List all generated images in session | - |
-| `search_history` | Search all images (persistent) by prompt, date, model | `query`, `id`, `model`, `startDate`, `endDate`, `type`, `limit` |
+| `search_history` | Search all images (persistent) | `query`, `id`, `model`, `startDate`, `endDate`, `type`, `limit` |
 | `get_image_by_id` | Get full details for a specific image | `imageId` |
 
 ### Model Options
 
 | Model ID | Description |
 |----------|-------------|
-| `gemini-3-pro-image-preview` | **Default (current Nano Banana Pro).** Highest quality, 4K, best text. Verify the live model ID via the nanobanana MCP — don't hardcode dated/preview suffixes. |
-|  `<flash-tier model>` | Faster generation, good quality, lower cost |
-|  `<alternative flash model>` | Alternative 2.0 model |
+| `gemini-3-pro-image-preview` | **Default (Nano Banana Pro).** Highest quality, 4K, best text. Verify the live model ID via the nanobanana MCP — don't hardcode dated/preview suffixes. |
+| `<flash-tier model>` | Faster generation, good quality, lower cost |
+| `<alternative flash model>` | Alternative 2.0 model |
 
 ### Image Size (Gemini 3 only)
 
-| Size | Use Case |
-|------|----------|
-| `4K` | Final assets, print, marketing materials |
-| `2K` | Balanced quality and speed |
-| `1K` | Fast iteration, prototyping |
+`4K` (final assets, print, marketing) · `2K` (balanced) · `1K` (fast iteration).
 
-### Advanced Features
+### Aspect Ratios
 
-| Feature | Capability |
-|---------|------------|
-| **4K Output** | Up to 5632×3072 pixels |
-| **Text Rendering** | Accurate text in images (signs, labels, UI) |
-| **Multi-Image Composition** | Combine up to 14 reference images |
-| **Character Consistency** | Maintain same character across 5+ images |
-| **Google Search Grounding** | Real-world accurate imagery |
-| **Persistent History** | All prompts and metadata saved to manifest.json |
-| **Edit Lineage Tracking** | Track parent-child relationships across edits |
+`16:9` slides/widescreen · `1:1` social · `9:16` stories/vertical · `4:3` presentations · `3:2` photo/print · `2:3` vertical posters.
+
+### Advanced Capabilities
+
+4K output up to 5632×3072 · accurate text rendering · multi-image composition (up to 14 refs) · character consistency (5+ images) · Google Search grounding · persistent history (`manifest.json`) · edit lineage tracking.
 
 ## Persistent History & Search
 
-All generated images are tracked in `~/Documents/nanobanana_generated/manifest.json` with full metadata including:
-- Original prompt used
-- Model and settings (aspectRatio, imageSize)
-- Timestamp
-- Edit lineage (which image was this edited from)
-
-### Searching Past Images
-
-Find images from previous sessions using `search_history`:
+All generated images are tracked in `~/Documents/nanobanana_generated/manifest.json` with the prompt, model/settings, timestamp, and edit lineage.
 
 ```
-# Search by prompt text
 search_history(query="sunset")
-
-# Search by date range
 search_history(startDate="2026-06-01", endDate="2026-06-30")
-
-# Search by model
 search_history(model="gemini-3")
-
-# Combined filters
 search_history(query="portrait", model="gemini-3-pro", limit=10)
-```
-
-### Getting Image Details
-
-Retrieve full metadata for any image by ID:
-
-```
 get_image_by_id(imageId="generated-2026-06-13T20-12-45")
 ```
 
-Returns:
-- Full prompt used
-- All generation settings
-- Edit lineage (ancestors and children)
-- File existence check
+To regenerate/iterate on an old image: find the original prompt via `search_history`/`get_image_by_id`, copy and adjust it, then generate fresh.
 
-### Regenerating Images
+## Critical Limitation: Logos and Text Cannot Be Generated Reliably
 
-To recreate or iterate on an old image:
-1. Use `search_history` or `get_image_by_id` to find the original prompt
-2. Copy the prompt and adjust as needed
-3. Generate a new image with the same or modified prompt
+Generative models **cannot** reliably render specific logos, watermarks, or legible text — attempting it produces distorted/garbled results.
 
-## Critical Limitations
+**Correct workflow for branded content:**
+1. **Designate space** — in your prompt, specify a location for the logo (e.g., "...clean empty space in the bottom-right corner")
+2. **Generate** the image without any logo or text
+3. **Overlay manually** — composite the official logo file with an editor (ImageMagick, PowerPoint, Keynote, Canva, Figma)
 
-### Logos and Text Cannot Be Generated Reliably
+This is the only way to ensure brand consistency. The Gemini-recreation watermark fallback below is unreliable.
 
-Generative models **cannot** reliably render specific logos, watermarks, or legible text. Attempting to do so will produce distorted, incorrect, or garbled results.
+## Prompting
 
-**Correct Workflow for Branded Content:**
-1. **Designate Space:** In your prompt, specify a location for the logo (e.g., "...with clean empty space in the bottom-right corner")
-2. **Generate Image:** Generate the image without any logo or text
-3. **Overlay Manually:** Use an image editor (PowerPoint, Keynote, Canva, Figma) to place the official logo file onto the generated image
+Structure prompts as `[Subject] + [Style] + [Details] + [Technical Specs]`. Be specific (colors, materials, lighting, mood), name the style, add context, and use negative prompts (`...Avoid: text, logos, deformed hands`).
 
-This is the only way to ensure brand consistency. The watermark workflow documented below attempts to have Gemini recreate the logo from description—results will vary and may require manual correction.
+**Conceptual over prescriptive:** Specify the *what* and *why* (subject, concept, style, mood, constraints); let the model decide composition, placement, and visual hierarchy. Over-specifying pixel-level geometry fights the model's compositional instincts.
 
----
-
-## Prompting Best Practices
-
-### Structure Your Prompts
-
-```
-[Subject] + [Style] + [Details] + [Technical Specs]
-```
-
-**Example:**
-> "A cozy coffee shop interior, watercolor illustration style, warm lighting, wooden furniture, steaming cup on table, 4K resolution, soft morning light through windows"
-
-### For Best Results
-
-1. **Be Specific** - Include colors, materials, lighting, mood
-2. **Specify Style** - "photorealistic", "oil painting", "3D render", "anime"
-3. **Add Context** - Time of day, weather, setting
-4. **Request Resolution** - "4K", "high resolution", "detailed"
-
-### Use Negative Prompts
-
-Tell the model what to **exclude** for better results. Add to your prompt:
-
-> "...Avoid: [unwanted elements]"
-
-**Common negative prompts:**
-- **For cleaner images:** "Avoid: text, words, logos, watermarks, signatures"
-- **For better quality:** "Avoid: blurry, low resolution, pixelated, grainy"
-- **For realistic people:** "Avoid: deformed hands, extra fingers, distorted faces"
-- **For professional look:** "Avoid: cartoonish, amateur, clipart style"
-
-**Example with negative prompt:**
-> "A professional headshot of a business executive in a modern office, natural lighting, shallow depth of field. Avoid: text, logos, deformed features, overly stylized"
-
-### Specify Aspect Ratio
-
-Match aspect ratio to your use case:
-
-| Ratio | Use Case |
-|-------|----------|
-| `16:9` | Slides, presentations, widescreen |
-| `1:1` | Social media, profile images |
-| `9:16` | Stories, mobile-first, vertical video |
-| `4:3` | Traditional presentations |
-| `3:2` | Photography, print |
-| `2:3` | Vertical infographics, posters |
+For the full toolkit — SCTD framework, style/lighting/composition/shot-type keyword tables, text-rendering tips, character-consistency recipes (`history:0`), quality keywords, and prompt troubleshooting — see `references/prompting-guide.md`. Copy-paste prompts by category are in `references/examples.md`.
 
 ## Precision Mode (JSON Prompting)
 
-For high-stakes work requiring exact reproducibility, use structured JSON schemas.
+For high-stakes work requiring exact reproducibility (product shots, UI mockups, infographics, A/B iteration), use structured JSON schemas.
 
-### When to Activate
+**Trigger phrases:** "I need exact control over...", "Create a product shot for [brand]...", "Generate a UI mockup...", "Make an infographic showing...", "I want to iterate on just the lighting...", "A/B test different versions..."
 
-Trigger phrases:
-- "I need exact control over..."
-- "Create a product shot for [brand]..."
-- "Generate a UI mockup..."
-- "Make an infographic showing..."
-- "I want to iterate on just the lighting..."
-- "A/B test different versions..."
-
-### Three Schema Types
+**Three schema types:**
 
 | Type | Use Case | Key Controls |
 |------|----------|--------------|
@@ -239,245 +126,27 @@ Trigger phrases:
 | `ui_builder` | App screens, dashboards | tokens, screens, containers, components |
 | `diagram_spec` | Flowcharts, infographics | nodes, edges, data constraints |
 
-### The Translator Workflow
+**Translator workflow:** Describe (plain English) → Clarify (Claude asks for missing fields) → Generate (structured JSON) → Review → Render (JSON → precise prompt) → Iterate (modify specific fields, re-render).
 
-1. **Describe** - User explains what they want in plain English
-2. **Clarify** - Claude asks targeted questions for missing fields
-3. **Generate** - Claude outputs structured JSON schema
-4. **Review** - User checks key fields match intent
-5. **Render** - JSON converts to precise prompt for Nano Banana Pro
-6. **Iterate** - Modify specific fields, re-render (scoped changes)
+**Scoped edits** are the key unlock — change one field (lighting, camera angle, background color, props) while everything else stays fixed, no full regeneration.
 
-### Example: Product Shot
-
-**User:** "I need a hero shot for Aurora Lime seltzer"
-
-**Claude asks:** "For the Aurora Lime hero shot:
-1. Can size? (12oz standard?)
-2. Props? (lime slices, ice, condensation?)
-3. Background style? (solid color, gradient, bokeh?)
-4. Lighting mood? (bright/refreshing or moody/premium?)"
-
-**Result:** Structured JSON with exact specifications that can be iterated field-by-field.
-
-### Scoped Edits (The Key Unlock)
-
-JSON enables changing ONE thing without regenerating everything:
-
-| Change | What Stays Fixed |
-|--------|------------------|
-| Swap lighting direction | Subject, props, background |
-| Try different camera angle | Lighting, props, environment |
-| Change background color | Subject geometry, lighting setup |
-| Add/remove props | Everything else |
-
-### Reference Docs
-
-- `references/json-prompting.md` - Full JSON prompting guide
-- `references/translator-prompt.md` - Translator system prompt
-- `references/schemas/` - Template schemas for each type
-- `references/examples-json.md` - Filled-out examples
-
-### Text in Images
-
-Nano Banana Pro excels at text rendering:
-> "A vintage movie poster for 'COSMIC ADVENTURE' with bold retro typography, starfield background, astronaut silhouette, 1970s sci-fi aesthetic"
-
-### Character Consistency
-
-For consistent characters across images:
-1. Generate initial character with detailed description
-2. Use `history:0` reference in subsequent prompts
-3. Describe scene changes while referencing original
-
-```
-First: "A young woman with red curly hair, freckles, green eyes, wearing a blue jacket"
-Then: "The same woman from history:0, now sitting at a café, reading a book"
-```
+See `references/json-prompting.md` (full guide), `references/translator-prompt.md` (translator system prompt), `references/schemas/` (templates per type), and `references/examples-json.md` (filled examples).
 
 ## Workflow Examples
 
-### Basic Image Generation
+**Basic generation** — `gemini_generate_image(prompt="Futuristic cityscape at golden hour, glass skyscrapers, holographic ads, flying vehicles, photorealistic, 4K, cinematic lighting")`
 
-```
-User: "Create an image of a futuristic city at sunset"
+**Photo editing** — `gemini_edit_image(imagePath=[user image], instructions="Transform to winter: snow on surfaces, frost on windows, visible breath, overcast sky, cool blue grading")`
 
-Claude uses: gemini_generate_image
-Prompt: "Futuristic cityscape at golden hour sunset, towering glass skyscrapers with holographic advertisements, flying vehicles, warm orange and purple sky, photorealistic, 4K resolution, cinematic lighting"
-```
-
-### Photo Editing
-
-```
-User: "Edit this photo to make it look like winter"
-
-Claude uses: gemini_edit_image
-Input: [user's image path]
-Instructions: "Transform to winter scene: add snow on ground and surfaces, frost on windows, visible breath, overcast sky, cool blue color grading"
-```
-
-### Iterative Refinement
-
-```
-User: "Make the lighting warmer"
-
-Claude uses: continue_editing
-Instructions: "Adjust lighting to warmer tones, add golden hour glow, enhance orange/yellow highlights, softer shadows"
-```
+**Iterative refinement** — `continue_editing(instructions="Adjust lighting to warmer tones, add golden-hour glow, softer shadows")`
 
 ## Output Management
 
-Images save to: `~/Documents/nanobanana_generated/`
-
-Naming format: `generated-[timestamp]-[id].png`
+Images save to `~/Documents/nanobanana_generated/` as `generated-[timestamp]-[id].png`.
 
 ## Security Notes
 
-- API keys stored locally in environment variables
-- Never committed to version control
-- Images processed locally, not stored on external servers
-- Use `.env` files for key management in projects
-
-## Model Comparison
-
-| Model | Speed | Quality | Cost | Best For |
-|-------|-------|---------|------|----------|
-| `gemini-3-pro-image-preview` | Slower | Highest (4K) | Higher | Final assets, print, marketing |
-|  `<flash-tier model>` | Fast | Good | Lower | Prototyping, iteration, drafts |
-
-## Prompting Philosophy: Conceptual Over Prescriptive
-
-**Core insight:** Image models perform better with conceptual guidance than pixel-level prescriptions.
-
-### What to Specify
-- **Subject:** What/who is in the image
-- **Concept:** The idea or feeling to convey
-- **Style:** Aesthetic direction (photographic, illustration, etc.)
-- **Mood:** The emotional tone
-- **Constraints:** Color palette, format, what to avoid
-
-### What to Let the Model Decide
-- Exact composition and framing
-- Element placement and proportions
-- Decorative details
-- How to achieve visual hierarchy
-
-### Example
-
-❌ **Over-prescribed (fights the model):**
-> "Create an image with a woman in the exact center, standing at a 15-degree angle, with a window to her left taking up 30% of the frame, warm light at 45 degrees from upper right..."
-
-✅ **Conceptual (lets the model compose):**
-> "Professional woman in a modern office at golden hour. Contemplative mood, success and ambition. Natural warmth, depth through foreground/background blur."
-
-### Why This Works
-The model has internalized millions of well-composed images. Over-specifying fights its compositional instincts. Provide the *what* and *why*; let it figure out the *how*.
-
----
-
-## Advanced Techniques
-
-### Shot Types (Photographic Control)
-
-Use photography terms for precise framing:
-
-| Shot Type | Effect |
-|-----------|--------|
-| `macro shot` | Extreme close-up, fine details |
-| `wide angle shot` | Expansive view, dramatic perspective |
-| `aerial view` / `drone shot` | Top-down perspective |
-| `low-angle shot` | Looking up, imposing feel |
-| `portrait framing` | Head/shoulders, subject focus |
-| `dutch angle` | Tilted, dynamic tension |
-
-### Reference Artistic Styles
-
-Guide the model with style references:
-
-> "...in the style of Ansel Adams" (dramatic B&W landscapes)
-> "...as a ukiyo-e woodblock print" (Japanese art)
-> "...bauhaus design aesthetic" (geometric, modernist)
-> "...vaporwave aesthetic" (80s retrowave)
-> "...Studio Ghibli animation style" (anime, painterly)
-
-### Lighting Control
-
-Specify lighting for mood and dimension:
-
-| Lighting | Effect |
-|----------|--------|
-| `golden hour` | Warm, soft, magical |
-| `harsh midday sun` | High contrast, strong shadows |
-| `overcast / diffused` | Soft, even, no harsh shadows |
-| `rim lighting` | Edge glow, dramatic separation |
-| `studio lighting` | Professional, controlled |
-| `neon lighting` | Cyberpunk, vibrant colors |
-
-### Iteration Strategy
-
-1. **Start simple** - Subject + style only
-2. **Generate 2-3 versions** - Assess what works
-3. **Add one element at a time** - Lighting, then props, then environment
-4. **Use continue_editing** - Refine incrementally
-5. **Save good seeds** - If model provides seed, reuse for variations
-
----
-
-## Common Pitfalls
-
-### The Uncanny Valley
-
-**Problem:** Photorealistic people with strange faces or deformed hands
-
-**Solutions:**
-- Use illustration styles instead: `vector art`, `3D render`, `anime style`
-- Add to negative prompt: "Avoid: deformed hands, extra fingers, distorted faces"
-- Crop or frame to avoid hands when possible
-
-### Starting Too Complex
-
-**Problem:** Long, detailed prompts produce confused results
-
-**Solution:** Build iteratively:
-```
-❌ Bad: "A professional woman with red hair in a blue suit standing in a modern office
-with glass walls and city views at sunset with warm lighting and bokeh..."
-
-✅ Better:
-1. First: "Professional woman, business portrait, studio lighting"
-2. Then add: "...in modern office environment"
-3. Then add: "...warm sunset lighting through windows"
-```
-
-### Expecting Readable Text
-
-**Problem:** Generated text is gibberish or distorted
-
-**Solution:** Never rely on generated text. Either:
-- Design the image without text
-- Leave space and add text in an editor afterward
-- Use the image as a background and overlay text
-
-### Color Drift in Branded Content
-
-**Problem:** Brand colors come out slightly different
-
-**Solutions:**
-- Include hex codes in prompt: "using teal (#557373) as the primary color"
-- Accept minor drift and correct in post-processing
-- For exact colors, use solid color backgrounds and composite
-
-### Inconsistent Characters
-
-**Problem:** Same character looks different across images
-
-**Solutions:**
-- Use `history:0` reference in subsequent prompts
-- Be extremely detailed in first character description
-- Include distinctive features: hair color, eye color, clothing, accessories
-- Consider illustration styles which are more consistent
-
----
+API keys live in local environment variables (never committed); use `.env` for project key management. Images are processed locally.
 
 ## Troubleshooting
 
@@ -488,211 +157,65 @@ with glass walls and city views at sunset with warm lighting and bokeh..."
 | "MCP not connected" | Restart Claude Code, check config syntax |
 | "Image not saving" | Check write permissions on output directory |
 
+Prompt-level issues (wrong style, bad composition, gibberish text, uncanny faces, color drift, inconsistent characters) are covered in `references/prompting-guide.md`.
+
 ## Integration
 
-Works well with:
-- **Artifacts Builder** - Generate images for HTML artifacts
-- **Process Mapper** - Create diagram visuals
-- **Research to Essay** - Add illustrations to content
+Works well with Artifacts Builder (images for HTML), Process Mapper (diagram visuals), and Research to Essay (illustrations).
 
-## References
+---
 
-- `references/prompting-guide.md` - Detailed prompting techniques
-- `references/examples.md` - Sample prompts by category
-- `references/json-prompting.md` - Precision mode with JSON schemas
-- `references/translator-prompt.md` - JSON prompt translator system
+## Branding (Post-Processing)
 
-### Explainer Graphics (Photorealistic)
+Branding is applied as a **post-processing composite step** — only when explicitly requested, never automatically.
 
-- `references/whiteboard-photo-prompt.md` - Professor whiteboard photos for educational content
-- `references/chalkboard-prompt.md` - Academic chalkboard with vintage gravitas
-- `references/napkin-sketch-prompt.md` - Back-of-napkin startup/pitch sketches
+### Catalyst AI Branding
 
-### Explainer Graphics (Illustrated)
+Trigger phrases: "Add Catalyst branding", "Brand this image", "Add the logo", "Make this a Catalyst image".
 
-- `references/sketchnote-prompt.md` - Visual note summaries for books, talks, concepts
-- `references/mind-map-prompt.md` - Radial brainstorming and topic organization
+**Logo assets** (in `assets/`): `catalyst-watermark-logo.png` (primary circular badge), `catalyst-logo-transparent.png` (wordmark + tagline), `catalyst-logo-compact.png` (wordmark only). For dark backgrounds use the white watermark variant.
 
-### Branded Templates
-
-- `references/branded-infographic-catalyst.md` - Catalyst AI Services infographics (Sage & Sand)
-- `references/branded-slides-catalyst.md` - Catalyst AI Services presentation slides
-- `references/branded-slides-afs.md` - BetterUp AI Flight School presentation slides (dark atmospheric + light content modes)
-- `references/lego-presentation-prompt.md` - Lego minifigure presentation slides (photorealistic toy photography)
-
-### Social Media Templates
-
-- `references/imessage-conversation-prompt.md` - iPhone text message screenshots (two-step method for accurate text)
-
-## Catalyst AI Branding (Post-Processing)
-
-Add Catalyst AI branding to ANY generated image.
-
-### When to Use
-
-**Only apply branding when explicitly requested.** Trigger phrases:
-- "Add Catalyst branding"
-- "Brand this image"
-- "Add the logo"
-- "Make this a Catalyst image"
-
-**Do NOT** automatically add branding to every generated image. Wait for user to request it.
-
-### Logo Assets
-
-Located in `assets/`:
-- `catalyst-watermark-logo.png` - **Primary watermark** - circular badge with "CATALYST AI / SERVICES" and waving robot
-- `catalyst-logo-transparent.png` - Full wordmark logo with tagline (for headers)
-- `catalyst-logo-compact.png` - Wordmark only, no tagline (alternate)
-
-### Workflow Options
-
-#### Option A: ImageMagick Composite (Recommended - Exact Logo)
-
-Use command-line tools to overlay the actual logo file. This produces pixel-perfect results.
-
-**Step 1: Generate the base image**
-```
-gemini_generate_image(prompt="Your image description...")
-```
-
-**Step 2: Composite logo with ImageMagick**
+**Option A — ImageMagick composite (recommended, pixel-perfect):**
 ```bash
-# Add branded logo to lower-right corner
+# 1. Generate the base image, then composite the real logo:
 magick /path/to/generated-image.png \
   \( /path/to/assets/catalyst-watermark-logo.png -resize 5% -alpha set -channel A -evaluate multiply 0.85 +channel \) \
   -gravity SouthEast -geometry +10+10 -composite \
   /path/to/output-branded.png
 ```
+`-resize 5%` = logo at 5% of width · `-evaluate multiply 0.85` = 85% opacity · `-gravity SouthEast -geometry +10+10` = bottom-right with margin. The logo already includes the © symbol.
 
-**Parameters explained:**
-- `-resize 5%`: Logo at 5% of image width (subtle but visible)
-- `-evaluate multiply 0.85`: 85% opacity for subtlety
-- `-gravity SouthEast`: Logo in bottom-right corner
-- `-geometry +10+10`: Margin from edge
+**Option B — Gemini recreation (fallback, approximate):** if ImageMagick is unavailable, `gemini_edit_image` can attempt to add a tiny circular badge (~4-5% width, '© CATALYST AI' top / 'SERVICES' bottom, waving robot center, ~85% opacity, lower-right). **Unreliable** — AI cannot consistently render specific logos; use Option A for professional results.
 
-#### Option B: Gemini Recreation (Fallback - Approximate)
+**Brand color palettes:** ask which to use — **Calm Luxury** (default; corporate/financial/tech; primary teal `#557373`) or **Sage & Sand** (wellness/sustainability/organic; primary sage green `#6B8E6B`). Full hex tables, usage guidance, and per-element color roles are in `references/branded-slides-catalyst.md` and `references/branded-infographic-catalyst.md`. The model may produce close-but-not-exact shades; correct in a photo editor for brand-perfect color.
 
-If ImageMagick is unavailable, Gemini can attempt to recreate the logo. **Results will vary** - the logo may be distorted or incorrect.
+### BetterUp AI Flight School (AFS) Branding
 
-```
-gemini_edit_image(
-  imagePath="[path to generated image]",
-  instructions="Add Catalyst AI Services branding in the BOTTOM RIGHT corner: a tiny circular badge (about 4-5% of image width) with '© CATALYST AI' curved at top (including copyright symbol), 'SERVICES' curved at bottom, and a cute robot waving in the center (black line art). The badge should be subtle, semi-transparent (85% opacity), positioned in the lower right with a small margin. Do not obscure important content."
-)
-```
+Trigger phrases: "AI Flight School slide", "AFS branded", "BetterUp slide", "Flight School branding". Full AFS design system: `references/branded-slides-afs.md`.
 
-> **Warning:** Option B is unreliable. AI models cannot consistently render specific logos or text. Use Option A for professional results.
+**Logo assets** (in `assets/`, 348x33px transparent ✦ AI Flight School BetterUp lockup): `afs-watermark-logo.png` (dark — for light/cream backgrounds) and `afs-watermark-logo-white.png` (white — for dark/atmospheric backgrounds).
 
-### Branding Layout
-
-| Element | Position | Size/Style |
-|---------|----------|------------|
-| **Logo badge** | Bottom-right corner | 5% of image width, 85% opacity |
-
-The logo includes the © symbol, so no separate copyright text is needed.
-
-### Example
-
-```
-# 1. Generate an infographic
-gemini_generate_image(
-  prompt="A clean infographic showing 5 steps of AI implementation...",
-  aspectRatio="4:3",
-  imageSize="4K"
-)
-
-# 2. Add Catalyst branding
-gemini_edit_image(
-  imagePath="/Users/.../generated-xyz.png",
-  instructions="Add a small Catalyst AI Services watermark in the lower right corner: 1) Tiny circular badge (3-4% width) with 'CATALYST AI' at top, 'SERVICES' at bottom, robot waving in center. 2) '© Catalyst AI Services' in small text below. Subtle, 80% opacity, bottom right with margin."
-)
-```
-
-### Brand Color Palettes
-
-**When generating branded Catalyst content, ask which palette to use:**
-
-#### Option 1: Calm Luxury (Default)
-
-**Use for:** Corporate messaging, financial topics, technology showcases, premium/sophisticated concepts
-**Vibe:** Professional, elegant, authoritative, clean
-
-| Role | Color | Hex |
-|------|-------|-----|
-| **Primary** | Teal | `#557373` |
-| **Light Background** | Soft Blue Gray | `#DFE5F3` |
-| **Dark Accent** | Deep Olive | `#272401` |
-| **Page Background** | Warm Cream | `#F2EFEA` |
-| **Text/Dark** | Near Black | `#0D0D0D` |
-
-#### Option 2: Sage & Sand
-
-**Use for:** Wellness, sustainability, human-centric stories, growth, organic concepts
-**Vibe:** Grounded, calming, natural, approachable
-
-| Role | Color | Hex |
-|------|-------|-----|
-| **Primary** | Sage Green | `#6B8E6B` |
-| **Secondary** | Warm Sand | `#D4C4A8` |
-| **Accent** | Terracotta | `#C4785A` |
-| **Neutral Dark** | Charcoal | `#3D3D3D` |
-| **Neutral Light** | Warm White | `#FAF8F5` |
-
-**Note on Color Accuracy:** The model may generate shades that are close but not exact. For 100% brand-perfect colors, minor correction in a photo editor may be required.
-
-For dark backgrounds: Use white/light version of watermark for visibility
-
-## BetterUp AI Flight School Branding (Post-Processing)
-
-Add AFS branding to generated slides for BetterUp's AI Flight School program.
-
-### When to Use
-
-Apply when generating AFS-branded slides. Trigger phrases:
-- "AI Flight School slide"
-- "AFS branded"
-- "BetterUp slide"
-- "Flight School branding"
-
-**For full AFS slide design system**, see `references/branded-slides-afs.md`.
-
-### Logo Assets
-
-Located in `assets/`:
-- `afs-watermark-logo.png` - **Dark logo** (348x33px, transparent) — for light/cream backgrounds
-- `afs-watermark-logo-white.png` - **White logo** (348x33px, transparent) — for dark/atmospheric backgrounds
-
-Both contain: ✦ AI Flight School **BetterUp** lockup.
-
-### Branding Command
-
-**For light/cream background slides:**
 ```bash
+# Pick the logo file matching the slide mode (white for dark backgrounds):
 magick "input.png" \
   \( /path/to/assets/afs-watermark-logo.png \
      -resize 300x -alpha set -channel A -evaluate multiply 0.85 +channel \) \
   -gravity SouthEast -geometry +25+20 -composite \
   "output-branded.png"
 ```
+`-resize 300x` = 300px wide (~15% of a 2000px slide) · `0.85` opacity · bottom-right with margin.
 
-**For dark/atmospheric background slides:**
-```bash
-magick "input.png" \
-  \( /path/to/assets/afs-watermark-logo-white.png \
-     -resize 300x -alpha set -channel A -evaluate multiply 0.85 +channel \) \
-  -gravity SouthEast -geometry +25+20 -composite \
-  "output-branded.png"
-```
+**AFS workflow:** generate the slide from the `references/branded-slides-afs.md` template → choose dark/light logo by slide mode → composite with ImageMagick → save to the project `images/` folder.
 
-**Parameters:**
-- `-resize 300x`: Logo at 300px wide (15% of standard 2000px slide width)
-- `-evaluate multiply 0.85`: 85% opacity
-- `-gravity SouthEast -geometry +25+20`: Bottom-right corner with margin
+## Reference Files
 
-### AFS Slide Workflow
-
-1. Generate slide using prompt template from `references/branded-slides-afs.md`
-2. Choose dark or light logo based on slide mode
-3. Apply branding with ImageMagick composite
-4. Save to project `images/` folder
+- `references/prompting-guide.md` — full prompting techniques (SCTD, style/lighting/composition/shot-type tables, text rendering, character consistency, quality keywords, troubleshooting)
+- `references/examples.md` — copy-paste sample prompts by category
+- `references/json-prompting.md` — precision-mode JSON schema guide
+- `references/translator-prompt.md` — JSON prompt translator system prompt
+- `references/schemas/` — template JSON schemas (`marketing-image`, `ui-builder`, `diagram-spec`)
+- `references/examples-json.md` — filled-out JSON examples
+- **Explainer graphics (photorealistic):** `references/whiteboard-photo-prompt.md`, `references/chalkboard-prompt.md`, `references/napkin-sketch-prompt.md`
+- **Explainer graphics (illustrated):** `references/sketchnote-prompt.md`, `references/mind-map-prompt.md`
+- **Branded templates:** `references/branded-infographic-catalyst.md`, `references/branded-slides-catalyst.md`, `references/branded-slides-afs.md`, `references/lego-presentation-prompt.md`
+- **Social media:** `references/imessage-conversation-prompt.md` (iPhone text-message screenshots, two-step method)
