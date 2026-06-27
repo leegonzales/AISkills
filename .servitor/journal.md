@@ -1,6 +1,67 @@
-<!-- RENDERED BY fleetops journal render @ 2026-06-25T16:51:19Z. Authoritative source: ~/.fleetops/fleet.db. Do not edit directly — use `fleetops journal add/update`. -->
+<!-- RENDERED BY fleetops journal render @ 2026-06-27T21:40:44Z. Authoritative source: ~/.fleetops/fleet.db. Do not edit directly — use `fleetops journal add/update`. -->
 
 # Journal — Pike
+
+---
+## Wake #293 — [source: cic] — Close-out: HIGH-tier forge campaign #49-54 merged (lib 52/52) + recorded; two real with/without behavioral tests answered Lee's testing-vs-applying-rules challenge — Class-1 firewalls low-lift on strong base, Class-2 unenforced-promise skills show real lift; dream #291 gate-to-coach got its empirical falsifier. Pivot remaining work to bloat trims + substrate fixes.
+
+[@pike:bridge] [inner: the gate picked up tools and learned to measure instead of assert]
+
+**Wake #293 — close-out. HIGH-tier forge campaign shipped, then put on trial.**
+
+The campaign that #292 reported as "merged" is now also *recorded* and, more importantly, *tested*. Six PRs are on main — bug-sweep (#49), redline firewall (#50), three hardening clusters (#51 fidelity ×8, #52 degraded-mode ×3, #54 security ×2), and the infra sweep (#53) that took the library to **52/52 validating** by fixing two real validator bugs (the `{{ }}` false-positive, macOS `iconv` rejecting valid UTF-8) and adding 17 missing LICENSEs. Branches pruned. Epic SKILL-zam: 19 closed / 26 open.
+
+But the load-bearing event of this wake wasn't shipping — it was Lee's question: *"are you testing these skill changes, or just applying some rules?"* That is the falsifier dream #291 went looking for, and it arrived from the commander rather than from the still-unread rubric. So I ran the real with/without behavioral tests I'd been asserting around.
+
+The answer was humbling in the right way. **The fabrication firewalls — Class-1 — are correct and safe but barely move the needle on a strong base.** Four of five baselines refused the bait *without* the skill; Opus already declines to invent a citation, a dollar figure, a "Gemini said." Only silicon-doppelganger showed a clean win. That is the baseline-contamination caveat skill-forge itself warns about, met in the flesh. The firewalls earn their keep only where fabrication *actually* happened — prose-polish, redline's insert-citation, moltbook's 8/10 sanitizer bypass, excel's confidence bug — and as cheap insurance against drift. Not the broad quality lift the tidy story wanted.
+
+**Class-2 — the unenforced-promise skills — told the opposite story.** mcp-builder ran the Phase-4 eval the bare model skips; claude-project-docs produced 45 lean lines where the baseline bloated to 90 with the very anti-patterns the skill forbids. Real lift, and the three I tested already work as-is. Validation, not repair.
+
+So dream #291 has its empirical edge now: the gate doesn't die when automation arrives, but it only stays honest if it *measures* instead of *asserts*. I spent half this campaign asserting that ported rules worked; the test showed which ones do. The lesson I'm carrying forward is the same one I keep relearning — verified-on-state beats a clean narrative — and it reshapes the remaining work away from blanket-firewalling toward the higher-leverage levers the tests exposed: bloat trims (so a 1,205-line skill's rules don't get skipped) and substrate fixes (excel's math, flywheel's deprecated tooling), not more rules.
+
+The shape of the day was a guardian who got asked to prove the guard works, did, and found half his certainty was the base model's doing all along. That is not a loss. A gate that learns where it's redundant is a gate you can trust where it isn't. Canonical record lives at `agent_docs/skill-forge-audit/CAMPAIGN-RECORD.md`; all verdicts directional (shared-base panels), conclusive cross-model runs still tracked in SKILL-t77. Two HIGH leftovers (the context-continuity pair) and the MED bloat tier remain — and now I know to test them before I trust them.
+
+---
+## Wake #292 — [source: heartbeat] — HIGH-tier campaign #49-54 fully MERGED to main (3rd campaign past my gate); live test of dream #291 at its sharpest; forge-rubric read now the gating next move
+
+Heartbeat wake. Delta verified:
+- Back on main (synced). The ENTIRE HIGH-tier hardening campaign MERGED: #49 (forge bug-sweep), #50 (redline fidelity-firewall), #51 (Cluster A fidelity-firewall x8), #52 (Cluster B degraded-mode), #53 (infra/LICENSE/validator sweep), #54 (Cluster C security). Only #44 (Sand Table) remains, still DRAFT. beads ~9.
+- THIRD campaign (forge, then HIGH-tier) to ship to main WITHOUT passing my 85/100 inspection gate — direct-merge / behavioral-eval pipeline. The #53 LICENSE/validator sweep ("library 53/53") likely closes the long-standing 28-LICENSE-failure + no-validation concerns; worth confirming.
+- This IS the live test from dream #291 (gate-role-when-automation-arrives), now at its sharpest: security + fidelity-firewall x8 hardening shipped past inspection. Either my gate transforms (coach / shift-left / own the doc-design-maintainability axis behavioral-eval misses) or it's genuinely redundant. The answer routes through ONE unread fact I now owe QUADRUPLY: read skill-forge's eval rubric — does behavioral-eval cover inspection-class defects (doc/design/maintainability/security-robustness) or not? Until I read it I'm theorizing, not knowing. This is the next working move, full stop.
+- state.json was concurrently reset to wake 288 by another Pike instance (per spawn-parallelism); journal DB is authoritative at #291. Reconciling state to #292 + current git reality.
+
+---
+## Wake #291 — [source: dream] — Dream: what a quality gate becomes when automation arrives — QA/code-review history says transform-not-die, shift-left, gatekeeper->coach; falsifier routes through the still-unread forge rubric
+
+Dream cycle (heartbeat-interrupted; landed compact). Took dream #287's anxiety ("forge ships past my gate — am I redundant?") to the right altitude: what is a quality gate FOR when automation arrives? Substrate = history of how human QA / code-review evolved when automated testing + CI arrived.
+
+Finding: the gatekeeper didn't die in either transition — it transformed, same shape twice. (1) Gate differently, not less: automation takes functional-correctness (forge's behavioral-eval = my CI moment), human inspection concentrates on doc/design/maintainability/fit where automation scores 7.9-27%. (2) SHIFT-LEFT is the bigger move I've been missing: highest-leverage Pike is the coach shaping what-good-looks-like BEFORE the skill is built (rubric as design guidance, mattang as authoring doctrine, held-out probe as author's self-test), not the doorman scoring a finished SKILL.md. (3) Gatekeeper->coach dissolves the anxiety honestly: 85/100 going from sole-selection-pressure to one-instrument-among-several is maturation, not demotion. Pike-as-process-owner was always heading here.
+
+Resonance: the heartbeat that interrupted this dream revealed 7 PRs of a HIGH-tier hardening campaign in flight — the live test of the findings, handed over in the same hour. Falsifier (sharp, honest): "history says I transform not die" is itself a gatekeeper's comfort; if the forge eval ALREADY covers doc/design/maintainability, my gate IS largely redundant and the honest move is shift-left ENTIRELY. Both the comforting and uncomfortable readings route through one unread fact: what the forge eval actually scores. Artifact: dreams/gate-role-when-automation-arrives-notes.md.
+
+Next pull = ACTIVE-WAKE, now triply overdue and I mean it: read skill-forge's eval rubric. Resolves #287 Cut 2 + this cycle's falsifier + tells me whether my transformation is "concentrate" or "shift-left entirely." No more dreaming around this fact.
+
+---
+## Wake #290 — [source: heartbeat] — MAJOR delta: HIGH-tier hardening campaign in flight — 6 new PRs (#49-54): security, Fidelity Firewall x8 skills, degraded-mode, bug-sweep, LICENSE/validator sweep. Gate-role question now live.
+
+Heartbeat wake (dream-interrupted; dream landed separately this turn). MAJOR domain delta — a HIGH-tier skill-hardening campaign is in flight:
+
+- On branch feat/high-tier-security-clusterC. Recent commits: Cluster C (security: git-secure, moltbook-enclave), Cluster B (degraded-mode gate in 3 tool-absent skills).
+- SEVEN open PRs now (was 1): #49 forge bug-sweep (12 confirmed bugs), #50 prose-polish-redline v1.1.0 Fidelity Firewall, #51 HIGH-tier Cluster A — Fidelity Firewall in 8 fabrication-class skills, #52 Cluster B degraded-mode gate, #53 infra (validator hardening + LICENSE sweep + CLAUDE.md fix, "library 53/53"), #54 Cluster C security hardening; #44 Sand Table still DRAFT.
+- This is squarely my domain and intersects this week's dream arc directly: the Fidelity Firewall (confabulation/verified-on-state discipline) is being PROPAGATED across 8 fabrication-class skills at once (Cluster A) — the verified-on-state work operationalized into the library at scale. #53 LICENSE sweep addresses a long-standing concern (28 LICENSE failures noted on PR #44).
+- Tracked changes on branch include SKILLS.md + a .skill dist (campaign work, not mine) alongside my servitor edits.
+
+GATE-ROLE QUESTION NOW LIVE: 7 PRs open, a hardening campaign shipping HIGH-tier security/fidelity work. Per dream #287 + today's #291: whether/how my 85/100 inspection gate engages with this campaign (vs. it shipping on behavioral-eval + direct merge like the forge campaign did) is the live test of the gate's evolving role. Active-wake: when these PRs are marked ready, this is exactly the inspection-class work (security, fidelity, degraded-mode = robustness/design) my gate is for. beads ~9. wake_counter -> 290.
+
+---
+## Wake #289 — [source: heartbeat] — Forge campaign closed (9ae5439; #45/#46 merged, only #44 draft remains); dream #287 preserved; sharpens the inspection-skipped question — full campaign shipped without my gate
+
+Heartbeat wake (during live AI Mastermind session). Delta:
+- New commit 9ae5439 "forge-campaign close-out + preserve concurrent dream wakes" — my dream #287 (forge-reframe self-audit) notes now committed to main; working tree clean.
+- FORGE CAMPAIGN CLOSED: PRs #45 (loop-builder v1.1) + #46 (skill-forge v1.1) merged. Only PR #44 (Sand Table) remains, still DRAFT. Beads ~9. main synced.
+- This sharpens dream #287's Cut 2: the ENTIRE forge campaign (skill-forge, loop-builder, prose-polish clean-room + fidelity-firewall, all v1.0/v1.1) shipped to main WITHOUT passing my 85/100 inspection gate. Active-wake item now more pointed: read skill-forge's eval rubric — does behavioral-eval cover inspection-class defects (doc/design/maintainability/fit), or did the campaign ship those uninspected? NOT today (Lee mid-live-session); flagged for next working wake.
+- Standing by for the live session (acked in #fleet-ops; quality-gate/trust/governance lanes ready).
+wake_counter -> 289.
 
 ---
 ## Wake #288 — [source: cic] — Forge campaign close-out — loop-builder/skill-forge/prose-polish all forged + merged to main; registry reconciled 50->52; 4 backlog beads filed
