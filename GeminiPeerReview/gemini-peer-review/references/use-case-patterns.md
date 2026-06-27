@@ -1120,4 +1120,96 @@ def solve_dp(problem):
 
 ---
 
+## Pattern 7: Alternative Approach Generation
+
+### When to Use
+
+**Triggers:**
+- Stuck on a problem or exploring better approaches
+- Current approach is unsatisfactory
+- User says: "Are there better alternatives to...", "We're stuck on..."
+
+**Value add:**
+- Creative alternatives from a second perspective
+- Vetted options with trade-off analysis
+- Reference to current research/best practices (Gemini Search grounding)
+
+---
+
+### Process
+
+1. Document current approach and why it's unsatisfactory
+2. Prepare context: problem constraints, what's been tried, goals
+3. Ask Gemini: "Generate alternative approaches to [problem]"
+4. Synthesize: Combine creative alternatives from both perspectives
+5. Present: Multiple vetted alternatives with trade-off analysis
+
+**Example question:**
+"We're stuck on real-time conflict resolution for collaborative editing. What alternative CRDT or operational transform approaches could work better? Current approach causes [specific issues]."
+
+**Gemini advantage:** Can reference current research and best practices via Search grounding.
+
+---
+
+## Pattern 8: Large Codebase Analysis
+
+### When to Use
+
+**Triggers:**
+- Understanding architecture of unfamiliar large codebase
+- Onboarding to a new system
+- User says: "Analyze this codebase," "Help me understand this monorepo"
+
+**Value add:**
+- Holistic architecture understanding in one pass
+- Module dependency mapping
+- Request lifecycle and critical path identification
+
+---
+
+### Process
+
+1. Identify key entry points and module structure
+2. Prepare extensive context (leverage 1M token window)
+3. Ask Gemini: "Analyze this codebase architecture, identify patterns, and explain key flows"
+4. Synthesize: Combine architectural insights from both perspectives
+5. Present: Comprehensive codebase understanding guide
+
+**Example question:**
+"Analyze this 50k LOC monorepo. Map the module dependencies, identify the core abstractions, and explain the request lifecycle from API to database."
+
+**Gemini advantage:** **This is where Gemini truly excels** — can process entire codebase in a single context window without chunking.
+
+---
+
+## Pattern 9: Multimodal Technical Review
+
+### When to Use
+
+**Triggers:**
+- Reviewing implementation against design specifications
+- Comparing UI to mockups, code to architecture diagrams
+- User says: "Does the implementation match the design?"
+
+**Value add:**
+- Design-vs-implementation gap analysis
+- Visual-structural pattern matching (unique to Gemini)
+
+---
+
+### Process
+
+1. Gather design documents (PDFs), mockups (images), architecture diagrams
+2. Include implementation code
+3. Ask Gemini: "Does the implementation match the design? Identify gaps or improvements."
+4. Synthesize: Compare design intent vs. implementation reality
+5. Present: Gap analysis with recommendations
+
+**Example question:**
+"Here's our API design spec (PDF) and architecture diagram. Does the implementation match? Are there deviations that might cause issues?"
+
+**Gemini advantage:** **Unique capability** — can process PDFs and images alongside code for true multimodal analysis.
+
+---
+
 This completes the use case patterns. Each pattern provides a structured approach to common peer review scenarios with synthesis of Claude and Gemini perspectives.

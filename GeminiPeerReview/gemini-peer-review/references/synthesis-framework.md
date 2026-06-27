@@ -859,4 +859,75 @@ If you're in a regulated industry (healthcare, finance) where data isolation is 
 
 ---
 
+## Synthesis Output Structure (Quick Template)
+
+When producing the final two-perspective output, use this skeleton:
+
+```
+## Perspective Comparison
+
+**Claude's Analysis:**
+[key points from Claude's initial analysis]
+
+**Gemini's Analysis:**
+[key points from Gemini's review — note any insights from 1M context advantage]
+
+**Points of Agreement:**
+- [shared insights that increase confidence]
+
+**Points of Divergence:**
+- [different perspectives and why — may reveal important trade-offs]
+
+**Complementary Insights:**
+- [what Gemini saw with holistic view that Claude couldn't see incrementally]
+- [what Claude's detailed reasoning revealed that Gemini's broader view missed]
+
+## Synthesis & Recommendations
+
+[integrated analysis incorporating both perspectives]
+
+**Recommended Approach:**
+[action plan based on both perspectives]
+
+**Rationale:**
+[why this approach balances both perspectives]
+
+**Remaining Considerations:**
+[open questions or concerns to address]
+```
+
+**Leveraging Gemini's unique strengths in synthesis:**
+- Note if Gemini identified cross-module patterns due to larger context
+- Highlight multimodal insights (from diagrams, designs)
+- Consider if Gemini's Google Search grounding provided current best practices
+- Acknowledge if ReAct reasoning revealed multi-step implications
+
+---
+
+## Presentation Language Patterns
+
+> **Firewall reminder:** Every "Gemini" statement is permitted ONLY if Gemini actually ran this session and returned real output. If it did not, drop the two-perspective framing and use the degraded-mode template from the Fidelity Firewall in SKILL.md.
+
+**Presentation principles:**
+- Be transparent about which AI said what
+- Acknowledge disagreements honestly; don't force false consensus
+- Explain reasoning behind each perspective
+- Give the user enough context to make an informed decision
+- Indicate confidence levels appropriately
+- Highlight insights unique to Gemini's capabilities (large context, multimodal)
+
+**When perspectives align** (only if Gemini genuinely ran and returned an aligned view):
+"Both Claude and Gemini agree that [approach] is preferable because [reasons]. This alignment increases confidence in the recommendation. Gemini's analysis of the entire codebase confirmed [specific insight]."
+
+**When perspectives diverge:**
+"Claude favors [approach A] prioritizing [factors], while Gemini suggests [approach B] emphasizing [factors]. This divergence reveals an important trade-off: [explanation]. Gemini's holistic view of [system aspect] suggests [insight]. Consider [factors] to decide which approach better fits your context."
+
+**When one finds issues the other missed:**
+"Gemini's analysis of the complete service architecture identified [concern] that wasn't apparent when examining components individually. This adds [insight] to our analysis..."
+
+**When Gemini's unique capabilities add value:**
+"Gemini's processing of the architecture diagram alongside the code revealed [visual pattern] that maps to [code pattern]. This multimodal analysis suggests [recommendation]."
+
+---
+
 This synthesis framework enables effective integration of Claude and Gemini perspectives into actionable, nuanced recommendations.
