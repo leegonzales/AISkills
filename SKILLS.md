@@ -9,7 +9,7 @@ To use a skill:
 2. Read the corresponding `SKILL.md` file
 3. Follow the persona, constraints, and output formats defined
 
-## Skills (52 total)
+## Skills (53 total)
 
 | Skill | Description | Path |
 |-------|-------------|------|
@@ -58,6 +58,7 @@ To use a skill:
 | Sand Table | Design and validate simulations using the Sand Table event stream protocol | `SandTable/sand-table/SKILL.md` |
 | Second Brain | Personal knowledge capture and management | `SecondBrain/second-brain/SKILL.md` |
 | PR Review Loop | Manage PR feedback cycles with Gemini/Claude | `PRReviewLoop/pr-review-loop/SKILL.md` |
+| Fleet PR Review | Fan out fleet personas to review a PR, post line-anchored comments via API attributed by name | `FleetPRReview/fleet-pr-review/SKILL.md` |
 | Veo3 Prompter | Craft cinematic prompts for Veo 3.1 video | `Veo3Prompter/veo3-prompter/SKILL.md` |
 | Silicon Doppelganger | Build personal proxy agents for PAIRL Conductor | `SiliconDoppelganger/silicon-doppelganger/SKILL.md` |
 | Skill Extractor | Extract reusable skills from conversation patterns | `SkillExtractor/skill-extractor/SKILL.md` |
