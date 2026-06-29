@@ -5,7 +5,7 @@ description: Cross-project roadmap discovery scan — 4 domain scouts + 1 strate
 
 # Flywheel Scan
 
-> **⚠ DEPRECATED ORCHESTRATION — will not run as written.** This pipeline uses `TeamCreate`/`TeamDelete` and `team_name` on the `Task` tool, which no longer exist in the current harness. Migrate to the `Agent` tool (`subagent_type`) + `SendMessage` before running. Full rewrite tracked in bead **SKILL-2yd**.
+> **Orchestration:** This pipeline dispatches parallel domain scouts and a strategic doppelganger via the `Agent` tool (`subagent_type: "general-purpose"`). Multiple `Agent` calls issued in a single message run concurrently; use `SendMessage` to coordinate follow-up between agents when needed.
 
 ## Invocation
 
@@ -66,45 +66,38 @@ python {goals_query_path} tensions
 
 Save combined output as `goals-context.md` in the output directory. This feeds the doppelganger.
 
-### 6. Create Team
+### 6. Plan Orchestration Ordering
+
+No team object is created. The pipeline runs in dependency order via direct agent dispatch:
+- All scout agents run first (in parallel).
+- The doppelganger runs only **after** all scouts complete (it consumes their results).
+- Report generation runs after the doppelganger (or after all scouts if `--dry-run`).
+
+### 7. Dispatch Scout Agents
+
+For each active domain, dispatch a scout via the `Agent` tool:
 
 ```
-TeamCreate(team_name: "flywheel-scan-{date}")
-```
-
-### 7. Create Tasks
-
-One task per active scout domain + doppelganger review + report generation. Set dependencies:
-- Doppelganger task is `blockedBy` all scout tasks
-- Report generation is `blockedBy` doppelganger task (or all scouts if `--dry-run`)
-
-### 8. Spawn Scout Agents
-
-For each active domain, spawn a scout agent using `Task` tool:
-
-```
-Task(
+Agent(
   subagent_type: "general-purpose",
-  team_name: "flywheel-scan-{date}",
   name: "scout-{domain}",
   prompt: <scout.md template filled with domain + repo list + event schema + scout protocol>
 )
 ```
 
-**Spawn all scouts in parallel** (one Task call per scout, all in same message).
+**Dispatch all scouts in parallel** — issue one `Agent` call per scout, all in a single
+message, so they run concurrently. Each scout writes `scout-{domain}-results.json` in the
+output directory.
 
-Each scout writes: `scout-{domain}-results.json` in the output directory.
+### 8. Collect Scout Results
 
-### 9. Collect Scout Results
+After all scouts complete, read their result files. Verify each produced valid JSON with the expected event types. (Use `SendMessage` to a scout only if a result file is missing or malformed and the scout is still resumable.)
 
-After all scouts complete, read their result files. Verify each produced valid JSON with the expected event types.
-
-### 10. Spawn Doppelganger (skip if `--dry-run`)
+### 9. Dispatch Doppelganger (skip if `--dry-run`)
 
 ```
-Task(
+Agent(
   subagent_type: "general-purpose",
-  team_name: "flywheel-scan-{date}",
   name: "lee-doppelganger",
   prompt: <doppelganger.md template filled with all scout results + goals context + scoring rubric + persona schema>
 )
@@ -112,7 +105,7 @@ Task(
 
 Doppelganger writes: `doppelganger-results.json` in the output directory.
 
-### 11. Assemble simulation-events.json
+### 10. Assemble simulation-events.json
 
 Merge all agent result files into canonical format:
 
@@ -126,12 +119,12 @@ Merge all agent result files into canonical format:
 
 Write to `simulation-events.json` in the output directory.
 
-### 12. Run Validator
+### 11. Run Validator
 
-Spawn the scan-validator agent to fix schema drift:
+Dispatch the scan-validator agent (via the `Agent` tool) to fix schema drift:
 
 ```
-Task(
+Agent(
   subagent_type: "general-purpose",
   name: "scan-validator",
   prompt: <scan-validator.md + path to simulation-events.json + drift-mappings.json>
@@ -140,14 +133,14 @@ Task(
 
 Review fix count. >20 fixes = scout prompts need hardening.
 
-### 13. Generate Reports (skip if `--dry-run`)
+### 12. Generate Reports (skip if `--dry-run`)
 
 Using the report templates, generate:
 - `flywheel-scan-report.md` — executive summary
 - `master-work-queue.md` — ranked work items by tier
 - `thread-proposals.md` — open decision threads with options
 
-### 14. Generate Replay
+### 13. Generate Replay
 
 ```bash
 python {skill_dir}/replay/generate_replay.py {output_dir}
@@ -155,7 +148,7 @@ python {skill_dir}/replay/generate_replay.py {output_dir}
 
 Produces `flywheel-replay.html` — self-contained, opens in browser.
 
-### 15. Diff Against Previous Scan
+### 14. Diff Against Previous Scan
 
 If a previous scan exists (auto-detected or from config):
 
@@ -165,11 +158,7 @@ python {skill_dir}/scripts/diff_scans.py {previous_dir} {current_dir}
 
 Produces `scan-diff-report.md` in the output directory.
 
-### 16. Shutdown Team
-
-Send shutdown messages to all agents. Then `TeamDelete()`.
-
-### 17. Report to User
+### 15. Report to User
 
 Present:
 - **Verdict:** repos scanned, events generated, items scored

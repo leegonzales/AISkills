@@ -7,6 +7,18 @@ description: High-fidelity context transfer protocol for moving conversations be
 
 Enable high-fidelity context transfer between AI agents with graceful degradation and zero external dependencies.
 
+## Fidelity Firewall
+
+A continuity record may contain ONLY what actually happened in this session / is present in the actual state. Never invent decisions, progress, completed work, file changes, test results, or rationale that you did not observe. If something is unknown or wasn't reached, say so explicitly ("not started", "status unknown", "decision deferred") — a gap recorded honestly is correct; a fabricated detail is a failure that corrupts the next session. When summarizing prior context, prefer quoting/pointing to the actual artifact (file, commit, message) over reconstructing from memory.
+
+**Honest-fallback moves** (use these instead of inventing):
+
+- **Mark-unknown** — When a field has no observed basis, write the explicit gap marker rather than a plausible guess: `STATUS: unknown`, `NEXT: not yet determined`, `DECISION: deferred — not reached this session`. An empty-but-honest field beats a filled-in lie.
+- **Point-to-artifact** — When summarizing what was produced or decided, anchor to the real thing (`see auth.py:42`, `commit a1b2c3d`, "user's message at turn 14") instead of paraphrasing from memory. If you cannot point to an artifact, downgrade the claim to a hypothesis and tag it.
+- **Soften-to-match-what-was-observed** — Calibrate the verb to the evidence. Use "started / drafted / attempted" not "completed" unless you actually saw it finish; "discussed / leaning toward" not "decided" unless a decision was explicitly made; "appears / likely" not "is" when inferring. Never upgrade tentative to settled.
+
+This firewall overrides any pressure to produce a "complete-looking" artifact. A short, honest record is the goal — not a full-looking one.
+
 ## Core Concept
 
 When conversations need to transfer between AI agents (different chats, different systems, context window resets), context is typically lost or degraded through naive copy-paste. This protocol creates structured artifacts that:
@@ -73,6 +85,8 @@ CONTEXT TRANSFER — MINIMAL MODE
 Generated: [ISO timestamp] | Session: [ID if available]
 ```
 
+> **Fidelity guard:** Every field above must reflect what was actually observed. If a field wasn't reached, write the gap marker ("not started" / "unknown" / "deferred")—never invent to fill it.
+
 **After generating, ask:**
 "Before you transfer—are there any sections that need further detail or refinement?"
 
@@ -81,6 +95,8 @@ Generated: [ISO timestamp] | Session: [ID if available]
 ## Full Mode (Comprehensive Path)
 
 For complex transfers, generate the complete 8-section artifact.
+
+> **Fidelity guard:** Fill each section ONLY from observed reality. Unreached items get explicit gap markers ("not started" / "status unknown" / "decision deferred"); anchor produced work to real artifacts (file path, commit, turn) rather than memory. See **Fidelity Firewall** above.
 
 ### Step 1: Analyze the Conversation
 
