@@ -7,17 +7,29 @@ description: Audit a generated weather-broadcast episode — its images and its 
 
 Review one broadcast episode — **images + talk track together** — and return a prioritized, implementable critique. Gate first (geography, weather-accuracy are pass/fail), then score the rest. Never grade on vibes; cite the exact frame, the exact line, the exact data value.
 
+## Two modes (same gates, different cost)
+
+1. **Pre-flight gate (deterministic, in-pipeline)** — the show's data-checkable gates run *before the render* as code (`src/qc/preflight.ts` → `runPreflightAudit`): slide structure, date-spoken, cross-slide number consistency (auto-fixed), geography (no-ocean), hazard-prominence, seasonal-imagery, tag-hygiene. This is the cheap automatic first line; it catches date/number/geography/hazard defects for the cost of a check instead of a full render, and it can't hallucinate a defect.
+2. **Deep audit (this skill, model-based)** — what code can't judge: image geography/fidelity by *looking*, voice/pacing/freshness, seasonal-scene realism, cross-episode drift. Run this when reviewing a rendered episode or a batch, or to spot what the deterministic gate under-weights.
+
+Use both: the pre-flight gate blocks the obvious; the deep audit judges the rest.
+
+## Architecture this audits (current)
+
+Episodes are **per-slide**: the script is a set of `[SLIDE:type]` blocks (`open · arc · plan · hazard · nerds`), each synthesized to its own audio clip and locked to one **frosted, image-backed slide**. The data surfaces to check are the **current-conditions strip**, the **multi-arc chart** (temp/precip/humidity) + **written summary**, the **dayparts** row, the **hazard** card, and the dense **AFD "deep cut"** readout — plus per-slide **sync** (slide ⟷ its narration) and **caption hygiene** (no `[tag]` leaks).
+
 ## When to use
 
 - Reviewing a generated weather episode (script + image set + weather data) for quality.
 - Auditing several recent shows for recurring patterns or drift.
 - Deciding concretely how a broadcast could be better — not "make it nicer," but which prompt, which line, which frame.
 
-## Inputs (gather all three before judging)
+## Inputs (gather all before judging)
 
-1. **Talk track** — the episode script (DB `episodes.script` or `eval/epNN-script.txt`).
-2. **Images** — `output/<loc>/<date>/graphic-*.png` + `map-opener.png`. **Look at every image.**
-3. **Weather ground truth** — the `weather_snapshots` row for the episode (the forecast the script must match). Without it, weather-accuracy is unverifiable — say so, don't guess.
+1. **Talk track** — the episode script (DB `episodes.script`), as `[SLIDE:type]` blocks. Parse the blocks; each block is the narration for one slide.
+2. **Slides / images** — `output/<loc>/<date>/graphic-*.png` (one weather-edited Denver backdrop per slide) + the rendered `episode-*.mp4`. **Look at every slide** (extract a frame per slide window). For sync, the per-slide clips are `slide-N-<type>.mp3` — a slide's screen time equals its clip's duration.
+3. **Weather ground truth** — the `weather_snapshots` row (the forecast the script + slides must match). Without it, weather-accuracy is unverifiable — say so, don't guess.
+4. **Assembled show data** — the `actTwo` payload (current, hourly, high/low, dayparts, hazard, afdReadout) that the slides render from; this is what the pre-flight gate checks and what cross-slide consistency is measured against.
 
 ## The two hard gates (run FIRST, pass/fail, can veto an otherwise-good episode)
 
@@ -33,6 +45,14 @@ Review one broadcast episode — **images + talk track together** — and return
 A fabricated or contradicted value is a gate failure, not a style note. If you cannot show the high/low/conditions you verified, you have not run G2.
 
 **G3 · Hazard-prominence gate** — an active **warning-level** hazard (flash-flood, Red Flag, severe-storm, fire-weather) must be stated in the **cold-open or the first conditions block** — not buried behind poetic/mood content. G2 verifies a hazard is *accurate*; G3 verifies it is *prominent*. A correct-but-buried warning is a gate failure (S1), because a viewer who tunes out after 30 seconds must still have heard it. (Does not apply when no warning-level hazard is active.)
+
+**G4 · Cross-slide number consistency** — the same fact must read the same everywhere it appears. The **displayed high must bound everything on screen** (now-temp, every daypart, the curve's peak) and the low must floor it; the summary band, the by-the-numbers card, the dayparts, and the arc must agree. `now > high` is the classic stale/out-of-coverage tell — a FAIL on screen even though the pre-flight gate auto-widens the high to bound it (the warn still fires on the original data). Wind/humidity stated in the talk track should match the card.
+
+**G5 · Per-slide sync** — each slide must be on screen exactly while its own narration plays (the per-slide pipeline locks this structurally: a slide's frames = its clip's duration). Spot-check: extract a frame mid-slide and confirm the burned-in caption is *that slide's* talk track (Plan caption = plan guidance, Hazard caption = the warning). Drift here means the assembly broke.
+
+**G6 · Caption hygiene** — burned-in captions must be spoken words only. ElevenLabs v3 audio tags (`[thoughtfully]`, `[pauses]`, …) stay in the TTS text as delivery cues but are **not** spoken; if one appears on screen the caption builder isn't stripping brackets — a FAIL.
+
+**G7 · Seasonal imagery** — backdrops must match the month. Bare/leafless trees or snow in a June frame (or full foliage in January) is a fidelity FAIL, not mood — the recurring "winter trees in summer" defect. (Promoted from a known-limitation; the pre-flight gate warns, the deep audit confirms by looking.)
 
 A gate failure is reported at the top, with severity, regardless of how good the prose is.
 
@@ -58,9 +78,9 @@ A gate failure is reported at the top, with severity, regardless of how good the
 - **Never let a warning-level hazard be buried** — G3 prominence is must-pass when a warning is active. (M4)
 - Cite ground truth for every claim; "looks off" without a frame/line is not a finding.
 
-## Known limitations (audit these by hand; not yet gated — next forge campaign)
+## Known limitations (audit these by hand; not yet gated)
 
-The gate-first design is strongest on geography and weather-numbers. It under-weights, so check manually: **seasonal-scene mismatch** (autumn foliage / snow in a June frame — fidelity-vs-cue passes it); **timezone/clock labels** (MST vs MDT for the episode date); **intra-episode near-duplicate frames**; **rendered-audio defects** (mispronunciations, clipping, script-audio desync — the rubric scores the *script*, not the audio); **overlay/hazard-banner legibility** beyond S3. Don't let a clean G1/G2/G3 convince you these were checked.
+Now gated: seasonal (G7), cross-slide numbers (G4), sync (G5), captions (G6). Still under-weighted — check manually: **timezone/clock labels** (the corner clock must read the broadcast time + correct MST/MDT, not the generation time); **near-duplicate backdrops** across slides (the per-slide backdrops should feel distinct); **rendered-audio defects** (mispronunciations, clipping — the rubric scores the *script*, not the audio); **chart legibility** (the multi-arc lines must read over a bright skyline); **typography rendering** (the editorial fonts actually loaded vs. fell back to generics). Don't let clean gates convince you these were checked.
 
 ## References
 

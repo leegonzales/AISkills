@@ -5,6 +5,16 @@ All notable changes to the Episode Audit skill will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2026-06-28
+
+### Added
+- **Two-mode model:** a deterministic **pre-flight gate** (`src/qc/preflight.ts`, in-pipeline, pre-render, auto-fixes number consistency) as the cheap automatic first line, plus the **deep audit** (this skill, model-based) for what code can't judge.
+- **Four gates promoted/added:** G4 cross-slide number consistency (displayed high bounds now + dayparts; `now > high` warn on stale data), G5 per-slide sync (slide frames = its clip duration; caption must match its slide), G6 caption hygiene (no `[tag]` leaks), G7 seasonal imagery (winter trees in June = FAIL — promoted from known-limitation).
+
+### Changed
+- **Architecture re-point:** audits the per-slide `[SLIDE:type]` blocks (open · arc · plan · hazard · nerds) and the frosted, image-backed slide deck — current strip, multi-arc chart + summary, dayparts, hazard card, dense AFD "deep cut". Inputs now include the assembled `actTwo` payload.
+- Known-limitations trimmed to what is still ungated (clock labels, near-duplicate backdrops, audio defects, chart legibility, font-render fallback).
+
 ## [0.3.0] - 2026-06-25
 
 ### Added
