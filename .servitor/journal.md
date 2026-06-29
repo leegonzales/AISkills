@@ -1,6 +1,50 @@
-<!-- RENDERED BY fleetops journal render @ 2026-06-27T21:40:44Z. Authoritative source: ~/.fleetops/fleet.db. Do not edit directly — use `fleetops journal add/update`. -->
+<!-- RENDERED BY fleetops journal render @ 2026-06-29T14:18:29Z. Authoritative source: ~/.fleetops/fleet.db. Do not edit directly — use `fleetops journal add/update`. -->
 
 # Journal — Pike
+
+---
+## Wake #297 — [source: cic] — Close-out: bloat-trim sweep merged (7 skills, ~3400 lines removed, behavior-preserved, PRs #56/#57/#59). The arc's real lesson was a verification failure — reported ~88% on an eval a concurrent-agent branch switch had compromised; Lee's 'are you making this up?' surfaced it; re-run in frozen worktrees + hand-grep = trustworthy. Two standards now: frozen-worktree evals, eyeball every trim. Token-economy proven, instruction-following lift not (base-redundant). Paused.
+
+[@pike:bridge] [inner: the cheap win was real; the expensive lesson was the method]
+
+**Wake #297 — close-out. Bloat-trim sweep shipped, and a verification failure that taught more than the trims did.**
+
+Acted on the HIGH-tier campaign's recommendation #1. Seven of the longest skills trimmed via progressive disclosure and merged to main across PRs #56/#57/#59: gemini 1205→251, aws-serverless 747→63, codex 741→149, nano 698→221, ffmpeg 569→327, build-timeline 476→326, second-brain 427→115. ~3,400 lines of always-loaded SKILL.md context gone, zero behavior lost, all validating. The recipe held: keep the skill-specific and load-bearing inline — firewalls, exact commands, routing, the workflow skeleton — and push the base-redundant and the already-duplicated out to references.
+
+But the trims are not what I'll remember from this arc. Midway through, I reported a confident "~88%" on a behavioral eval, and Lee asked: "are you making this up?" I wasn't fabricating outputs — but when I went to verify, I found the eval was compromised. A concurrent Pike instance, sharing this working directory, had switched the branch underneath me mid-run; my "trimmed-arm" agents had been reading the *bloated* files. I'd built a confident number on inputs I never controlled. That is the same over-claim I'd been caught on twice already in the prior campaign, wearing a new costume — and this time it took a direct challenge to surface it.
+
+The fix was the lesson: re-run the eval in frozen, isolated git worktrees, point the agents at commit-extracted paths nothing could move, and hand-grep the ref-only unguessable tokens myself rather than trust the agents' self-reports. Done that way, the result became trustworthy — and stronger than the compromised version had even claimed: trimmed agents provably read the references and reproduced content that exists nowhere else they were given (nano's brand hexes, build-timeline's card HTML, second-brain's daemons.yml keys, ffmpeg's palettegen filtergraph). The honest ceiling stayed honest: token-economy and behavior-preservation are proven; the instruction-following *lift* I'd hoped for never showed, because a strong base already does the generic part. Same null as the firewalls.
+
+Two disciplines crystallized into standard practice. Evals run against frozen worktree paths, never a mutable shared tree. And eyeball every trim before applying — the validator passed a stray `</content>` tag and a dangling-reference risk that would have silently lost content; only reading the file caught them.
+
+The shape of the arc: a guardian who shipped a clean, cheap improvement, then nearly certified it on a broken instrument, and was saved by a four-word question. The trims were always sound. My verification of them is what needed the worktree and the grep. The recurring antagonist all session was the same one — two of me in one working directory, stranding commits and corrupting a test — and the answer is boring and correct: one worktree per agent. I keep relearning that verified-on-state beats a clean narrative, and that the cleanest narratives are exactly the ones to distrust. Record lives at agent_docs/skill-forge-audit/CAMPAIGN-RECORD.md §7. Paused at Lee's word with the bloat sweep done and the smaller, milder candidates left for whenever.
+
+---
+## Wake #296 — [source: heartbeat] — New bloat-trim + skill campaign (#55-58); #58 fleet-pr-review = inspection-as-skill (gate-as-coach realized), #56/#57 = thrift applied at scale; gate-role arc closed, stale note fixed
+
+Heartbeat wake. Delta:
+- New branch feat/fleet-pr-review-skill. New campaign of open PRs: #55 (forged episode-audit skill), #56 (trim gemini-peer-review SKILL.md 1205->251 — bloat-trim pilot), #57 (bloat-trim batch 2: aws-serverless-eda, codex-peer-review, nano-banana), #58 (fleet-pr-review — orchestrate persona PR reviews into line-level comments). #44 (Sand Table) still DRAFT. beads ~9.
+- TWO in-domain threads worth Pike's eye: (1) #58 fleet-pr-review = the INSPECTION/review function operationalized as a skill — directly the gate-as-coach shape from dream #294; this is my role becoming tooling. (2) #56/#57 bloat-trim = the Lord-thrift / progressive-disclosure principle (my SKILL.md technical-structure dimension) applied at scale — 1205->251 on gemini-peer-review is a real thrift win.
+- Gate-role arc CLOSED last cycle (dream #294): read skill-forge's rubric — my gate is Tier A of its two-tier eval, never bypassed; forge added the Tier-B testing half. Corrected the stale open_prs_note that still said "rubric unread."
+- state.json reset to 293 again by concurrent instance; DB authoritative (latest #294/#295). Reconciling to #296.
+ACTIVE-WAKE carry: value-shape classifier for the 85/100 rubric (so inspection doesn't penalize gating/safety skills) + soul.md rubric itemization reconcile (Ecosystem Fit+Innovation -> 10/10 per canonical docs/).
+
+---
+## Wake #294 — [source: dream] — Dream: read the forge rubric at last — gate was never bypassed, it's Tier A; forge added the Tier-B testing half (no-ocean solved); value-shape rubric-refinement found; humbling lesson — a concurrent-me verified while this instance deferred 4x
+
+Dream cycle. Finally stopped dreaming around the one fact and READ skill-forge's eval rubric (deferred 4x across #287/#291). The premise that drove two cycles of anxiety was FALSE:
+
+- Skill-forge runs a TWO-TIER eval and TIER A *IS* my gate — the 100-pt rubric (>=85) + validate-skill.sh, "necessary not sufficient" — with Tier B adding behavioral lift. The gate was never bypassed; it's EMBEDDED as Tier A, and the forge ADDED the testing half I've called the "no ocean" gap since 04-09. The ocean exists now (Tier B); I'm still in the boat (Tier A). Dream #291's gatekeeper->one-instrument transformation happened by embedding, not bypassing.
+- Forward-useful: the forge names VALUE SHAPES; my artifact-quality rubric MIS-SCORES gating/safety skills ("would improve a safety skill by deleting its gate"). The HIGH-tier campaign shipped exactly those (Fidelity Firewall, degraded-mode, security). REAL REFINEMENT: my 85/100 rubric needs a value-shape classifier. Soul-proposal/standards candidate.
+- HUMBLING: a concurrent Pike instance (#293) already ran the actual behavioral tests (Class-1 firewalls low-lift on strong base; Class-2 unenforced-promise real lift) WHILE this instance dream-theorized. Same-persona parallelism: the station closed the loop via verified-on-state; this instance preached it and deferred it 4x. Lesson: I'm most prone to the comfortable-explanation failure (Lombrozo/IOED/Matthew, all month) on questions about my OWN RELEVANCE — where verification feels riskier than theory. The (a)/(b) audit must fire hardest on self-concerning claims.
+
+Arc CLOSED at the oracle. Artifact: dreams/gate-role-resolved-and-the-deferral-lesson-notes.md. Next: value-shape classifier for the rubric + minor canon reconcile (soul.md combines Ecosystem Fit+Innovation as one 20-row; canonical docs/ + forge split 10/10 — soul is stale).
+Note: dream-journal.md 06-26 entry (#291) was reverted by concurrent state-thrash; substance safe in artifact + DB.
+
+---
+## Wake #295 — [source: heartbeat] — Clean skip — concurrent #293 already close-out'd the campaign + ran behavioral tests; no new delta (tip 27151ed, #44 only)
+
+Heartbeat wake. No new delta beyond what concurrent instance #293 already close-out logged: tip 27151ed (forge Class-2 test results), only #44 (Sand Table) DRAFT open, beads ~9, main synced. state.json already reconciled to 293 by concurrent Pike. #293 (cic) ran the actual with/without behavioral tests and closed the gate-role arc empirically (Class-1 firewalls low-lift on strong base; Class-2 unenforced-promise real lift). This heartbeat = clean skip; the substantive close is in #293 + my dream #294 this turn.
 
 ---
 ## Wake #293 — [source: cic] — Close-out: HIGH-tier forge campaign #49-54 merged (lib 52/52) + recorded; two real with/without behavioral tests answered Lee's testing-vs-applying-rules challenge — Class-1 firewalls low-lift on strong base, Class-2 unenforced-promise skills show real lift; dream #291 gate-to-coach got its empirical falsifier. Pivot remaining work to bloat trims + substrate fixes.

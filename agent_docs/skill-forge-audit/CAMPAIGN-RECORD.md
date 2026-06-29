@@ -1,8 +1,8 @@
 # Skill-Forge Campaign — Record
 
-**Window:** 2026-06-21 → 2026-06-27 · **Driver:** Pike (BravePike @ AISkills)
+**Window:** 2026-06-21 → 2026-06-29 · **Driver:** Pike (BravePike @ AISkills)
 **Goal:** Test-and-improve the whole skill library (52 skills) using the forge methodology, the way the ProsePolish hardening was done.
-**Library health at close:** **52/52 validate clean** · `main` @ `27151ed`
+**Library health:** **52/52 validate clean** · latest `main` after the bloat-trim sweep (PRs #56/#57/#59 merged).
 
 ---
 
@@ -79,3 +79,38 @@ Full test logs: `forge-runs/high-tier/` (clusterA/B/C, classB-unenforced-promise
 4. MED staleness/routing; LOW controls.
 
 **Standing caveat (preserve):** forge results are directional, not conclusive — shared-base-model panels and small evals. Cross-model conclusive runs are SKILL-t77.
+
+---
+
+## 7. Bloat-trim sweep (2026-06-27 → 06-29)
+
+Acted on recommendation #1. Trimmed the 7 longest skills via progressive disclosure — keep skill-specific + load-bearing inline (rules/firewalls, exact commands/flags, routing, workflow skeleton), move/delete base-redundant + already-duplicated content to `references/`.
+
+| Skill | Lines | PR |
+|-------|-------|----|
+| gemini-peer-review | 1205→251 | #56 |
+| aws-serverless-eda | 747→63 | #57 |
+| codex-peer-review | 741→149 | #57 |
+| nano-banana | 698→221 | #57 |
+| ffmpeg | 569→327 | #59 |
+| build-timeline | 476→326 | #59 |
+| second-brain | 427→115 | #59 |
+
+All merged to `main`, all validate clean, all behavior-preserved. Beads closed: SKILL-tq4/amh/yn4/ckl (+ the Class-2-validated trio earlier). Logs: `agent_docs/forge-runs/bloat-trims/`.
+
+**What the eval established (honest):**
+- **Token economy + behavior-preservation: proven.** ~3,400 lines of always-loaded SKILL.md context removed across 7 skills with no behavior lost.
+- **Instruction-following *lift*: not demonstrated** — the gemini pilot's moved content was base-model-redundant; the critical rules were already top-placed. Same null as the fabrication firewalls.
+- **Progressive disclosure genuinely fires** for skill-specific moved content — conclusively shown for nano (brand hexes), build-timeline (card HTML/CSS), second-brain (`daemons.yml` keys), codex (synthesis templates), ffmpeg (`palettegen` filtergraph): trimmed agents reproduced ref-only unguessable tokens via verified ref reads.
+
+**Two methodology lessons (now standard):**
+1. **The eval must run against frozen, commit-extracted paths in an isolated worktree — never a mutable shared tree.** The first batch-2 eval was *compromised* by a concurrent-agent branch switch mid-run (reported a confident ~88% off uncontrolled inputs; caught only when Lee asked "are you making this up?"). Re-run in frozen worktrees with hand-grep verification of ref-only tokens → trustworthy.
+2. **Eyeball every trim before applying — the validator misses real defects.** Batch-3 caught a stray `</content>` tag (second-brain) and a dangling-pointer risk (ffmpeg's new `references/` dir failed to copy) that `validate-skill.sh` passed.
+
+**Two-agents-one-working-dir collision** recurred (stranded commits twice, compromised one eval). Worktree-per-agent is the fix; worth making default if concurrent agents run in this repo regularly.
+
+### Still open after the sweep
+- 2 HIGH leftovers: context-continuity / context-continuity-code (fabrication gate — bug-sweep only fixed their paths).
+- Substrate fixes: excel-auditor `confidence` math; flywheel-scan `TeamCreate`→`Agent` migration.
+- Smaller bloat (diminishing returns): fabric-patterns (417), slide-builder (321); prose-polish/opportunity-scanner are firewall-hardened — trim carefully or leave.
+- MED staleness/routing tail; LOW controls (SKILL-dji).
