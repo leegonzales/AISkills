@@ -740,13 +740,47 @@ def infer_purpose_detailed(function_usage: dict, sheet_names: list, headers: lis
     winner = sorted_scores[0]
     runner_up = sorted_scores[1] if len(sorted_scores) > 1 else (None, 0)
 
-    # Calculate confidence
+    # Calculate confidence.
+    #
+    # A single weak signal must NOT yield certainty. Confidence is the product
+    # of three calibrated factors so that 1.0 (or near) is only reachable when
+    # the inference rests on substantial, corroborated evidence:
+    #
+    #   1. evidence_strength - how much absolute score the winner accumulated.
+    #      One header keyword (+2) or a lone sheet-name match (+5) is weak;
+    #      real certainty requires the kind of score that only multiple
+    #      strong signals produce. Saturates toward 1.0 around a score of ~40
+    #      (e.g. a 3-statement model + several function-usage hits).
+    #   2. corroboration - how many distinct signals support the winner.
+    #      A single signal is capped low; multiple independent signals raise it.
+    #   3. dominance - the winner's share of total score (the original metric),
+    #      which guards against ambiguous ties between competing purposes.
+    #
+    # Multiplying keeps any single weak dimension from inflating the result,
+    # and a small floor avoids reporting absurdly low values for a real-but-
+    # thin inference.
     total = sum(scores.values())
-    confidence = winner[1] / total if total > 0 else 0
 
-    # Boost confidence if clear winner
-    if runner_up[1] > 0 and winner[1] / runner_up[1] > 2:
-        confidence = min(0.95, confidence + 0.2)
+    evidence_strength = min(1.0, winner[1] / 40.0)
+
+    # Count distinct signals that fed the winning category. The signals list is
+    # not category-tagged, but a lone winning category with one contributing
+    # signal is the worst case we must guard against, so derive corroboration
+    # from the number of recorded signals overall, capped per-signal.
+    signal_count = len(signals)
+    corroboration = min(1.0, 0.35 + 0.22 * max(0, signal_count - 1))
+
+    dominance = winner[1] / total if total > 0 else 0
+
+    confidence = evidence_strength * corroboration * dominance
+
+    # Modest boost for an unambiguous, well-separated winner, still capped.
+    if runner_up[1] > 0 and winner[1] / runner_up[1] > 2 and signal_count >= 2:
+        confidence = min(0.95, confidence + 0.1)
+
+    # Floor so a genuine (if thin) inference is not reported as ~0, and a hard
+    # cap so we never emit a spurious 1.0 certainty.
+    confidence = max(0.1, min(0.95, confidence))
 
     return {
         "purpose": winner[0],

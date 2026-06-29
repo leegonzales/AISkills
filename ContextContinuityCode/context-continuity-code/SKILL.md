@@ -7,6 +7,18 @@ description: Claude Code-optimized context transfer for development workflows. P
 
 Transfer development context between Claude Code sessions with high fidelity, preserving code state, git context, and running services.
 
+## Fidelity / Verification Gate
+
+Every claim about code state — current branch, commit SHA, what changed, which files exist, what tests passed, build status — MUST come from a command you actually ran this session (`git status`/`log`/`diff`, a real file read, an actual test run). Never recall or infer code state from memory or assumption. If you have not run the command, do not assert the state — either run it, or record it as "unverified" and say how to check. Quote real output (paths, SHAs) over reconstructing it. A continuity record built on unverified state is worse than none.
+
+**Honest-fallback moves** — when you cannot confirm a piece of state, pick one:
+
+- **Run the command.** The default. Need the branch? Run `git branch --show-current`. Need test status? Run the tests. Verification is cheap; a wrong handoff is expensive.
+- **Mark it `[unverified]`.** If you genuinely cannot run the command this session (no shell, service down, out of scope), tag the field `[unverified: not checked this session]` and add the exact command the next session should run to confirm.
+- **Point to the real artifact.** When the truth lives in a file, PR, or log, link the path/URL (`src/auth.py:42`, `PR #214`, CI run URL) instead of paraphrasing its contents from memory.
+
+Never silently upgrade an inference into a fact. "Tests probably still pass" is not "Passing: 42/42." If you didn't run it, say so.
+
 ## Core Concept
 
 When development work needs to transfer between Claude Code sessions, this skill creates structured artifacts that capture:
@@ -181,6 +193,7 @@ Generated: [ISO timestamp] | Session: [ID if available]
 § TRANSFER READY
 ═══════════════════════════════════════════════════════════════════
 Review for accuracy before sharing. Check git state and file paths.
+GUARD: Every git/test/file claim above must be quoted from a command run this session — anything not verified is tagged [unverified] with a command to confirm it.
 ```
 
 **After generating, ask:**
@@ -312,7 +325,8 @@ When using Codex or Gemini for peer review **during** the development session:
 ## Best Practices
 
 **Do:**
-- Run `git status` and `git diff --stat` before generating
+- Run `git status` and `git diff --stat` before generating — quote the actual output, don't reconstruct it from memory
+- Tag any field you couldn't verify this session as `[unverified]` with the command to confirm it
 - Include specific file paths with line numbers (file.py:123)
 - Note running services and their ports
 - Capture peer review insights in § Technical Decisions
@@ -320,6 +334,7 @@ When using Codex or Gemini for peer review **during** the development session:
 - Mark files as "in-progress" vs "completed"
 
 **Don't:**
+- Assert a branch, SHA, test result, or build status you didn't verify this session — run the command or mark it `[unverified]`
 - Include secrets, API keys, credentials (redact them)
 - Paste entire file contents (link to files with line ranges)
 - Assume receiving agent has access to same environment
@@ -354,6 +369,7 @@ Checks for:
 - File paths formatted correctly
 - No secrets leaked
 - Peer review integration (if applicable)
+- **Fidelity**: every git/test/file claim is backed by a command run this session; anything else is tagged `[unverified]` with a confirm command
 
 ---
 
