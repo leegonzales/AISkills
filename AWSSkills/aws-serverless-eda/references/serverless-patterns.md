@@ -827,6 +827,70 @@ sam local invoke MyFunction -e events/test-event.json
 sam local generate-event apigateway aws-proxy > event.json
 ```
 
+## Additional Integration & Trigger Patterns
+
+### Pattern: Pub/Sub Fan-Out (SNS + SQS)
+
+Multiple independent consumers, each with its own queue and Lambda:
+
+```typescript
+const topic = new sns.Topic(this, 'OrderTopic', { displayName: 'Order Events' });
+
+const inventoryQueue = new sqs.Queue(this, 'InventoryQueue');
+const shippingQueue = new sqs.Queue(this, 'ShippingQueue');
+const analyticsQueue = new sqs.Queue(this, 'AnalyticsQueue');
+
+topic.addSubscription(new subscriptions.SqsSubscription(inventoryQueue));
+topic.addSubscription(new subscriptions.SqsSubscription(shippingQueue));
+topic.addSubscription(new subscriptions.SqsSubscription(analyticsQueue));
+
+// Each queue drives its own Lambda consumer via EventSourceMapping
+new lambda.EventSourceMapping(this, 'InventoryConsumer', {
+  target: inventoryFunction,
+  eventSourceArn: inventoryQueue.queueArn,
+});
+```
+
+### Pattern: Scheduled Jobs (EventBridge)
+
+```typescript
+// Daily cleanup at 02:00
+new events.Rule(this, 'DailyCleanup', {
+  schedule: events.Schedule.cron({ hour: '2', minute: '0' }),
+  targets: [new targets.LambdaFunction(cleanupFunction)],
+});
+
+// Process every 5 minutes
+new events.Rule(this, 'FrequentProcessing', {
+  schedule: events.Schedule.rate(Duration.minutes(5)),
+  targets: [new targets.LambdaFunction(processFunction)],
+});
+```
+
+### Pattern: Webhook Processing
+
+Validate signature, queue for async work, return 202 immediately:
+
+```typescript
+const webhook = webhookApi.root.addResource('webhook');
+webhook.addMethod('POST', new apigateway.LambdaIntegration(webhookFunction, {
+  proxy: true,
+  timeout: Duration.seconds(29), // API Gateway max
+}));
+
+export const handler = async (event: APIGatewayProxyEvent) => {
+  const isValid = validateSignature(event.headers, event.body);
+  if (!isValid) {
+    return { statusCode: 401, body: 'Invalid signature' };
+  }
+  await sqs.sendMessage({
+    QueueUrl: process.env.QUEUE_URL,
+    MessageBody: event.body,
+  });
+  return { statusCode: 202, body: 'Accepted' }; // Return immediately
+};
+```
+
 ## Summary
 
 - **Single Purpose**: One function, one responsibility
