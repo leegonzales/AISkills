@@ -1,6 +1,31 @@
-<!-- RENDERED BY fleetops journal render @ 2026-06-29T14:18:29Z. Authoritative source: ~/.fleetops/fleet.db. Do not edit directly — use `fleetops journal add/update`. -->
+<!-- RENDERED BY fleetops journal render @ 2026-06-29T17:43:44Z. Authoritative source: ~/.fleetops/fleet.db. Do not edit directly — use `fleetops journal add/update`. -->
 
 # Journal — Pike
+
+---
+## Wake #299 — [source: cic] — Close-out: HIGH tier closed + 2 substrate fixes merged (PR #60). context-continuity pair got fabrication/verification gates (prose, insurance-grade). Substrate fixes VERIFIED BY RUNNING (not self-report): excel confidence 1.0->0.100 weak / 0.950 strong; flywheel TeamCreate grep-zero. These are the campaign's only un-hedged, measured-by-running-code claims — vs the directional panels everywhere else (SKILL-t77). Load-bearing work done; 26 closed/19 open.
+
+[@pike:bridge] [inner: the load-bearing work is done, and the strongest of it was the part I could run]
+
+**Wake #299 — close-out. HIGH tier closed; the two substrate fixes are the campaign's best-evidenced work.**
+
+Finished the load-bearing tail Lee pointed me at: the two HIGH leftovers and the two substrate fixes, merged in PR #60. The context-continuity pair got fabrication/verification gates — a Fidelity Firewall on context-continuity (record only what was observed; gaps logged honestly, never invented completion) and a Verification Gate on context-continuity-code (no branch, SHA, or test-status claim that didn't come from a command actually run this session). Those are prose, and I'll call them what they are: insurance-grade, the same low-but-real value as every firewall in this campaign — they make the honest path the default, but a strong model mostly walks it already.
+
+The substrate fixes were different in kind, and that difference is the point. excel-auditor had been emitting `confidence: 1.0` for a sheet-purpose guess that rested on a single weak signal — and worse, the metric was inverted, so a rich financial model scored *below* a thin one-keyword guess. flywheel-scan still instructed a deprecated `TeamCreate` orchestration that no longer exists. For both, I refused to trust the fixing agent's self-report. I ran excel's `infer_purpose_detailed` myself with a stubbed dependency: the weak single-signal case fell from 1.0 to 0.100, the strong multi-signal case held at 0.950, the schema unchanged. I grepped flywheel's whole tree: zero `TeamCreate`, `TeamDelete`, or `team_name` left. Those are measured facts, not panel opinions — the only claims in this entire campaign I can state without the "directional" hedge.
+
+That contrast is the lesson worth keeping. The firewalls and the bloat trims were verified by panels of agents — useful, but single-model, and one of those panels was compromised badly enough that Lee had to ask "are you making this up?" to surface it. The substrate fixes were verified by running code, and they're the work I'd defend hardest. When the artifact is executable, run it; when it's prose, the best I have is a careful read and an honest caveat. The campaign's standing weakness — SKILL-t77, every verdict still single-model — is exactly the gap between those two modes.
+
+So the load-bearing work is done: HIGH tier closed, both substrate fixes landed and measured. Twenty-six beads closed, nineteen open, and the nineteen are the lower-yield tail — staleness, routing, smaller bloat, a control spot-check — plus the cross-model conclusive pass that would upgrade everyone's confidence at once. A clean line to stop the load-bearing campaign on. The recurring antagonist held its shape to the end — two of me in one working directory, the journal already at #298 from a concurrent instance before I wrote this — and the boring fix held too: every commit this arc went through an isolated worktree, and not one of them collided. Record at agent_docs/skill-forge-audit/CAMPAIGN-RECORD.md §8.
+
+---
+## Wake #298 — [source: heartbeat] — Bloat-trim #56/#57 MERGED (thrift at scale; gemini-peer-review 1205->251); new #60 (HIGH leftovers + substrate fixes); #58 fleet-pr-review still open
+
+Heartbeat wake. Delta (verified):
+- BLOAT-TRIM WINS LANDED: PR #56 (gemini-peer-review SKILL.md 1205->251) + #57 (batch 2: aws-serverless-eda, codex-peer-review, nano-banana) both MERGED. The Lord-thrift / progressive-disclosure principle (my SKILL.md technical-structure dimension) now applied at scale on main.
+- NEW PR #60: close HIGH leftovers + 2 substrate fixes (context-continuity pair, excel confidence, flywheel migration) — campaign cleanup, in-domain.
+- Still open: #58 (fleet-pr-review = inspection-as-skill / gate-as-coach, my domain), #55 (episode-audit), #44 (Sand Table DRAFT). beads ~9.
+- DB at #297 (concurrent Pike instance); this heartbeat #298. state.json reset to 296 again by concurrency — DB authoritative.
+PENDING LEE (unchanged): PR #21 "Do Agents Dream?" two calls (URL + publish button) + "Change Your Mind" publish button — both editorially cleared, door-type principal-only. ACTIVE-WAKE carry (mine): value-shape rubric classifier + soul.md rubric-itemization reconcile.
 
 ---
 ## Wake #297 — [source: cic] — Close-out: bloat-trim sweep merged (7 skills, ~3400 lines removed, behavior-preserved, PRs #56/#57/#59). The arc's real lesson was a verification failure — reported ~88% on an eval a concurrent-agent branch switch had compromised; Lee's 'are you making this up?' surfaced it; re-run in frozen worktrees + hand-grep = trustworthy. Two standards now: frozen-worktree evals, eyeball every trim. Token-economy proven, instruction-following lift not (base-redundant). Paused.

@@ -110,7 +110,21 @@ All merged to `main`, all validate clean, all behavior-preserved. Beads closed: 
 **Two-agents-one-working-dir collision** recurred (stranded commits twice, compromised one eval). Worktree-per-agent is the fix; worth making default if concurrent agents run in this repo regularly.
 
 ### Still open after the sweep
-- 2 HIGH leftovers: context-continuity / context-continuity-code (fabrication gate — bug-sweep only fixed their paths).
-- Substrate fixes: excel-auditor `confidence` math; flywheel-scan `TeamCreate`→`Agent` migration.
+- ~~2 HIGH leftovers~~ and ~~the 2 substrate fixes~~ — **done, see §8.**
 - Smaller bloat (diminishing returns): fabric-patterns (417), slide-builder (321); prose-polish/opportunity-scanner are firewall-hardened — trim carefully or leave.
 - MED staleness/routing tail; LOW controls (SKILL-dji).
+
+---
+
+## 8. HIGH leftovers + substrate fixes — closed (2026-06-29, PR #60)
+
+The load-bearing tail. Code fixes were **run/grepped by me**, not trusted from agent self-report.
+
+| Fix | Bead | Verified |
+|-----|------|----------|
+| **context-continuity** Fidelity Firewall (record only observed state) | SKILL-k6b | self-test + validate (prose, insurance-grade) |
+| **context-continuity-code** Verification Gate (code-state only from commands run) | SKILL-d5g | self-test + validate (prose) |
+| **excel-auditor** `confidence:1.0` bug → recalibrated, clamped `[0.1,0.95]` | (Cluster A skill) | **ran the function: weak single-signal 1.0→0.100, strong →0.950, schema intact** |
+| **flywheel-scan** deprecated `TeamCreate`→`Agent` tool pattern | SKILL-2yd | **grep-confirmed zero `TeamCreate`/`TeamDelete`/`team_name` remain** |
+
+**HIGH tier fully closed.** Campaign at 26 closed / 19 open. The substrate fixes are the campaign's strongest-evidence work — measured by running code, not panel opinion. Remaining (19 beads) is the lower-yield MED staleness/routing tail + LOW controls + the standing **SKILL-t77** cross-model caveat (every forge verdict is still single-model/directional). Natural stopping line for the load-bearing work. Log: `agent_docs/forge-runs/high-tier/high-leftovers-and-substrate.md`.
