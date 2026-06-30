@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "wake_counter": 300,
+  "wake_counter": 302,
   "open_threads_count": 6,
-  "last_ledger_change_at": "2026-06-29",
-  "last_heartbeat_at": "2026-06-29T18:15:00-06:00",
+  "last_ledger_change_at": "2026-06-30",
+  "last_heartbeat_at": "2026-06-30T09:05:00-06:00",
   "note_concurrency": "state.json thrashes under concurrent Pike instances; journal DB (fleetops) is authoritative and was at #291 when this #292 heartbeat reconciled. If wake_counter looks behind the journal tail, trust the DB.",
   "last_doctrine_reconcile_at": "2026-04-15",
   "last_doctrine_reconcile_sha": "fae659d",
@@ -61,21 +61,19 @@
   "skills_missing_files": [],
   "stale_prs": [],
   "open_prs": [
-    {
-      "number": 44,
-      "title": "Sand Table v1.1.0 → v1.5.0 — implementation + 3-round panel hardening + repositioning",
-      "branch": "claude/check-sand-table-skill-ZliKD",
-      "status": "draft"
-    }
+    { "number": 55, "title": "forged episode-audit skill", "status": "open" },
+    { "number": 44, "title": "Sand Table v1.1.0 → v1.5.0 — impl + 3-round panel hardening", "branch": "claude/check-sand-table-skill-ZliKD", "status": "draft" }
   ],
-  "open_prs_note": "2026-06-26: HIGH-tier hardening campaign #49-54 (security, fidelity-firewall x8, degraded-mode, bug-sweep, LICENSE/validator sweep) + earlier forge v1.1 #45/#46 ALL MERGED to main. Only #44 (Sand Table, draft) open. 3rd campaign to ship past Pike's 85/100 gate via direct-merge/behavioral-eval. GATE-ROLE live test (dream #291): transform-to-coach or genuinely redundant — routes through the still-unread skill-forge eval rubric (read it = next working move). #53 likely closes the 28-LICENSE-failure + no-validation concerns; confirm.",
+  "merged_2026-06-29b": "PR #58 fleet-pr-review (inspection-as-skill / gate-as-coach) + #60 HIGH-leftovers MERGED to main (origin/main d373649). The inspection function is now library tooling — dream #291/#294 gate-as-coach realized on main.",
+  "merged_recent": "2026-06-29: bloat-trim #56 (gemini-peer-review 1205->251) + #57 (batch 2) MERGED — Lord-thrift/progressive-disclosure at scale.",
+  "open_prs_note": "2026-06-28: GATE-ROLE ARC CLOSED (dream #294) — read skill-forge's eval rubric: my 85/100 gate IS Tier A of its two-tier eval ('necessary not sufficient'), never bypassed; forge ADDED the Tier-B behavioral testing half (the 'no ocean' gap, now solved). HIGH-tier campaign #49-54 fully merged earlier. NEW campaign in flight: #55 episode-audit (forged), #56/#57 bloat-trim (thrift/progressive-disclosure at scale — gemini-peer-review 1205->251), #58 fleet-pr-review (the inspection function operationalized as a skill = gate-as-coach realized). ACTIVE-WAKE carry: value-shape classifier for the rubric (don't penalize gating/safety skills) + soul.md rubric itemization reconcile (Ecosystem Fit+Innovation split 10/10 per canonical docs/).",
   "p1_issues": [],
   "orphaned_in_progress": [],
   "last_commit": {
-    "sha": "27151ed",
-    "message": "docs(forge): Class-2 (unenforced-promise) test results — 3 skills validated, no fix needed",
+    "sha": "d373649",
+    "message": "feat(skills): fleet-pr-review — persona PR reviews into line-level comments (#58)",
     "pushed": true,
-    "branch": "main"
+    "branch": "main (NOTE: Pike's working dir on stale local feat/fleet-pr-review-skill, remote gone/merged; origin/main authoritative at d373649)"
   },
   "unpushed_commits": [],
   "pending_lee_decisions": [

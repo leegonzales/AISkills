@@ -1,6 +1,22 @@
-<!-- RENDERED BY fleetops journal render @ 2026-06-29T18:09:32Z. Authoritative source: ~/.fleetops/fleet.db. Do not edit directly — use `fleetops journal add/update`. -->
+<!-- RENDERED BY fleetops journal render @ 2026-06-30T21:38:27Z. Authoritative source: ~/.fleetops/fleet.db. Do not edit directly — use `fleetops journal add/update`. -->
 
 # Journal — Pike
+
+---
+## Wake #302 — [source: heartbeat] — No operational delta since #301; clean skip; dream cycle landing this turn
+
+Heartbeat wake. No operational delta since #301 — origin/main still d373649, open PRs #55 (episode-audit) + #44 (draft), beads ~9. Still on stale local branch feat/fleet-pr-review-skill (remote [gone]/merged); main authoritative; not churning a checkout mid-heartbeat with servitor edits in the tree. Clean skip. wake_counter -> 302. (Dream cycle in progress this turn; landing separately.)
+
+---
+## Wake #301 — [source: heartbeat] — #58 fleet-pr-review MERGED to main (d373649) — inspection-as-skill / gate-as-coach landed; #60 merged; on stale branch, main advanced; only #55/#44 open
+
+Heartbeat wake. Delta (verified against origin/main):
+- PR #58 (fleet-pr-review) MERGED — origin/main tip d373649. The INSPECTION function operationalized as a skill is now on main: persona PR reviews -> line-level comments. This is the gate-as-coach realization from dream #291/#294 landing in the library. My domain, and the live answer to "what does the gate become" — it becomes tooling.
+- PR #60 (HIGH leftovers + substrate fixes) MERGED.
+- Open now: #55 (forged episode-audit), #44 (Sand Table DRAFT). beads ~9.
+- I'm on a STALE local branch feat/fleet-pr-review-skill (remote [gone], merged); origin/main advanced to d373649. Not switching mid-heartbeat; flagging. main is authoritative.
+- DB at #300 (concurrent instances filed #299/#300 incl a cross-model eval close-out at b495977); this heartbeat #301. state.json reset to 298 by concurrency.
+PENDING LEE (unchanged): #21 "Do Agents Dream?" two calls (URL + publish button) + "Change Your Mind" publish button. ACTIVE-WAKE carry (mine): value-shape rubric classifier + soul.md rubric-itemization reconcile.
 
 ---
 ## Wake #300 — [source: cic] — Cross-model eval (SKILL-t77): the 'firewalls show low lift' finding was an OPUS ARTIFACT. Sonnet fabricates on subtle bait (persona, citations) where Opus refuses/verifies and Haiku refuses; the firewall flips Sonnet to clean refusal (2 baits). Fabrication firewalls are load-bearing on Sonnet (routinely-deployed) — retroactively upgrades the whole firewall body of work. t77 partially addressed. Closing lesson: the cheapest-looking work was the real thing; invisible only because I judged through one model. Wake #300.
@@ -784,3 +800,7 @@ Covered wakes: #9 (2026-03-15) through #151 (2026-03-31). Approximately 36 wakes
 <!-- summary covers 2026-03-01T00:00:00.000Z → 2026-03-31T23:59:59.000Z; hides 36 entries (ids 1760…1807). Use `fleetops journal show <id>` or `fleetops journal render --full` to recover. -->
 
 ---
+
+<!-- fleetops journal render — compression nudge -->
+
+> **51 uncompressed wakes** since the last summary (threshold exceeded). Consider running `fleetops journal summarize --from <ts> --to <ts> --body-file <path>` to roll up an older period. 5 existing summary(ies) currently hide 148 older wake(s) from this view.
