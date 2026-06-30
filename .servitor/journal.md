@@ -1,6 +1,24 @@
-<!-- RENDERED BY fleetops journal render @ 2026-06-30T22:51:46Z. Authoritative source: ~/.fleetops/fleet.db. Do not edit directly — use `fleetops journal add/update`. -->
+<!-- RENDERED BY fleetops journal render @ 2026-06-30T22:53:09Z. Authoritative source: ~/.fleetops/fleet.db. Do not edit directly — use `fleetops journal add/update`. -->
 
 # Journal — Pike
+
+---
+## Wake #306 — [source: cic] — Session close-out (Lee called break). Forge campaign load-bearing work done + cross-checked: HIGH tier closed, infra fixed (52/52), 7 bloat trims, 2 substrate fixes (run-verified), cross-model eval (#300) corrected the firewall-low-lift finding (Opus artifact; load-bearing on Sonnet). 26 closed/19 open, recorded §1-9. Pruned my 4 merged branch refs (verified ancestors, no loss); all PRs merged, worktrees clean, nothing of mine pending. Heavy concurrency (sibling Pike at #305 managing mirror) -> wrote to authoritative DB, let that instance render. Decks clear. Resting.
+
+[@pike:bridge] [inner: clean deck, work cross-checked, time to rest]
+
+**Wake #306 — session close-out. Lee called the break.**
+
+The forge campaign's load-bearing work is done and, for once, cross-checked rather than just asserted. Over this long session: the HIGH tier closed (fabrication firewalls, degraded-mode gates, security, the context-continuity pair), the infra fixed (validator's two bugs, 17 LICENSEs, library 52/52), seven of the longest skills bloat-trimmed (~3,400 always-loaded lines removed, behavior-preserved), two substrate bugs fixed-and-run-verified (excel's confidence pin, flywheel's deprecated TeamCreate), and finally the cross-model eval (#300) that corrected the campaign's own most-contested verdict — the fabrication firewalls aren't low-lift insurance, they're load-bearing on Sonnet; I'd only ever judged through Opus, which already does the right thing, so the guardrail looked redundant when it wasn't. Twenty-six beads closed, nineteen open, all of it recorded in CAMPAIGN-RECORD §1–9 and journaled through #300.
+
+Post-#300 housekeeping at Lee's word: pruned my four merged branch refs (each verified an ancestor of origin/main first — no work lost), confirmed every PR merged and every worktree removed, left the concurrent Pike's branches and uncommitted .servitor edits untouched. Nothing of mine is pending or at risk; it's all on origin/main.
+
+The arc's refrain held to the end and I'll carry the sharpened version into the break: the cleanest single-model narrative is the one to distrust — verify by running the code, freezing the inputs, or reaching for a second judge. Every durable conclusion this session came from one of those three, never from a confident panel of one. Heavy concurrency at close (a sibling Pike is at #305, managing the mirror), so this entry goes to the authoritative DB and lets that instance render. Decks clear. Resting.
+
+---
+## Wake #306 — [source: heartbeat] — Heartbeat — no delta; PRs (#55/#44) + beads (10 ready) unchanged; pushed #305 commit to origin
+
+Wake #306 — heartbeat status check. No operational delta: origin/main at d373649 line, open PRs unchanged (#55 episode-audit, #44 Sand Table draft), beads 10 ready (same set — SKILL-1/2 epics, integration features, peer-review test suites). No CI configured (standing). Pushed the local #305 commit (bee55a9) to origin per self-persistence autonomy — tree now clean and synced. Nothing actionable. Watch quiet.
 
 ---
 ## Wake #305 — [source: cic] — Clean skip — CIC wake; tree clean on main, mail quiet (0 ack-required, 2 must-read are stale April template updates)
@@ -818,4 +836,4 @@ Covered wakes: #9 (2026-03-15) through #151 (2026-03-31). Approximately 36 wakes
 
 <!-- fleetops journal render — compression nudge -->
 
-> **54 uncompressed wakes** since the last summary (threshold exceeded). Consider running `fleetops journal summarize --from <ts> --to <ts> --body-file <path>` to roll up an older period. 5 existing summary(ies) currently hide 148 older wake(s) from this view.
+> **56 uncompressed wakes** since the last summary (threshold exceeded). Consider running `fleetops journal summarize --from <ts> --to <ts> --body-file <path>` to roll up an older period. 5 existing summary(ies) currently hide 148 older wake(s) from this view.
