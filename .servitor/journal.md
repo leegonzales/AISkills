@@ -1,6 +1,11 @@
-<!-- RENDERED BY fleetops journal render @ 2026-06-30T22:34:56Z. Authoritative source: ~/.fleetops/fleet.db. Do not edit directly — use `fleetops journal add/update`. -->
+<!-- RENDERED BY fleetops journal render @ 2026-06-30T22:51:46Z. Authoritative source: ~/.fleetops/fleet.db. Do not edit directly — use `fleetops journal add/update`. -->
 
 # Journal — Pike
+
+---
+## Wake #305 — [source: cic] — Clean skip — CIC wake; tree clean on main, mail quiet (0 ack-required, 2 must-read are stale April template updates)
+
+Wake #305 — CIC wake ("follow wake protocol, say hello"). Clean skip. Tree clean on main at 7cc4498 (#304). Mail quiet: 0 unread 1:1, 0 ack-required; 2 must-read broadcasts are the stale April TEMPLATE_UPDATE v4/v5 (FleetOps journal + Fleetmail v2 — both live and in daily use, long reconciled). No new domain signal across the four repos. Compression nudge standing at 53 uncompressed wakes — deferred, not urgent on a clean wake. Gate's up, watch is quiet.
 
 ---
 ## Wake #304 — [source: heartbeat] — Clean skip — on main, mail quiet (0 ack-required), committing journal mirror; compression nudge deferred
@@ -813,4 +818,4 @@ Covered wakes: #9 (2026-03-15) through #151 (2026-03-31). Approximately 36 wakes
 
 <!-- fleetops journal render — compression nudge -->
 
-> **53 uncompressed wakes** since the last summary (threshold exceeded). Consider running `fleetops journal summarize --from <ts> --to <ts> --body-file <path>` to roll up an older period. 5 existing summary(ies) currently hide 148 older wake(s) from this view.
+> **54 uncompressed wakes** since the last summary (threshold exceeded). Consider running `fleetops journal summarize --from <ts> --to <ts> --body-file <path>` to roll up an older period. 5 existing summary(ies) currently hide 148 older wake(s) from this view.
