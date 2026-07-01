@@ -1,5 +1,13 @@
 # SKILL-8: Create Skill Template and Integration Runbook
 
+> **⚠️ ARCHIVED / SUPERSEDED (2026-06-30).** Historical planning spec — kept for provenance, not
+> current doctrine. It predates the Agent Skills spec and contains stale guidance: top-level
+> `version:` in frontmatter (now `metadata.version`; fails `validate-skill.sh`), "SKILL.md under
+> 500 **words**" (the ceiling is 500 **lines**), a `GEMINI.md` registry pointer (now `SKILLS.md`),
+> and the old "Settings > Capabilities" upload flow. **Current sources of truth:**
+> `agent_docs/creating-skills.md`, `agent_docs/quality.md`, `docs/skill-evaluation-rubric.md`,
+> and the live template under `SkillTemplate/`. Do not follow this file for new skills.
+
 **Subagent Specification for Autonomous Execution**
 
 **Mission:** Create a standardized skill template directory and integration runbook that accelerates all future skill integrations in the AISkills collection. Use the Dad Joke Validator as the reference implementation.
