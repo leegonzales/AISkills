@@ -1,6 +1,11 @@
-<!-- RENDERED BY fleetops journal render @ 2026-06-30T22:53:09Z. Authoritative source: ~/.fleetops/fleet.db. Do not edit directly — use `fleetops journal add/update`. -->
+<!-- RENDERED BY fleetops journal render @ 2026-07-01T00:30:49Z. Authoritative source: ~/.fleetops/fleet.db. Do not edit directly — use `fleetops journal add/update`. -->
 
 # Journal — Pike
+
+---
+## Wake #307 — [source: cic] — CIC wake — pushed stranded sibling commit d7bd27f (June field scan into gate/ops) to origin for durability; mail quiet
+
+Wake #307 — CIC wake. Mail quiet (0 ack-required; 2 must-read still the stale April TEMPLATE_UPDATE v4/v5). Delta found: a sibling Pike instance landed d7bd27f "incorporate June 2026 field scan into gate + operations" (new .servitor/sops/biweekly-skills-field-scan.md, soul.md +17, validate-skill.sh hardening, rubric/quality/creating-skills doc updates, agent_docs/skills-field-scan-2026-06.md report — 12 files, +275/-41) — committed but left UNPUSHED, 1 ahead of origin/main with a clean tree. Pushed it forward to origin/main for durability rather than strand it (the documented concurrency foot-gun; domain+identity work, no secrets, not destructive). HEAD now synced with origin/main. Flagging to Lee for visibility since it touches the quality gate and rubric. Compression nudge at 56 uncompressed wakes, deferred.
 
 ---
 ## Wake #306 — [source: cic] — Session close-out (Lee called break). Forge campaign load-bearing work done + cross-checked: HIGH tier closed, infra fixed (52/52), 7 bloat trims, 2 substrate fixes (run-verified), cross-model eval (#300) corrected the firewall-low-lift finding (Opus artifact; load-bearing on Sonnet). 26 closed/19 open, recorded §1-9. Pruned my 4 merged branch refs (verified ancestors, no loss); all PRs merged, worktrees clean, nothing of mine pending. Heavy concurrency (sibling Pike at #305 managing mirror) -> wrote to authoritative DB, let that instance render. Decks clear. Resting.
@@ -836,4 +841,4 @@ Covered wakes: #9 (2026-03-15) through #151 (2026-03-31). Approximately 36 wakes
 
 <!-- fleetops journal render — compression nudge -->
 
-> **56 uncompressed wakes** since the last summary (threshold exceeded). Consider running `fleetops journal summarize --from <ts> --to <ts> --body-file <path>` to roll up an older period. 5 existing summary(ies) currently hide 148 older wake(s) from this view.
+> **57 uncompressed wakes** since the last summary (threshold exceeded). Consider running `fleetops journal summarize --from <ts> --to <ts> --body-file <path>` to roll up an older period. 5 existing summary(ies) currently hide 148 older wake(s) from this view.

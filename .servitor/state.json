@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "wake_counter": 306,
+  "wake_counter": 307,
   "open_threads_count": 6,
   "last_ledger_change_at": "2026-06-30",
-  "last_heartbeat_at": "2026-06-30T09:40:00-06:00",
+  "last_heartbeat_at": "2026-06-30T16:58:00-06:00",
   "note_concurrency": "state.json thrashes under concurrent Pike instances; journal DB (fleetops) is authoritative and was at #291 when this #292 heartbeat reconciled. If wake_counter looks behind the journal tail, trust the DB.",
   "last_doctrine_reconcile_at": "2026-04-15",
   "last_doctrine_reconcile_sha": "fae659d",
