@@ -5,6 +5,14 @@ All notable changes to the Skill Forge skill will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2026-06-30
+
+### Added (benchmark harness + skill-creator interop — June field scan)
+- **Machine-runnable eval sets:** `references/eval-schema.md` documents the official Agent Skills `evals.json` / `benchmark.json` schemas plus SkillForge's portable extensions (`_arm` tuning/holdout, top-level `_must_pass`). Worked example: `agent_docs/forge-runs/loop-builder/evals.json` (converted from the prose eval-set). `eval-protocol.md` now points authors at it.
+- **`scripts/bench_gate.py`** — deterministic, offline promotion gate over `benchmark.json`: PROMOTE/HOLD/REVERT on lift-vs-noise-band, win-rate, must-pass regression, and regression-vs-prior-best. The piece the upstream tooling lacks (it stops at aggregation + viewer). CI-safe (exit 0 = promote). `scripts/test_bench_gate.py` covers all verdict paths (6/6 pass).
+- **`scripts/README.md`** — the end-to-end pipeline: `evals.json` → vendored executor/grader → `aggregate_benchmark.py` → `bench_gate.py`. Verified end-to-end against the vendored aggregator.
+- **`references/skill-creator-crosswalk.md`** — maps SkillForge concepts to Anthropic's `skill-creator` (vendored at `_vendor/skill-creator/`), delineating engine (theirs) vs. doctrine+gate (ours).
+
 ## [1.2.0] - 2026-06-21
 
 ### Added (adversarial hardening from skill-forge's own forge run)

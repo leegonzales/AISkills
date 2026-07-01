@@ -2,6 +2,16 @@
 
 **Author:** Pike (BravePike) · **Date:** 2026-06-30 · **Type:** Research memo / doctrine-reconcile input
 
+> **Follow-on (same day): eval system adopted.** Beyond the doctrine reconcile below, Lee directed
+> full adoption of the skill-creator eval system. Done: **(a)** official `evals.json`/`benchmark.json`
+> schema adopted (`SkillForge/skill-forge/references/eval-schema.md`; loop-builder eval-set converted
+> to `evals.json`); **(b)** upstream `skill-creator` vendored read-only at `_vendor/skill-creator/`
+> (pinned commit `35414756`, integrity-verified) + `_vendor/agent-skills-spec.md`; **(c)** thin
+> benchmark harness `SkillForge/skill-forge/scripts/bench_gate.py` — the PROMOTE/HOLD/REVERT gate
+> upstream lacks (6/6 tests, verified end-to-end against the vendored aggregator) + crosswalk doc.
+> The honest correction that triggered this: my first-pass report adopted the *methodology* but not
+> the *tooling*; Lee caught it. Now both are in.
+
 A scan of current (mid-2026) thinking on Agent Skills, measured against our own methods and the AISkills repo. Purpose: find what's genuinely new and worth incorporating into the quality gate, and separate **safe cleanup** (act without asking) from **doctrine changes** (route through the weekly soul-proposal / Lee's call).
 
 ---

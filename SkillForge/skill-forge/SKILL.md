@@ -84,6 +84,7 @@ Full loop mechanics + worked example: **[references/refinement-loop.md](referenc
 ## Composes with
 - **loop-builder** — designs this skill's own refinement loop and its stop conditions (Skill Forge *is* a loop-builder loop).
 - **`docs/skill-evaluation-rubric.md`** — Tier A structural rubric.
+- **The benchmark harness** — write eval sets in the official `evals.json` format ([references/eval-schema.md](references/eval-schema.md)); run the two arms + aggregate with the vendored engine (`_vendor/skill-creator/`), then gate the result with `scripts/bench_gate.py` (PROMOTE/HOLD/REVERT on lift-vs-noise + must-pass). Pipeline: [scripts/README.md](scripts/README.md). Engine↔doctrine map: [references/skill-creator-crosswalk.md](references/skill-creator-crosswalk.md).
 - **multiagent-review** / **gemini-peer-review** / **codex-peer-review** — the external reviewer panel for Tier B (diverse, independent → real convergence, not sycophantic agreement).
 - **writing-skills** — the adversarial / rationalization-resistance test (step 6).
 - **prose-polish**, **claimify** — dimension scorers for written-artifact outputs.

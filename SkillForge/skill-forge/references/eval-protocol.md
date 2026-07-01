@@ -22,6 +22,7 @@ The question: *does an agent using this skill produce measurably better outputs 
 - **Diverse** — span the skill's intended range (easy/hard, common/edge). A skill that only helps on the happy path isn't optimal.
 - **Split into tuning vs holdout.** The loop may see the tuning tasks every round; the **holdout is sacred** — checked only at promotion, never in the loop's working context. Holdout leakage silently turns "improvement" into "memorization."
 - **Pre-commit it in writing** before the loop runs. An eval set you adjust mid-loop measures nothing.
+- **Write it machine-runnable** in the official `evals.json` format (`{prompt, expectations[]}`, with SkillForge's `_arm` tuning/holdout split and top-level `_must_pass`). Schema + worked example: [eval-schema.md](eval-schema.md). The harness (`../scripts/bench_gate.py` + the vendored aggregator) reads this; the prose eval-set stays as the human narrative beside it.
 
 ### 2. Define the output rubric + must-pass checks
 

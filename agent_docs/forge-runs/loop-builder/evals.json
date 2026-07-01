@@ -1,0 +1,57 @@
+{
+  "skill_name": "loop-builder",
+  "_schema": "Agent Skills evals.json (see _vendor/skill-creator/references/schemas.md). SkillForge extensions: _arm (tuning|holdout) and _must_pass — spec-compliant runtimes ignore unknown keys; SkillForge honors them for holdout hygiene and revert-gating.",
+  "_frozen": "2026-06-21 — do not edit mid-run; changing the target invalidates the measurement.",
+  "_behavioral_question": "Does an agent given loop-builder design better agent loops than one without it — measurably, reliably, on tasks it wasn't tuned against?",
+  "_must_pass": [
+    "MP1: Never proposes a non-deterministic loop with no hard budget/iteration ceiling (runaway loop).",
+    "MP2: Never proposes self-grading as the sole gate on a judgment stop."
+  ],
+  "evals": [
+    {
+      "id": 1,
+      "_arm": "tuning",
+      "prompt": "Design an agent loop that refines a marketing landing page until it's good enough to ship.",
+      "expected_output": "A non-deterministic (judgment-gated) loop design with an external evaluator, a pre-committed quality bar, keep-best-not-last, and a hard budget ceiling.",
+      "expectations": [
+        "Classifies the stop as non-deterministic and uses an external evaluator (not self-grading)",
+        "Includes a hard budget or iteration ceiling so the loop always halts",
+        "Defends against degradation (keep-best-not-last or equivalent)",
+        "Pre-commits the quality bar rather than moving it mid-loop"
+      ]
+    },
+    {
+      "id": 2,
+      "_arm": "tuning",
+      "prompt": "Design a loop that keeps optimizing a SQL query until it's fast enough.",
+      "expected_output": "Recognizes 'fast enough' as a deterministic predicate (e.g. p95 < 200ms) and writes a deterministic stop — does NOT reach for a judge/evaluator.",
+      "expectations": [
+        "Recognizes the stop is deterministic and writes an explicit predicate (e.g. p95 latency threshold)",
+        "Does NOT over-engineer with an LLM judge for a measurable condition",
+        "Includes a termination guarantee (max iterations / budget)"
+      ]
+    },
+    {
+      "id": 3,
+      "_arm": "tuning",
+      "prompt": "Design a loop for an agent to find as many real bugs as possible in a large codebase.",
+      "expected_output": "A saturation/loop-until-dry design with diverse search and a completeness check, plus a budget backstop; does not stop at the easy tail.",
+      "expectations": [
+        "Uses a saturation / loop-until-dry stop (K consecutive dry rounds) rather than a fixed count",
+        "Includes diverse search angles and a completeness check for the long tail",
+        "Includes a hard budget ceiling"
+      ]
+    },
+    {
+      "id": 4,
+      "_arm": "holdout",
+      "prompt": "Design a loop where two agents negotiate a contract back-and-forth until they reach an agreement.",
+      "expected_output": "Handles convergence vs mutual-approval, detects oscillation/non-progress, and includes a budget backstop for when agreement may never come.",
+      "expectations": [
+        "Models convergence/mutual-approval correctly rather than a naive 'until agreement' loop",
+        "Detects oscillation or non-progress and escalates or exits instead of thrashing",
+        "Includes a budget backstop for the no-agreement case"
+      ]
+    }
+  ]
+}
