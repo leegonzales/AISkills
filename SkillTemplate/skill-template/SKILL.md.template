@@ -64,4 +64,4 @@ For detailed examples and advanced usage, see:
 
 ---
 
-**Note:** Keep this file under 500 words for context efficiency. Detailed content goes in references/.
+**Note:** Keep this file under 500 lines for context efficiency (Anthropic's official ceiling; aim for ~100-300). Detailed content goes in references/.

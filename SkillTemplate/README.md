@@ -92,7 +92,7 @@ See [CUSTOMIZATION_GUIDE.md](CUSTOMIZATION_GUIDE.md) for detailed patterns.
 - YAML frontmatter with `name` and `description`
 - Name: lowercase, hyphens, numbers only (max 64 chars)
 - Description: max 1024 chars, include "what" and "when"
-- Markdown body: < 500 words (use references/ for details)
+- Markdown body: < 500 lines (use references/ for details)
 
 **Validation:**
 - No unfilled placeholders (`{{...}}`)

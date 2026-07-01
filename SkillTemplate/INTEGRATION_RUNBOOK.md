@@ -50,7 +50,7 @@ cd {{skill-name}}
 ### Step 2.1: Create SKILL.md (Core Skill Definition)
 
 **Guidelines:**
-- Keep under 500 words for context efficiency
+- Keep under 500 lines for context efficiency
 - Use clear, imperative language
 - Include 3-5 trigger phrases ("Invoke when user...")
 - Provide 2-3 usage examples
@@ -68,7 +68,7 @@ cd {{skill-name}}
 
 **Command to Check:**
 ```bash
-wc -w SKILL.md  # Should be < 500 words
+wc -l SKILL.md  # Should be < 500 lines
 ```
 
 ### Step 2.2: Write README.md (User Documentation)
@@ -213,7 +213,7 @@ black --check scripts/
 
 ```bash
 # Check word counts
-wc -w SKILL.md        # Should be < 500
+wc -l SKILL.md        # Should be < 500
 wc -w README.md       # Should be 1000-2000
 
 # Validate links
@@ -569,7 +569,7 @@ cp -r {{SkillName}}/{{skill-name}} ~/.claude/skills/
 - Template placeholders replaced
 
 ✅ **Documentation**
-- SKILL.md under 500 words
+- SKILL.md under 500 lines
 - README.md comprehensive (1000-2000 words)
 - References complete (examples, advanced, troubleshooting)
 - No dead links
@@ -601,7 +601,7 @@ cp -r {{SkillName}}/{{skill-name}} ~/.claude/skills/
 ## Common Pitfalls
 
 ### Pitfall 1: Verbose SKILL.md
-**Problem:** SKILL.md exceeds 500 words, wastes context
+**Problem:** SKILL.md exceeds 500 lines, wastes context
 **Solution:** Move detailed content to references/examples.md
 
 ### Pitfall 2: Missing Placeholders
@@ -645,7 +645,7 @@ mkdir -p {{SkillName}}
 cp -r SkillTemplate/skill-template {{SkillName}}/{{skill-name}}
 
 # Validate
-wc -w {{skill-name}}/SKILL.md  # < 500 words
+wc -l {{skill-name}}/SKILL.md  # < 500 lines
 grep -r "{{" {{skill-name}}/    # No placeholders
 
 # Test

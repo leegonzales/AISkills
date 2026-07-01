@@ -1,8 +1,24 @@
 # Skill Evaluation Rubric
 
-**Version:** 1.0
+**Version:** 1.1
 **Purpose:** Systematic evaluation of Claude skills for integration into AISkills collection
-**Last Updated:** 2025-11-16
+**Last Updated:** 2026-06-30
+
+---
+
+## Two-Tier Model (read first)
+
+This rubric is **Tier A** — a static, structural gate. It tells you a skill is *well-formed*.
+It cannot tell you a skill *works*. A skill can score 90/100 here and produce no measurable
+improvement over no skill at all.
+
+**Tier B is behavioral outcome lift**: on a frozen held-out task set, an agent *using* the
+skill must beat the *no-skill baseline*, scored externally (skill-vs-no-skill, blind judge).
+This mirrors Anthropic's skill-creator 2.0 eval framework and is implemented in-repo by
+**`SkillForge/skill-forge`**.
+
+**"Ready for the fleet" = passes Tier A (this rubric, ≥85) AND clears Tier B (SkillForge lift).**
+For a genuinely new or high-stakes skill, Tier A alone is a milestone, not a ship decision.
 
 ---
 
@@ -61,10 +77,11 @@
 - 0: Disorganized or non-standard structure
 
 **SKILL.md Quality (8 pts)**
-- 8: Concise, focused, well-structured skill definition with clear instructions
-- 6: Functional but verbose or lacks clarity
-- 4: Minimal skill definition
+- 8: Concise, focused, well-structured; body <500 lines; spec-clean frontmatter (name ≤64 chars lowercase/hyphens no reserved words; third-person description ≤1024 chars stating what + when; version—if any—under `metadata:`, not top-level)
+- 6: Functional but verbose, or minor frontmatter drift
+- 4: Minimal skill definition, or frontmatter violations
 - 0: Missing or inadequate SKILL.md
+- *Optional standard fields to check: `license`, `metadata`, `compatibility`, and `allowed-tools` (pre-approved tool execution — treat as a security surface).*
 
 **Supporting Assets (4 pts)**
 - 4: Includes references/, examples/, scripts/ or other value-add assets
@@ -82,11 +99,12 @@
 - 1: Unversioned or ad-hoc versioning
 - 0: No version management
 
-**Testing/Validation (5 pts)**
-- 5: Comprehensive testing with documented results
-- 3: Some testing or validation
-- 1: Minimal testing
+**Testing/Validation (5 pts)** — *rewards behavioral lift, not just documentation*
+- 5: Behavioral eval evidence — skill-vs-no-skill lift on a held-out task set (SkillForge Tier B), externally scored
+- 3: Documented testing/validation results, but no skill-vs-no-skill baseline
+- 1: Minimal or self-reported testing only
 - 0: No evidence of testing
+- *Note: a claim that a skill "works" with no baseline comparison is a kaelib-only signal — flag it, don't credit it as Tier-B evidence.*
 
 **Error Handling & Edge Cases (5 pts)**
 - 5: Robust handling, documented limitations
@@ -277,4 +295,4 @@ Use these as calibration points:
 
 ---
 
-Built for AISkills repository quality assurance | v1.0
+Built for AISkills repository quality assurance | v1.1 (2026-06-30: two-tier model + behavioral-lift Testing + frontmatter-spec alignment)

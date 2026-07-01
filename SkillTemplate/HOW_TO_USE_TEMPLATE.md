@@ -177,7 +177,7 @@ See `CUSTOMIZATION_GUIDE.md` for detailed customization patterns.
 
 ## Best Practices
 
-1. **Keep SKILL.md under 500 words** - Move details to references/
+1. **Keep SKILL.md under 500 lines** - Move details to references/
 2. **Use concrete examples** - Show realistic use cases
 3. **Test on real inputs** - Validate with actual scenarios
 4. **Progressive disclosure** - Core in SKILL.md, details in references/

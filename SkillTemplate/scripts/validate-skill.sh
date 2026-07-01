@@ -45,6 +45,14 @@ if [ -f "$SKILL_DIR/SKILL.md" ]; then
                 echo "  ❌ name format invalid (use lowercase, numbers, hyphens only)"
                 ((ERRORS++))
             fi
+
+            # Spec constraints (Agent Skills official spec): name <=64 chars, no reserved words
+            if [ ${#SKILL_NAME} -gt 64 ]; then
+                echo "  ⚠️  name exceeds 64 chars (spec max)"
+            fi
+            if echo "$SKILL_NAME" | grep -qiE '(anthropic|claude)'; then
+                echo "  ⚠️  name contains reserved word (anthropic/claude) — disallowed by spec"
+            fi
         else
             echo "  ❌ name field missing"
             ((ERRORS++))
@@ -64,14 +72,24 @@ if [ -f "$SKILL_DIR/SKILL.md" ]; then
             ((ERRORS++))
         fi
 
-        # Check for invalid fields
+        # Check for invalid fields.
+        # Top-level `version:` is not a spec field. Per the Agent Skills spec, a version
+        # belongs under `metadata:` (arbitrary k-v) — indented, so it won't match ^version:.
         if echo "$FRONTMATTER" | grep -qE "^version:"; then
-            echo "  ❌ Invalid field 'version' in frontmatter (not supported)"
+            echo "  ❌ Invalid top-level 'version' field (put it under metadata: instead)"
             ((ERRORS++))
         fi
     else
         echo "  ❌ YAML frontmatter missing (must start with ---)"
         ((ERRORS++))
+    fi
+
+    # Body length: Anthropic's official ceiling is 500 lines (warn, don't fail).
+    BODY_LINES=$(awk 'BEGIN{n=0} /^---$/{n++; next} n>=2{print}' "$SKILL_DIR/SKILL.md" | wc -l | tr -d ' ')
+    if [ "${BODY_LINES:-0}" -gt 500 ]; then
+        echo "  ⚠️  SKILL.md body is $BODY_LINES lines (>500 ceiling) — push detail into references/"
+    else
+        echo "  ✅ SKILL.md body length OK ($BODY_LINES lines)"
     fi
 fi
 echo ""

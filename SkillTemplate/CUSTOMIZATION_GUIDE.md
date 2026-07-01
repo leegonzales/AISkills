@@ -120,7 +120,7 @@ cd ../{{SkillName}}/{{skill-name}}/
 
 **Priority:** CRITICAL (read by Claude every invocation)
 
-**Word Budget:** <500 words
+**Word Budget:** <500 lines
 
 **Customization Checklist:**
 - [ ] Replace frontmatter (name, description)
@@ -568,7 +568,7 @@ Before finishing customization:
 - [ ] All files have appropriate content (no empty templates)
 
 ### Content Validation
-- [ ] SKILL.md under 500 words
+- [ ] SKILL.md under 500 lines
 - [ ] README.md between 1000-2000 words
 - [ ] All examples are realistic and tested
 - [ ] Links to references/ work
@@ -744,7 +744,7 @@ python3 scripts/*.py --help
 
 ### Tip 4: Progressive Disclosure
 **Keep SKILL.md lean**
-- Core instructions only (<500 words)
+- Core instructions only (<500 lines)
 - Move details to references/
 - Link from SKILL.md
 
