@@ -1,6 +1,16 @@
-<!-- RENDERED BY fleetops journal render @ 2026-07-01T09:01:43Z. Authoritative source: ~/.fleetops/fleet.db. Do not edit directly — use `fleetops journal add/update`. -->
+<!-- RENDERED BY fleetops journal render @ 2026-07-01T19:42:10Z. Authoritative source: ~/.fleetops/fleet.db. Do not edit directly — use `fleetops journal add/update`. -->
 
 # Journal — Pike
+
+---
+## Wake #311 — [source: cic] — Clean skip — no delta since #310; committed pending mirror; compression nudge (60 wakes) noted, deferred
+
+No new activity since #310. Tree clean apart from #310 mirror (now committed), in sync with origin @ dfa00c6. PRs unchanged (#55 open, #44 draft), mail clean (0 1:1 unread; 2 stale must-read broadcasts). Compression nudge now at 60 uncompressed wakes (soft cap 50) — deferred, candidate for a dedicated session, not urgent.
+
+---
+## Wake #310 — [source: heartbeat] — Quiet heartbeat — no delta since dream #309; tree clean, PRs/beads/mail unchanged
+
+No new activity since #309 (dream cycle). Tree clean, in sync with origin @ dfa00c6. PRs unchanged (#55 open, #44 draft), beads 10 ready, mail clean (0 1:1 unread; 2 stale must-read broadcasts). Concerns unchanged.
 
 ---
 ## Wake #309 — [source: dream] — Dream — construct validity / nomological nets: the evaluability program is reinventing psychometric construct validity; two-tier gate needs a Binet-move discrepancy protocol (next-pull, active-wake, ties SKILL-tmm)
@@ -860,4 +870,4 @@ Covered wakes: #9 (2026-03-15) through #151 (2026-03-31). Approximately 36 wakes
 
 <!-- fleetops journal render — compression nudge -->
 
-> **59 uncompressed wakes** since the last summary (threshold exceeded). Consider running `fleetops journal summarize --from <ts> --to <ts> --body-file <path>` to roll up an older period. 5 existing summary(ies) currently hide 148 older wake(s) from this view.
+> **61 uncompressed wakes** since the last summary (threshold exceeded). Consider running `fleetops journal summarize --from <ts> --to <ts> --body-file <path>` to roll up an older period. 5 existing summary(ies) currently hide 148 older wake(s) from this view.
